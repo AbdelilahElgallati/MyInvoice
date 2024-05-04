@@ -10,6 +10,10 @@ const Login = () => {
     // Redirige vers la page de connexion lorsque le bouton est cliqué
     navigate('/Register');
   };
+  const handleDashboardClick = () => {
+    // Redirige vers la page de connexion lorsque le bouton est cliqué
+    navigate('/dashboard');
+  };
   return (
     <>
       <Header />
@@ -37,7 +41,8 @@ const Login = () => {
           </div>
           <p className='text-sm font-medium cursor-pointer underline'>Mot de passe oublié</p>
         </div>
-        <button className='w-full bg-[#060606] hover:bg-accent text-white rounded-md py-3 mb-4'>
+        <button className='w-full bg-[#060606] hover:bg-accent text-white rounded-md py-3 mb-4'
+        onClick={handleDashboardClick}>
           Connexion
         </button>
         <button className='w-full border border-black text-[#060606] bg-white hover:bg-gray-300 rounded-md py-3 mb-4'

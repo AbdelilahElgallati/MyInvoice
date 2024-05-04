@@ -18,7 +18,7 @@ const Hero = () => {
           {/* text */}
           <div className='flex-1'>
             <h1
-              className='text-6xl  title mb-2 lg:mb-5'
+              className='text-5xl  title mb-2 lg:mb-5'
               data-aos='fade-down'
               data-aos-delay='500' // Correction ici
             >

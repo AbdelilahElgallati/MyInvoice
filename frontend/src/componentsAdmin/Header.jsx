@@ -9,6 +9,7 @@ const Header = ({ title, subtitle }) => {
         variant="h2"
         color={theme.palette.secondary[100]}
         fontWeight="bold"
+        fontFamily=""
         sx={{ mb: "5px" }}
       >
         {title}

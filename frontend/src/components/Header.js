@@ -44,12 +44,12 @@ const Header = () => {
         <a
           href="#"
           data-aos="fade-down"
-          data-aos-delay="1000"
+          data-aos-delay="200"
           className=" font-bodyfont inline-block relative mt-3 md:mt-0 ml-[25px]"
           
         >
           
-          <Link to="/" data-aos="fade-down" data-aos-delay="1000" className="font-bodyfont inline-block relative mt-3 md:mt-0 ml-25">
+          <Link to="/" data-aos="fade-down" data-aos-delay="100" className="font-bodyfont inline-block relative mt-3 md:mt-0 ml-25">
       <img className="w-[160px]" src={logo} alt="Logo" />
     </Link>
           {/* <span className="font-bodyfont text-white absolute bg-accent rounded-full h-10 w-10 flex items-center justify-center -top-2 left-[-35px]">
@@ -61,14 +61,14 @@ const Header = () => {
         <div
           className=" hidden lg:flex"
           data-aos="fade-down"
-          data-aos-delay="1200"
+          data-aos-delay="100"
         >
           <Nav />
         </div>
        <button
           className="btn btn-sm btn-outline hidden lg:flex"
           data-aos="fade-down"
-          data-aos-delay="1400"
+          data-aos-delay="100"
           onClick={handleLoginClick}
         >
           {btnText}
