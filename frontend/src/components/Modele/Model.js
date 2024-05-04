@@ -1,10 +1,11 @@
 import React from "react";
 import { modelData } from "../../data";
 import backgroundImage from "../../assets/img/Modeles/b1.png";
-
+import Header from "components/Header";
 const Model = () => {
   return (
     <>
+      <Header />
       {modelData.map((data, index) => (
         <div key={index}>
           <img

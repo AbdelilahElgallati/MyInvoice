@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, useTheme } from "@mui/material";
 import { useGetSubscriptionsQuery } from "state/api";
-import Header from "components/Header";
+import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 const SubscriptionPalns = () => {
   const theme = useTheme();

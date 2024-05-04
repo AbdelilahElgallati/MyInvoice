@@ -6,6 +6,7 @@ import Aos from 'aos';
 import 'aos/dist/aos.css';
 
 // import components
+import Header from './Header';
 import Hero from './Hero';
 import Overview from './Overview';
 import Brands from './Brands';
@@ -28,6 +29,7 @@ const WelcomePage = () => {
   })
   return (
     <div className='overflow-hidden '>
+      <Header />
       <Hero />
       <Overview />
       <Brands />

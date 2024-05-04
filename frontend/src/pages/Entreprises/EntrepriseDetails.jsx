@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { Box, useTheme, Typography } from "@mui/material";
 import { useGetEntrepriseDetailQuery } from "state/api";
 import { DataGrid } from "@mui/x-data-grid";
-import Header from "components/Header";
+import Header from "componentsAdmin/Header";
 
 const EnterpriseDetails = () => {
   const theme = useTheme();

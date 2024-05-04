@@ -2,6 +2,7 @@ import React from 'react';
 import COVER_IMAGE from '../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png'
 import Gogle from '../../assets/img/Login/th.jpg'
 import { useNavigate } from 'react-router-dom';
+import Header from 'components/Header';
 const Login = () => {
   const navigate = useNavigate();
 
@@ -10,7 +11,9 @@ const Login = () => {
     navigate('/Register');
   };
   return (
-    <div className='mx-auto max-w-screen-lg flex flex-col lg:flex-row mt-8  lg:ml-[285px] lg:mt-[150px] '>
+    <>
+      <Header />
+      <div className='mx-auto max-w-screen-lg flex flex-col lg:flex-row mt-8  lg:ml-[285px] lg:mt-[150px] '>
       <div className='w-full lg:w-[350px]'>
         <img src={COVER_IMAGE} className='w-full h-auto lg:rounded-l-lg lg:shadow-2xl' alt='Cover Image'/>
       </div>
@@ -52,6 +55,8 @@ const Login = () => {
         <p className='mt-4 text-sm font-normal'>Vous n'avez pas de compte <span className='font-semibold underline'>Inscrivez-vous gratuitement</span></p>
       </div>
     </div>
+    </>
+    
   );
 }
 

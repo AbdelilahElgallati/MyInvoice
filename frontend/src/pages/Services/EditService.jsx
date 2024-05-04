@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { TextField, Box, Button, useTheme } from "@mui/material";
-import Header from "components/Header";
+import Header from "componentsAdmin/Header";
 import { useUpdateServiceMutation, useGetOneServiceQuery, useRemoveServiceMutation } from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
 

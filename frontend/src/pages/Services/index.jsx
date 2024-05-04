@@ -1,13 +1,13 @@
 import React from "react";
 import { Box, useTheme, Button, IconButton } from "@mui/material";
 import { useGetAllServicesQuery, useRemoveServiceMutation } from "state/api";
-import Header from "components/Header";
+import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
-import FlexBetween from "components/FlexBetween";
+import FlexBetween from "componentsAdmin/FlexBetween";
 
 const Entreprises = () => {
   const theme = useTheme();

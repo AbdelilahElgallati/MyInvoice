@@ -1,7 +1,7 @@
 import React from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import { useGetAllEntreprisesQuery, useRemoveEntrepriseMutation } from "state/api";
-import Header from "components/Header";
+import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';

@@ -1,6 +1,6 @@
 import React from "react";
-import FlexBetween from "components/FlexBetween";
-import Header from "components/Header";
+import FlexBetween from "componentsAdmin/FlexBetween";
+import Header from "componentsAdmin/Header";
 import {
   DownloadOutlined,
   PersonAdd,
@@ -16,9 +16,9 @@ import {
   useMediaQuery,
 } from "@mui/material";
 
-import OverviewChart from "components/OverviewChart";
+import OverviewChart from "componentsAdmin/OverviewChart";
 import { useGetDashboardQuery } from "state/api";
-import StatBox from "components/StatBox";
+import StatBox from "componentsAdmin/StatBox";
 
 const Dashboard = () => {
   const theme = useTheme();

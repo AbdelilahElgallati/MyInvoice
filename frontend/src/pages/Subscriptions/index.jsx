@@ -13,7 +13,7 @@ import {
   ListItemText,
   useMediaQuery,
 } from "@mui/material";
-import Header from "components/Header";
+import Header from "componentsAdmin/Header";
 import { useGetPacksQuery } from "state/api";
 
 const Pack = ({
