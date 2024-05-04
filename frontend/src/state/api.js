@@ -36,6 +36,13 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+    loginEntreprise: build.mutation({
+      query: (loginData) => ({
+        url: `Entreprise/login/`,
+        method: "POST",
+        body: loginData,
+      }),
+    }),
 
     // Service
     getAllServices: build.query({
@@ -149,6 +156,7 @@ export const {
   useGetEntrepriseDetailQuery,
   useGetDashboardQuery,
   useRemoveEntrepriseMutation,
+  useLoginEntrepriseMutation,
 
   useGetPacksQuery,
   useGetOnePackQuery,
