@@ -45,7 +45,6 @@ const EditService = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="EDIT SERVICES" subtitle="Modification d'une service" />
-      <form onSubmit={handleSubmit} ubtitle="Ajoute d'une nouvelle service" />
       <form onSubmit={handleSubmit} sx={{
         backgroundImage: "none",
         backgroundColor: theme.palette.background.alt,

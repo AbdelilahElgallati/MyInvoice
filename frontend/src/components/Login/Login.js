@@ -24,19 +24,19 @@ const Login = () => {
   const hamdelSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log("email : ", emailEnt)
-      console.log("password : ", passwordEnt)
-      const { jsenwebtkn, user } = await loginEntreprise({
+      const Info = await loginEntreprise({
         email: emailEnt,
         password: passwordEnt,
       });
-      console.log(user)
-      if (user.role === "admin") {
-        navigate("/dashboard"); // Utilisez navigate avec une minuscule
+      const entrepriseInfo = Info.data.user
+      if (entrepriseInfo.role === "admin") {
+        navigate("/dashboard");
+      } else {
+        navigate("/");
       }
     } catch (error) {
       console.log(error);
-      navigate("/login"); // Utilisez navigate avec une minuscule
+      navigate("/login"); 
     }
   };
 

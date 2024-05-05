@@ -2,6 +2,19 @@ const express = require("express");
 const EntrepriseRouter = express.Router();
 const EntrepriseController = require("../Controllers/EntrepriseController");
 const Auth = require("../Middlewares/Auth");
+const multer = require("multer");
+const path = require("path");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, path.join(__dirname, "../Public/Images")); 
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.fieldname + "-" + Date.now() + path.extname(file.originalname));
+  },
+});
+
+const upload = multer({ storage: storage });
 
 
 EntrepriseRouter.get( "/entreprisedetail/:id", EntrepriseController.getEntrepriseDetail);
@@ -9,10 +22,9 @@ EntrepriseRouter.get('/dashboard', EntrepriseController.getDashboardInfo);
 EntrepriseRouter.get('/EnterpriseStat', EntrepriseController.getEnterpriseCountByMonthAndYear);
 EntrepriseRouter.get( "/", EntrepriseController.getAllEntreprises); 
 EntrepriseRouter.get( "/:id", EntrepriseController.getOneEntreprise); 
-
-EntrepriseRouter.post('/add', EntrepriseController.addEntreprise);
-EntrepriseRouter.put('/edit/:id',EntrepriseController.updateEntreprise);
-EntrepriseRouter.delete("/remove/:id",EntrepriseController.removeEntreprise);
+EntrepriseRouter.post('/register', upload.single('logo'), EntrepriseController.addEntreprise);
+EntrepriseRouter.put('/edit/:id', EntrepriseController.updateEntreprise);
+EntrepriseRouter.delete("/remove/:id", EntrepriseController.removeEntreprise);
 EntrepriseRouter.post('/login',Auth, EntrepriseController.login);
 
 module.exports = EntrepriseRouter;

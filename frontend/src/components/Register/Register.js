@@ -3,7 +3,9 @@ import { useNavigate } from "react-router-dom";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
 import Gogle from "../../assets/img/Login/th.jpg";
 import Header from "components/Header";
+import { useRegisterEntrepriseMutation } from "state/api";
 const SignUp = () => {
+  const [logo, setLogo] = useState(null);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,21 +15,33 @@ const SignUp = () => {
     subscription: "active",
     phone: "",
     address: "",
-    logo: "",
+    // logo: null,
   });
 
   const navigate = useNavigate();
+  const [register] = useRegisterEntrepriseMutation();
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleLogoChange = (e) => {
+    setLogo(e.target.files[0]);
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Ajoutez ici la logique de soumission du formulaire (par exemple, envoi des données au backend)
-    console.log(formData);
-    // Redirigez vers la page de connexion une fois l'inscription terminée
-    navigate("/login");
+    const formDataWithLogo = new FormData();
+    formDataWithLogo.append("logo", logo);
+    Object.entries(formData).forEach(([key, value]) => {
+      formDataWithLogo.append(key, value);
+    });
+    try {
+      await register(formDataWithLogo);
+      navigate("/login");
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (
@@ -49,7 +63,7 @@ const SignUp = () => {
             <input
               type="text"
               name="name"
-              placeholder="Nom"
+              placeholder="Entreprise name"
               value={formData.name}
               onChange={handleChange}
               className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
@@ -104,7 +118,7 @@ const SignUp = () => {
               type="file"
               name="logo"
               accept="image/*"
-              onChange={handleChange}
+              onChange={handleLogoChange}
               className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
             />
             <button

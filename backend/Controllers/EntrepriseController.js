@@ -3,41 +3,43 @@ const Subscription = require("../Models/SubscriptionSchema");
 const Invoice = require("../Models/InvoiceSchema");
 const Pack = require('../Models/PackSchema')
 const jwt = require("jsonwebtoken");
-const SubscriptionController = require("../Controllers/SubscriptionController")
+const bcrypt = require("bcrypt");
 
 const addEntreprise = async (req, res) => {
   try {
-    const {
-      name,
-      email,
-      password,
-      phone,
-      address,
-      logo,
-      passwordConfirmation,
-    } = req.data;
+    const { name, email, password, phone, address } = req.body;
     const existeEntreprise = await Entreprise.findOne({ email: email });
-    if (!existeEntreprise && password === passwordConfirmation) {
+    if (!existeEntreprise) {
+      const hashedPassword = await bcrypt.hash(password, 10);
+      console.log(req.file)
+      const logo = req.file ? req.file.filename : null;
       const entreprise = new Entreprise({
         name,
         email,
-        password,
+        password: hashedPassword,
         phone,
         address,
         logo,
       });
       await entreprise.save();
-      res.status(201).json(entreprise);
+      const subscription = new Subscription({
+        userId: entreprise._id,
+        packId: '6631005f1c1fec2176ead2cb',
+        startDate: Date.now(),
+        endDate: Date.now() + 1000 * 60 * 60 * 24 * 30, // 30 days
+        status: "active",
+        price: 0,
+      })
+      subscription.save()
+      return res.status(201).json(entreprise);
     } else {
-      res
-        .status(400)
-        .json({
-          message:
-            "L'entreprise existe déjà ou les mots de passe ne correspondent pas",
-        });
+      return res.status(400).json({ message: "L'entreprise existe déjà" });
     }
   } catch (error) {
-    res.status(500).send("Erreur serveur lors de l'ajout d'entreprise");
+    console.error("Erreur lors de l'ajout de l'entreprise :", error);
+    return res
+      .status(500)
+      .send("Erreur serveur lors de l'ajout d'entreprise");
   }
 };
 
@@ -113,14 +115,17 @@ const removeEntreprise = async (req, res) => {
   }
 };
 
+
 const login = async (req, res) => {
   try {
     const jsenwebtkn = req.token;
-    const decoded = jwt.verify(jsenwebtkn, "AbdelilahElgallati1230");
-    const userId = decoded.userId;
-    const user = await Entreprise.findById(userId);
+    const user = req.user;
+    if (!user) {
+      return res.status(404).json({ error: "Utilisateur non trouvé" });
+    }
     res.json({ jsenwebtkn, user });
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Erreur serveur" });
   }
 };

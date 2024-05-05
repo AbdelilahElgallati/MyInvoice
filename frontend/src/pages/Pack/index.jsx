@@ -14,7 +14,10 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useGetPacksQuery } from "state/api";
+import { useGetPacksQuery, useRemovePackMutation } from "state/api";
+import { Link } from "react-router-dom";
+import FlexBetween from "componentsAdmin/FlexBetween";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 
 const Pack = ({
   _id,
@@ -27,7 +30,14 @@ const Pack = ({
 }) => {
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
-
+  const [removePack] = useRemovePackMutation();
+  const handleDelete = async (id) => {
+    try {
+      await removePack(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Card
       sx={{
@@ -52,6 +62,20 @@ const Pack = ({
           onClick={() => setIsExpanded(!isExpanded)}
         >
           See More
+        </Button>
+        <Button
+          variant="primary"
+          size="small"
+          onClick={() => window.location.href = `/Pack/edit/${_id}`}
+        >
+          Update
+        </Button>
+        <Button
+          variant="primary"
+          size="small"
+          onClick={() => handleDelete(_id)}
+        >
+          Delete
         </Button>
       </CardActions>
       <Collapse
@@ -87,9 +111,25 @@ const Pack = ({
 const Packs = () => {
   const { data, isLoading} = useGetPacksQuery();
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
+
+  
+
+
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="PACKS" subtitle="Liste de packs." />
+      <FlexBetween>
+        <Header title="PACKS" subtitle="Liste de packs." />
+        <Link to="/Pack/new">
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddOutlinedIcon />}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Add
+          </Button>
+        </Link>
+      </FlexBetween>
       {data || !isLoading ? (
         <Box
           mt="20px"
