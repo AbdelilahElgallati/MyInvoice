@@ -41,7 +41,6 @@ const App = () => {
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Modeles" element={<Model />} />
-        
           <Route path="/Gener" element={<Generateur/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
