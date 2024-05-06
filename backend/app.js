@@ -19,6 +19,7 @@ const SubscriptionRouter = require("./Routes/SubscriptionRouter");
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
+app.use(express.static('Public'));
 
 app.use("/Api/Categorie", CategorieRouter);
 app.use("/Api/Client", ClientRouter);

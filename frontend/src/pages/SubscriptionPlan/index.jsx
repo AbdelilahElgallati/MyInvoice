@@ -3,7 +3,13 @@ import { Box, useTheme } from "@mui/material";
 import { useGetSubscriptionsQuery } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
+import { useNavigate } from "react-router-dom";
+
 const SubscriptionPalns = () => {
+  const navigate = useNavigate()
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const theme = useTheme();
   const { data, isLoading } = useGetSubscriptionsQuery();
 

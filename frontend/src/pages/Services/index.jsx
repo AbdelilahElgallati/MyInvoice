@@ -8,8 +8,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
+import { useNavigate } from "react-router-dom";
 
 const Entreprises = () => {
+  const navigate = useNavigate()
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const theme = useTheme();
   const [removeService] = useRemoveServiceMutation();
   const { data, isLoading } = useGetAllServicesQuery();

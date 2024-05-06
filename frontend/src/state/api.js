@@ -36,6 +36,20 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+    loginEntreprise: build.mutation({
+      query: (loginData) => ({
+        url: `Entreprise/login/`,
+        method: "POST",
+        body: loginData,
+      }),
+    }),
+    registerEntreprise: build.mutation({
+      query: (data) => ({
+        url: `Entreprise/register/`,
+        method: "POST",
+        body: data,
+      }),
+    }),
 
     // Service
     getAllServices: build.query({
@@ -84,11 +98,11 @@ export const api = createApi({
       providesTags: ["Pack"],
     }),
     updatePack: build.mutation({
-      query: ({ id, PackData }) => ({
+      query: ({ id, pack }) => ({
         url: `Pack/edit/${id}`,
         method: "PUT",
-        body: PackData,
-      }),
+        body: pack, 
+      })
     }),
     removePack: build.mutation({
       query: (id) => ({
@@ -149,7 +163,8 @@ export const {
   useGetEntrepriseDetailQuery,
   useGetDashboardQuery,
   useRemoveEntrepriseMutation,
-
+  useLoginEntrepriseMutation,
+  useRegisterEntrepriseMutation,
   useGetPacksQuery,
   useGetOnePackQuery,
   useAddPackMutation,

@@ -5,6 +5,10 @@ import { useAddServiceMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
 
 const AddService = () => {
+  const navigate = useNavigate()
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const theme = useTheme();
   const [serviceName, setServiceName] = useState("");
   const [addService] = useAddServiceMutation();
