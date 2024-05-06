@@ -36,6 +36,12 @@ import ic3 from "../src/assets/img/Modeles/printable.webp";
 import ic4 from "../src/assets/img/Modeles/graphic.webp";
 import ic5 from "../src/assets/img/Modeles/photography.webp";
 import ic6 from "../src/assets/img/Modeles/contractor.webp";
+import creer from "../src/assets/img/Generator/create.png";
+import send from "../src/assets/img/Generator/send.png";
+import collecter from "../src/assets/img/Generator/collect.png";
+import ImgGenerator from "../src/assets/img/Generator/rm.png";
+import F1 from "../src/assets/img/Generator/pink.png";
+import { HiOutlineChevronRight } from "react-icons/hi";
 
 export const header = {
   logo: LogoImg,
@@ -99,7 +105,7 @@ export const features = {
     title: 'Générateur de factures en ligne',
     subtitle:
       "Utilisez notre générateur de factures pour gérer votre facturation depuis n'importe quel appareil, à tout moment. Votre compte est toujours connecté et vos données sont sauvegardées en toute sécurité pour vous.",
-    btnLink: 'UTILISER LE GÉNÉRATEUR DE FACTURES MAINTENANT',
+    btnLink: 'UTILISER LE GÉNÉRATEUR DE FACTURES',
     btnIcon: ArrowRightImg,
     image: Feature2Img,
   },
@@ -351,3 +357,37 @@ export const modelData = [
     ],
   },
 ];
+export const generatorData = {
+  headerText: "Générateur de factures en ligne",
+  headerDescription:
+    "Utilisez notre générateur de factures pour gérer votre facturation depuis n'importe quel appareil, à tout moment. Votre compte est toujours connecté et vos données sont sauvegardées en toute sécurité.",
+  createButtonText: "Créer une facture maintenant",
+  createButtonIcon: HiOutlineChevronRight,
+  imgGenerator: ImgGenerator,
+  f1Img: F1,
+  sectitle : "Qu'est-ce que le générateur de factures en ligne ?",
+  sectext :"Contrairement aux modèles préétablis, vous pouvez personnaliser les factures en fonction de votre activité. Vous manquez de temps ? Créez votre première facture et vos données seront stockées en toute sécurité et remplies automatiquement pour les projets futurs. Vous travaillez en déplacement ? C'est aussi le cas. Utilisez votre appareil mobile pour créer et partager des factures.",
+  howItWorksTitle: "Comment ça marche",
+  howItWorksDescription:
+    "Le générateur de factures en ligne rend la facturation aussi simple que 1, 2, 3.",
+  steps: [
+    {
+      image: creer,
+      title: "Créer",
+      description:
+        "Ajoutez les informations sur votre entreprise, votre logo et les coordonnées de vos clients, puis complétez les rubriques et les prix. Nous stockerons ces informations en toute sécurité pour une facturation rapide et répétée.",
+    },
+    {
+      image: send,
+      title: "Envoyer",
+      description:
+        "La livraison est facile. Envoyez un PDF par courriel, partagez le lien de la facture ou imprimez une copie. Nos factures sont formatées de manière à avoir une belle apparence, quelle que soit la manière dont elles sont envoyées.",
+    },
+    {
+      image: collecter,
+      title: "Collecter",
+      description:
+        "Nous vous informons lorsque votre facture est consultée. Si ce n'est pas le cas, nous le rappellerons poliment à votre client. Inscrivez-vous au service Paiements et nous traiterons également le paiement.",
+    },
+  ],
+};

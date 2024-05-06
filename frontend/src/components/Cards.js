@@ -24,9 +24,9 @@ const Cards = () => {
                 <img src={icon} alt=''/>
               </div>
               {/* card title */}
-              <div className='mb-3 text-[30px] font-medium' >{title}</div>
+              <div className='mb-3 text-[30px] font-medium font-Quicksand font-semibold' >{title}</div>
               {/* card subtitle */}
-              <div className='mb-6 text-light'>{subtitle}</div>
+              <div className='mb-6 text-light font-Quicksand font-medium'>{subtitle}</div>
               {/* arrow img */}
               {index === cardIndex && <img src={ArrowImg}/>}
 

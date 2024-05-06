@@ -4,6 +4,9 @@ module.exports = {
     fontFamily: {
       primary: 'Hind Siliguri',
       bodyfont : 'Poppins',
+      Lato : 'Lato',
+      Quicksand :'Quicksand',
+      Source : 'Source+Sans+3',
     },
     container: {
       padding: {

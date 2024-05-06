@@ -12,9 +12,9 @@ const Feature3 = () => {
           <div className='pretitle'>{pretitle}</div>
           <div className='title'>{title}</div>
           <div className='lead'>{subtitle}</div>
-          <button className='btn-link flex items-center gap-x-3 hover:gap-x-5 transition-all'>
+          {/* <button className='btn-link flex items-center gap-x-3 hover:gap-x-5 transition-all font-Quicksand font-semibold'>
             {btnLink} <img src={btnIcon} alt=''></img>
-          </button>
+          </button> */}
         </div>
         {/* image */}
         <div className='flex-1'  data-aos = "fade-right" data-aos-offset ='300'>

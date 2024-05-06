@@ -1,67 +1,3 @@
-// import React from "react";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import Aos from "aos";
-// import { useSelector } from "react-redux";
-// import { useMemo } from "react";
-// import { createTheme } from "@mui/material/styles";
-// import { themeSettings } from "theme";
-// import { CssBaseline, ThemeProvider } from "@mui/material";
-
-// import "aos/dist/aos.css";
-// import Header from "components/Header";
-// import WelcomePage from "components/WelcomePage";
-// import Register from "components/Register/Register";
-// import Model from "components/Modele/Model";
-// import Login from "components/Login/Login";
-// import Layout from "pages/layout";
-// import Dashboard from "pages/dashboard";
-// import Pack from "pages/Subscriptions";
-// import Entreprises from "pages/Entreprises";
-// import EnterpriseDetails from "pages/Entreprises/EntrepriseDetails";
-// import Services from 'pages/Services'
-// import AddService from "pages/Services/AddService";
-// import EditService from "pages/Services/EditService";
-// import SubscriptionPalns from "pages/SubscriptionPlan";
-// import Messages from "./pages/Message";
-
-// const App = () => {
-//   const mode = useSelector((state) => state.global.mode);
-//   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
-//   Aos.init({
-//     duration: 1800,
-//     offset: 100,
-//   });
-//   return (
-//     <BrowserRouter>
-//       <div>
-        
-//         {/* <ThemeProvider theme={theme}> */}
-//           <CssBaseline />
-//           <Routes>
-//             <Route path="/" element={<WelcomePage />} />
-//             <Route path="/Login" element={<Login />} />
-//             <Route path="/Register" element={<Register />} />
-//             <Route path="/Modeles" element={<Model />} />
-//             <Route element={<Layout />}>
-//               {/* <Route path="/" element={<Navigate to="/dashboard" replace />} /> */}
-//               <Route path="/dashboard" element={<Dashboard />} />
-//               <Route path="/Subscriptions" element={<Pack />} />
-//               <Route path="/Enterprises" element={<Entreprises />} />
-//               <Route path="/Enterprises/Details/:id" element={<EnterpriseDetails />} />
-//               <Route path="/Services" element={<Services />} />
-//               <Route path="/Services/new" element={<AddService />} />
-//               <Route path="/Services/edit/:id" element={<EditService />} />
-//               <Route path="/SubscriptionsPlans" element={<SubscriptionPalns />} />
-//               <Route path="/Messages" element={<Messages />} />
-//             </Route>
-//           </Routes>
-//         {/* </ThemeProvider> */}
-//       </div>
-//     </BrowserRouter>
-//   );
-// };
-
-// export default App;
 
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
@@ -88,6 +24,7 @@ import AddService from "pages/Services/AddService";
 import EditService from "pages/Services/EditService";
 import SubscriptionPalns from "pages/SubscriptionPlan";
 import Messages from "./pages/Message";
+import Generateur from "components/Generator/Generateur";
 
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
@@ -104,6 +41,7 @@ const App = () => {
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Modeles" element={<Model />} />
+          <Route path="/Gener" element={<Generateur/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/Subscriptions" element={<PackWithThemeProvider theme={theme} />} />

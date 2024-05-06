@@ -22,12 +22,12 @@ const Model = () => {
                 <img
                   src={section.image}
                   alt=""
-                  className="w-[14%] ml-[150Px]"
+                  className=" mb-[20px] w-[14%] ml-[100Px]"
                 />
-                <h1 className="flex justify-center hover:text-accentHover font-semibold text-xl">
+                <h1 className=" hover:text-accentHover font-semibold text-xl">
                   {section.title}
                 </h1>
-                <p className="ml-[10Px]">{section.description}</p>
+                <p className="">{section.description}</p>
               </div>
             ))}
           </div>
