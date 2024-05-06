@@ -1,11 +1,11 @@
 import React from 'react';
 //import data 
-import {nav} from '../data'
+import {Mobilnav} from '../data'
 const MobileNav = () => {
   return <div className='bg-accent/95 w-full h-full'>
     <ul className='h-full flex flex-col justify-center items-center
     gap-y-8'>
-      {nav.map((item , index)=>{
+      {Mobilnav.map((item , index)=>{
         // destructure item 
         const {href , name } = item;
         return (

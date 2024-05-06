@@ -49,14 +49,19 @@ export const header = {
   btnTextDec: 'Déconnexion',
 };
 
-export const nav = [
+export const Mobilnav = [
   { name: 'Accueil', href: '/' },
   { name: 'Tarification', href: '/' },
   { name: 'A propos de', href: '/' },
   { name: 'Caractéristiques', href: '/' },
   { name: 'Connexion', href: '/login' },
 ];
-
+export const nav = [
+  { name: 'Accueil', href: '/' },
+  { name: 'Tarification', href: '/' },
+  { name: 'A propos de', href: '/' },
+  { name: 'Caractéristiques', href: '/' },
+];
 export const hero = {
   title: 'Une façon simple de gérer votre facturation.',
   subtitle: 'Facturez vos clients en toute simplicité, où que vous soyez, depuis votre téléphone ou votre ordinateur portable.',
