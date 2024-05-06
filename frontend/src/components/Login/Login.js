@@ -30,6 +30,8 @@ const Login = () => {
       });
       const entrepriseInfo = Info.data.user
       if (entrepriseInfo.role === "admin") {
+        localStorage.setItem('token', Info.data.jsenwebtkn);
+        localStorage.setItem('userId', Info.data.user._id);
         navigate("/dashboard");
       } else {
         navigate("/");

@@ -165,7 +165,6 @@ export const {
   useRemoveEntrepriseMutation,
   useLoginEntrepriseMutation,
   useRegisterEntrepriseMutation,
-
   useGetPacksQuery,
   useGetOnePackQuery,
   useAddPackMutation,

@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   mode: "dark",
-  userId: "662bc18e1c1fec2176ead295"
+  userId: localStorage.getItem('userId') ? localStorage.getItem('userId') : '',
 }
 
 export const globalSlice = createSlice({

@@ -5,6 +5,10 @@ import {  useGetAllServicesQuery, useAddPackMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
 
 const AddPack = () => {
+  const navigate = useNavigate()
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const theme = useTheme();
   const [pack, setPack] = useState({
     name: "",

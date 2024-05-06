@@ -5,6 +5,10 @@ import { useUpdateServiceMutation, useGetOneServiceQuery, useRemoveServiceMutati
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditService = () => {
+  const navigate = useNavigate()
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const [serviceName, setServiceName] = useState("");
   const [updateService] = useUpdateServiceMutation();
   const [removeService] = useRemoveServiceMutation();

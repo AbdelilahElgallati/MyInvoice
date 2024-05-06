@@ -5,6 +5,10 @@ import { useGetAllServicesQuery, useGetOnePackQuery, useRemovePackMutation, useU
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditPack = () => {
+  const navigate = useNavigate()
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const theme = useTheme();
   const [pack, setPack] = useState({
     name: "",
@@ -19,7 +23,6 @@ const EditPack = () => {
   const [updatePack] = useUpdatePackMutation();
   const [removePack] = useRemovePackMutation();
   const { data: serviceData } = useGetAllServicesQuery();
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (packData) {

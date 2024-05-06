@@ -19,8 +19,13 @@ import {
 import OverviewChart from "componentsAdmin/OverviewChart";
 import { useGetDashboardQuery } from "state/api";
 import StatBox from "componentsAdmin/StatBox";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+  const navigate = useNavigate()
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data } = useGetDashboardQuery();

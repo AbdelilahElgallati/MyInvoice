@@ -10,7 +10,6 @@ import {
 import FlexBetween from "./FlexBetween";
 import { useDispatch } from "react-redux";
 import { setMode } from "state";
-import profileImage from "assets/LogoImage.jpg";
 import {
   AppBar,
   Button,
@@ -23,18 +22,26 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = ({
   user,
   isSidebarOpen,
   setIsSidebarOpen,
 }) => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const theme = useTheme();
   const [anchorEl, setAnchorEl] = useState(null);
   const isOpen = Boolean(anchorEl);
   const handleClick = (e) => setAnchorEl(e.currentTarget);
-  const handleClose = () => setAnchorEl(null);
+  const handleClose = () =>  setAnchorEl(null);
+  const handleLogout = () => {
+    setAnchorEl(null);
+    localStorage.removeItem('userId')
+    localStorage.removeItem('token')
+    navigate('/')
+  } 
 
   return (
     <AppBar sx={{ position: "static", background: "none", boxShadow: "none" }}>
@@ -84,7 +91,7 @@ const Navbar = ({
               <Box
                 component="img"
                 alt="profile"
-                src={profileImage}
+                src={`http://localhost:3001/Images/${user.logo}`}
                 height="32px"
                 width="32px"
                 borderRadius="50%"
@@ -115,7 +122,7 @@ const Navbar = ({
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={handleLogout}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
         </FlexBetween>

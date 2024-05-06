@@ -18,6 +18,7 @@ import { useGetPacksQuery, useRemovePackMutation } from "state/api";
 import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { useNavigate } from "react-router-dom";
 
 const Pack = ({
   _id,
@@ -28,6 +29,10 @@ const Pack = ({
   startDate,
   endDate,
 }) => {
+  const navigate = useNavigate()
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
   const [removePack] = useRemovePackMutation();
