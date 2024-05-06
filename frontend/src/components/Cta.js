@@ -10,7 +10,7 @@ const Cta = () => {
           data-aos= 'zoom-out-right'
           data-aos-delay='700'
           />
-      <div className='max-w-[1340px] mx-auto px-[25px]'>
+      <div className='max-w-[1340px] mx-auto px-[25px] ml-[150px]'>
         
         {/* text */}
         <div className='max-w-[920pw] mx-auto text-center'>
@@ -19,7 +19,7 @@ const Cta = () => {
           data-aos-delay='200'>
            { title}
           </h2>
-          <p className='text-2xl lg:text-4xl text-white'
+          <p className='text-2xl font-Quicksand font-semibold lg:text-4xl text-white'
           data-aos= 'fade-up'
           data-aos-delay='300'>
             {subtitle}
@@ -31,7 +31,7 @@ const Cta = () => {
           data-aos= 'zoom-out-right'
           data-aos-delay='700'
           /> */}
-          <button className='btn btn-md btn-white mt-[40px] lg:text-[22px] gap-x-[10px] mx-auto'
+          <button className='btn btn-md btn-white mt-[40px] lg:text-[22px] gap-x-[10px] mx-auto font-Quicksand font-semibold'
           data-aos= 'fade-up'
           data-aos-delay='400'
           >

@@ -1,5 +1,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@100;300;400;500;700&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:ital,wght@0,200..900;1,200..900&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,16 +22,16 @@
   }
   .title,
   .section-title {
-    @apply text-6xl lg:text-5xl mb-6 font-bold;
+    @apply text-6xl lg:text-5xl mb-6 font-Quicksand font-bold;
   }
   .h2 {
-    @apply text-5xl lg:text-7xl font-bold;
+    @apply text-5xl lg:text-7xl font-Quicksand font-bold;
   }
   .pretitle {
-    @apply text-lg lg:text-[22px] text-light mb-4 lg:mb-6 uppercase font-normal;
+    @apply text-lg lg:text-[22px] text-light font-Quicksand font-semibold mb-4 lg:mb-6 uppercase font-normal;
   }
   .lead {
-    @apply text-lg text-light font-normal lg:mb-[15px] ;
+    @apply text-lg text-light font-Quicksand font-semibold lg:mb-[15px] ;
   }
   .link {
     @apply text-lg text-dark;

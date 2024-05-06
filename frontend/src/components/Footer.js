@@ -13,14 +13,14 @@ const Footer = () => {
       </div>
       {/* list 1 */}
       <div data-aos='fade-up' data-aos-offset='200' data-aos-delay='500'>
-        <div className='text-2xl uppercase font-medium mb-6'>Links</div>
+        <div className='text-2xl uppercase font-Quicksand  font-medium mb-6'>Links</div>
         <ul className='flex flex-col gap-y-3'>
           {links.map((item , index)=>{
             // destructure item 
             const {href , name }= item;
             return (
               <li key={index}>
-                <a className='font-medium hover:text-accent transition' href={href}>{name}</a>
+                <a className='font-medium hover:text-accent transition font-Quicksand font-medium' href={href}>{name}</a>
               </li>
             )
           })}
@@ -28,14 +28,14 @@ const Footer = () => {
       </div>
        {/* list 2 */}
        <div data-aos='fade-up' data-aos-offset='200' data-aos-delay='700'>
-        <div className='text-2xl uppercase font-medium mb-6'>Legal</div>
+        <div className='text-2xl uppercase font-Quicksand font-medium mb-6'>Legal</div>
         <ul className='flex flex-col gap-y-3'>
           {links.map((item , index)=>{
             // destructure item 
             const {href , name }= item;
             return (
               <li key={index}>
-                <a className='font-medium hover:text-accent transition' href={href}>{name}</a>
+                <a className='font-medium hover:text-accent transition font-Quicksand font-medium' href={href}>{name}</a>
               </li>
             )
           })}
@@ -43,8 +43,8 @@ const Footer = () => {
       </div>
       {/* newsletter */}
       <div data-aos='fade-up' data-aos-offset='200' data-aos-delay='900' >
-        <div className='text-2xl uppercase font-medium mb-6'>{newsletter.title}</div>
-        <div className='text-xl text-light mb-[18px]' >{newsletter.subtitle}</div>
+        <div className='text-2xl uppercase  mb-6 font-Quicksand font-medium'>{newsletter.title}</div>
+        <div className='text-xl text-light mb-[18px] font-Quicksand font-medium' >{newsletter.subtitle}</div>
         {/* form */}
         <form className=' max-w-[349px] mb-[10px]'>
         <div className='h-[62px] p-[7px] flex border border-dark rounded-lg'>
@@ -53,10 +53,10 @@ const Footer = () => {
            placeholder={form.placeholder}
           />
           <button className='btn btn-sm bg-accent hover:bg-accentHover 
-           w-[102px] text-white'>{form.btnText}</button>
+           w-[102px] text-white font-Quicksand font-medium'>{form.btnText}</button>
         </div>
         </form>
-        <span className='text-sm text-light'>{form.smallText}</span>
+        <span className='text-sm text-light font-Quicksand font-medium'>{form.smallText}</span>
       </div>
       </div>
       <hr className='mt-10 mb-5'
