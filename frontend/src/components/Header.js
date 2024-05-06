@@ -4,34 +4,40 @@ import { HiMenuAlt4, HiOutlineX } from "react-icons/hi";
 import MobileNav from "../components/MobileNav";
 import Nav from "../components/Nav";
 import Cta from "./Cta";
-import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
     // Redirige vers la page de connexion lorsque le bouton est cliqué
-    navigate('/Login');
+    navigate("/Login");
   };
   const [mobileNav, setMobileNav] = useState(false);
   const [isActive, setisActive] = useState(false);
-  const { logo, btnText } = header;
+  const { logo, btnText, btnTextDec } = header;
   //scrool event
   useEffect(() => {
     const handleScroll = () => {
       window.scrollY > 60 ? setisActive(true) : setisActive(false);
     };
-  
+
     // Écoute le défilement de la fenêtre
-    window.addEventListener('scroll', handleScroll);
-  
+    window.addEventListener("scroll", handleScroll);
+
     // Nettoie l'écouteur d'événements lors du démontage du composant
     return () => {
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, [window.scrollY]); // Ajout de window.scrollY comme dépendance
-  
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <header
       className={`${
@@ -46,12 +52,15 @@ const Header = () => {
           data-aos="fade-down"
           data-aos-delay="200"
           className=" font-bodyfont inline-block relative mt-3 md:mt-0 ml-[25px]"
-          
         >
-          
-          <Link to="/" data-aos="fade-down" data-aos-delay="100" className="font-bodyfont inline-block relative mt-3 md:mt-0 ml-25">
-      <img className="w-[160px]" src={logo} alt="Logo" />
-    </Link>
+          <Link
+            to="/"
+            data-aos="fade-down"
+            data-aos-delay="100"
+            className="font-bodyfont inline-block relative mt-3 md:mt-0 ml-25"
+          >
+            <img className="w-[160px]" src={logo} alt="Logo" />
+          </Link>
           {/* <span className="font-bodyfont text-white absolute bg-accent rounded-full h-10 w-10 flex items-center justify-center -top-2 left-[-35px]">
             MY
           </span>
@@ -65,7 +74,8 @@ const Header = () => {
         >
           <Nav />
         </div>
-       <button
+        {/* if(localStorage.getItem('userId')) {
+          <button
           className="btn btn-sm btn-outline hidden lg:flex"
           data-aos="fade-down"
           data-aos-delay="100"
@@ -73,6 +83,37 @@ const Header = () => {
         >
           {btnText}
         </button>
+        } else {
+
+      
+       <button
+          className="btn btn-sm btn-outline hidden lg:flex"
+          data-aos="fade-down"
+          data-aos-delay="100"
+          onClick={handleLogout}
+        >
+          {btnTextDec}
+        </button>
+          } */}
+        {!localStorage.getItem("userId") ? (
+          <button
+            className="btn btn-sm btn-outline hidden lg:flex"
+            data-aos="fade-down"
+            data-aos-delay="100"
+            onClick={handleLoginClick}
+          >
+            {btnText}
+          </button>
+        ) : (
+          <button
+            className="btn btn-sm btn-outline hidden lg:flex"
+            data-aos="fade-down"
+            data-aos-delay="100"
+            onClick={handleLogout}
+          >
+            {btnTextDec}
+          </button>
+        )}
         <button className="lg:hidden" onClick={() => setMobileNav(!mobileNav)}>
           {mobileNav ? (
             <HiOutlineX className="text-3xl text-accent" />

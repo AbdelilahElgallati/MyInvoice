@@ -46,6 +46,7 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 export const header = {
   logo: LogoImg,
   btnText: 'Connexion',
+  btnTextDec: 'Déconnexion',
 };
 
 export const nav = [
@@ -53,6 +54,7 @@ export const nav = [
   { name: 'Tarification', href: '/' },
   { name: 'A propos de', href: '/' },
   { name: 'Caractéristiques', href: '/' },
+  { name: 'Connexion', href: '/login' },
 ];
 
 export const hero = {

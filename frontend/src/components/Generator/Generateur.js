@@ -1,7 +1,7 @@
 import Header from "components/Header";
 import React from "react";
 import { HiOutlineChevronRight } from "react-icons/hi";
-import { generatorData } from "../../data"; // Assurez-vous de remplacer "votre_fichier_de_donnees" par le chemin correct vers votre fichier de données.
+import { generatorData } from "../../data"; 
 import Copyright from "components/Copyright";
 const Generateur = () => {
   const {
