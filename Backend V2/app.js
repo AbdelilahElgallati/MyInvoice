@@ -15,7 +15,7 @@ const PackRouter = require("./Routes/PackRouter");
 const ProductRouter = require("./Routes/ProductRouter");
 const SettingRouter = require("./Routes/SettingsRouter");
 const SubscriptionRouter = require("./Routes/SubscriptionRouter");
-const{ dataOverallStat} = require ("./data.js");
+const{ dataOverallStat} = require ("../backend/data.js");
 const OverallStat = require("./Models/OverallStateSchema");
 dotenv.config();
 app.use(helmet());

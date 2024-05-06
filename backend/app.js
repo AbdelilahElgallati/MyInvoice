@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const helmet = require ("helmet");
+const morgan = require ("morgan");
 const url = "mongodb://127.0.0.1:27017/MyInvoice";
 const app = express();
 const Port = 3001;
@@ -16,6 +18,9 @@ const SettingRouter = require("./Routes/SettingsRouter");
 const MessageRouter = require("./Routes/MessageRouter");
 const SubscriptionRouter = require("./Routes/SubscriptionRouter");
 
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));

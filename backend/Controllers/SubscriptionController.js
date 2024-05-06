@@ -2,7 +2,7 @@ const Subscription = require("../Models/SubscriptionSchema")
 
 const addSubscription = async (req, res) => {
   try {
-    const subscriptionData = req.query;
+    const subscriptionData = req.body;
     const subscription = new Subscription(subscriptionData);
     await subscription.save();
     res.status(201).json(subscription);
@@ -52,7 +52,7 @@ const  getOneSubscription = async (req, res) => {
 
 const  updateSubscription = async (req,res)=>{
   try {
-    const  subscription = await Subscription.findByIdAndUpdate(req.params.id, req.query, {new: true});
+    const  subscription = await Subscription.findByIdAndUpdate(req.params.id, req.body, {new: true});
     res.status(201).json(subscription);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la mise à jour de subscription");

@@ -93,6 +93,7 @@ const Entreprises = () => {
           },
           "& .MuiDataGrid-cell": {
             borderBottom: "none",
+            backgroundColor: theme.palette.background.test,
           },
           "& .MuiDataGrid-columnHeaders": {
             backgroundColor: theme.palette.background.alt,

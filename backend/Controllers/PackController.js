@@ -1,19 +1,5 @@
 const Pack = require("../Models/PackSchema");
 const Service = require("../Models/ServiceSchema");
-
-// const addPack = async (req, res) => {
-//   try {
-//     const packData = req.body;
-//     console.log("packData : ", packData.pack)
-//     const pack = new Pack(packData.pack);
-//     console.log("pack : ", pack)
-//     await pack.save();
-//     res.status(201).json(pack);
-//   } catch (error) {
-//     res.status(500).send("Erreur serveur lors de l'ajout du pack");
-//   }
-// }
-
 const addPack = async (req, res) => {
   try {
     const packData = req.body.pack;

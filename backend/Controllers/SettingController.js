@@ -3,7 +3,7 @@ const Setting = require("../Models/SettingsSchema")
 
 const addSetting = async (req, res) => {
   try {
-    const settingData = req.query;
+    const settingData = req.body;
     const setting = new Setting(settingData);
     await setting.save();
     res.status(201).json(setting);
@@ -32,7 +32,7 @@ const  getOneSetting = async (req, res) => {
 
 const  updateSetting = async (req,res)=>{
   try {
-    const  setting = await setting.findByIdAndUpdate(req.params.id, req.query, {new: true});
+    const  setting = await setting.findByIdAndUpdate(req.params.id, req.body, {new: true});
     res.status(201).json(setting);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la mise à jour de parametre");

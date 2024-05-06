@@ -95,6 +95,7 @@ export const themeSettings = (mode) => {
             background: {
               default: tokensDark.primary[600],
               alt: tokensDark.primary[500],
+              
             },
           }
         : {
@@ -147,5 +148,6 @@ export const themeSettings = (mode) => {
         fontSize: 14,
       },
     },
+    
   };
 };
