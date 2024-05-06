@@ -43,6 +43,6 @@ mongoose
     console.log(err);
 });
 
-app.listen(3001, () => {
+app.listen(8080, () => {
   console.log("the platform is running well");
 });

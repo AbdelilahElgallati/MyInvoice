@@ -11,27 +11,8 @@ const addClient = async (req, res) => {
   }
 }
 
-// const  getAllClients = async (req, res) => {
-//   try {
-//     const  clients = await Client.find();
-//     res.status(201).json(clients);
-//   } catch (error) {
-//     res.status(500).send("Erreur serveur lors de la recherche des clients");
-//   }
-// }
-
-const  getAllClients = async (req, res) => {
-  /*try {
-    const  clients = await Client.find();
-    res.status(201).json(clients);
-  } catch (error) {
-    res.status(500).send("Erreur serveur lors de la recherche des clients");
-  }*/
-  try {
-    // sort should look like this: { "champ": "userId", "ordre": "desc"}
+const  getAllClients = async (req, res) => {try {
     const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
-
-    // formatted sort should look like { userId: -1 }
     const generateSort = () => {
       const sortParsed = JSON.parse(sort);
       const sortFormatted = {

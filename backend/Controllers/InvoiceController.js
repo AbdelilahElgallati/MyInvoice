@@ -1,4 +1,7 @@
 const Invoice = require("../Models/InvoiceSchema");
+const OverallStat = require ("../Models/OverallStateSchema");
+const Client = require  ("../Models/ClientSchema");
+const Product = require  ("../Models/ProductSchema");
 
 const addInvoice = async (req, res) => {
   try {
@@ -10,21 +13,9 @@ const addInvoice = async (req, res) => {
     res.status(500).send("Erreur serveur lors de l'ajout de facture");
   }
 };
-
-// const  getAllInvoices = async (req, res) => {
-//   try {
-//     const  invoices = await Invoice.find();
-//     res.status(201).json(invoices);
-//   } catch (error) {
-//     res.status(500).send("Erreur serveur lors de la recherche des factures");
-//   }
-// }
 const getAllInvoices = async (req, res) => {
   try {
-    // sort should look like this: { "champ": "userId", "ordre": "desc"}
     const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
-
-    // formatted sort should look like { userId: -1 }
     const generateSort = () => {
       const sortParsed = JSON.parse(sort);
       const sortFormatted = {
@@ -37,7 +28,6 @@ const getAllInvoices = async (req, res) => {
 
     const invoices = await Invoice.find({
       $or: [
-        //{ "payments.amount" : { $regex: new RegExp(search, "i") }},
         { clientId: { $regex: new RegExp(search, "i") } },
         { clientName: { $regex: new RegExp(search, "i") } },
         { status: { $regex: new RegExp(search, "i") } },
@@ -74,7 +64,6 @@ const getSales = async (req, res) => {
 
 const getDashboardStats = async (req, res) => {
   try {
-    // hardcoded values
     const currentMonth = "Mai";
     const currentYear = 2021;
     const currentDay = "2021-05-05";
@@ -86,12 +75,12 @@ const getDashboardStats = async (req, res) => {
     const totalInvoices = await Invoice.countDocuments();
     const totalAmount = await Invoice.aggregate([
       {
-        $unwind: "$payments", // Deconstruct the payments array
+        $unwind: "$payments", 
       },
       {
         $group: {
-          _id: "$status", // Group by status field
-          totalAmount: { $sum: "$payments.amount" }, // Sum the amount field in payments
+          _id: "$status", 
+          totalAmount: { $sum: "$payments.amount" }, 
         },
       },
     ]);
@@ -99,7 +88,6 @@ const getDashboardStats = async (req, res) => {
     const totalUnpaidInvoices = await Invoice.countDocuments({
       status: { $nin: ["paid"] },
     });
-    /* Overall Stats */
     const overallStat = await OverallStat.find({ year: currentYear });
 
     const {
