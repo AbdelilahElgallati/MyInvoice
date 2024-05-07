@@ -25,7 +25,7 @@ import Messages from "./pages/Message";
 import AddPack from "pages/Pack/AddPack"
 import EditPack from "pages/Pack/EditPack"
 import Generateur from "components/Generator/Generateur";
-
+import Abonement from "components/Pack/Abonement";
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -42,6 +42,7 @@ const App = () => {
           <Route path="/Register" element={<Register />} />
           <Route path="/Modeles" element={<Model />} />
           <Route path="/Gener" element={<Generateur/>} />
+          <Route path="/pack" element={<Abonement/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/Pack" element={<PackWithThemeProvider theme={theme} />} />

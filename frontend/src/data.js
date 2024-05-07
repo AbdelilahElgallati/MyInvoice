@@ -398,3 +398,8 @@ export const generatorData = {
     },
   ],
 };
+export const pack = {
+  Title: "Faciliter l'établissement des factures",
+  Subtitle: 'Commencez gratuitement, puis choisissez le meilleur plan pour votre entreprise',
+ 
+};

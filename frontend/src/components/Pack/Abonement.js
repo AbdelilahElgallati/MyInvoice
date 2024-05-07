@@ -1,25 +1,42 @@
+import Header from "components/Header";
 import React, { useState } from "react";
-import { pricing } from "../data";
+import imgPay from "../../assets/img/Pack/pay.png";
+import { pricing , pack } from "../../data";
 import { HiCheck, HiOutlineArrowNarrowRight } from "react-icons/hi";
-import { useGetPacksQuery } from "state/api";
-const Pricing = () => {
-  const [index, setIndex] = useState(1);
-  const { title, cards } = pricing;
-
-
+const Abonement = () => {
+    const [index, setIndex] = useState(1);
+    const { title, cards } = pricing;
+    const { Title, Subtitle } = pack;
   return (
-    <section className=" section">
-      <div className="container mx-auto">
-        {/* title */}
-        <h2
-          className="h2 mb-10 lg:mb-20 text-center font-Quicksand font-bold"
-          data-aos="fade-up"
-          data-aos-offset="200"
+    <>
+      <Header />
+      <div className="lg:flex justify-between mt-[100Px]">
+        <div className="lg:w-[50%] w-[100%] pt-[100PX] "
+         data-aos="fade-up"
+         data-aos-delay="300"
+         data-aos-offset="300"
         >
-          {title}
-        </h2>
-        {/* card */}
-        <div className="flex flex-col lg:flex-row lg:gap-x-[30px] gap-y-[30px] lg:gap-y-0 justify-center items-center">
+          <h1 className=" text-3xl font-Quicksand font-bold text-center">
+            {Title}
+          </h1>
+          <p className="text-center font-Quicksand font-medium">
+            {Subtitle}
+          </p>
+        </div>
+        <div className="lg:w-[50%] w-[100%]  flex justify-center items-center"
+        data-aos="fade-up"
+        data-aos-delay="300"
+        data-aos-offset="300"
+        >
+          <img src={imgPay} className="lg:w-[50%] w-[100%]" />
+        </div>
+      </div>
+       <h1 className=" text-3xl font-Quicksand font-bold text-center" 
+       data-aos="fade-up"
+       data-aos-delay="300"
+       data-aos-offset="300"
+       >Nos <span className="text-accent" >abonnements</span> </h1>
+      <div className=" mt-[100px] flex flex-col lg:flex-row lg:gap-x-[30px] gap-y-[30px] lg:gap-y-0 justify-center items-center">
           {cards.map((card, cardIndex) => {
             const { icon, title, services, price, userAmount, btnText, delay } =
               card;
@@ -92,21 +109,8 @@ const Pricing = () => {
             );
           })}
         </div>
-        {/* Voir plus */}
-        <div className="flex justify-center items-center mt-10"
-        data-aos="fade-up"
-        data-aos-delay="300"
-        data-aos-offset="300">
-          <a
-            href="/pack"
-            className="inline-flex  items-center mt-[20px] inline-block bg-accent text-white font-Quicksand font-semibold py-2 px-4 rounded-md hover:bg-accentHover "
-          >
-            Voir Plus <span className="ml-[10px]"> <HiOutlineArrowNarrowRight /></span> 
-          </a>
-        </div>
-      </div>
-    </section>
+    </>
   );
 };
 
-export default Pricing;
+export default Abonement;
