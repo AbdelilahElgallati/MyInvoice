@@ -30,9 +30,9 @@ import DashboardClient from "pagesClient/dashboard";
 import Invoices from 'pagesClient/invoices'
 import Products from "pagesClient/produits";
 import Clients from "pagesClient/clients";
-import AddInvoice from "pagesClient/addInvoice";
-import AddProduct from "pagesClient/addProduct";
-import addClient from "pagesClient/addClient";
+import AddInvoice from "pagesClient/invoices/addInvoice";
+import AddProduct from "pagesClient/produits/addProduct";
+import addClient from "pagesClient/clients/addClient";
 import Overview from "pagesClient/overview";
 import Daily from "pagesClient/daily";
 import Monthly from "pagesClient/monthly";
