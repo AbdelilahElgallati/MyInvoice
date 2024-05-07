@@ -42,7 +42,7 @@ const navItems = [
     icon: <Groups2Outlined />,
   },
   {
-    text: "Pack",
+    text: "PackAdmin",
     title: "Pack",
     icon: <LoyaltyOutlinedIcon />,
   },
