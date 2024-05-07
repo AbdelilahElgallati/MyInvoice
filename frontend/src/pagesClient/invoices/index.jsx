@@ -190,17 +190,17 @@ const Invoices  = () => {
           rowCount={(data && data.total) || 0}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
-          page={page}
-          pageSize={pageSize}
+          /*page={page}
+          pageSize={pageSize}*/
           paginationMode="server"
           sortingMode="server"
-          onPageChange={(newPage) => setPage(newPage)}
+          /*onPageChange={(newPage) => setPage(newPage)}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          onSortModelChange={(newSortModel) => setSort(...newSortModel)}
+          onSortModelChange={(newSortModel) => setSort(...newSortModel)}*/
           components={{ Toolbar: DataGridCustomToolbar }}
-          componentsProps={{
+          /*componentsProps={{
             toolbar: { searchInput, setSearchInput, setSearch },
-          }}
+          }}*/
         />
       </Box>
     </Box>
