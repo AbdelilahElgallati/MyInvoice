@@ -93,7 +93,7 @@ const Products  = () => {
   ];
 
   const handleEdit = (id) => {
-    window.location.href = /produits/edit/${id};
+    window.location.href = `/produits/edit/${id}`;
   };
   
   const handleDelete = async (id) => {
@@ -123,7 +123,8 @@ const Products  = () => {
       </FlexBetween>
       {/* <AddButton label="Nouveau Produit"  /> */}
       <Box
-        height="80vh"
+        mt="40px"
+        height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -145,7 +146,7 @@ const Products  = () => {
             borderTop: "none",
           },
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: ${theme.palette.secondary[200]} !important,
+            color: `${theme.palette.secondary[200]} !important`,
           },
         }}
       >
