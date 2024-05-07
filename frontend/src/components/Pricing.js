@@ -5,7 +5,7 @@ import { useGetPacksQuery } from "state/api";
 const Pricing = () => {
   const [index, setIndex] = useState(1);
   const { title, cards } = pricing;
-
+  
 
   return (
     <section className=" section">
