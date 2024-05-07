@@ -2,7 +2,7 @@
 import LogoImg from '../src/assets/img/header/lg.png';
 import HeroImg from '../src/assets/img/hero/V.png';
 import OverviewProductImg from '../src/assets/img/overview/product.svg';
-// import OverviewProductImg from '../src/assets/img/overview/inv.png';
+import OverviewProductImg1 from '../src/assets/img/overview/screen.png';
 import FacebookImg from '../src/assets/img/overview/brands/facebook.svg';
 import GoogleImg from '../src/assets/img/overview/brands/google.svg';
 import CocaColaImg from '../src/assets/img/overview/brands/coca-cola.svg';
@@ -51,16 +51,19 @@ export const header = {
 
 export const Mobilnav = [
   { name: 'Accueil', href: '/' },
-  { name: 'Tarification', href: '/' },
-  { name: 'A propos de', href: '/' },
-  { name: 'Caractéristiques', href: '/' },
+  { name: 'Tarification', href: '/pack' },
+  { name: 'À propos de', href: '/Apropos' },
+  { name: 'Modèles', href: '/Modeles' },
+  { name: 'Générateur en ligne', href: '/Gener' },
   { name: 'Connexion', href: '/login' },
 ];
 export const nav = [
   { name: 'Accueil', href: '/' },
-  { name: 'Tarification', href: '/' },
-  { name: 'A propos de', href: '/' },
-  { name: 'Caractéristiques', href: '/' },
+  { name: 'Tarification', href: '/pack' },
+  { name: 'À propos de', href: '/Apropos' },
+  { name: 'Modèles', href: '/Modeles' },
+  { name: 'Générateur en ligne', href: '/Gener' },
+  
 ];
 export const hero = {
   title: 'Une façon simple de gérer votre facturation.',
@@ -71,7 +74,7 @@ export const hero = {
 };
 
 export const overview = {
-  productImg: OverviewProductImg,
+  productImg: OverviewProductImg1,
   brands: [
     {
       image: FacebookImg,

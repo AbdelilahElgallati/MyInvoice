@@ -3,6 +3,7 @@ import React from "react";
 import { HiOutlineChevronRight } from "react-icons/hi";
 import { generatorData } from "../../data"; 
 import Copyright from "components/Copyright";
+import Footer from "components/Footer";
 const Generateur = () => {
   const {
     headerText,
@@ -18,7 +19,7 @@ const Generateur = () => {
   } = generatorData;
 
   return (
-    <>
+    <div>
       <Header />
       <div className="bg-slate-100 lg:flex justify-evenly mt-[100PX]">
         <div className="pl-[45px] pt-[100px]">
@@ -82,8 +83,9 @@ const Generateur = () => {
           ))}
         </div>
       </div>
+      <Footer/>
       <Copyright />
-    </>
+    </div>
   );
 };
 

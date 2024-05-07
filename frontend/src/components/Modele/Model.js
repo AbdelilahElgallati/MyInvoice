@@ -2,6 +2,7 @@ import React from "react";
 import { modelData } from "../../data";
 import backgroundImage from "../../assets/img/Modeles/b1.png";
 import Header from "components/Header";
+import Footer from "components/Footer";
 const Model = () => {
   return (
     <>
@@ -24,15 +25,16 @@ const Model = () => {
                   alt=""
                   className=" mb-[20px] w-[14%] ml-[100Px]"
                 />
-                <h1 className=" hover:text-accentHover font-semibold text-xl">
+                <h1 className=" hover:text-accentHover font-Quicksand font-bold">
                   {section.title}
                 </h1>
-                <p className="">{section.description}</p>
+                <p className="font-Quicksand font-medium text-sm">{section.description}</p>
               </div>
             ))}
           </div>
         </div>
       ))}
+      <Footer/>
     </>
   );
 };

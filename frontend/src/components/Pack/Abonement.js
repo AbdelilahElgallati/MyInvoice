@@ -1,4 +1,5 @@
 import Header from "components/Header";
+import Footer from "components/Footer";
 import React, { useState } from "react";
 import imgPay from "../../assets/img/Pack/pay.png";
 import { pricing , pack } from "../../data";
@@ -109,6 +110,7 @@ const Abonement = () => {
             );
           })}
         </div>
+        <Footer/>
     </>
   );
 };
