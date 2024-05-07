@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   useTheme,
@@ -11,30 +11,38 @@ import {
   Chip,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useGetAllCategoriesQuery, useAddProduitMutation } from "state/api";
-import { useNavigate } from "react-router-dom";
+import { useGetAllCategoriesQuery, useUpdateProduitMutation, useGetOneProduitQuery, useRemoveProduitMutation } from "state/api";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddProduit = () => {
-  const navigate = useNavigate();
-  if (!localStorage.getItem("userId")) {
-    navigate("/");
-  }
-  const theme = useTheme();
+const EditProduit = () => {
+  const { id } = useParams();
+  const { data: produitData } = useGetOneProduitQuery(id);
+  const { data: categorieData } = useGetAllCategoriesQuery();
   const [produit, setProduit] = useState({
-    userId: localStorage.getItem("userId") || "",
     categoryId: "",
     name: "",
     description: "",
     quantity: 0,
     price: 0,
   });
-  const [AddProduit] = useAddProduitMutation();
-  const { data: categorieData } = useGetAllCategoriesQuery();
+
+  useEffect(() => {
+    if (produitData) {
+      setProduit(produitData);
+    }
+  }, [produitData]);
+
+  const theme = useTheme();
   const Navigate = useNavigate();
+  const [editProduit] = useUpdateProduitMutation();
+  const [removeProduit] = useRemoveProduitMutation();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProduit({ ...produit, [name]: name === "quantity" || name === "price" ? parseFloat(value) : value });
+    setProduit((prevProduit) => ({
+      ...prevProduit,
+      [name]: name === "quantity" || name === "price" ? parseFloat(value) : value,
+    }));
   };
 
   const handleCategoryChange = (event) => {
@@ -44,8 +52,16 @@ const AddProduit = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(produit);
-      await AddProduit({ produit });
+      await editProduit({ id, ProduitData: produit });
+      Navigate("/produits");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await removeProduit(id);
       Navigate("/produits");
     } catch (error) {
       console.log(error);
@@ -54,7 +70,7 @@ const AddProduit = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="ADD PRODUCT" subtitle="Ajout d'un nouveau produit" />
+      <Header title="EDIT PRODUCT" subtitle="Modification d'un produit" />
       <form
         onSubmit={handleSubmit}
         sx={{
@@ -92,7 +108,7 @@ const AddProduit = () => {
           margin="normal"
         />
         <TextField
-          label="Quantity"
+          label="Quantité"
           name="quantity"
           type="number"
           value={produit.quantity}
@@ -101,36 +117,6 @@ const AddProduit = () => {
           required
           margin="normal"
         />
-        {/* // <FormControl fullWidth margin="normal">
-         //   <InputLabel id="categies-label">Categorie</InputLabel>
-        //   <Select 
-        //     labelId="categies-label"
-        //     id="categieId"
-        //     value={produit.categoryId}
-        //     onChange={handleChange}
-        //     renderValue={(selected) => (
-        //       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        //         {selected.map((categoryId) => (
-        //           <Chip
-        //             key={categoryId}
-        //             label={
-        //               categorieData.find(
-        //                 (category) => category._id === categoryId
-        //               )?.categoryName
-        //             }
-        //           />
-        //         ))}
-        //       </div>
-        //     )}
-        //   >
-        //     {categorieData &&
-        //       categorieData.map((category) => (
-        //         <MenuItem key={category._id} value={category._id}>
-        //           {category.categoryName}
-        //         </MenuItem>
-        //       ))}
-        //   </Select>
-        // </FormControl> */}
         <FormControl fullWidth margin="normal">
           <InputLabel id="categories-label">Catégorie</InputLabel>
           <Select
@@ -161,7 +147,16 @@ const AddProduit = () => {
         </FormControl>
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary">
-            Add product
+            Modifier le produit
+          </Button>
+          <Button
+            onClick={handleDelete}
+            aria-label="delete"
+            sx={{ ml: 2 }}
+            variant="contained"
+            color="primary"
+          >
+            Supprimer le produit
           </Button>
         </Box>
       </form>
@@ -169,4 +164,4 @@ const AddProduit = () => {
   );
 };
 
-export default AddProduit;
+export default EditProduit;

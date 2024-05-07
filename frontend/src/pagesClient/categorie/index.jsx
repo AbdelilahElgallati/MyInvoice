@@ -1,63 +1,34 @@
 import React from "react";
-import { Box, useTheme, IconButton, Button } from "@mui/material";
+import { Box, useTheme, Button, IconButton } from "@mui/material";
+import { useGetAllCategoriesQuery, useRemoveCategorieMutation } from "state/api";
+import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetClientsQuery, useRemoveClientMutation } from "state/api";
-import Header from "componementClient/Header";
-import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
-import PersonIcon from '@mui/icons-material/Person';
-import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-const Clients  = () => {
+import { Link } from "react-router-dom";
+import FlexBetween from "componentsAdmin/FlexBetween";
+import { useNavigate } from "react-router-dom";
+
+const Categories = () => {
+  const navigate = useNavigate();
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const theme = useTheme();
   const id = localStorage.getItem('userId')
-  const { data, isLoading } = useGetClientsQuery(id);
-  const [removeClient] = useRemoveClientMutation();
-  const totalInvoices = data ? data.totalItems : 0;
+  const [removeCategorie] = useRemoveCategorieMutation();
+  const { data, isLoading } = useGetAllCategoriesQuery(id);
   const columns = [
-    
     {
-      field: "name",
-      headerName: "Nom",
+      field: "categoryName",
+      headerName: "Categorie",
       flex: 1,
-      renderCell: (params) => {
-        const name = params.value;
-        let icon = <PersonIcon style={{fontSize: '1rem' }} />;
-        return (
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              padding: '0px 0.2rem', 
-            }}
-          >
-            {icon}
-            <span style={{ marginLeft: '0.25rem', fontSize: '0.8rem',}}>{name}</span>
-          </div>
-        );
-      }
-    },
-    {
-      field: "email",
-      headerName: "Email",
-      flex: 1,
-    },
-    {
-      field: "phone",
-      headerName: "Téléphone",
-      flex: 1,
-    },
-    {
-        field: "address",
-        headerName: "Addresse",
-        flex: 1,
     },
     {
       field: "actions",
       headerName: "Actions",
-      flex: 0.4,
+      flex: 0.2,
       sortable: false,
       renderCell: (params) => (
         <Box>
@@ -79,25 +50,22 @@ const Clients  = () => {
   ];
 
   const handleEdit = (id) => {
-    window.location.href = `/clients/edit/${id}`;
+    window.location.href = `/categories/edit/${id}`;
   };
-  
+
   const handleDelete = async (id) => {
     try {
-      await removeClient(id);
+      await removeCategorie(id);
     } catch (error) {
       console.log(error);
     }
   };
 
-  
-
   return (
     <Box m="1.5rem 2.5rem">
-      
       <FlexBetween>
-      <Header title="CLIENTS" subtitle="Liste entier des "   total={totalInvoices} />
-        <Link to="/ajouterClient">
+        <Header title="CATEGORY" subtitle="Liste de categories" />
+        <Link to="/categories/new">
           <Button
             variant="contained"
             color="primary"
@@ -108,9 +76,10 @@ const Clients  = () => {
           </Button>
         </Link>
       </FlexBetween>
-      
+
       <Box
-        height="80vh"
+        mt="40px"
+        height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -139,18 +108,12 @@ const Clients  = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={(data && data.clients) || []}
+          rows={data || []}
           columns={columns}
-          rowCount={(data && data.total) || 0}
-          rowsPerPageOptions={[20, 50, 100]}
-          pagination
-          paginationMode="server"
-          sortingMode="server"
-          components={{ Toolbar: DataGridCustomToolbar }}
         />
       </Box>
     </Box>
   );
 };
 
-export default Clients;
+export default Categories;

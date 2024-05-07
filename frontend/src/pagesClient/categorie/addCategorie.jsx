@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { TextField, useTheme, Button, Box } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useAddClientMutation } from "state/api";
+import { useAddCategoryMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
 
 const AddClient = () => {
@@ -10,27 +10,24 @@ const AddClient = () => {
     navigate('/');
   }
   const theme = useTheme();
-  const [client, setClient] = useState({
+  const [categorie, setCategorie] = useState({
     userId: localStorage.getItem("userId") || "",
-    name: "",
-    email: "",
-    phone: "",
-    address: "",
+    categoryName: "",
   });
-  const [addClient] = useAddClientMutation();
+  const [addCategorie] = useAddCategoryMutation();
   const Navigate = useNavigate();
 
   const handleChange = (e) => {
-    setClient({ ...client, [e.target.name]: e.target.value });
+    setCategorie({ ...categorie, [e.target.name]: e.target.value });
   };
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(client);
-      await addClient({ client });
-      Navigate("/clients");
+      console.log(categorie);
+      await addCategorie({ categorie });
+      Navigate("/categories");
     } catch (error) {
       console.log(error);
     }
@@ -45,38 +42,9 @@ const AddClient = () => {
         borderRadius: "0.55rem",
       }} >
         <TextField
-          label="Nom de client"
-          name="name"
-          value={client.name}
-          onChange={handleChange}
-          fullWidth
-          required
-          margin="normal"
-        />
-        <TextField
-          label="Email"
-          name="email"
-          value={client.email}
-          onChange={handleChange}
-          fullWidth
-          required
-          margin="normal"
-        />
-        <TextField
-          label="Phone number"
-          name="phone"
-          type="text"
-          value={client.price}
-          onChange={handleChange}
-          fullWidth
-          required
-          margin="normal"
-        />
-        <TextField
-          label="Address"
-          name="address"
-          type="text"
-          value={client.address}
+          label="Categorie"
+          name="categoryName"
+          value={categorie.categoryName}
           onChange={handleChange}
           fullWidth
           required
@@ -85,7 +53,7 @@ const AddClient = () => {
         
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary">
-            Add client
+            Add category
           </Button>
         </Box>
       </form>

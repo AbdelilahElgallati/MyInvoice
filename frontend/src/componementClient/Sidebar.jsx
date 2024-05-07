@@ -22,7 +22,9 @@ import {
   TodayOutlined,
   CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
+  
 } from "@mui/icons-material";
+import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
@@ -48,6 +50,11 @@ const navItems = [
     text: "Produits",
     title: "produits",
     icon: <ShoppingCartOutlined />,
+  },
+  {
+    text: "Categories",
+    title: "categories",
+    icon: <CategoryOutlinedIcon />,
   },
   {
     text: "Clients",

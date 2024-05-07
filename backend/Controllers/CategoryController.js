@@ -2,7 +2,7 @@ const Category = require("../Models/CategorySchema")
 
 const addCategory = async (req, res) => {
   try {
-    const categoryData = req.query;
+    const categoryData = req.body.categorie;
     const category = new Category(categoryData);
     await category.save();
     res.status(201).json(category);
@@ -11,9 +11,9 @@ const addCategory = async (req, res) => {
   }
 }
 
-const  getAllCategories = async (req, res) => {
+const getAllCategoriesEnt = async (req, res) => {
   try {
-    const  categories = await Category.find();
+    const categories = await Category.find({ userId: req.params.id });
     res.status(201).json(categories);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des categories");
@@ -31,7 +31,7 @@ const  getOneCategory = async (req, res) => {
 
 const  updateCategory = async (req,res)=>{
   try {
-    const  categorie = await Category.findByIdAndUpdate(req.params.id, req.query, {new: true});
+    const  categorie = await Category.findByIdAndUpdate(req.params.id, req.body, {new: true});
     res.status(201).json(categorie);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la mise à jour de categorie");
@@ -47,4 +47,4 @@ const  removeCategory = async (req, res) => {
   }
 }
 
-module.exports = {addCategory,getAllCategories,getOneCategory,updateCategory,removeCategory};
+module.exports = {addCategory,getAllCategoriesEnt,getOneCategory,updateCategory,removeCategory};

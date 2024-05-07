@@ -30,14 +30,25 @@ import DashboardClient from "pagesClient/dashboard";
 import Invoices from 'pagesClient/invoices'
 import Products from "pagesClient/produits";
 import Clients from "pagesClient/clients";
+// <<<<<<< HEAD
+// import AddInvoice from "pagesClient/addInvoice";
+// import AddProduct from "pagesClient/addProduct";
+// import AddClient from "pagesClient/addClient";
+// =======
 import AddInvoice from "pagesClient/invoices/addInvoice";
 import AddProduct from "pagesClient/produits/addProduct";
-import addClient from "pagesClient/clients/addClient";
+import AddClient from "pagesClient/clients/addClient";
+
 import Overview from "pagesClient/overview";
 import Daily from "pagesClient/daily";
 import Monthly from "pagesClient/monthly";
 import LayoutClient from "pagesClient/layout";
 import Abonement from "components/Pack/Abonement";
+import EditProduit from "pagesClient/produits/EditProduit";
+import EditClient from "pagesClient/clients/EditClient";
+import Categories from "pagesClient/categorie";
+import AddCategorie from "pagesClient/categorie/addCategorie";
+import EditCategorie from "pagesClient/categorie/EditCategorie";
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -73,13 +84,18 @@ const App = () => {
             <Route path="/dashboardClient" element={<DachboardClientWithThemeProvider theme={theme} />} />
             <Route path="/factures" element={<InvoiceWithThemeProvider theme={theme} />} />
             <Route path="/produits" element={<ProductWithThemeProvider theme={theme} />} />
+            <Route path="/produits/edit/:id" element={<EditProductWithThemeProvider theme={theme} />} />
             <Route path="/clients" element={<ClientsWithThemeProvider theme={theme} />} />
+            <Route path="/clients/edit/:id" element={<EditClientsWithThemeProvider theme={theme} />} />
             <Route path="/apercu" element={<ApercuWithThemeProvider theme={theme} />} />
             <Route path="/quotidien" element={<QuotidienWithThemeProvider theme={theme} />} />
             <Route path="/mensuel" element={<MensuelWithThemeProvider theme={theme} />} />
             <Route path="/ajouterFacture" element={<AddInvoiceWithThemeProvider theme={theme} />} />
             <Route path="/ajouterProduit" element={<AddProductWithThemeProvider theme={theme} />} />
             <Route path="/ajouterClient" element={<AddClientWithThemeProvider theme={theme} />} />
+            <Route path="/categories" element={<CategoriesWithThemeProvider theme={theme} />} />
+            <Route path="/categories/new" element={<NewCategoriesWithThemeProvider theme={theme} />} />
+            <Route path="/categories/edit/:id" element={<EditCategoriesWithThemeProvider theme={theme} />} />
           </Route>
         </Routes>
       </div>
@@ -92,6 +108,28 @@ const LayoutWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <Layout>{children}</Layout>
+  </ThemeProvider>
+);
+
+
+const CategoriesWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Categories>{children}</Categories>
+  </ThemeProvider>
+);
+
+const NewCategoriesWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <AddCategorie>{children}</AddCategorie>
+  </ThemeProvider>
+);
+
+const EditCategoriesWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditCategorie>{children}</EditCategorie>
   </ThemeProvider>
 );
 
@@ -184,7 +222,6 @@ const DachboardClientWithThemeProvider = ({ theme, children }) => (
   </ThemeProvider>
 );
 
-// You can create similar components for other routes as well
 const InvoiceWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
@@ -199,10 +236,24 @@ const ProductWithThemeProvider = ({ theme, children }) => (
   </ThemeProvider>
 );
 
+const EditProductWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditProduit>{children}</EditProduit>
+  </ThemeProvider>
+);
+
 const ClientsWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <Clients>{children}</Clients>
+  </ThemeProvider>
+);
+
+const EditClientsWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditClient>{children}</EditClient>
   </ThemeProvider>
 );
 
@@ -245,7 +296,7 @@ const AddProductWithThemeProvider = ({ theme, children }) => (
 const AddClientWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
-    <addClient>{children}</addClient>
+    <AddClient>{children}</AddClient>
   </ThemeProvider>
 );
 export default App;

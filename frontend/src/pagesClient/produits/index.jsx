@@ -1,34 +1,27 @@
-import React, { useState } from "react";
-import { Box, useTheme } from "@mui/material";
+import React from "react";
+import { Box, useTheme, Button, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetProductsQuery } from "state/api";
+import { useGetProductsQuery, useRemoveProduitMutation } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
-import AddButton from "componementClient/addButton";
-import { useNavigate } from "react-router-dom";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import FlexBetween from "componentsAdmin/FlexBetween";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { Link } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const Products  = () => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  // values to be sent to the backend
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
   const id = localStorage.getItem('userId')
-  console.log("id : ", id)
   const { data, isLoading } = useGetProductsQuery(id);
-  console.log("data : ", data)
   const totalInvoices = data ? data.totalItems : 0;
+  const [removeProduit] = useRemoveProduitMutation();
   const columns = [
-    // {
-    //   field: "_id",
-    //   headerName: "ID Produit",
-    //   flex: 1,
-    // },
     {
       field: "name",
       headerName: "Nom",
-      flex: 1,
+      flex: 0.7,
       renderCell: (params) => {
         const name = params.value;
         let icon = <ShoppingCartIcon style={{fontSize: '1rem' }} />;
@@ -52,19 +45,19 @@ const Products  = () => {
       flex: 1,
     },
     {
-        field: "categoryId",
-        headerName: "ID Catégorie",
-        flex: 1,
+        field: "categoryName",
+        headerName: "Catégorie",
+        flex: 0.6,
     },
     {
         field: "quantity",
         headerName: "Quantité",
-        flex: 1,
+        flex: 0.5,
     },
     {
         field: "price",
         headerName: "Prix",
-        flex: 1,
+        flex: 0.5,
         renderCell: (params) => {
             const textColor = theme.palette.mode === "dark" ? "cyan" : "green";
             // Display the total amount
@@ -75,18 +68,60 @@ const Products  = () => {
               );
         },
     },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 0.4,
+      sortable: false,
+      renderCell: (params) => (
+        <Box>
+          <IconButton
+            onClick={() => handleEdit(params.row._id)}
+            aria-label="edit"
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => handleDelete(params.row._id)}
+            aria-label="delete"
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Box>
+      ),
+    },
   ];
 
-  const handleAddbutton = () => {
-    navigate(`/ajouterProduit`);
-    //console.log("Add Invoice button clicked");
+  const handleEdit = (id) => {
+    window.location.href = `/produits/edit/${id}`;
+  };
+  
+  const handleDelete = async (id) => {
+    try {
+      await removeProduit(id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="PRODUITS" subtitle="Liste entier des "   total={totalInvoices} />
-      <AddButton label="Nouveau Produit" onClick={handleAddbutton} />
+      
+      <FlexBetween>
+        <Header title="PRODUITS" subtitle="Liste entier des "   total={totalInvoices} />        
+        <Link to="/ajouterProduit">
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddOutlinedIcon />}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Add
+          </Button>
+        </Link>
+      </FlexBetween>
+      {/* <AddButton label="Nouveau Produit"  /> */}
       <Box
         height="80vh"
         sx={{
@@ -117,7 +152,7 @@ const Products  = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={(data && data.products) || []}
+          rows={(data && data.productsEnt) || []}
           columns={columns}
           rowCount={(data && data.total) || 0}
           rowsPerPageOptions={[20, 50, 100]}

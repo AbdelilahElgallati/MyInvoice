@@ -22,42 +22,49 @@ import {
   useTheme,
 } from "@mui/material";
 import profileImage from "assets/LogoImage.jpg";
-
+import { useNavigate } from "react-router-dom";
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
-    const dispatch = useDispatch();
-    const theme = useTheme();
-    const [anchorEl, setAnchorEl] = useState(null);
-    const isOpen = Boolean(anchorEl);
-    const handleClick = (event) => setAnchorEl(event.currentTarget);
-    const handleClose = () => setAnchorEl(null);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const theme = useTheme();
+  const [anchorEl, setAnchorEl] = useState(null);
+  const isOpen = Boolean(anchorEl);
+  const handleClick = (event) => setAnchorEl(event.currentTarget);
+  const handleClose = () => setAnchorEl(null);
+  const handleLogout = () => {
+    setAnchorEl(null);
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+    navigate("/");
+  };
 
-    return (
-      <AppBar
-        sx={{
-          position: "static",
-          background: "none",
-          boxShadow: "none",
-        }}
-      >
-        <Toolbar sx={{ justifyContent: "space-between" }}>
-          {/* LEFT SIDE */}
-          <FlexBetween>
-            <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
-              <MenuIcon />
+  return (
+    <AppBar
+      sx={{
+        position: "static",
+        background: "none",
+        boxShadow: "none",
+      }}
+    >
+      <Toolbar sx={{ justifyContent: "space-between" }}>
+        {/* LEFT SIDE */}
+        <FlexBetween>
+          <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
+            <MenuIcon />
+          </IconButton>
+          <FlexBetween
+            backgroundColor={theme.palette.background.alt}
+            borderRadius="9px"
+            gap="3rem"
+            p="0.1rem 1.5rem"
+          >
+            <InputBase placeholder="Rechercher..." />
+            <IconButton>
+              <Search />
             </IconButton>
-            <FlexBetween
-              backgroundColor={theme.palette.background.alt}
-              borderRadius="9px"
-              gap="3rem"
-              p="0.1rem 1.5rem"
-            >
-              <InputBase placeholder="Rechercher..." />
-              <IconButton>
-                <Search />
-              </IconButton>
-            </FlexBetween>
           </FlexBetween>
-           {/* RIGHT SIDE */}
+        </FlexBetween>
+        {/* RIGHT SIDE */}
         <FlexBetween gap="1.5rem">
           <IconButton onClick={() => dispatch(setMode())}>
             {theme.palette.mode === "dark" ? (
@@ -66,7 +73,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-        <FlexBetween>
+          <FlexBetween>
             <Button
               onClick={handleClick}
               sx={{
@@ -111,13 +118,13 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              <MenuItem onClick={handleClose}>Log Out</MenuItem>
+              <MenuItem onClick={handleLogout}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
-          </FlexBetween>
-          </Toolbar>
-      </AppBar>
-    );
-  };
-  
-  export default Navbar;
+        </FlexBetween>
+      </Toolbar>
+    </AppBar>
+  );
+};
+
+export default Navbar;
