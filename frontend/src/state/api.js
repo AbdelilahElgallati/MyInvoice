@@ -168,11 +168,7 @@ export const api = createApi({
       providesTags: ["Invoices"],
     }),
     getProducts: build.query({
-      query: ({ page, pageSize, sort, search }) => ({
-        url: "Produit",
-        method: "GET",
-        params: { page, pageSize, sort, search },
-      }),
+      query: (id) => `Produit/Entreprise/${id}`,
       providesTags: ["Products"],
     }),
     getClients: build.query({

@@ -14,23 +14,17 @@ const Products  = () => {
   // values to be sent to the backend
   const [page, setPage] = useState(0);
   const [pageSize, setPageSize] = useState(20);
-  const [sort, setSort] = useState({});
-  const [search, setSearch] = useState("");
-
-  const [searchInput, setSearchInput] = useState("");
-  const { data, isLoading } = useGetProductsQuery({
-    page,
-    pageSize,
-    sort: JSON.stringify(sort),
-    search,
-  });
+  const id = localStorage.getItem('userId')
+  console.log("id : ", id)
+  const { data, isLoading } = useGetProductsQuery(id);
+  console.log("data : ", data)
   const totalInvoices = data ? data.totalItems : 0;
   const columns = [
-    {
-      field: "_id",
-      headerName: "ID Produit",
-      flex: 1,
-    },
+    // {
+    //   field: "_id",
+    //   headerName: "ID Produit",
+    //   flex: 1,
+    // },
     {
       field: "name",
       headerName: "Nom",
@@ -61,7 +55,7 @@ const Products  = () => {
         field: "categoryId",
         headerName: "ID Catégorie",
         flex: 1,
-      },
+    },
     {
         field: "quantity",
         headerName: "Quantité",
@@ -134,11 +128,12 @@ const Products  = () => {
           sortingMode="server"
           onPageChange={(newPage) => setPage(newPage)}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          onSortModelChange={(newSortModel) => setSort(...newSortModel)}
+          // onSortModelChange={(newSortModel) => setSort(...newSortModel)}
+          // onSortModelChange={(newSortModel) => setSort(newSortModel[0])}
           components={{ Toolbar: DataGridCustomToolbar }}
-          componentsProps={{
-            toolbar: { searchInput, setSearchInput, setSearch},
-          }}
+          // componentsProps={{
+          //   toolbar: { searchInput, setSearchInput, setSearch},
+          // }}
         />
       </Box>
     </Box>

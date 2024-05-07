@@ -2,7 +2,7 @@ const express = require("express");
 const ProduitRouter = express.Router();
 const ProduitController = require("../Controllers/ProductController");
 
-ProduitRouter.get( "/", ProduitController.getAllProduits); 
+ProduitRouter.get( "/Entreprise/:id", ProduitController.getAllProduitsEnt); 
 ProduitRouter.get( "/:id", ProduitController.getOneProduit); 
 ProduitRouter.post('/add',ProduitController.addProduit);
 ProduitRouter.put('/edit/:id',ProduitController.updateProduit);

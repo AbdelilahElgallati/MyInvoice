@@ -34,6 +34,8 @@ const Login = () => {
         localStorage.setItem('userId', Info.data.user._id);
         navigate("/dashboard");
       } else {
+        localStorage.setItem('token', Info.data.jsenwebtkn);
+        localStorage.setItem('userId', Info.data.user._id);
         navigate("/dashboardClient");
       }
     } catch (error) {

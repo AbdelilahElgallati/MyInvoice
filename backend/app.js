@@ -38,9 +38,8 @@ app.use("/Api/Setting", SettingRouter);
 app.use("/Api/Subscription", SubscriptionRouter);
 
 mongoose
-  .connect(url)
+  .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => {
-
     console.log("connecting to my database in port : " + Port);
   })
   .catch((err) => {
