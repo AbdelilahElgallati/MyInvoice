@@ -1,36 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, useTheme, Button, Box } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useAddClientMutation } from "state/api";
-import { useNavigate } from "react-router-dom";
+import { useUpdateClientMutation, useGetOneClientQuery, useRemoveClientMutation } from "state/api";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddClient = () => {
+const EditClient = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
   const theme = useTheme();
   const [client, setClient] = useState({
-    userId: localStorage.getItem("userId") || "",
     name: "",
     email: "",
     phone: "",
     address: "",
   });
-  const [addClient] = useAddClientMutation();
-  const Navigate = useNavigate();
+  const {id} = useParams();
+  const {data : clientData} =useGetOneClientQuery(id);
+  const [editClient] = useUpdateClientMutation();
+  const [removeClient] = useRemoveClientMutation();
+
+  useEffect(() => {
+    if (clientData) {
+      setClient(clientData);
+    }
+  }, [clientData]);
 
   const handleChange = (e) => {
     setClient({ ...client, [e.target.name]: e.target.value });
   };
 
+  const handleDelete = async () => {
+    try {
+      await removeClient(id);
+      navigate("/clients");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       console.log(client);
-      await addClient({ client });
-      Navigate("/clients");
+      await editClient({ id, client });
+      navigate("/clients");
     } catch (error) {
       console.log(error);
     }
@@ -66,7 +81,7 @@ const AddClient = () => {
           label="Phone number"
           name="phone"
           type="text"
-          value={client.price}
+          value={client.phone}
           onChange={handleChange}
           fullWidth
           required
@@ -84,8 +99,11 @@ const AddClient = () => {
         />
         
         <Box mt={2}>
-          <Button type="submit" variant="contained" color="primary">
-            Add client
+        <Button type="submit" variant="contained" color="primary">
+            Modifier le client
+          </Button>
+          <Button type="button" onClick={handleDelete} aria-label="delete" sx={{ ml: 2 }} variant="contained" color="primary">
+            Supprimer le client
           </Button>
         </Box>
       </form>
@@ -93,5 +111,5 @@ const AddClient = () => {
   );
 };
 
-export default AddClient;
+export default EditClient;
 

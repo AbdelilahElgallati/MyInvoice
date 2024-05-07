@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
 
-const Entreprises = () => {
+const Services = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
@@ -116,4 +116,4 @@ const Entreprises = () => {
   );
 };
 
-export default Entreprises;
+export default Services;
