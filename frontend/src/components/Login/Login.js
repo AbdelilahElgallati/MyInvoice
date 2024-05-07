@@ -34,7 +34,7 @@ const Login = () => {
         localStorage.setItem('userId', Info.data.user._id);
         navigate("/dashboard");
       } else {
-        navigate("/");
+        navigate("/dashboardClient");
       }
     } catch (error) {
       console.log(error);

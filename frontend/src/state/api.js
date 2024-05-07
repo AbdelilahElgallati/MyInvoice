@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/Api" }),
   reducerPath: "adminApi",
-  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message"],
+  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices",],
   endpoints: (build) => ({
     // Entreprise
     getEntreprise: build.query({
@@ -152,6 +152,45 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+
+    // Entreprise phase 
+
+    getUser: build.query({
+      query: (id) => `Entreprise/${id}`,
+      providesTags: ["Entreprise"],
+    }),
+    getInvoices: build.query({
+      query: ({ page, pageSize, sort, search }) => ({
+        url: "Invoice",
+        method: "GET",
+        params: { page, pageSize, sort, search },
+      }),
+      providesTags: ["Invoices"],
+    }),
+    getProducts: build.query({
+      query: ({ page, pageSize, sort, search }) => ({
+        url: "Produit",
+        method: "GET",
+        params: { page, pageSize, sort, search },
+      }),
+      providesTags: ["Products"],
+    }),
+    getClients: build.query({
+      query: ({ page, pageSize, sort, search }) => ({
+        url: "Client",
+        method: "GET",
+        params: { page, pageSize, sort, search },
+      }),
+      providesTags: ["Clients"],
+    }),
+    getSales: build.query({
+      query: () => "Invoice/summary",
+      providesTags: ["Sales"],
+    }),
+    getDashboardClient: build.query({
+      query: () => "Invoice/dashboard",
+      providesTags: ["Dashboard"],
+    }),
   }),
 });
 
@@ -184,4 +223,13 @@ export const {
 
   useGetMessagesQuery,
   useRemoveMessageMutation,
+
+  // Entreprise fnc
+
+  useGetUserQuery,
+  useGetInvoicesQuery,
+  useGetProductsQuery,
+  useGetClientsQuery,
+  useGetSalesQuery,
+  useGetDashboardClientQuery,
 } = api;
