@@ -38,6 +38,8 @@ import Daily from "pagesClient/daily";
 import Monthly from "pagesClient/monthly";
 import LayoutClient from "pagesClient/layout";
 import Abonement from "components/Pack/Abonement";
+import Feature1 from "components/Feature1";
+import Apropos from "components/Apropos";
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -55,6 +57,8 @@ const App = () => {
           <Route path="/Modeles" element={<Model />} />
           <Route path="/Gener" element={<Generateur/>} />
           <Route path="/pack" element={<Abonement/>} />
+          <Route path="/caractere" element={<Feature1/>} />
+          <Route path="/Apropos" element={<Apropos/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/Pack" element={<PackWithThemeProvider theme={theme} />} />
