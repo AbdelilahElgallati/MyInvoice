@@ -145,7 +145,7 @@ const Products  = () => {
             borderTop: "none",
           },
           "& .MuiDataGrid-toolbarContainer .MuiButton-text": {
-            color: ${theme.palette.secondary[200]} !important,
+            color: theme.palette.secondary[200] !important,
           },
         }}
       >
