@@ -6,6 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import { useNavigate } from "react-router-dom";
+
 const Entreprises = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {

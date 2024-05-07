@@ -64,9 +64,9 @@ const Dashboard = () => {
       flex: 0.5,
       sortable: false,
       renderCell:(params) => {
-    // Sum the quantities of all items in the array
-    const totalQuantity = params.value.reduce((acc, curr) => acc + curr.quantity, 0);
-    return totalQuantity;
+        // Sum the quantities of all items in the array
+        const totalQuantity = params.value.reduce((acc, curr) => acc + curr.quantity, 0);
+        return totalQuantity;
       },
     },
     {

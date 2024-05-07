@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/Api" }),
   reducerPath: "adminApi",
-  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices",],
+  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie"],
   endpoints: (build) => ({
     // Entreprise
     getEntreprise: build.query({
@@ -167,22 +167,69 @@ export const api = createApi({
       }),
       providesTags: ["Invoices"],
     }),
-    getProducts: build.query({
-      query: ({ page, pageSize, sort, search }) => ({
-        url: "Produit",
-        method: "GET",
-        params: { page, pageSize, sort, search },
+
+    // produit entreprise
+    addProduit: build.mutation({
+      query: (produit) => ({
+        url: `Produit/add`,
+        method: "POST",
+        body: produit,
       }),
+    }),
+    getProducts: build.query({
+      query: (id) => `Produit/Entreprise/${id}`,
       providesTags: ["Products"],
     }),
-    getClients: build.query({
-      query: ({ page, pageSize, sort, search }) => ({
-        url: "Client",
-        method: "GET",
-        params: { page, pageSize, sort, search },
+    getOneProduit: build.query({
+      query: (id) => `Produit/${id}`,
+      providesTags: ["Products"],
+    }),
+    updateProduit: build.mutation({
+      query: ({ id, ProduitData }) => ({
+        url: `Produit/edit/${id}`,
+        method: "PUT",
+        body: ProduitData,
       }),
+    }),
+    removeProduit: build.mutation({
+      query: (id) => ({
+        url: `Produit/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+
+    // client entreprise
+    addClient: build.mutation({
+      query: (client) => ({
+        url: `Client/add`,
+        method: "POST",
+        body: client,
+      }),
+    }),
+    getClients: build.query({
+      query: (id) => `Client/Entreprise/${id}`,
       providesTags: ["Clients"],
     }),
+    getOneClient: build.query({
+      query: (id) => `Client/${id}`,
+      providesTags: ["Products"],
+    }),
+    updateClient: build.mutation({
+      query: ({ id, client }) => ({
+        url: `Client/edit/${id}`,
+        method: "PUT",
+        body: client,
+      }),
+    }),
+    removeClient: build.mutation({
+      query: (id) => ({
+        url: `Client/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+
     getSales: build.query({
       query: () => "Invoice/summary",
       providesTags: ["Sales"],
@@ -191,6 +238,37 @@ export const api = createApi({
       query: () => "Invoice/dashboard",
       providesTags: ["Dashboard"],
     }),
+
+    // Categorie
+    addCategory: build.mutation({
+      query: (categorieData) => ({
+        url: `Categorie/add/`,
+        method: "POST",
+        body: categorieData,
+      }),
+    }),
+    getAllCategories: build.query({
+      query: (id) => `Categorie/Entreprise/${id}`,
+      providesTags: ["Categorie"],
+    }),
+    getOneCategorie: build.query({
+      query: (id) => `Categorie/${id}`,
+      providesTags: ["Categorie"],
+    }),
+    updateCategorie: build.mutation({
+      query: ({ id, categorie }) => ({
+        url: `Categorie/edit/${id}`,
+        method: "PUT",
+        body: categorie,
+      }),
+    }),
+    removeCategorie: build.mutation({
+      query: (id) => ({
+        url: `Categorie/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
+    
   }),
 });
 
@@ -228,8 +306,24 @@ export const {
 
   useGetUserQuery,
   useGetInvoicesQuery,
-  useGetProductsQuery,
-  useGetClientsQuery,
   useGetSalesQuery,
   useGetDashboardClientQuery,
+  
+  useGetProductsQuery,
+  useAddProduitMutation,
+  useGetOneProduitQuery,
+  useUpdateProduitMutation,
+  useRemoveProduitMutation,
+
+  useAddClientMutation,
+  useGetOneClientQuery,
+  useUpdateClientMutation,
+  useRemoveClientMutation,  
+  useGetClientsQuery,
+
+  useGetAllCategoriesQuery,
+  useAddCategoryMutation,
+  useGetOneCategorieQuery,
+  useUpdateCategorieMutation,
+  useRemoveCategorieMutation,
 } = api;

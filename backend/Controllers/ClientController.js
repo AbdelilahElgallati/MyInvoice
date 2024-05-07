@@ -2,47 +2,22 @@ const Client = require("../Models/ClientSchema")
 
 const addClient = async (req, res) => {
   try {
-    const ClientData = req.body;
+    const ClientData = req.body.client;
     const client = new Client(ClientData);
     await client.save();
-    res.status(201).json(Client);
+    res.status(201).json(client);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de l'ajout du client");
   }
 }
 
-const  getAllClients = async (req, res) => {try {
-    const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
-    const generateSort = () => {
-      const sortParsed = JSON.parse(sort);
-      const sortFormatted = {
-        [sortParsed.field]: (sortParsed.sort = "asc" ? 1 : -1),
-      };
-
-      return sortFormatted;
-    };
-    const sortFormatted = Boolean(sort) ? generateSort() : {};
-
-    const clients = await Client.find({
-      $or: [
-        { name : { $regex: new RegExp(search, "i") }},
-        { email : { $regex: new RegExp(search, "i") }},
-        { phone : { $regex: new RegExp(search, "i") } },
-        { address : { $regex: new RegExp(search, "i") } },
-      ],
-    })
-      .sort(sortFormatted)
-      .skip(page * pageSize)
-      .limit(pageSize);
-
-    const total = await Client.countDocuments({
-      name: { $regex: search, $options: "i" },
-    });
-    const totalItems = await Client.countDocuments();
+const  getAllClientsEnt = async (req, res) => {try {
+  const AllClients = await Client.find();
+  const clients = AllClients.filter(client => client.userId.toString() === req.params.id);
+  const totalItems = await Client.countDocuments({ userId: req.params.id });
 
     res.status(200).json({
       clients,
-      total,
       totalItems
     });
   } catch (error) {
@@ -62,6 +37,7 @@ const  getOneClient = async (req, res) => {
 
 const  updateClient = async (req,res)=>{
   try {
+    console.log("data : ", req)
     const  client = await Client.findByIdAndUpdate(req.params.id, req.body, {new: true});
     res.status(201).json(client);
   } catch (error) {
@@ -78,4 +54,4 @@ const  removeClient = async (req, res) => {
   }
 }
 
-module.exports = {addClient,getAllClients,getOneClient,updateClient,removeClient};
+module.exports = {addClient,getAllClientsEnt,getOneClient,updateClient,removeClient};
