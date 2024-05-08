@@ -1,6 +1,6 @@
 // import images
-import LogoImg from '../src/assets/img/header/lg.png';
-import HeroImg from '../src/assets/img/hero/V.png';
+import LogoImg from '../src/assets/img/header/lgrm.png';
+import HeroImg from '../src/assets/img/hero/VM.png';
 import OverviewProductImg from '../src/assets/img/overview/product.svg';
 import OverviewProductImg1 from '../src/assets/img/overview/screen.png';
 import FacebookImg from '../src/assets/img/overview/brands/facebook.svg';
@@ -30,6 +30,7 @@ import FacebookIcon from '../src/assets/img/copyright/facebook.svg';
 import TwitterIcon from '../src/assets/img/copyright/twitter.svg';
 import LinkedinIcon from '../src/assets/img/copyright/linkedin.svg';
 import backgroundImage from "../src/assets/img/Modeles/b1.png";
+import backgroundImage2 from "../src/assets/img/Modeles/b2.png";
 import ic1 from "../src/assets/img/Modeles/Ic1.png";
 import ic2 from "../src/assets/img/Modeles/freelance.webp";
 import ic3 from "../src/assets/img/Modeles/printable.webp";
@@ -42,11 +43,16 @@ import collecter from "../src/assets/img/Generator/collect.png";
 import ImgGenerator from "../src/assets/img/Generator/rm.png";
 import F1 from "../src/assets/img/Generator/pink.png";
 import { HiOutlineChevronRight } from "react-icons/hi";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSun } from '@fortawesome/free-regular-svg-icons';
+import { faMoon } from '@fortawesome/free-solid-svg-icons';
 
 export const header = {
   logo: LogoImg,
   btnText: 'Connexion',
   btnTextDec: 'Déconnexion',
+  IconSun : <FontAwesomeIcon icon={faSun} />,
+  IconMon :<FontAwesomeIcon icon={faMoon} />,
 };
 
 export const Mobilnav = [
@@ -331,7 +337,8 @@ export const copyright = {
 };
 export const modelData = [
   {
-    image: backgroundImage,
+    imageDark: backgroundImage,
+    imageSom: backgroundImage2,
     title: "Modèles de factures à usage spécifique",
     sections: [
       {
