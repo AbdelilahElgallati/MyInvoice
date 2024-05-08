@@ -11,13 +11,19 @@ import {
   Chip,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useGetAllCategoriesQuery, useUpdateProduitMutation, useGetOneProduitQuery, useRemoveProduitMutation } from "state/api";
+import { useGetOneCategorieQuery, useUpdateProduitMutation, useRemoveProduitMutation, useGetOneProduitQuery } from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProduit = () => {
+  const Navigate = useNavigate();
+  if(!localStorage.getItem('userId')) {
+    Navigate('/');
+  }
+  const theme = useTheme();
   const { id } = useParams();
   const { data: produitData } = useGetOneProduitQuery(id);
-  const { data: categorieData } = useGetAllCategoriesQuery();
+  const idcat = produitData.categoryId;
+  const { data: categorieData } = useGetOneCategorieQuery(idcat);
   const [produit, setProduit] = useState({
     categoryId: "",
     name: "",
@@ -32,8 +38,7 @@ const EditProduit = () => {
     }
   }, [produitData]);
 
-  const theme = useTheme();
-  const Navigate = useNavigate();
+  
   const [editProduit] = useUpdateProduitMutation();
   const [removeProduit] = useRemoveProduitMutation();
 
