@@ -94,7 +94,7 @@ const Products  = () => {
 
   const handleEdit = (id) => {
     window.location.href = `/produits/edit/${id}`;
-  };
+    };
   
   const handleDelete = async (id) => {
     try {
@@ -123,8 +123,7 @@ const Products  = () => {
       </FlexBetween>
       {/* <AddButton label="Nouveau Produit"  /> */}
       <Box
-        mt="40px"
-        height="75vh"
+        height="80vh"
         sx={{
           "& .MuiDataGrid-root": {
             border: "none",
@@ -153,9 +152,9 @@ const Products  = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={(data && data.productsEnt) || []}
+          rows={data  || []}
           columns={columns}
-          rowCount={(data && data.total) || 0}
+          // rowCount={(data && data.total) || 0}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
           paginationMode="server"

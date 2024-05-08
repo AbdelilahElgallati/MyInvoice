@@ -171,14 +171,20 @@ export const api = createApi({
       providesTags: ["Entreprise"],
     }),
     getInvoices: build.query({
-      query: ({ page, pageSize, sort, search }) => ({
+      query: ({ page, pageSize, sort, search, id }) => ({
         url: "Invoice",
         method: "GET",
-        params: { page, pageSize, sort, search },
+        params: { page, pageSize, sort, search, id },
       }),
       providesTags: ["Invoices"],
     }),
-
+    addInvoice: build.mutation({
+      query: (invoice) => ({
+        url: `Invoice/add`,
+        method: "POST",
+        body: invoice,
+      }),
+    }),
     // produit entreprise
     addProduit: build.mutation({
       query: (produit) => ({
@@ -224,7 +230,7 @@ export const api = createApi({
     }),
     getOneClient: build.query({
       query: (id) => `Client/${id}`,
-      providesTags: ["Products"],
+      providesTags: ["Clients"],
     }),
     updateClient: build.mutation({
       query: ({ id, client }) => ({
@@ -317,7 +323,7 @@ export const {
   useAddMessageMutation,
   
   // Entreprise fnc
-
+  useAddInvoiceMutation,
   useGetUserQuery,
   useGetInvoicesQuery,
   useGetSalesQuery,

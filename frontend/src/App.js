@@ -68,7 +68,7 @@ const App = () => {
           <Route path="/DarkMode" element={<DarkMode/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
-            <Route path="/Pack" element={<PackWithThemeProvider theme={theme} />} />
+            <Route path="/PackAdmin" element={<PackWithThemeProvider theme={theme} />} />
             <Route path="/Pack/new" element={< AddPackWithThemeProvider theme={theme} />} />
             <Route path="/Pack/edit/:id" element={< EditPackWithThemeProvider theme={theme} />} />
             <Route path="/Enterprises" element={<EntreprisesWithThemeProvider theme={theme} />} />

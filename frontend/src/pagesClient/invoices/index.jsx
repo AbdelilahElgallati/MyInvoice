@@ -19,12 +19,15 @@ const Invoices  = () => {
   const [search, setSearch] = useState("");
 
   const [searchInput, setSearchInput] = useState("");
+  const id = localStorage.getItem('userId')
   const { data, isLoading } = useGetInvoicesQuery({
     page,
     pageSize,
     sort: JSON.stringify(sort),
     search,
+    id
   });
+  console.log("invoice : ", data )
   const totalInvoices = data ? data.totalItems : 0;
 
   const formatDate = (dateString) => {
@@ -190,17 +193,17 @@ const Invoices  = () => {
           rowCount={(data && data.total) || 0}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
-          page={page}
-          pageSize={pageSize}
+          /*page={page}
+          pageSize={pageSize}*/
           paginationMode="server"
           sortingMode="server"
-          onPageChange={(newPage) => setPage(newPage)}
+          /*onPageChange={(newPage) => setPage(newPage)}
           onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          onSortModelChange={(newSortModel) => setSort(...newSortModel)}
+          onSortModelChange={(newSortModel) => setSort(...newSortModel)}*/
           components={{ Toolbar: DataGridCustomToolbar }}
-          componentsProps={{
+          /*componentsProps={{
             toolbar: { searchInput, setSearchInput, setSearch },
-          }}
+          }}*/
         />
       </Box>
     </Box>

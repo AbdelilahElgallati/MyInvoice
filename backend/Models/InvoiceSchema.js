@@ -10,13 +10,10 @@ const InvoiceSchema = new Schema({
   items: [{
       productId: { type: Schema.Types.ObjectId, ref: 'Product', required: true },
       quantity: { type: Number, required: true },
-      price: { type: Number, required: true }
+      price: { type: Number } 
   }],
   status: { type: String, enum: ['sent', 'paid', 'late'], default: 'sent' },
-  payments: [{
-      amount: { type: Number, required: true },
-      date: { type: Date, default: Date.now }
-  }]
+  amount: { type: Number, required: true },
 },
 {timestamps: true}
 );
