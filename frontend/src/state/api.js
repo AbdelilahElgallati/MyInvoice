@@ -134,6 +134,10 @@ export const api = createApi({
       query: (id) => `Subscription/${id}`,
       providesTags: ["Subscription"],
     }),
+    getSubscriptionEnt: build.query({
+      query: (id) => `Subscription/Entreprise/${id}`,
+      providesTags: ["Subscription"],
+    }),
     updateSubscription: build.mutation({
       query: ({ id, SubscriptionData }) => ({
         url: `Subscription/edit/${id}`,
@@ -325,6 +329,7 @@ export const {
   useUpdateSubscriptionMutation,
   useRemoveSubscriptionMutation,
   useGetOneSubscriptionQuery,
+  useGetSubscriptionEntQuery,
 
   useGetMessagesQuery,
   useRemoveMessageMutation,

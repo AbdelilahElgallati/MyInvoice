@@ -85,21 +85,15 @@ const updateSubscriptionStatus = async (req, res) => {
   }
 };
 
-// const EmailSubscriptionStatus = async (req, res) => {
-//   try {
-//     const subscriptions = await Subscription.find();
-//     const subscriptionExp = subscriptions.filter(sub => sub.endDate <= (new Date()-10));
-//     // console.log('subscriptionExp : ', subscriptionExp);
-//     subscriptionExp.forEach(async (subscription) => {
-//       const entreprise = Enterprise.findById(subscription.userId)
-//       const email = entreprise.email
-
-//     });
-//     console.log('traitement de update status')
-//   } catch (error) {
-//     res.status(500).send("Erreur serveur lors de la mise à jour de la souscription");
-//   }
-// };
+const SubscriptionEnt = async (req, res) => {
+  try {
+    const subscription = await Subscription.find({userId: req.params.id});
+    console.log('subscription : ', subscription)
+    res.status(201).json(subscription);
+  } catch (error) {
+    res.status(500).send("Erreur serveur lors de la recherche de subscription");
+  }
+};
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
@@ -147,4 +141,4 @@ const EmailSubscriptionStatus = async (req, res) => {
   }
 };
 
-module.exports = {addSubscription,getAllSubscriptions,getOneSubscription,updateSubscription,removeSubscription, updateSubscriptionStatus, EmailSubscriptionStatus};
+module.exports = {addSubscription,getAllSubscriptions,getOneSubscription,updateSubscription,removeSubscription, updateSubscriptionStatus, SubscriptionEnt,  EmailSubscriptionStatus};
