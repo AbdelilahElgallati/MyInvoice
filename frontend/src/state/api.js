@@ -167,7 +167,13 @@ export const api = createApi({
       }),
       providesTags: ["Invoices"],
     }),
-
+    addInvoice: build.mutation({
+      query: (invoice) => ({
+        url: `Invoice/add`,
+        method: "POST",
+        body: invoice,
+      }),
+    }),
     // produit entreprise
     addProduit: build.mutation({
       query: (produit) => ({
@@ -303,7 +309,7 @@ export const {
   useRemoveMessageMutation,
 
   // Entreprise fnc
-
+  useAddInvoiceMutation,
   useGetUserQuery,
   useGetInvoicesQuery,
   useGetSalesQuery,
