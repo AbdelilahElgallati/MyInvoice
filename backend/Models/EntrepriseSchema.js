@@ -9,7 +9,8 @@ const EnterpriseSchema = new Schema({
     subscription: { type: String, enum: ['active', 'expired', 'cancelled'], default: 'active' },
     phone: { type: String, required: true },
     address: { type: String, required: true  },
-    logo: { type: String }
+    logo: { type: String },
+    status: { type: String, enum: ['active', 'cancelled'], default: 'active' },
   },
   {timestamps: true}
 );

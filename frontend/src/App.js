@@ -45,6 +45,7 @@ import EditClient from "pagesClient/clients/EditClient";
 import Categories from "pagesClient/categorie";
 import AddCategorie from "pagesClient/categorie/addCategorie";
 import EditCategorie from "pagesClient/categorie/EditCategorie";
+import EditSubscription from "pages/SubscriptionPlan/EditSubscriptionPlan"
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -73,6 +74,7 @@ const App = () => {
             <Route path="/Services/new" element={<AddServiceWithThemeProvider theme={theme} />} />
             <Route path="/Services/edit/:id" element={<EditServiceWithThemeProvider theme={theme} />} />
             <Route path="/SubscriptionsPlans" element={<SubscriptionPalnsWithThemeProvider theme={theme} />} />
+            <Route path="/SubscriptionsPlans/edit/:id" element={<EditSubscriptionPalnsWithThemeProvider theme={theme} />} />
             <Route path="/Messages" element={<MessagesWithThemeProvider theme={theme} />} />
           </Route>
 
@@ -198,6 +200,13 @@ const SubscriptionPalnsWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <SubscriptionPalns>{children}</SubscriptionPalns>
+  </ThemeProvider>
+);
+
+const EditSubscriptionPalnsWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditSubscription>{children}</EditSubscription>
   </ThemeProvider>
 );
 
