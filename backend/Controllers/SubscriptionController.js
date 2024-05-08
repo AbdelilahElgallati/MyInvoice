@@ -1,5 +1,6 @@
 const Subscription = require("../Models/SubscriptionSchema")
-
+const nodemailer = require("nodemailer");
+const Enterprise = require('../Models/EntrepriseSchema')
 const addSubscription = async (req, res) => {
   try {
     const subscriptionData = req.body;
@@ -68,4 +69,76 @@ const  removeSubscription = async (req, res) => {
   }
 }
 
-module.exports = {addSubscription,getAllSubscriptions,getOneSubscription,updateSubscription,removeSubscription};
+const updateSubscriptionStatus = async (req, res) => {
+  try {
+    const subscriptions = await Subscription.find();
+    const subscriptionExp = subscriptions.filter(sub => sub.endDate <= new Date());
+    console.log('subscriptionExp : ', subscriptionExp);
+    subscriptionExp.forEach(async (subscription) => {
+      subscription.status = 'expired';
+      await subscription.save();
+      console.log('update')
+    });
+    console.log('traitement de update status')
+  } catch (error) {
+    res.status(500).send("Erreur serveur lors de la mise à jour de la souscription");
+  }
+};
+
+const SubscriptionEnt = async (req, res) => {
+  try {
+    const subscription = await Subscription.find({userId: req.params.id});
+    console.log('subscription : ', subscription)
+    res.status(201).json(subscription);
+  } catch (error) {
+    res.status(500).send("Erreur serveur lors de la recherche de subscription");
+  }
+};
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "myinvoice06@gmail.com",
+    pass: "ekiv afoc wbnb mrep",
+  },
+});
+
+const EmailSubscriptionStatus = async (req, res) => {
+  try {
+    console.log('start')
+    const subscriptions = await Subscription.find();
+    const tenDaysBeforeCurrentDate = new Date();
+    tenDaysBeforeCurrentDate.setDate(tenDaysBeforeCurrentDate.getDate() - 10);
+    console.log("tenDaysBeforeCurrentDate : ",tenDaysBeforeCurrentDate)
+
+    const subscriptionsToNotify = subscriptions.filter(
+      (sub) => {sub.endDate >= tenDaysBeforeCurrentDate && sub.endDate < new Data() }
+    );
+
+    console.log("subscriptionsToNotify: ", subscriptionsToNotify);
+    for (const subscription of subscriptionsToNotify) {
+      let email;
+      try {
+        const enterprise = await Enterprise.findById(subscription.userId);
+        email = enterprise.email;
+        const mailOptions = {
+          from: "myinvoice06@gmail.com",
+          to: email,
+          subject: "Notification d'expiration d'abonnement",
+          text: `Votre abonnement arrive à expiration dans moins de 10 jours. Veuillez renouveler votre abonnement pour continuer à bénéficier de nos services.`,
+        };
+        await transporter.sendMail(mailOptions);
+        console.log(`E-mail envoyé à ${email}`);
+      } catch (error) {
+        console.error('error : ')
+        console.error(`Erreur lors de l'envoi de l'e-mail à ${email}:`, error);
+      }
+    }
+
+    console.log("traitement de mise à jour du statut");
+  } catch (error) {
+    console.error("Erreur serveur lors de la mise à jour de la souscription:", error);
+  }
+};
+
+module.exports = {addSubscription,getAllSubscriptions,getOneSubscription,updateSubscription,removeSubscription, updateSubscriptionStatus, SubscriptionEnt,  EmailSubscriptionStatus};

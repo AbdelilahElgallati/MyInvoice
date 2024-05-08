@@ -1,9 +1,11 @@
 import React from "react";
-import { Box, useTheme } from "@mui/material";
-import { useGetSubscriptionsQuery } from "state/api";
+import { Box, useTheme, IconButton } from "@mui/material";
+import { useGetSubscriptionsQuery, useRemoveSubscriptionMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 const SubscriptionPalns = () => {
   const navigate = useNavigate()
@@ -12,8 +14,7 @@ const SubscriptionPalns = () => {
   }
   const theme = useTheme();
   const { data, isLoading } = useGetSubscriptionsQuery();
-
-  console.log(data);
+  const [removeSubscription] = useRemoveSubscriptionMutation();
   const columns = [
     {
       field: "enterpriseName",
@@ -45,9 +46,41 @@ const SubscriptionPalns = () => {
       headerName: "Statue",
       flex: 0.5,
     },
-
-    
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 0.4,
+      sortable: false,
+      renderCell: (params) => (
+        <Box>
+          <IconButton
+            onClick={() => handleEdit(params.row._id)}
+            aria-label="edit"
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => handleDelete(params.row._id)}
+            aria-label="delete"
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Box>
+      ),
+    },
   ];
+
+  const handleEdit = (id) => {
+    window.location.href = `/SubscriptionsPlans/edit/${id}`;
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await removeSubscription(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <Box m="1.5rem 2.5rem">

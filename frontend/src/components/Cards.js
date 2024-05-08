@@ -1,14 +1,38 @@
-import React, { useState } from 'react';
+import React , { useEffect, useState } from "react";
+
 import { product } from '../data';
 import ArrowImg from '../assets/img/product/cards/arrow.svg';
 const Cards = () => {
+  const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
+  console.log(theme);
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("currentMode");
+    if (storedTheme) {
+      setTheme(storedTheme);
+      if (storedTheme === "dark") {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    }
+  }, []);
+  function toggletheme() {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme); // Mettre à jour l'état theme
+    localStorage.setItem("currentMode", newTheme); // Mettre à jour le stockage local
+    if (newTheme === "dark") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }
   //index store 
   const [index , setIndex] =useState(1);
   //destructure product data
   const {cards} = product;
   return <>
    {/* cards   */}
-   <div className='flex flex-col gap-y-[30px] lg:flex-row lg:gap-x-[30px]'>
+   <div className='dark:bg-black flex flex-col gap-y-[30px] lg:flex-row lg:gap-x-[30px]'>
     {
       cards.map((card , cardIndex)=>{
         const { icon , title , subtitle , delay} = card;
@@ -16,7 +40,7 @@ const Cards = () => {
           <div key={cardIndex} data-aos = 'zoom-out' data-aos-offset='300' data-aos-delay="delay" >
             <div 
             onClick={()=>setIndex(cardIndex)}
-            className={`${index === cardIndex && 'bg-white shadow-2xl'} w-[350px] h-[350px] flex flex-col 
+            className={`${index === cardIndex &&  'dark:bg-slate-900 bg-white shadow-2xl'} w-[350px] h-[350px] flex flex-col 
             justify-center items-center mx-auto p-[65px] text-center rounded-[12px] cursor-pointer transition-all`}
             >
               {/* card icon */}
@@ -24,9 +48,9 @@ const Cards = () => {
                 <img src={icon} alt=''/>
               </div>
               {/* card title */}
-              <div className='mb-3 text-[30px] font-medium font-Quicksand font-semibold' >{title}</div>
+              <div className='dark:text-white mb-3 text-[30px] font-medium font-Quicksand font-semibold' >{title}</div>
               {/* card subtitle */}
-              <div className='mb-6 text-light font-Quicksand font-medium'>{subtitle}</div>
+              <div className='dark:text-white mb-6 text-light font-Quicksand font-medium'>{subtitle}</div>
               {/* arrow img */}
               {index === cardIndex && <img src={ArrowImg}/>}
 

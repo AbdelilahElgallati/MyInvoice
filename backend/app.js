@@ -1,8 +1,9 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
-const helmet = require ("helmet");
-const morgan = require ("morgan");
+const helmet = require("helmet");
+const morgan = require("morgan");
+const cron = require("node-cron");
 const url = "mongodb://127.0.0.1:27017/MyInvoice";
 const app = express();
 const Port = 3001;
@@ -17,6 +18,9 @@ const ServiceRouter = require("./Routes/ServiceRouter");
 const SettingRouter = require("./Routes/SettingsRouter");
 const MessageRouter = require("./Routes/MessageRouter");
 const SubscriptionRouter = require("./Routes/SubscriptionRouter");
+const {
+  updateSubscriptionStatus,EmailSubscriptionStatus
+} = require("./Controllers/SubscriptionController");
 
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -24,7 +28,7 @@ app.use(morgan("common"));
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static('Public'));
+app.use(express.static("Public"));
 
 app.use("/Api/Categorie", CategorieRouter);
 app.use("/Api/Client", ClientRouter);
@@ -44,7 +48,18 @@ mongoose
   })
   .catch((err) => {
     console.log(err);
-});
+  });
+
+cron.schedule(
+  "00 12 * * *",
+  () => {
+    updateSubscriptionStatus();
+    EmailSubscriptionStatus();
+  },
+  {
+    timezone: "Africa/Casablanca",
+  }
+);
 
 app.listen(Port, () => {
   console.log("the platform is running well");

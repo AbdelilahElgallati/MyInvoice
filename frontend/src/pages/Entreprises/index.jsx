@@ -24,7 +24,7 @@ const Entreprises = () => {
     {
       field: "email",
       headerName: "Email",
-      flex: 1,
+      flex: 0.7,
     },
     {
       field: "phone",
@@ -37,15 +37,15 @@ const Entreprises = () => {
       flex: 0.8,
     },
     {
-      field: "subscription",
-      headerName: "Subscription",
-      flex: 0.5,
-    },
-    {
       field: "role",
       headerName: "Role",
-      flex: 0.3,
+      flex: 0.4,
     },
+    // {
+    //   field: "status",
+    //   headerName: "Status",
+    //   flex: 0.4,
+    // },
     {
       field: "actions",
       headerName: "Actions",
@@ -59,6 +59,7 @@ const Entreprises = () => {
           >
             <InfoOutlinedIcon />
           </IconButton>
+          
           <IconButton
             onClick={() => handleDelete(params.row._id)}
             aria-label="delete"

@@ -45,9 +45,13 @@ import EditClient from "pagesClient/clients/EditClient";
 import Categories from "pagesClient/categorie";
 import AddCategorie from "pagesClient/categorie/addCategorie";
 import EditCategorie from "pagesClient/categorie/EditCategorie";
+import EditSubscription from "pages/SubscriptionPlan/EditSubscriptionPlan"
+import DarkMode from "components/DarkMode";
+
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  
   Aos.init({
     duration: 1800,
     offset: 100,
@@ -56,12 +60,14 @@ const App = () => {
     <BrowserRouter>
       <div>
         <Routes>
+          
           <Route path="/" element={<WelcomePage />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Modeles" element={<Model />} />
           <Route path="/Gener" element={<Generateur/>} />
           <Route path="/pack" element={<Abonement/>} />
+          <Route path="/DarkMode" element={<DarkMode/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/PackAdmin" element={<PackWithThemeProvider theme={theme} />} />
@@ -73,6 +79,7 @@ const App = () => {
             <Route path="/Services/new" element={<AddServiceWithThemeProvider theme={theme} />} />
             <Route path="/Services/edit/:id" element={<EditServiceWithThemeProvider theme={theme} />} />
             <Route path="/SubscriptionsPlans" element={<SubscriptionPalnsWithThemeProvider theme={theme} />} />
+            <Route path="/SubscriptionsPlans/edit/:id" element={<EditSubscriptionPalnsWithThemeProvider theme={theme} />} />
             <Route path="/Messages" element={<MessagesWithThemeProvider theme={theme} />} />
           </Route>
 
@@ -199,6 +206,13 @@ const SubscriptionPalnsWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <SubscriptionPalns>{children}</SubscriptionPalns>
+  </ThemeProvider>
+);
+
+const EditSubscriptionPalnsWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditSubscription>{children}</EditSubscription>
   </ThemeProvider>
 );
 

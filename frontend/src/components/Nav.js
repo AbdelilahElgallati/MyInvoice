@@ -10,7 +10,7 @@ const Nav = () => {
         const {href , name} =item;
         return(
           <li key={index}>
-            <a className= ' text-sm font-bodyfont hover:text-accent transition'
+            <a className= ' dark:text-white text-sm font-bodyfont hover:text-accent transition'
              href={href}>
               {name}
             </a>

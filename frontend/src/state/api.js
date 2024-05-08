@@ -30,6 +30,13 @@ export const api = createApi({
       query: () => `Entreprise/EnterpriseStat`,
       providesTags: ["Entreprise"],
     }),
+    updateEntreprise: build.mutation({
+      query: ({ id, formData }) => ({
+        url: `Entreprise/edit/${id}`,
+        method: "PUT",
+        body: formData,
+      }),
+    }),
     removeEntreprise: build.mutation({
       query: (id) => ({
         url: `Entreprise/remove/${id}`,
@@ -125,6 +132,10 @@ export const api = createApi({
     }),
     getOneSubscription: build.query({
       query: (id) => `Subscription/${id}`,
+      providesTags: ["Subscription"],
+    }),
+    getSubscriptionEnt: build.query({
+      query: (id) => `Subscription/Entreprise/${id}`,
       providesTags: ["Subscription"],
     }),
     updateSubscription: build.mutation({
@@ -300,6 +311,7 @@ export const {
   useGetEntrepriseStateQuery,
   useGetEntrepriseDetailQuery,
   useGetDashboardQuery,
+  useUpdateEntrepriseMutation,
   useRemoveEntrepriseMutation,
   useLoginEntrepriseMutation,
   useRegisterEntrepriseMutation,
@@ -320,6 +332,8 @@ export const {
   useAddSubscriptionMutation,
   useUpdateSubscriptionMutation,
   useRemoveSubscriptionMutation,
+  useGetOneSubscriptionQuery,
+  useGetSubscriptionEntQuery,
 
   useGetMessagesQuery,
   useRemoveMessageMutation,
