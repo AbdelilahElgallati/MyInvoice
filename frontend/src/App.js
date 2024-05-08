@@ -34,7 +34,7 @@ import Clients from "pagesClient/clients";
 import AddInvoice from "pagesClient/invoices/addInvoice";
 import AddProduct from "pagesClient/produits/addProduct";
 import AddClient from "pagesClient/clients/addClient";
-
+import EditInvoice from "pagesClient/invoices/editInvoice";
 import Overview from "pagesClient/overview";
 import Daily from "pagesClient/daily";
 import Monthly from "pagesClient/monthly";
@@ -79,6 +79,7 @@ const App = () => {
           <Route element={<LayoutClientWithThemeProvider theme={theme} />}>
             <Route path="/dashboardClient" element={<DachboardClientWithThemeProvider theme={theme} />} />
             <Route path="/factures" element={<InvoiceWithThemeProvider theme={theme} />} />
+            <Route path="/factures/edit/:id" element={<EditInvoiceWithThemeProvider theme={theme} />} />
             <Route path="/produits" element={<ProductWithThemeProvider theme={theme} />} />
             <Route path="/produits/edit/:id" element={<EditProductWithThemeProvider theme={theme} />} />
             <Route path="/clients" element={<ClientsWithThemeProvider theme={theme} />} />
@@ -236,6 +237,13 @@ const EditProductWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <EditProduit>{children}</EditProduit>
+  </ThemeProvider>
+);
+
+const EditInvoiceWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditInvoice>{children}</EditInvoice>
   </ThemeProvider>
 );
 

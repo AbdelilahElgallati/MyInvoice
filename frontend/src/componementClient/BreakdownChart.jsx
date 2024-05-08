@@ -4,7 +4,9 @@ import { Box, Typography, useTheme } from "@mui/material";
 import { useGetDashboardClientQuery } from "state/api";
 
 const BreakdownChart = () => {
-  const { data, isLoading } = useGetDashboardClientQuery();
+
+  const id = localStorage.getItem('userId');
+  const { data, isLoading } = useGetDashboardClientQuery(id);
   const theme = useTheme();
 
   if (!data || isLoading) return "Chargement...";
@@ -123,8 +125,8 @@ const BreakdownChart = () => {
           transform:  "translate(-75%, -170%)",
         }}
       >
-        <Typography variant="h6">
-              {true && "Total:"} {data.totalAmount.reduce((acc, curr) => acc + curr.totalAmount, 0)} DH
+        <Typography variant="h6" color="orange">
+              {true && "Total:"} {data.totalPaidAmount} DH
         </Typography>
       </Box>
     </Box>

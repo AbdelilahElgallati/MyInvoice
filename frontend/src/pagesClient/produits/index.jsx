@@ -15,7 +15,6 @@ const Products  = () => {
   const theme = useTheme();
   const id = localStorage.getItem('userId')
   const { data, isLoading } = useGetProductsQuery(id);
-  const totalInvoices = data ? data.totalItems : 0;
   const [removeProduit] = useRemoveProduitMutation();
   const columns = [
     {
@@ -109,7 +108,7 @@ const Products  = () => {
     <Box m="1.5rem 2.5rem">
       
       <FlexBetween>
-        <Header title="PRODUITS" subtitle="Liste entier des "   total={totalInvoices} />        
+        <Header title="PRODUITS" subtitle="Liste entier des "   total= {data ? data.length : 0} />        
         <Link to="/ajouterProduit">
           <Button
             variant="contained"
@@ -154,7 +153,6 @@ const Products  = () => {
           getRowId={(row) => row._id}
           rows={data  || []}
           columns={columns}
-          // rowCount={(data && data.total) || 0}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
           paginationMode="server"

@@ -23,7 +23,6 @@ const addProduit = async (req, res) => {
 const  getAllProduitsEnt = async (req, res) => {try {
   const Allproducts = await Produit.find().populate("categoryId");
   const products = Allproducts.filter(produit => produit.userId.toString() === req.params.id);
-  const totalItems = await Produit.countDocuments({ userId: req.params.id });
 
   const productsEnt = products.map(produit => ({
     _id: produit._id,

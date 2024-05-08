@@ -24,12 +24,12 @@ import { useGetDashboardClientQuery } from "state/api";
 import StatBox from "componementClient/StatBox";
 
 const Dashboard = () => {
+  const id = localStorage.getItem('userId');
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data, isLoading } = useGetDashboardClientQuery();
+  const { data, isLoading } = useGetDashboardClientQuery(id);
 
   const formatDate = (dateString) => {
-    console.log('Received dateString:', dateString);
     if (!dateString) return '';
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
@@ -42,9 +42,15 @@ const Dashboard = () => {
 
   const columns = [
     {
-      field: "clientName",
-      headerName: "Client",
+      field: "invoiceNumber",
+      headerName: "Numéro de Facture",
       flex: 1,
+    },
+    {
+      field: "clientId",
+      headerName: "Client",
+      flex: 0.6,
+      renderCell: (params) => params.row.clientId.name,
     },
     {
       field: "date",
@@ -70,19 +76,17 @@ const Dashboard = () => {
       },
     },
     {
-      field: "payments",
+      field: "amount",
       headerName: "Montant",
       flex: 1,
       renderCell: (params) => {
         // Extract the amount from the payments array
-        const paymentAmounts = params.value.map(payment => payment.amount);
-        // Sum up the payment amounts
-        const totalAmount = paymentAmounts.reduce((acc, curr) => acc + curr, 0);
+        const paymentAmounts = params.value;
         const textColor = theme.palette.mode === "dark" ? "cyan" : "green";
         // Display the total amount
         return (
           <span style={{ color: textColor }}>
-              {totalAmount.toFixed(2)} DH
+              {paymentAmounts.toFixed(2)} DH
           </span>
           );
     },
@@ -211,7 +215,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Ventes (Dhs)"
-          value={data && data.totalAmount.reduce((acc, curr) => acc + curr.totalAmount, 0)}
+          value={data && data.totalPaidAmount}
           icon={
             <MonetizationOnIcon
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}

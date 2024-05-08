@@ -171,11 +171,7 @@ export const api = createApi({
       providesTags: ["Entreprise"],
     }),
     getInvoices: build.query({
-      query: ({ page, pageSize, sort, search, id }) => ({
-        url: "Invoice",
-        method: "GET",
-        params: { page, pageSize, sort, search, id },
-      }),
+      query: (id) => `Invoice/List/${id}`,
       providesTags: ["Invoices"],
     }),
     addInvoice: build.mutation({
@@ -185,6 +181,14 @@ export const api = createApi({
         body: invoice,
       }),
     }),
+    removeInvoice: build.mutation({
+      query: (id) => ({
+        url: `Invoice/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+
     // produit entreprise
     addProduit: build.mutation({
       query: (produit) => ({
@@ -252,7 +256,7 @@ export const api = createApi({
       providesTags: ["Sales"],
     }),
     getDashboardClient: build.query({
-      query: () => "Invoice/dashboard",
+      query: (id) => `Invoice/dashboard/${id}`,
       providesTags: ["Dashboard"],
     }),
 
@@ -326,6 +330,7 @@ export const {
   useAddInvoiceMutation,
   useGetUserQuery,
   useGetInvoicesQuery,
+  useRemoveInvoiceMutation,
   useGetSalesQuery,
   useGetDashboardClientQuery,
   
