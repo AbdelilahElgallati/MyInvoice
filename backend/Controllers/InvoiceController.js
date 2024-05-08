@@ -70,6 +70,7 @@ const getAllInvoices = async (req, res) => {
       .skip((page - 1) * pageSize)
       .limit(parseInt(pageSize));
 
+      console.log("return invoices :", invoices);
     // Total des factures correspondant à la recherche
     const total = await Invoice.countDocuments({
       userId: id,

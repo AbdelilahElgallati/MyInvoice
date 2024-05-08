@@ -46,9 +46,12 @@ import Categories from "pagesClient/categorie";
 import AddCategorie from "pagesClient/categorie/addCategorie";
 import EditCategorie from "pagesClient/categorie/EditCategorie";
 import EditSubscription from "pages/SubscriptionPlan/EditSubscriptionPlan"
+import DarkMode from "components/DarkMode";
+
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
+  
   Aos.init({
     duration: 1800,
     offset: 100,
@@ -57,12 +60,14 @@ const App = () => {
     <BrowserRouter>
       <div>
         <Routes>
+          
           <Route path="/" element={<WelcomePage />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Modeles" element={<Model />} />
           <Route path="/Gener" element={<Generateur/>} />
           <Route path="/pack" element={<Abonement/>} />
+          <Route path="/DarkMode" element={<DarkMode/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/PackAdmin" element={<PackWithThemeProvider theme={theme} />} />

@@ -32,7 +32,6 @@ const WelcomePage = () => {
       <Header />
       <Hero />
       <Overview />
-      <Brands />
       <Feature1 />
       <Feature2 />
       <Feature3 />
@@ -42,7 +41,7 @@ const WelcomePage = () => {
       <Testimonials />
       <Cta />
       <Footer />
-      <div className='h-[100px]'></div>
+      <div className='h-[5px]'></div>
     </div>
   );
 };

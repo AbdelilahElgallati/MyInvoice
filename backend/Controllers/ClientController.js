@@ -13,13 +13,11 @@ const addClient = async (req, res) => {
 
 const getAllClientsEnt = async (req, res) => {
   try {
-    console.log("essay");
     const AllClients = await Client.find();
     const clients = AllClients.filter(
       (client) => client.userId.toString() === req.params.id
     );
     // const totalItems = await Client.countDocuments({ userId: req.params.id });
-    console.log("client : ", clients);
     // console.log('total : ', totalItems)
     res.status(200).json(
       clients);

@@ -237,7 +237,7 @@ export const api = createApi({
     }),
     getOneClient: build.query({
       query: (id) => `Client/${id}`,
-      providesTags: ["Products"],
+      providesTags: ["Clients"],
     }),
     updateClient: build.mutation({
       query: ({ id, client }) => ({
