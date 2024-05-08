@@ -30,11 +30,7 @@ import DashboardClient from "pagesClient/dashboard";
 import Invoices from 'pagesClient/invoices'
 import Products from "pagesClient/produits";
 import Clients from "pagesClient/clients";
-// <<<<<<< HEAD
-// import AddInvoice from "pagesClient/addInvoice";
-// import AddProduct from "pagesClient/addProduct";
-// import AddClient from "pagesClient/addClient";
-// =======
+
 import AddInvoice from "pagesClient/invoices/addInvoice";
 import AddProduct from "pagesClient/produits/addProduct";
 import AddClient from "pagesClient/clients/addClient";

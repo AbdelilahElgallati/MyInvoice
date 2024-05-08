@@ -10,7 +10,7 @@ const Cta = () => {
           data-aos= 'zoom-out-right'
           data-aos-delay='700'
           />
-      <div className='max-w-[1340px] mx-auto px-[25px] ml-[150px]'>
+      <div className='max-w-[1340px] mx-auto px-[25px] lg:ml-[150px]'>
         
         {/* text */}
         <div className='max-w-[920pw] mx-auto text-center'>

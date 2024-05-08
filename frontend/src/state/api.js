@@ -146,6 +146,17 @@ export const api = createApi({
       query: () => `Message`,
       providesTags: ["Message"],
     }),
+    addMessage: build.mutation({
+      query: (messageData) => ({
+        url: `Message/add/`,
+        method: "POST",
+        body: messageData,
+      }),
+    }),
+    getAllMessages: build.query({
+      query: (id) => `Message`,
+      providesTags: ["Message"],
+    }),
     removeMessage: build.mutation({
       query: (id) => ({
         url: `Message/remove/${id}`,
@@ -288,6 +299,7 @@ export const {
   useRemoveEntrepriseMutation,
   useLoginEntrepriseMutation,
   useRegisterEntrepriseMutation,
+
   useGetPacksQuery,
   useGetOnePackQuery,
   useAddPackMutation,
@@ -307,7 +319,9 @@ export const {
 
   useGetMessagesQuery,
   useRemoveMessageMutation,
-
+  useGetAllMessagesQuery,
+  useAddMessageMutation,
+  
   // Entreprise fnc
   useAddInvoiceMutation,
   useGetUserQuery,
