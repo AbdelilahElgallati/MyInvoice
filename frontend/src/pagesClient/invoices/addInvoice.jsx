@@ -8,7 +8,6 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Chip,
   Grid,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
@@ -23,20 +22,18 @@ const AddInvoice = () => {
     navigate("/");
   }
   const theme = useTheme();
+  const id = localStorage.getItem("userId");
   const [invoice, setInvoice] = useState({
     userId: localStorage.getItem("userId") || "",
     clientId: "",
     invoiceNumber: "",
     dueDate: new Date(),
     items: [{ productId: "", quantity: 0 }],
-    payments: [],
+    amount: 0,
   });
   const [AddInvoice] = useAddInvoiceMutation();
-  const { data:  clientData } = useGetClientsQuery();
-  const { data: productsData } = useGetProductsQuery();
-
-  console.log("Client Data:", clientData.clients);
-  console.log("Products Data:", productsData.productsEnt);
+  const { data:  clientsData } = useGetClientsQuery(id);
+  const { data: productsData } = useGetProductsQuery(id);
 
   const Navigate = useNavigate();
 
@@ -71,18 +68,16 @@ const AddInvoice = () => {
     event.preventDefault();
     try {
       // Calculate total amount for payments
-      const totalAmount = invoice.items.reduce(
+      const amount = invoice.items.reduce(
         (acc, item) =>
           acc +
-          (productsData.productsEnt.find((product) => product._id === item.productId)?.price || 0) *
+          (productsData.find((product) => product._id === item.productId)?.price || 0) *
           item.quantity,
         0
       );
-      const payments = [{ amount: totalAmount, date: new Date() }];
-
-      // Submit the invoice with calculated payments
-      await AddInvoice({ invoice: { ...invoice, payments } });
-      Navigate("/invoices");
+      
+      await AddInvoice({ invoice: { ...invoice, amount } });
+      Navigate("/factures");
       console.log(invoice);
     } catch (error) {
       console.log(error);
@@ -132,10 +127,10 @@ const AddInvoice = () => {
                 fullWidth
                 required
               >
-                {clientData.clients &&
-                  clientData.clients.map((client) => (
+                {clientsData &&
+                  clientsData.map((client) => (
                     <MenuItem key={client._id} value={client._id}>
-                      {client.clientName}
+                      {client.name}
                     </MenuItem>
                   ))}
               </Select>
@@ -166,8 +161,8 @@ const AddInvoice = () => {
                     fullWidth
                     required
                   >
-                    {productsData.productsEnt &&
-                      productsData.productsEnt.map((product) => (
+                    {productsData &&
+                      productsData.map((product) => (
                         <MenuItem key={product._id} value={product._id}>
                           {product.name}
                         </MenuItem>

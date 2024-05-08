@@ -5,7 +5,7 @@ const Product = require  ("../Models/ProductSchema");
 
 const addInvoice = async (req, res) => {
   try {
-    const InvoiceData = req.body;
+    const InvoiceData = req.body.invoice;
     const invoice = new Invoice(InvoiceData);
     await invoice.save();
     res.status(201).json(invoice);
@@ -13,35 +13,73 @@ const addInvoice = async (req, res) => {
     res.status(500).send("Erreur serveur lors de l'ajout de facture");
   }
 };
+// const getAllInvoices = async (req, res) => {
+//   try {
+//     const { page = 1, pageSize = 20, sort = null, search = "", id } = req.query;
+//     const generateSort = () => {
+//       const sortParsed = JSON.parse(sort);
+//       const sortFormatted = {
+//         [sortParsed.field]: (sortParsed.sort = "asc" ? 1 : -1),
+//       };
+
+//       return sortFormatted;
+//     };
+//     const sortFormatted = Boolean(sort) ? generateSort() : {};
+
+//     const invoices = await Invoice.find({
+//       userId : id,
+//     })
+//       .sort(sortFormatted)
+//       .skip(page * pageSize)
+//       .limit(pageSize);
+
+//     const total = await Invoice.countDocuments({
+//       name: { $regex: search, $options: "i" },
+//     });
+//     const totalItems = await Invoice.countDocuments();
+
+//     res.status(200).json({
+//       invoices,
+//       total,
+//       totalItems,
+//     });
+//   } catch (error) {
+//     res.status(404).json({ message: error.message });
+//   }
+// };
+
 const getAllInvoices = async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, sort = null, search = "" } = req.query;
+    const { page = 1, pageSize = 20, sort = null, search = "", id } = req.query;
+    
+    // Fonction pour générer l'objet de tri
     const generateSort = () => {
       const sortParsed = JSON.parse(sort);
       const sortFormatted = {
-        [sortParsed.field]: (sortParsed.sort = "asc" ? 1 : -1),
+        [sortParsed.field]: sortParsed.sort === "asc" ? 1 : -1,
       };
-
       return sortFormatted;
     };
+
+    // Obtenir l'objet de tri
     const sortFormatted = Boolean(sort) ? generateSort() : {};
 
-    const invoices = await Invoice.find({
-      $or: [
-        { clientId: { $regex: new RegExp(search, "i") } },
-        { clientName: { $regex: new RegExp(search, "i") } },
-        { status: { $regex: new RegExp(search, "i") } },
-      ],
-    })
+    // Filtrer les factures par l'ID de l'utilisateur
+    const invoices = await Invoice.find({ userId: id })
       .sort(sortFormatted)
-      .skip(page * pageSize)
-      .limit(pageSize);
+      .skip((page - 1) * pageSize)
+      .limit(parseInt(pageSize));
 
+    // Total des factures correspondant à la recherche
     const total = await Invoice.countDocuments({
-      name: { $regex: search, $options: "i" },
+      userId: id,
+      invoiceNumber: { $regex: search, $options: "i" },
     });
-    const totalItems = await Invoice.countDocuments();
 
+    // Nombre total de factures pour cet utilisateur
+    const totalItems = await Invoice.countDocuments({ userId: id });
+    console.log('invoice : ',invoices )
+    // Répondre avec les résultats
     res.status(200).json({
       invoices,
       total,
@@ -51,6 +89,7 @@ const getAllInvoices = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
 
 const getSales = async (req, res) => {
   try {

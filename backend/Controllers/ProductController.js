@@ -35,10 +35,8 @@ const  getAllProduitsEnt = async (req, res) => {try {
     categoryName: produit.categoryId.categoryName // Récupère le nom de la catégorie associée
   }));
 
-  res.status(200).json({
-    productsEnt,
-    totalItems
-  });
+  res.status(200).json(
+    productsEnt);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

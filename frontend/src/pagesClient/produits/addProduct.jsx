@@ -29,7 +29,8 @@ const AddProduit = () => {
     price: 0,
   });
   const [AddProduit] = useAddProduitMutation();
-  const { data: categorieData } = useGetAllCategoriesQuery();
+  const id = localStorage.getItem("userId");
+  const { data: categorieData } = useGetAllCategoriesQuery(id);
   const Navigate = useNavigate();
 
   const handleChange = (e) => {

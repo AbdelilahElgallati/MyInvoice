@@ -1,4 +1,4 @@
-const Client = require("../Models/ClientSchema")
+const Client = require("../Models/ClientSchema");
 
 const addClient = async (req, res) => {
   try {
@@ -9,49 +9,59 @@ const addClient = async (req, res) => {
   } catch (error) {
     res.status(500).send("Erreur serveur lors de l'ajout du client");
   }
-}
+};
 
-const  getAllClientsEnt = async (req, res) => {try {
-  const AllClients = await Client.find();
-  const clients = AllClients.filter(client => client.userId.toString() === req.params.id);
-  const totalItems = await Client.countDocuments({ userId: req.params.id });
-
-    res.status(200).json({
-      clients,
-      totalItems
-    });
+const getAllClientsEnt = async (req, res) => {
+  try {
+    console.log("essay");
+    const AllClients = await Client.find();
+    const clients = AllClients.filter(
+      (client) => client.userId.toString() === req.params.id
+    );
+    // const totalItems = await Client.countDocuments({ userId: req.params.id });
+    console.log("client : ", clients);
+    // console.log('total : ', totalItems)
+    res.status(200).json(
+      clients);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
-}
+};
 
-
-const  getOneClient = async (req, res) => {
+const getOneClient = async (req, res) => {
   try {
-    const  client = await Client.findById(req.params.id);
+    const client = await Client.findById(req.params.id);
     res.status(201).json(client);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche de client");
   }
-}
+};
 
-const  updateClient = async (req,res)=>{
+const updateClient = async (req, res) => {
   try {
-    console.log("data : ", req)
-    const  client = await Client.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    console.log("data : ", req);
+    const client = await Client.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
+    });
     res.status(201).json(client);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la mise à jour de client");
   }
-}
+};
 
-const  removeClient = async (req, res) => {
+const removeClient = async (req, res) => {
   try {
-    const  client = await Client.findByIdAndDelete(req.params.id);
+    const client = await Client.findByIdAndDelete(req.params.id);
     res.status(201).json(client);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la suppression de client");
   }
-}
+};
 
-module.exports = {addClient,getAllClientsEnt,getOneClient,updateClient,removeClient};
+module.exports = {
+  addClient,
+  getAllClientsEnt,
+  getOneClient,
+  updateClient,
+  removeClient,
+};

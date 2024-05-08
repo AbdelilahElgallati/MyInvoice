@@ -139,9 +139,9 @@ const Clients  = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={(data && data.clients) || []}
+          rows={data  || []}
           columns={columns}
-          rowCount={(data && data.total) || 0}
+          // rowCount={(data && data.total) || 0}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
           paginationMode="server"

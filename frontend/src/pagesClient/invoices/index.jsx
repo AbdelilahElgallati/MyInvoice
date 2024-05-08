@@ -19,12 +19,15 @@ const Invoices  = () => {
   const [search, setSearch] = useState("");
 
   const [searchInput, setSearchInput] = useState("");
+  const id = localStorage.getItem('userId')
   const { data, isLoading } = useGetInvoicesQuery({
     page,
     pageSize,
     sort: JSON.stringify(sort),
     search,
+    id
   });
+  console.log("invoice : ", data )
   const totalInvoices = data ? data.totalItems : 0;
 
   const formatDate = (dateString) => {
