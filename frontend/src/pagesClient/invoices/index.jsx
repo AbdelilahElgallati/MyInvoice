@@ -16,7 +16,7 @@ const Invoices  = () => {
   const id = localStorage.getItem('userId');
   const { data, isLoading } = useGetInvoicesQuery(id);
   const [removeInvoice] = useRemoveInvoiceMutation();
-
+  console.log("invoice : ", data)
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -32,24 +32,24 @@ const Invoices  = () => {
     {
       field: "invoiceNumber",
       headerName: "Numéro de Facture",
-      flex: 1,
+      flex: 0.7,
     },
     {
       field: "clientId",
       headerName: "Client",
-      flex: 0.6,
+      flex: 1,
       renderCell: (params) => params.row.clientId.name,
     },
     {
       field: "date",
       headerName: "Date de création",
-      flex: 1,
+      flex: 0.7,
       renderCell: (params) => formatDate(params.value),
     },
      {
       field: "dueDate",
       headerName: "Date d'échéance",
-      flex: 1,
+      flex: 0.7,
       renderCell: (params) => formatDate(params.value),
     },
     {
@@ -66,7 +66,7 @@ const Invoices  = () => {
     {
       field: "amount",
       headerName: "Montant",
-      flex: 1,
+      flex: 0.6,
       renderCell: (params) => {
         // Extract the amount from the payments array
         const paymentAmounts = params.value;
@@ -82,7 +82,7 @@ const Invoices  = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 1,
+      flex: 0.6,
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
@@ -124,7 +124,7 @@ const Invoices  = () => {
     {
       field: "actions",
       headerName: "Actions",
-      flex: 0.4,
+      flex: 0.5,
       sortable: false,
       renderCell: (params) => (
         <Box>
