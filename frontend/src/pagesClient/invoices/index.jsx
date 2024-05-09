@@ -9,6 +9,9 @@ import { useNavigate } from "react-router-dom";
 import { CheckCircleOutline, HourglassEmpty, ErrorOutline } from '@mui/icons-material';
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import InfoIcon from '@mui/icons-material/Info';
+import EmailIcon from '@mui/icons-material/Email';
+import PrintIcon from '@mui/icons-material/Print';
 
 const Invoices  = () => {
   const theme = useTheme();
@@ -33,6 +36,24 @@ const Invoices  = () => {
       field: "invoiceNumber",
       headerName: "Numéro de Facture",
       flex: 0.7,
+<<<<<<< HEAD
+=======
+      renderCell: (params) => (
+        <span
+          style={{
+            display: "inline-block",
+            fontWeight: "bold",
+            color: "white",
+            backgroundColor: "gray",
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1", 
+          }}
+        >
+          #{params.value}
+        </span>
+      ),
+>>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
     },
     {
       field: "clientId",
@@ -43,19 +64,27 @@ const Invoices  = () => {
     {
       field: "date",
       headerName: "Date de création",
+<<<<<<< HEAD
       flex: 0.7,
+=======
+      flex: 0.5,
+>>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       renderCell: (params) => formatDate(params.value),
     },
      {
       field: "dueDate",
       headerName: "Date d'échéance",
+<<<<<<< HEAD
       flex: 0.7,
+=======
+      flex: 0.5,
+>>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       renderCell: (params) => formatDate(params.value),
     },
     {
       field: "items",
       headerName: "Produits",
-      flex: 0.5,
+      flex: 0.4,
       sortable: false,
       renderCell:(params) => {
         // Sum the quantities of all items in the array
@@ -66,7 +95,11 @@ const Invoices  = () => {
     {
       field: "amount",
       headerName: "Montant",
+<<<<<<< HEAD
       flex: 0.6,
+=======
+      flex: 0.7,
+>>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       renderCell: (params) => {
         // Extract the amount from the payments array
         const paymentAmounts = params.value;
@@ -82,7 +115,11 @@ const Invoices  = () => {
     {
       field: "status",
       headerName: "Status",
+<<<<<<< HEAD
       flex: 0.6,
+=======
+      flex: 0.5,
+>>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
@@ -106,33 +143,53 @@ const Invoices  = () => {
         }
   
         return (
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              backgroundColor: backgroundColor,
-              padding: '0px 0.2rem', 
-              borderRadius: '4px',
-            }}
-          >
-            {icon}
-            <span style={{ marginLeft: '0.25rem', color: 'white', fontSize: '0.8rem', lineHeight: '1.8rem', fontFamily : 'Tahoma, sans-serif', }}>{status}</span>
-          </div>
+          <span
+          style={{
+            display: "inline-block",
+            alignItems: "center",
+            color: "white",
+            backgroundColor:  backgroundColor,
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1", 
+          }}
+        >
+          {icon} {status}
+          </span>
         );
       },
     },
     {
       field: "actions",
       headerName: "Actions",
+<<<<<<< HEAD
       flex: 0.5,
+=======
+      flex: 0.8,  
+>>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       sortable: false,
       renderCell: (params) => (
         <Box>
+           <IconButton 
+           onClick={() => handleDetails(params.row._id)}
+            aria-label="details">
+            <InfoIcon />
+          </IconButton>
           <IconButton
             onClick={() => handleEdit(params.row._id)}
             aria-label="edit"
           >
             <EditIcon />
+          </IconButton>
+          <IconButton 
+          onClick={() => handleEmail(params.row._id)}
+           aria-label="email">
+            <EmailIcon />
+          </IconButton>
+          <IconButton 
+          onClick={() => handlePrint(params.row._id)}
+           aria-label="print">
+            <PrintIcon />
           </IconButton>
           <IconButton
             onClick={() => handleDelete(params.row._id)}
@@ -148,6 +205,19 @@ const Invoices  = () => {
   const handleAddButton = () => {
     navigate(`/ajouterFacture`);
   };
+
+  const handleDetails = (id) => {
+    // Logic for handling details
+  };
+
+  const handlePrint = (id) => {
+    // Logic for printing
+  };
+
+  const handleEmail = (id) => {
+    // Logic for sending email
+  };
+
   const handleEdit = (id) => {
     window.location.href = `/factures/edit/${id}`;
     };

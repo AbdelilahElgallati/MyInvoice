@@ -44,30 +44,45 @@ const Dashboard = () => {
     {
       field: "invoiceNumber",
       headerName: "Numéro de Facture",
-      flex: 1,
+      flex: 0.7,
+      renderCell: (params) => (
+        <span
+          style={{
+            display: "inline-block",
+            fontWeight: "bold",
+            color: "white",
+            backgroundColor: "gray",
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1", 
+          }}
+        >
+          #{params.value}
+        </span>
+      ),
     },
     {
       field: "clientId",
       headerName: "Client",
-      flex: 0.6,
+      flex: 1,
       renderCell: (params) => params.row.clientId.name,
     },
     {
       field: "date",
       headerName: "Date de création",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => formatDate(params.value),
     },
      {
       field: "dueDate",
       headerName: "Date d'échéance",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => formatDate(params.value),
     },
     {
       field: "items",
       headerName: "Produits",
-      flex: 0.5,
+      flex: 0.4,
       sortable: false,
       renderCell:(params) => {
         // Sum the quantities of all items in the array
@@ -78,7 +93,7 @@ const Dashboard = () => {
     {
       field: "amount",
       headerName: "Montant",
-      flex: 1,
+      flex: 0.7,
       renderCell: (params) => {
         // Extract the amount from the payments array
         const paymentAmounts = params.value;
@@ -94,7 +109,7 @@ const Dashboard = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
@@ -118,22 +133,24 @@ const Dashboard = () => {
         }
   
         return (
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              backgroundColor: backgroundColor,
-              padding: '0px 0.2rem', 
-              borderRadius: '4px',
-            }}
-          >
-            {icon}
-            <span style={{ marginLeft: '0.25rem', color: 'white', fontSize: '0.8rem', lineHeight: '1.8rem', fontFamily : 'Tahoma, sans-serif', }}>{status}</span>
-          </div>
+          <span
+          style={{
+            display: "inline-block",
+            alignItems: "center",
+            color: "white",
+            backgroundColor:  backgroundColor,
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1", 
+          }}
+        >
+          {icon} {status}
+          </span>
         );
       },
     },
   ];
+  
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
