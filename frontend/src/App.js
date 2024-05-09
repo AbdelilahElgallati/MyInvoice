@@ -34,7 +34,7 @@ import Clients from "pagesClient/clients";
 import AddInvoice from "pagesClient/invoices/addInvoice";
 import AddProduct from "pagesClient/produits/addProduct";
 import AddClient from "pagesClient/clients/addClient";
-
+import EditInvoice from "pagesClient/invoices/editInvoice";
 import Overview from "pagesClient/overview";
 import Daily from "pagesClient/daily";
 import Monthly from "pagesClient/monthly";
@@ -45,8 +45,13 @@ import EditClient from "pagesClient/clients/EditClient";
 import Categories from "pagesClient/categorie";
 import AddCategorie from "pagesClient/categorie/addCategorie";
 import EditCategorie from "pagesClient/categorie/EditCategorie";
+import EditSubscription from "pages/SubscriptionPlan/EditSubscriptionPlan"
 import DarkMode from "components/DarkMode";
+<<<<<<< HEAD
 import Apropos from "components/Apropos";
+=======
+
+>>>>>>> d5cd7b62a7d2c81f6bf9ae3b73efa50c77214b18
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -79,12 +84,14 @@ const App = () => {
             <Route path="/Services/new" element={<AddServiceWithThemeProvider theme={theme} />} />
             <Route path="/Services/edit/:id" element={<EditServiceWithThemeProvider theme={theme} />} />
             <Route path="/SubscriptionsPlans" element={<SubscriptionPalnsWithThemeProvider theme={theme} />} />
+            <Route path="/SubscriptionsPlans/edit/:id" element={<EditSubscriptionPalnsWithThemeProvider theme={theme} />} />
             <Route path="/Messages" element={<MessagesWithThemeProvider theme={theme} />} />
           </Route>
 
           <Route element={<LayoutClientWithThemeProvider theme={theme} />}>
             <Route path="/dashboardClient" element={<DachboardClientWithThemeProvider theme={theme} />} />
             <Route path="/factures" element={<InvoiceWithThemeProvider theme={theme} />} />
+            <Route path="/factures/edit/:id" element={<EditInvoiceWithThemeProvider theme={theme} />} />
             <Route path="/produits" element={<ProductWithThemeProvider theme={theme} />} />
             <Route path="/produits/edit/:id" element={<EditProductWithThemeProvider theme={theme} />} />
             <Route path="/clients" element={<ClientsWithThemeProvider theme={theme} />} />
@@ -207,6 +214,13 @@ const SubscriptionPalnsWithThemeProvider = ({ theme, children }) => (
   </ThemeProvider>
 );
 
+const EditSubscriptionPalnsWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditSubscription>{children}</EditSubscription>
+  </ThemeProvider>
+);
+
 const MessagesWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
@@ -242,6 +256,13 @@ const EditProductWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <EditProduit>{children}</EditProduit>
+  </ThemeProvider>
+);
+
+const EditInvoiceWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditInvoice>{children}</EditInvoice>
   </ThemeProvider>
 );
 

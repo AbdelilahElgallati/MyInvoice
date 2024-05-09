@@ -50,47 +50,13 @@ const addInvoice = async (req, res) => {
 
 const getAllInvoices = async (req, res) => {
   try {
-    const { page = 1, pageSize = 20, sort = null, search = "", id } = req.query;
-    
-    // Fonction pour générer l'objet de tri
-    const generateSort = () => {
-      const sortParsed = JSON.parse(sort);
-      const sortFormatted = {
-        [sortParsed.field]: sortParsed.sort === "asc" ? 1 : -1,
-      };
-      return sortFormatted;
-    };
-
-    // Obtenir l'objet de tri
-    const sortFormatted = Boolean(sort) ? generateSort() : {};
-
-    // Filtrer les factures par l'ID de l'utilisateur
-    const invoices = await Invoice.find({ userId: id })
-      .sort(sortFormatted)
-      .skip((page - 1) * pageSize)
-      .limit(parseInt(pageSize));
-
-      console.log("return invoices :", invoices);
-    // Total des factures correspondant à la recherche
-    const total = await Invoice.countDocuments({
-      userId: id,
-      invoiceNumber: { $regex: search, $options: "i" },
-    });
-
-    // Nombre total de factures pour cet utilisateur
-    const totalItems = await Invoice.countDocuments({ userId: id });
-    console.log('invoice : ',invoices )
-    // Répondre avec les résultats
-    res.status(200).json({
-      invoices,
-      total,
-      totalItems,
-    });
+    const Allinvoices = await Invoice.find().populate("clientId").limit(50).sort({ createdOn: -1 });
+    const invoices = Allinvoices.filter(invoice => invoice.userId.toString() === req.params.id);
+    res.status(200).json(invoices);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
 };
-
 
 const getSales = async (req, res) => {
   try {
@@ -108,27 +74,18 @@ const getDashboardStats = async (req, res) => {
     const currentYear = 2021;
     const currentDay = "2021-05-05";
 
-    const invoices = await Invoice.find().limit(50).sort({ createdOn: -1 });
-
-    const totalCustomers = await Client.countDocuments();
-    const totalProducts = await Product.countDocuments();
-    const totalInvoices = await Invoice.countDocuments();
-    const totalAmount = await Invoice.aggregate([
-      {
-        $unwind: "$payments", 
-      },
-      {
-        $group: {
-          _id: "$status", 
-          totalAmount: { $sum: "$payments.amount" }, 
-        },
-      },
-    ]);
-    const totalPaidInvoices = await Invoice.countDocuments({ status: "paid" });
+    const Allinvoices = await Invoice.find().populate("clientId").limit(50).sort({ createdOn: -1 });
+    const invoices = Allinvoices.filter(invoice => invoice.userId.toString() === req.params.id);
+    const totalCustomers = await Client.countDocuments({ userId: req.params.id });
+    const totalProducts = await Product.countDocuments({ userId: req.params.id });
+    const totalInvoices = await Invoice.countDocuments({ userId: req.params.id });
+    const totalPaidInvoices = await Invoice.countDocuments({ userId: req.params.id, status: "paid" });
     const totalUnpaidInvoices = await Invoice.countDocuments({
-      status: { $nin: ["paid"] },
+      userId: req.params.id, status: { $nin: ["paid"] },
     });
     const overallStat = await OverallStat.find({ year: currentYear });
+    const paidInvoices = await Invoice.find({ userId: req.params.id, status: "paid" });
+    const totalPaidAmount = paidInvoices.reduce((total, invoice) => total + invoice.amount, 0);
 
     const {
       yearlyTotalSoldUnits,
@@ -147,10 +104,10 @@ const getDashboardStats = async (req, res) => {
 
     res.status(200).json({
       invoices,
+      totalPaidAmount,
       totalCustomers,
       totalProducts,
       totalInvoices,
-      totalAmount,
       totalPaidInvoices,
       totalUnpaidInvoices,
       yearlyTotalSoldUnits,

@@ -1,104 +1,98 @@
 import React, { useState } from "react";
-import { Box, useTheme } from "@mui/material";
+import { Box, useTheme, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetInvoicesQuery } from "state/api";
+import { useGetInvoicesQuery, useRemoveInvoiceMutation } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import AddButton from "componementClient/addButton";
 import { useNavigate } from "react-router-dom";
 import { CheckCircleOutline, HourglassEmpty, ErrorOutline } from '@mui/icons-material';
-
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import InfoIcon from '@mui/icons-material/Info';
+import EmailIcon from '@mui/icons-material/Email';
+import PrintIcon from '@mui/icons-material/Print';
 
 const Invoices  = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  // values to be sent to the backend
-  const [page, setPage] = useState(0);
-  const [pageSize, setPageSize] = useState(20);
-  const [sort, setSort] = useState({});
-  const [search, setSearch] = useState("");
-
-  const [searchInput, setSearchInput] = useState("");
-  const id = localStorage.getItem('userId')
-  const { data, isLoading } = useGetInvoicesQuery({
-    page,
-    pageSize,
-    sort: JSON.stringify(sort),
-    search,
-    id
-  });
-  console.log("invoice : ", data )
-  const totalInvoices = data ? data.totalItems : 0;
+  const id = localStorage.getItem('userId');
+  const { data, isLoading } = useGetInvoicesQuery(id);
+  const [removeInvoice] = useRemoveInvoiceMutation();
 
   const formatDate = (dateString) => {
-    console.log('Received dateString:', dateString);
-  
-    // Ensure dateString is not empty or undefined
     if (!dateString) return '';
-  
-    // Parse the date string
     const date = new Date(dateString);
-  
-    // Check if the date is valid
     if (isNaN(date.getTime())) {
       console.error('Invalid date string:', dateString);
       return '';
     }
-  
-    // Format the date
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return date.toLocaleDateString("fr-FR", options);
   };
 
   const columns = [
-    /*{
-      field: "_id",
-      headerName: "ID Facture",
-      flex: 1,
-    },*/
-    /*{
-      field: "clientId",
-      headerName: "ID Client",
-      flex: 1,
-    },*/
     {
-      field: "clientName",
+      field: "invoiceNumber",
+      headerName: "Numéro de Facture",
+      flex: 0.7,
+      renderCell: (params) => (
+        <span
+          style={{
+            display: "inline-block",
+            fontWeight: "bold",
+            color: "white",
+            backgroundColor: "gray",
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1", 
+          }}
+        >
+          #{params.value}
+        </span>
+      ),
+    },
+    {
+      field: "clientId",
       headerName: "Client",
       flex: 1,
+      renderCell: (params) => params.row.clientId.name,
     },
     {
       field: "date",
       headerName: "Date de création",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => formatDate(params.value),
     },
      {
       field: "dueDate",
       headerName: "Date d'échéance",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => formatDate(params.value),
     },
     {
       field: "items",
       headerName: "Produits",
-      flex: 0.5,
+      flex: 0.4,
       sortable: false,
-      renderCell: (params) => params.value.length,
+      renderCell:(params) => {
+        // Sum the quantities of all items in the array
+        const totalQuantity = params.value.reduce((acc, curr) => acc + curr.quantity, 0);
+        return totalQuantity;
+      },
     },
     {
-      field: "payments",
+      field: "amount",
       headerName: "Montant",
-      flex: 1,
+      flex: 0.7,
       renderCell: (params) => {
         // Extract the amount from the payments array
-        const paymentAmounts = params.value.map(payment => payment.amount);
-        // Sum up the payment amounts
-        const totalAmount = paymentAmounts.reduce((acc, curr) => acc + curr, 0);
+        const paymentAmounts = params.value;
         const textColor = theme.palette.mode === "dark" ? "cyan" : "green";
         // Display the total amount
         return (
           <span style={{ color: textColor }}>
-              {totalAmount.toFixed(2)} DH
+              {paymentAmounts.toFixed(2)} DH
           </span>
           );
     },
@@ -106,7 +100,7 @@ const Invoices  = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
@@ -130,33 +124,94 @@ const Invoices  = () => {
         }
   
         return (
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              backgroundColor: backgroundColor,
-              padding: '0px 0.2rem', 
-              borderRadius: '4px',
-            }}
-          >
-            {icon}
-            <span style={{ marginLeft: '0.25rem', color: 'white', fontSize: '0.8rem', lineHeight: '1.8rem', fontFamily : 'Tahoma, sans-serif', }}>{status}</span>
-          </div>
+          <span
+          style={{
+            display: "inline-block",
+            alignItems: "center",
+            color: "white",
+            backgroundColor:  backgroundColor,
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1", 
+          }}
+        >
+          {icon} {status}
+          </span>
         );
       },
+    },
+    {
+      field: "actions",
+      headerName: "Actions",
+      flex: 0.8,  
+      sortable: false,
+      renderCell: (params) => (
+        <Box>
+           <IconButton 
+           onClick={() => handleDetails(params.row._id)}
+            aria-label="details">
+            <InfoIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => handleEdit(params.row._id)}
+            aria-label="edit"
+          >
+            <EditIcon />
+          </IconButton>
+          <IconButton 
+          onClick={() => handleEmail(params.row._id)}
+           aria-label="email">
+            <EmailIcon />
+          </IconButton>
+          <IconButton 
+          onClick={() => handlePrint(params.row._id)}
+           aria-label="print">
+            <PrintIcon />
+          </IconButton>
+          <IconButton
+            onClick={() => handleDelete(params.row._id)}
+            aria-label="delete"
+          >
+            <DeleteIcon />
+          </IconButton>
+        </Box>
+      ),
     },
   ];
 
   const handleAddButton = () => {
     navigate(`/ajouterFacture`);
-    //console.log("Add Invoice button clicked");
+  };
+
+  const handleDetails = (id) => {
+    // Logic for handling details
+  };
+
+  const handlePrint = (id) => {
+    // Logic for printing
+  };
+
+  const handleEmail = (id) => {
+    // Logic for sending email
+  };
+
+  const handleEdit = (id) => {
+    window.location.href = `/factures/edit/${id}`;
+    };
+  
+  const handleDelete = async (id) => {
+    try {
+      await removeInvoice(id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="FACTURES" subtitle="Liste entier des "   total={totalInvoices} />
+      <Header title="FACTURES" subtitle="Liste entier des "   total= {data ? data.length : 0} />
       <AddButton label="Nouvelle Facture" onClick={handleAddButton} />
       <Box
         height="80vh"
@@ -188,22 +243,13 @@ const Invoices  = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={(data && data.invoices) || []}
+          rows={data  || []}
           columns={columns}
-          rowCount={(data && data.total) || 0}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
-          /*page={page}
-          pageSize={pageSize}*/
           paginationMode="server"
           sortingMode="server"
-          /*onPageChange={(newPage) => setPage(newPage)}
-          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
-          onSortModelChange={(newSortModel) => setSort(...newSortModel)}*/
           components={{ Toolbar: DataGridCustomToolbar }}
-          /*componentsProps={{
-            toolbar: { searchInput, setSearchInput, setSearch },
-          }}*/
         />
       </Box>
     </Box>

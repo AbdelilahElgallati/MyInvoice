@@ -24,12 +24,12 @@ import { useGetDashboardClientQuery } from "state/api";
 import StatBox from "componementClient/StatBox";
 
 const Dashboard = () => {
+  const id = localStorage.getItem('userId');
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data, isLoading } = useGetDashboardClientQuery();
+  const { data, isLoading } = useGetDashboardClientQuery(id);
 
   const formatDate = (dateString) => {
-    console.log('Received dateString:', dateString);
     if (!dateString) return '';
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
@@ -42,26 +42,47 @@ const Dashboard = () => {
 
   const columns = [
     {
-      field: "clientName",
+      field: "invoiceNumber",
+      headerName: "Numéro de Facture",
+      flex: 0.7,
+      renderCell: (params) => (
+        <span
+          style={{
+            display: "inline-block",
+            fontWeight: "bold",
+            color: "white",
+            backgroundColor: "gray",
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1", 
+          }}
+        >
+          #{params.value}
+        </span>
+      ),
+    },
+    {
+      field: "clientId",
       headerName: "Client",
       flex: 1,
+      renderCell: (params) => params.row.clientId.name,
     },
     {
       field: "date",
       headerName: "Date de création",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => formatDate(params.value),
     },
      {
       field: "dueDate",
       headerName: "Date d'échéance",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => formatDate(params.value),
     },
     {
       field: "items",
       headerName: "Produits",
-      flex: 0.5,
+      flex: 0.4,
       sortable: false,
       renderCell:(params) => {
         // Sum the quantities of all items in the array
@@ -70,19 +91,17 @@ const Dashboard = () => {
       },
     },
     {
-      field: "payments",
+      field: "amount",
       headerName: "Montant",
-      flex: 1,
+      flex: 0.7,
       renderCell: (params) => {
         // Extract the amount from the payments array
-        const paymentAmounts = params.value.map(payment => payment.amount);
-        // Sum up the payment amounts
-        const totalAmount = paymentAmounts.reduce((acc, curr) => acc + curr, 0);
+        const paymentAmounts = params.value;
         const textColor = theme.palette.mode === "dark" ? "cyan" : "green";
         // Display the total amount
         return (
           <span style={{ color: textColor }}>
-              {totalAmount.toFixed(2)} DH
+              {paymentAmounts.toFixed(2)} DH
           </span>
           );
     },
@@ -90,7 +109,7 @@ const Dashboard = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 1,
+      flex: 0.5,
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
@@ -114,22 +133,24 @@ const Dashboard = () => {
         }
   
         return (
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              backgroundColor: backgroundColor,
-              padding: '0px 0.2rem', 
-              borderRadius: '4px',
-            }}
-          >
-            {icon}
-            <span style={{ marginLeft: '0.25rem', color: 'white', fontSize: '0.8rem', lineHeight: '1.8rem', fontFamily : 'Tahoma, sans-serif', }}>{status}</span>
-          </div>
+          <span
+          style={{
+            display: "inline-block",
+            alignItems: "center",
+            color: "white",
+            backgroundColor:  backgroundColor,
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1", 
+          }}
+        >
+          {icon} {status}
+          </span>
         );
       },
     },
   ];
+  
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
@@ -211,7 +232,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Ventes (Dhs)"
-          value={data && data.totalAmount.reduce((acc, curr) => acc + curr.totalAmount, 0)}
+          value={data && data.totalPaidAmount}
           icon={
             <MonetizationOnIcon
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}

@@ -94,9 +94,8 @@ const Clients  = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      
       <FlexBetween>
-      <Header title="CLIENTS" subtitle="Liste entier des "   total={totalInvoices} />
+      <Header title="CLIENTS" subtitle="Liste entier des "   total={data ? data.length : 0} />
         <Link to="/ajouterClient">
           <Button
             variant="contained"
