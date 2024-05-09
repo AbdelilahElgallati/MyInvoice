@@ -3,29 +3,7 @@ import {footer} from '../data';
 import Copyright from '../components/Copyright';
 
 const Footer = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
-  console.log(theme);
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("currentMode");
-    if (storedTheme) {
-      setTheme(storedTheme);
-      if (storedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, []);
-  function toggletheme() {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme); // Mettre à jour l'état theme
-    localStorage.setItem("currentMode", newTheme); // Mettre à jour le stockage local
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
+  
   const { logo , links , legal , newsletter , form }= footer;
   return <footer className=' dark:bg-black pt-[142px] pb-[60px]'>
     <div className='  container mx-auto'>

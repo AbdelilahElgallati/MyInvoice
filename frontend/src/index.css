@@ -11,7 +11,10 @@
 @layer base {
   body {
     @apply font-primary text-lg;
+    
+
   }
+  
   h1,
   h2,
   h3,

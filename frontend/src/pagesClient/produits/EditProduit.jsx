@@ -85,7 +85,7 @@ const EditProduit = () => {
         }}
       >
         <TextField
-          label="Nom de pack"
+          label="Nom de produit"
           name="name"
           value={produit.name}
           onChange={handleChange}
@@ -138,6 +138,7 @@ const EditProduit = () => {
                       categorieData.find((category) => category._id === selected)?.categoryName || ""
                     }
                   />
+                  
                 )}
               </div>
             )}

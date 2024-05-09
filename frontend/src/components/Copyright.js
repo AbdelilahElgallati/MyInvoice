@@ -2,29 +2,7 @@ import React , { useEffect, useState } from "react";
 
 import { copyright } from '../data';
 const Copyright = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
-  console.log(theme);
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("currentMode");
-    if (storedTheme) {
-      setTheme(storedTheme);
-      if (storedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, []);
-  function toggletheme() {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme); // Mettre à jour l'état theme
-    localStorage.setItem("currentMode", newTheme); // Mettre à jour le stockage local
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
+  
   const {link1 , link2 , copyText , social }= copyright;
   return <div className='dark:bg-black flex flex-col items-center gap-y-2 lg:flex-row lg:justify-between'
   data-aos='fade-up' data-aos-offset='0' data-aos-delay='200'>

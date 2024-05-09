@@ -5,29 +5,7 @@ import {Swiper , SwiperSlide } from 'swiper/react';
 //import 'swiper/css
 import 'swiper/css';
 const ClientSlider = ({clients}) => {
-  const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
-  console.log(theme);
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("currentMode");
-    if (storedTheme) {
-      setTheme(storedTheme);
-      if (storedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, []);
-  function toggletheme() {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme); // Mettre à jour l'état theme
-    localStorage.setItem("currentMode", newTheme); // Mettre à jour le stockage local
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
+
   return (
     <Swiper slidesPerView={1} spaceBetween={30} grabCursor={true} loop={true} breakpoints={{
       640: {

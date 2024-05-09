@@ -7,36 +7,14 @@ import Footer from "components/Footer";
 import { useContext } from 'react';
 
 const Model = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
-  console.log(theme);
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("currentMode");
-    if (storedTheme) {
-      setTheme(storedTheme);
-      if (storedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, []);
-  function toggletheme() {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme); // Mettre à jour l'état theme
-    localStorage.setItem("currentMode", newTheme); // Mettre à jour le stockage local
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
+  
   return (
     <>
       <Header />
       {modelData.map((data, index) => (
         <div key={index}>
           <img
-            src={theme === "dark" ? data.imageDark : data.imageSom} // Sélectionnez l'image en fonction du thème
+            src={data.imageDark} // Sélectionnez l'image en fonction du thème
             className="mt-[150px] lg:mt-[100px] w-full h-auto"
             alt="Background"
           />

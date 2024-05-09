@@ -51,7 +51,7 @@ export const tokensDark = {
     800: "#663100",
     900: "#331900"
   },
-
+  
 };
 
 // function that reverses the color palette

@@ -49,6 +49,8 @@ import EditCategorie from "pagesClient/categorie/EditCategorie";
 import EditSubscription from "pages/SubscriptionPlan/EditSubscriptionPlan"
 import DarkMode from "components/DarkMode";
 
+import Apropos from "components/Apropos";
+
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -69,6 +71,7 @@ const App = () => {
           <Route path="/Gener" element={<Generateur/>} />
           <Route path="/pack" element={<Abonement/>} />
           <Route path="/DarkMode" element={<DarkMode/>} />
+          <Route path="/Apropos" element={<Apropos/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/PackAdmin" element={<PackWithThemeProvider theme={theme} />} />
