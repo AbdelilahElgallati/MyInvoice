@@ -29,11 +29,11 @@ const Login = () => {
         password: passwordEnt,
       });
       const entrepriseInfo = Info.data.user
-      if (entrepriseInfo.role === "admin") {
+      if (entrepriseInfo.role === "admin" && entrepriseInfo.status === "active") {
         localStorage.setItem('token', Info.data.jsenwebtkn);
         localStorage.setItem('userId', Info.data.user._id);
         navigate("/dashboard");
-      } else {
+      } else if(entrepriseInfo.status === "active") {
         localStorage.setItem('token', Info.data.jsenwebtkn);
         localStorage.setItem('userId', Info.data.user._id);
         navigate("/dashboardClient");

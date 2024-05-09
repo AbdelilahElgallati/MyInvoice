@@ -36,7 +36,7 @@ const Model = () => {
       {modelData.map((data, index) => (
         <div key={index}>
           <img
-            src={theme === "dark" ? data.imageDark : data.imageSom} // Sélectionnez l'image en fonction du thème
+            src={data.imageDark} // Sélectionnez l'image en fonction du thème
             className="mt-[150px] lg:mt-[100px] w-full h-auto"
             alt="Background"
           />
