@@ -65,7 +65,7 @@ const AddProduit = () => {
         }}
       >
         <TextField
-          label="Nom de pack"
+          label="Nom de produit"
           name="name"
           value={produit.name}
           onChange={handleChange}
@@ -102,36 +102,6 @@ const AddProduit = () => {
           required
           margin="normal"
         />
-        {/* // <FormControl fullWidth margin="normal">
-         //   <InputLabel id="categies-label">Categorie</InputLabel>
-        //   <Select 
-        //     labelId="categies-label"
-        //     id="categieId"
-        //     value={produit.categoryId}
-        //     onChange={handleChange}
-        //     renderValue={(selected) => (
-        //       <div style={{ display: "flex", flexWrap: "wrap" }}>
-        //         {selected.map((categoryId) => (
-        //           <Chip
-        //             key={categoryId}
-        //             label={
-        //               categorieData.find(
-        //                 (category) => category._id === categoryId
-        //               )?.categoryName
-        //             }
-        //           />
-        //         ))}
-        //       </div>
-        //     )}
-        //   >
-        //     {categorieData &&
-        //       categorieData.map((category) => (
-        //         <MenuItem key={category._id} value={category._id}>
-        //           {category.categoryName}
-        //         </MenuItem>
-        //       ))}
-        //   </Select>
-        // </FormControl> */}
         <FormControl fullWidth margin="normal">
           <InputLabel id="categories-label">Catégorie</InputLabel>
           <Select

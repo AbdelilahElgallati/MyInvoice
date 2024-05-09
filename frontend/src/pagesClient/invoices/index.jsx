@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetInvoicesQuery, useRemoveInvoiceMutation } from "state/api";
@@ -19,7 +19,7 @@ const Invoices  = () => {
   const id = localStorage.getItem('userId');
   const { data, isLoading } = useGetInvoicesQuery(id);
   const [removeInvoice] = useRemoveInvoiceMutation();
-
+  console.log("invoice : ", data)
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -36,6 +36,7 @@ const Invoices  = () => {
       field: "invoiceNumber",
       headerName: "Numéro de Facture",
       flex: 0.7,
+
       renderCell: (params) => (
         <span
           style={{
@@ -61,7 +62,7 @@ const Invoices  = () => {
     {
       field: "date",
       headerName: "Date de création",
-      flex: 0.5,
+      flex: 0.7,
       renderCell: (params) => formatDate(params.value),
     },
      {
@@ -100,7 +101,7 @@ const Invoices  = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 0.5,
+      flex: 0.6,
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
