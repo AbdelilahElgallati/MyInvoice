@@ -47,11 +47,9 @@ import AddCategorie from "pagesClient/categorie/addCategorie";
 import EditCategorie from "pagesClient/categorie/EditCategorie";
 import EditSubscription from "pages/SubscriptionPlan/EditSubscriptionPlan"
 import DarkMode from "components/DarkMode";
-<<<<<<< HEAD
-import Apropos from "components/Apropos";
-=======
 
->>>>>>> d5cd7b62a7d2c81f6bf9ae3b73efa50c77214b18
+import Apropos from "components/Apropos";
+
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);

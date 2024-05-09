@@ -1,29 +1,7 @@
 import React , { useEffect, useState } from "react";
 import { features } from '../data';
 const Feature3 = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
-  console.log(theme);
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("currentMode");
-    if (storedTheme) {
-      setTheme(storedTheme);
-      if (storedTheme === "dark") {
-        document.documentElement.classList.add("dark");
-      } else {
-        document.documentElement.classList.remove("dark");
-      }
-    }
-  }, []);
-  function toggletheme() {
-    const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme); // Mettre à jour l'état theme
-    localStorage.setItem("currentMode", newTheme); // Mettre à jour le stockage local
-    if (newTheme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }
+  
   const {feature3} = features;
   const { pretitle , title , subtitle , btnLink , btnIcon , image }= feature3;
 
