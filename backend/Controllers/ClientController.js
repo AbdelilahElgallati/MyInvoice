@@ -37,7 +37,7 @@ const getOneClient = async (req, res) => {
 
 const updateClient = async (req, res) => {
   try {
-    console.log("data : ", req);
+    //console.log("data : ", req);
     const client = await Client.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
     });

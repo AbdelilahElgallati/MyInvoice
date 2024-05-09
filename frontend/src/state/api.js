@@ -270,7 +270,10 @@ export const api = createApi({
       query: (id) => `Invoice/dashboard/${id}`,
       providesTags: ["Dashboard"],
     }),
-
+    getInvoiceDetails: build.query({
+      query: (id) => `Invoice/details/${id}`,
+      providesTags: ["Invoices"],
+    }),
     // Categorie
     addCategory: build.mutation({
       query: (categorieData) => ({
@@ -365,4 +368,6 @@ export const {
   useGetOneCategorieQuery,
   useUpdateCategorieMutation,
   useRemoveCategorieMutation,
+
+  useGetInvoiceDetailsQuery,
 } = api;

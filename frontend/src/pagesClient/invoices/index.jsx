@@ -14,12 +14,17 @@ import EmailIcon from '@mui/icons-material/Email';
 import PrintIcon from '@mui/icons-material/Print';
 
 const Invoices  = () => {
+
   const theme = useTheme();
   const navigate = useNavigate();
   const id = localStorage.getItem('userId');
   const { data, isLoading } = useGetInvoicesQuery(id);
   const [removeInvoice] = useRemoveInvoiceMutation();
 
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
+  
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -184,7 +189,7 @@ const Invoices  = () => {
   };
 
   const handleDetails = (id) => {
-    // Logic for handling details
+    window.location.href = `/factures/details/${id}`;
   };
 
   const handlePrint = (id) => {

@@ -11,7 +11,7 @@ const addEntreprise = async (req, res) => {
     const existeEntreprise = await Entreprise.findOne({ email: email });
     if (!existeEntreprise) {
       const hashedPassword = await bcrypt.hash(password, 10);
-      console.log(req.file)
+      //console.log(req.file)
       const logo = req.file ? req.file.filename : null;
       const entreprise = new Entreprise({
         name,
@@ -96,8 +96,8 @@ const getEntrepriseDetail = async (req, res) => {
 
 const updateEntreprise = async (req, res) => {
   try {
-    console.log("id : ", req.params.id)
-    console.log("body : ", req )
+    /*console.log("id : ", req.params.id)
+    console.log("body : ", req )*/
     const entreprise = await Entreprise.findByIdAndUpdate(
       req.params.id,
       req.body,
