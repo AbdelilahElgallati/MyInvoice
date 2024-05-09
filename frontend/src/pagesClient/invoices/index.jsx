@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetInvoicesQuery, useRemoveInvoiceMutation } from "state/api";
@@ -36,8 +36,7 @@ const Invoices  = () => {
       field: "invoiceNumber",
       headerName: "Numéro de Facture",
       flex: 0.7,
-<<<<<<< HEAD
-=======
+
       renderCell: (params) => (
         <span
           style={{
@@ -53,7 +52,6 @@ const Invoices  = () => {
           #{params.value}
         </span>
       ),
->>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
     },
     {
       field: "clientId",
@@ -64,21 +62,13 @@ const Invoices  = () => {
     {
       field: "date",
       headerName: "Date de création",
-<<<<<<< HEAD
       flex: 0.7,
-=======
-      flex: 0.5,
->>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       renderCell: (params) => formatDate(params.value),
     },
      {
       field: "dueDate",
       headerName: "Date d'échéance",
-<<<<<<< HEAD
-      flex: 0.7,
-=======
       flex: 0.5,
->>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       renderCell: (params) => formatDate(params.value),
     },
     {
@@ -95,11 +85,7 @@ const Invoices  = () => {
     {
       field: "amount",
       headerName: "Montant",
-<<<<<<< HEAD
-      flex: 0.6,
-=======
       flex: 0.7,
->>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       renderCell: (params) => {
         // Extract the amount from the payments array
         const paymentAmounts = params.value;
@@ -115,11 +101,7 @@ const Invoices  = () => {
     {
       field: "status",
       headerName: "Status",
-<<<<<<< HEAD
       flex: 0.6,
-=======
-      flex: 0.5,
->>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
@@ -162,11 +144,7 @@ const Invoices  = () => {
     {
       field: "actions",
       headerName: "Actions",
-<<<<<<< HEAD
-      flex: 0.5,
-=======
       flex: 0.8,  
->>>>>>> 73198d3d2ad96d64e609781b9e92181b379a29ff
       sortable: false,
       renderCell: (params) => (
         <Box>
