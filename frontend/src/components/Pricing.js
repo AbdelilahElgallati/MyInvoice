@@ -8,7 +8,6 @@ const Pricing = () => {
   const [index, setIndex] = useState(0); // Initialize index to 0
   const { title } = pricing;
   const { data } = useGetThreePacksQuery();
-  console.log('data : ', data)
   useEffect(() => {
     if (data && data.length > 0) {
       setIndex(0);
