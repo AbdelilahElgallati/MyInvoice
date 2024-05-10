@@ -20,15 +20,12 @@ const Invoices  = () => {
   const id = localStorage.getItem('userId');
   const { data, isLoading } = useGetInvoicesQuery(id);
   const [removeInvoice] = useRemoveInvoiceMutation();
-<<<<<<< HEAD
 
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
   
-=======
   console.log("invoice : ", data)
->>>>>>> 80b018cc9cb6f8d026ad35e1bb18e89b0366335d
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -153,7 +150,7 @@ const Invoices  = () => {
     {
       field: "actions",
       headerName: "Actions",
-      flex: 0.8,  
+      flex: 1,  
       sortable: false,
       renderCell: (params) => (
         <Box>
