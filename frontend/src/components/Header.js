@@ -147,7 +147,7 @@ const Header = () => {
           </button>
         )}
         <button
-          className="w-45 text-accent"
+          className="w-45 text-accent ml-[140px] lg:ml-[0px] "
           data-aos="fade-down"
           data-aos-delay="100"
           onClick={toggletheme}
