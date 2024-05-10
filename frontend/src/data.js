@@ -289,21 +289,6 @@ export const pricing = {
 export const TestimonialsData = () => {
   const { data: messagesData } = useGetMessagesQuery();
   const [testimonialsData, setTestimonialsData] = useState({ title: 'De quoi les gens parlent.', clients: [] });
-  console.log('message : ', messagesData)
-  // useEffect(() => {
-  //   if (messagesData) {
-  //     const clients = messagesData.map(message => {
-  //       return {
-  //         message: message.message,
-  //         image: message.enterpriseId.image, // Suppose que l'entreprise a une image
-  //         name: message.enterpriseName,
-  //         position: 'CEO', // Ajoutez ici le poste si nécessaire
-  //         borderColor: '#' + Math.floor(Math.random()*16777215).toString(16), // Générez une couleur aléatoire pour la bordure
-  //       };
-  //     });
-  //     setTestimonialsData({ ...testimonialsData, clients });
-  //   }
-  // }, [messagesData]);
   useEffect(() => {
     if (messagesData) {
       const clients = messagesData.map(message => {
@@ -318,7 +303,6 @@ export const TestimonialsData = () => {
       setTestimonialsData(prevData => ({ ...prevData, clients }));
     }
   }, [messagesData]);
-  console.log('message data : ', testimonialsData )
   return testimonialsData;
 };
 

@@ -1,4 +1,4 @@
-import React , { useEffect, useState } from "react";
+import React from "react";
 
 import { TestimonialsData } from '../data';
 import ClientSlider from '../components/ClientSlider';
