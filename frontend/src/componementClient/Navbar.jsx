@@ -21,7 +21,6 @@ import {
   MenuItem,
   useTheme,
 } from "@mui/material";
-import profileImage from "assets/LogoImage.jpg";
 import { useNavigate } from "react-router-dom";
 const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const navigate = useNavigate();
@@ -87,7 +86,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <Box
                 component="img"
                 alt="profile"
-                src={profileImage}
+                src={`http://localhost:3001/Images/${user.logo}`}
                 height="32px"
                 width="32px"
                 borderRadius="50%"

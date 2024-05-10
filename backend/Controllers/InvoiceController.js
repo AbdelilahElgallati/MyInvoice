@@ -2,6 +2,7 @@ const Invoice = require("../Models/InvoiceSchema");
 const OverallStat = require ("../Models/OverallStateSchema");
 const Client = require  ("../Models/ClientSchema");
 const Product = require  ("../Models/ProductSchema");
+const Enterprise = require("../Models/EntrepriseSchema");
 
 const addInvoice = async (req, res) => {
   try {
@@ -58,6 +59,73 @@ const getAllInvoices = async (req, res) => {
   }
 };
 
+const prepareInvoiceDetails = async (req, res) => {
+  try {
+    const invoice = await Invoice.findById(req.params.id)
+      .populate('userId', 'name email phone address logo') 
+      .populate('clientId', 'name email phone address') 
+      .populate({
+        path: 'items.productId',
+        select: 'name price', 
+      });
+   
+    const formattedDate = formatDate(invoice.date);
+    const formattedDueDate = formatDate(invoice.dueDate);
+    const itemsTable = invoice.items.map((item) => {
+      return {
+        productName: item.productId.name,
+        quantity: item.quantity,
+        price: item.productId.price,
+      };
+    });
+      invoiceNumber= invoice.invoiceNumber;
+      invoiceStatus = invoice.status;
+      userName = invoice.userId.name;
+      userEmail = invoice.userId.email;
+      userPhone = invoice.userId.phone;
+      userAddress = invoice.userId.address;
+      userLogo = invoice.userId.logo;
+      clientName = invoice.clientId.name;
+      clientEmail = invoice.clientId.email;
+      clientPhone = invoice.clientId.phone;
+      clientAddress = invoice.clientId.address;
+      amount = invoice.amount;
+      
+      res.status(200).json({
+        invoiceNumber,
+        invoiceStatus,
+        userName,
+        userEmail,
+        userPhone,
+        userAddress,
+        userLogo,
+        clientName,
+        clientEmail,
+        clientPhone,
+        clientAddress,
+        formattedDate,
+        formattedDueDate,
+        itemsTable,
+        amount,
+      });
+  } catch (error) {
+    console.error('Error fetching invoice details:', error.message);
+    throw error;
+  }
+};
+
+const formatDate = (dateString) => {
+  if (!dateString) return '';
+  const date = new Date(dateString);
+  if (isNaN(date.getTime())) {
+    console.error('Invalid date string:', dateString);
+    return '';
+  }
+  const options = { year: "numeric", month: "2-digit", day: "2-digit" };
+  return date.toLocaleDateString("fr-FR", options);
+};
+
+
 const getSales = async (req, res) => {
   try {
     const overallStats = await OverallStat.find();
@@ -101,7 +169,6 @@ const getDashboardStats = async (req, res) => {
     const todayStats = overallStat[0].dailyData.find(({ date }) => {
       return date === currentDay;
     });
-
     res.status(200).json({
       invoices,
       totalPaidAmount,
@@ -121,7 +188,6 @@ const getDashboardStats = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
-
 const getOneInvoice = async (req, res) => {
   try {
     const invoice = await Invoice.findById(req.params.id);
@@ -159,4 +225,5 @@ module.exports = {
   removeInvoice,
   getSales,
   getDashboardStats,
+  prepareInvoiceDetails,
 };
