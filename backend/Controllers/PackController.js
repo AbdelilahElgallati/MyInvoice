@@ -22,12 +22,75 @@ const addPack = async (req, res) => {
 
 const  getAllPacks = async (req, res) => {
   try {
+    
     const packs = await Pack.find().populate('services.serviceId');
     res.status(201).json(packs);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des packs");
   }
 }
+
+// const  getThreePacks = async (req, res) => {
+//   try {
+//     console.log("appel")
+//     const packs = await Pack.find().populate('services.serviceId').limit(3);
+//     console.log("packs : ", packs)
+//     res.status(200).json(packs);
+//   } catch (error) {
+//     console.log("error")
+//     res.status(500).send("Erreur serveur lors de la recherche des packs");
+//   }
+// }
+
+const getThreePacks = async (req, res) => {
+  try {
+    console.log("appel");
+    // Récupérer les 3 premiers packs avec tous leurs services associés
+    const packs = await Pack.find()
+      .populate({
+        path: 'services.serviceId',
+        model: 'Service',
+        select: 'ServiceName'
+      })
+      .limit(3);
+
+    // Limiter le nombre de services pour chaque pack à 3
+    packs.forEach(pack => {
+      pack.services = pack.services.slice(0, 3);
+    });
+
+    console.log("packs : ", packs);
+    res.status(200).json(packs);
+  } catch (error) {
+    console.error("error", error);
+    res.status(500).send("Erreur serveur lors de la recherche des packs");
+  }
+};
+
+const getAllPacksThreeService = async (req, res) => {
+  try {
+    console.log("appel");
+    const packs = await Pack.find()
+      .populate({
+        path: 'services.serviceId',
+        model: 'Service',
+        select: 'ServiceName'
+      });
+
+    // Limiter le nombre de services pour chaque pack à 3
+    packs.forEach(pack => {
+      pack.services = pack.services.slice(0, 3);
+    });
+
+    console.log("packs : ", packs);
+    res.status(200).json(packs);
+  } catch (error) {
+    console.error("error", error);
+    res.status(500).send("Erreur serveur lors de la recherche des packs");
+  }
+};
+
+
 
 const  getOnePack = async (req, res) => {
   try {
@@ -63,4 +126,4 @@ const  removePack = async (req, res) => {
   }
 }
 
-module.exports = {addPack,getAllPacks,getOnePack,updatePack,removePack};
+module.exports = {addPack,getAllPacks,getThreePacks,getOnePack,updatePack,removePack, getAllPacksThreeService};

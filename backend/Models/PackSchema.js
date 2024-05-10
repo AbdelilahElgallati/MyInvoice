@@ -9,7 +9,7 @@ const PackSchema = new Schema({
   }],
   price: { type: Number, required: true },
   startDate: { type: Date, default: Date.now },
-  endDate: { type: Date }
+  startDate: { type: Date }
 },
 {timestamps: true}
 );

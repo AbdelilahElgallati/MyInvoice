@@ -93,6 +93,16 @@ export const api = createApi({
       query: () => "Pack",
       providesTags: ["Pack"],
     }),
+    getThreePacks: build.query({
+      query: () => "Pack/ThreePacks",
+      providesTags: ["Pack"],
+      method: "GET"
+    }),
+    getAllPacksThreeService: build.query({
+      query: () => "Pack/AllPacksThreeService",
+      providesTags: ["Pack"],
+      method: "GET"
+    }),
     addPack: build.mutation({
       query: (PackData) => ({
         url: `Pack/add`,
@@ -324,6 +334,8 @@ export const {
   useAddPackMutation,
   useUpdatePackMutation,
   useRemovePackMutation,
+  useGetThreePacksQuery,
+  useGetAllPacksThreeServiceQuery,
 
   useGetAllServicesQuery,
   useGetOneServiceQuery,
