@@ -1,10 +1,10 @@
 import React , { useEffect, useState } from "react";
 
-import { testimonials } from '../data';
+import { TestimonialsData } from '../data';
 import ClientSlider from '../components/ClientSlider';
 const Testimonials = () => {
  
-  const {title , clients} = testimonials;
+  const {title , clients} = TestimonialsData();
   return (
     <section className='dark:bg-black section'>
       <div className='container mx-auto'>

@@ -44,8 +44,6 @@ const  getAllPacks = async (req, res) => {
 
 const getThreePacks = async (req, res) => {
   try {
-    console.log("appel");
-    // Récupérer les 3 premiers packs avec tous leurs services associés
     const packs = await Pack.find()
       .populate({
         path: 'services.serviceId',
@@ -58,8 +56,6 @@ const getThreePacks = async (req, res) => {
     packs.forEach(pack => {
       pack.services = pack.services.slice(0, 3);
     });
-
-    console.log("packs : ", packs);
     res.status(200).json(packs);
   } catch (error) {
     console.error("error", error);
@@ -69,7 +65,6 @@ const getThreePacks = async (req, res) => {
 
 const getAllPacksThreeService = async (req, res) => {
   try {
-    console.log("appel");
     const packs = await Pack.find()
       .populate({
         path: 'services.serviceId',
@@ -81,8 +76,6 @@ const getAllPacksThreeService = async (req, res) => {
     packs.forEach(pack => {
       pack.services = pack.services.slice(0, 3);
     });
-
-    console.log("packs : ", packs);
     res.status(200).json(packs);
   } catch (error) {
     console.error("error", error);

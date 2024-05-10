@@ -25,8 +25,7 @@ const ClientSlider = ({clients}) => {
         spaceBetween :30
       },
     }}>
-      {clients.map((client , index)=>{
-        //destructure client
+      {clients && clients.map((client , index)=>{
         const { message , image , name ,position , borderColor}=client;
         //slide
         return(

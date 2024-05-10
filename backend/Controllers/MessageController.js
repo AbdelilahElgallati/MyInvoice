@@ -13,6 +13,7 @@ const addMessage = async (req, res) => {
 
 const  getAllMessages = async (req, res) => {
   try {
+    console.log("messages")
     const  messages = await Message.find().populate('userId', 'name');
     const organizedmessages = messages.map(message => {
       const createdAt = new Date(message.createdAt).toLocaleDateString('fr-FR');
@@ -24,6 +25,7 @@ const  getAllMessages = async (req, res) => {
         message: message.message,
       };
     });
+    console.log('message : ',organizedmessages )
     res.status(201).json(organizedmessages);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des Messages");
