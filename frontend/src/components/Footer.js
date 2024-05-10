@@ -1,29 +1,35 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { footer } from "../data";
 import Copyright from "../components/Copyright";
 import { useAddMessageMutation } from "state/api";
-
+import { useNavigate } from "react-router-dom";
 const Footer = () => {
   const [addMessage] = useAddMessageMutation();
+  const navigate = useNavigate();
   const [messageForm, setMessage] = useState({
-    userId: localStorage.getItem("userId")
-      ? localStorage.getItem("userId")
-      : "",
+    userId: localStorage.getItem("userId"),
     message: "",
   });
+  
   const handleChange = (e) => {
     setMessage({ ...messageForm, [e.target.name]: e.target.value });
   };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log("Le message :",+messageForm)
-      await addMessage(messageForm);
-      console.log(messageForm);
+      if(localStorage.getItem("userId")) {
+        console.log("Le message :",+ messageForm)
+        await addMessage(messageForm);
+        window.location.reload();
+      } else {
+        navigate('/login')
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
   const { logo, links, legal, newsletter, form } = footer;
   return (
     <footer className=" dark:bg-black pt-[142px] pb-[60px]">
