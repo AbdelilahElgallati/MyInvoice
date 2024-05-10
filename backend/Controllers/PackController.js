@@ -1,16 +1,20 @@
 const Pack = require("../Models/PackSchema");
 const Service = require("../Models/ServiceSchema");
+
 const addPack = async (req, res) => {
   try {
-    const packData = req.body.pack;
-    const serviceIds = packData.services; 
+    const packData = req.body;
+    console.log("req : ", req)
+    const serviceIds = packData.services.split(',');  
+    const icon = req.file ? req.file.filename : null;
     const pack = new Pack({
       name: packData.name,
       description: packData.description,
       services: serviceIds.map(serviceId => ({ serviceId })), 
       price: packData.price,
       startDate: packData.startDate,
-      endDate: packData.endDate
+      endDate: packData.endDate,
+      icon,
     });
     await pack.save();
     res.status(201).json(pack);
