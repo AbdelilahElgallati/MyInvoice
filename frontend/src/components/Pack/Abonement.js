@@ -11,16 +11,16 @@ const Abonement = () => {
   return (
     <>
       <Header />
-      <div className="lg:flex justify-between mt-[100Px]">
+      <div className=" dark:bg-black lg:flex justify-between mt-[90Px]">
         <div className="lg:w-[50%] w-[100%] pt-[100PX] "
          data-aos="fade-up"
          data-aos-delay="300"
          data-aos-offset="300"
         >
-          <h1 className=" text-3xl font-Quicksand font-bold text-center">
+          <h1 className="dark:text-white text-3xl font-Quicksand font-bold text-center">
             {Title}
           </h1>
-          <p className="text-center font-Quicksand font-medium">
+          <p className="dark:text-white text-center font-Quicksand font-medium">
             {Subtitle}
           </p>
         </div>
@@ -29,16 +29,17 @@ const Abonement = () => {
         data-aos-delay="300"
         data-aos-offset="300"
         >
-          <img src={imgPay} className="lg:w-[50%] w-[100%]" />
+          <img src={imgPay} className="lg:w-[50%] w-[100%] rounded-xl mt-[10px]" />
         </div>
       </div>
-       <h1 className=" text-3xl font-Quicksand font-bold text-center" 
+      <div className=" dark:bg-black pt-[20px]">
+      <h1 className=" mb-[20px] text-3xl font-Quicksand font-bold text-center dark:text-white" 
        data-aos="fade-up"
        data-aos-delay="300"
        data-aos-offset="300"
        >Nos <span className="text-accent" >abonnements</span> </h1>
-      <div className=" mt-[100px] flex flex-col lg:flex-row lg:gap-x-[30px] gap-y-[30px] lg:gap-y-0 justify-center items-center">
-          {cards.map((card, cardIndex) => {
+        <div className=" dark:bg-black  flex flex-col lg:flex-row lg:gap-x-[30px] gap-y-[30px] lg:gap-y-0 justify-center items-center">
+        {cards.map((card, cardIndex) => {
             const { icon, title, services, price, userAmount, btnText, delay } =
               card;
             //card
@@ -53,7 +54,7 @@ const Abonement = () => {
                   onClick={() => setIndex(cardIndex)}
                   className={`${
                     cardIndex === index
-                      ? "bg-white shadow-2xl"
+                      ?  "dark:bg-slate-800 bg-white shadow-2xl"
                       : "border border-gray"
                   } w-[350px] h-[550px] rounded-[12px] p-[40px] cursor-pointer transition-all`}
                 >
@@ -62,7 +63,7 @@ const Abonement = () => {
                     <img src={icon} alt="" />
                   </div>
                   {/* card title */}
-                  <div className="text-[32px] font-Quicksand font-semibold mb-8">
+                  <div className="dark:text-white text-[32px] font-Quicksand font-semibold mb-8">
                     {title}
                   </div>
                   {/* card services */}
@@ -75,7 +76,7 @@ const Abonement = () => {
                           key={index}
                         >
                           <HiCheck className="text-light" />
-                          <div className="font-Quicksand font-semibold">
+                          <div className=" dark:text-white font-Quicksand font-semibold">
                             {name}
                           </div>
                         </div>
@@ -84,15 +85,15 @@ const Abonement = () => {
                   </div>
                   <div className="mb-10">
                     <div>
-                      <span className="text-2xl font-Quicksand font-semibold">
+                      <span className="dark:text-white text-2xl font-Quicksand font-semibold">
                         {price}
                       </span>
-                      <span className="text-xl text-light font-Quicksand font-semibold">
+                      <span className=" dark:text-white text-xl text-light font-Quicksand font-semibold">
                         {" "}
                         year
                       </span>
                     </div>
-                    <div className="text-base text-light">{userAmount}</div>
+                    <div className=" dark:text-white text-base text-light">{userAmount}</div>
                   </div>
                   {/* btn */}
                   <button
@@ -110,6 +111,8 @@ const Abonement = () => {
             );
           })}
         </div>
+      </div>
+      
         <Footer/>
     </>
   );

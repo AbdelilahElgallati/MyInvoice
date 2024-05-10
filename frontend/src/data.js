@@ -29,8 +29,7 @@ import CtaImg2 from '../src/assets/img/cta/image2.svg';
 import FacebookIcon from '../src/assets/img/copyright/facebook.svg';
 import TwitterIcon from '../src/assets/img/copyright/twitter.svg';
 import LinkedinIcon from '../src/assets/img/copyright/linkedin.svg';
-import backgroundImage from "../src/assets/img/Modeles/b1.png";
-import backgroundImage2 from "../src/assets/img/Modeles/b2.png";
+import backgroundImage from '../src/assets/img/overview/inv.png';
 import ic1 from "../src/assets/img/Modeles/Ic1.png";
 import ic2 from "../src/assets/img/Modeles/freelance.webp";
 import ic3 from "../src/assets/img/Modeles/printable.webp";
@@ -293,7 +292,9 @@ export const cta = {
   img1: CtaImg1,
   img2: CtaImg2,
 };
-
+export const GeneratorData ={
+    imageDark: backgroundImage,
+    title: "Modèles de factures à usage spécifique",};
 export const footer = {
   logo: LogoImg,
   links: [
@@ -338,7 +339,6 @@ export const copyright = {
 export const modelData = [
   {
     imageDark: backgroundImage,
-    imageSom: backgroundImage2,
     title: "Modèles de factures à usage spécifique",
     sections: [
       {

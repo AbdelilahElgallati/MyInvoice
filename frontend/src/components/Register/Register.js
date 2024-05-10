@@ -47,15 +47,15 @@ const SignUp = () => {
   return (
     <>
       <Header />
-      <div className="mx-auto max-w-screen-lg flex flex-col lg:flex-row mt-8 lg:ml-[285px] lg:mt-[150px] lg:mb-[100px] ">
-        <div className="w-full lg:w-[350px] ">
+      <div className=" mx-auto max-w-screen-lg flex flex-col lg:flex-row mt-8 lg:ml-[285px] lg:mt-[150px] lg:mb-[100px] ">
+        <div className=" w-full lg:w-[350px] ">
           <img
             src={COVER_IMAGE}
             className=" lg:h-[800px] w-full  lg:rounded-l-lg lg:shadow-2xl"
             alt="Cover Image"
           />
         </div>
-        <div className="w-full lg:w-1/2 bg-[#f5F5F5] p-8 lg:rounded-r-lg lg:shadow-2xl">
+        <div className="dark:bg-black w-full lg:w-1/2 bg-[#f5F5F5] p-8 lg:rounded-r-lg lg:shadow-2xl">
           <h2 className="text-4xl font-semibold mb-4">
             <span className="text-accent">S</span>'inscrire
           </h2>
@@ -66,7 +66,7 @@ const SignUp = () => {
               placeholder="Entreprise name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -75,7 +75,7 @@ const SignUp = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -84,7 +84,7 @@ const SignUp = () => {
               placeholder="Mot de passe"
               value={formData.password}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -93,7 +93,7 @@ const SignUp = () => {
               placeholder="Confirmez le mot de passe"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -102,7 +102,7 @@ const SignUp = () => {
               placeholder="Téléphone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -111,7 +111,7 @@ const SignUp = () => {
               placeholder="Adresse"
               value={formData.address}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -119,11 +119,11 @@ const SignUp = () => {
               name="logo"
               accept="image/*"
               onChange={handleLogoChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none"
+              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
             />
             <button
               type="submit"
-              className="w-full bg-[#060606] hover:bg-accent text-white rounded-md py-3 mb-4"
+              className="w-full bg-[#060606] hover:bg-accent text-white rounded-md py-3 mb-4 dark:border dark:border-accent  "
             >
               S'inscrire
             </button>

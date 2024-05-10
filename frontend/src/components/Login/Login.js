@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col lg:flex-row mt-8  lg:ml-[285px] lg:mt-[150px] ">
+      <div className=" flex flex-col lg:flex-row mt-8  lg:ml-[285px] lg:mt-[150px] ">
         <div className=" dark:bg-black w-full lg:w-[350px]">
           <img
             src={COVER_IMAGE}
