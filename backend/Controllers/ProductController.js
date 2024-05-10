@@ -12,14 +12,6 @@ const addProduit = async (req, res) => {
   }
 }
 
-// const  getAllProduits = async (req, res) => {
-//   try {
-//     const  produits = await Produit.find().populate('categoryId', 'categoryName');
-//     res.status(201).json(produits);
-//   } catch (error) {
-//     res.status(500).send("Erreur serveur lors de la recherche des produits");
-//   }
-// }
 const  getAllProduitsEnt = async (req, res) => {try {
   const Allproducts = await Produit.find().populate("categoryId");
   const products = Allproducts.filter(produit => produit.userId.toString() === req.params.id);
@@ -44,7 +36,7 @@ const  getAllProduitsEnt = async (req, res) => {try {
 const  getOneProduit = async (req, res) => {
   try {
     const  produit = await Produit.findById(req.params.id);
-    //console.log("produit : ", produit)
+    
     res.status(201).json(produit);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche de produit");

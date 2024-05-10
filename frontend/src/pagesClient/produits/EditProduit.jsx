@@ -11,7 +11,7 @@ import {
   Chip,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useGetOneCategorieQuery, useUpdateProduitMutation, useRemoveProduitMutation, useGetOneProduitQuery } from "state/api";
+import { useGetAllCategoriesQuery, useUpdateProduitMutation, useRemoveProduitMutation, useGetOneProduitQuery } from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProduit = () => {
@@ -22,8 +22,9 @@ const EditProduit = () => {
   const theme = useTheme();
   const { id } = useParams();
   const { data: produitData } = useGetOneProduitQuery(id);
-  const idcat = produitData.categoryId;
-  const { data: categorieData } = useGetOneCategorieQuery(idcat);
+  console.log("produit : ", produitData)
+  const { data: categorieData } = useGetAllCategoriesQuery();
+  console.log("categorieData : ", categorieData)
   const [produit, setProduit] = useState({
     categoryId: "",
     name: "",
@@ -131,15 +132,12 @@ const EditProduit = () => {
             onChange={handleCategoryChange}
             renderValue={(selected) => (
               <div style={{ display: "flex", flexWrap: "wrap" }}>
-                {selected && (
-                  <Chip
-                    key={selected}
-                    label={
-                      categorieData.find((category) => category._id === selected)?.categoryName || ""
-                    }
-                  />
-                  
-                )}
+                {selected.map((categoryId) => {
+                  const selectedCategorie = categorieData?.find(category => category._id === categoryId);
+                  return (
+                    <Chip key={categoryId} label={selectedCategorie ? selectedCategorie.categoryName : "Categorie introuvable"} />
+                  );
+                })};
               </div>
             )}
           >
