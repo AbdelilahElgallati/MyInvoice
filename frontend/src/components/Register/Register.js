@@ -56,7 +56,7 @@ const SignUp = () => {
           />
         </div>
         <div className="dark:bg-black w-full lg:w-1/2 bg-[#f5F5F5] p-8 lg:rounded-r-lg lg:shadow-2xl">
-          <h2 className="text-4xl font-semibold mb-4">
+          <h2 className="text-4xl font-semibold mb-4 dark:text-white">
             <span className="text-accent">S</span>'inscrire
           </h2>
           <form onSubmit={handleSubmit}>
@@ -130,15 +130,15 @@ const SignUp = () => {
           </form>
           <div className="w-full text-center mb-4">
             <div className="w-full h-px bg-black"></div>
-            <p className="relative inline-block px-2 bg-gray-200 text-sm">ou</p>
+            <p className="relative inline-block px-2 bg-gray-200 text-sm dark:bg-black dark:text-accent">ou</p>
           </div>
           <button className="w-full border border-black text-[#060606] bg-white hover:bg-gray-300 rounded-md py-3 flex items-center justify-center">
             <img src={Gogle} alt="" className="w-4 mr-2" />
             Inscription avec Google
           </button>
-          <p className="mt-4 text-sm font-normal">
+          <p className="mt-4 text-sm font-normal dark:text-white ">
             Vous avez déjà un compte ?{" "}
-            <span className="font-semibold underline cursor-pointer">
+            <span className="font-semibold underline cursor-pointer dark:text-white">
               Connectez-vous
             </span>
           </p>

@@ -10,7 +10,7 @@ const Model = () => {
     <>
       <Header />
       <div className="dark:bg-black lg:flex justify-evenly mt-[90PX] ">
-        <div className="pt-[100px] ml-[140px]">
+        <div className="pt-[100px]  lg:ml-[140px]">
           <h1 className="dark:text-white mb-[20px] text-4xl font-Quicksand font-bold text-center ">
             {title}
           </h1>
@@ -19,7 +19,7 @@ const Model = () => {
           <img
             src={imageDark}
             alt=""
-            className="w-[30%] lg:w-[25%]  lg:mb-[50px] lg:ml-[450px] "
+            className="w-[50%] lg:w-[25%] ml-[120px]  lg:mb-[50px] lg:ml-[500px] "
           />
         </div>
       </div>
