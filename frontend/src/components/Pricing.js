@@ -73,11 +73,11 @@ const Pricing = () => {
                   <div className="mb-10">
                     <div>
                       <span className="dark:text-white text-2xl font-Quicksand font-semibold">
-                        {price}
+                       ${price} 
                       </span>
                       <span className=" dark:text-white text-xl text-light font-Quicksand font-semibold">
                         {" "}
-                        year
+                        /year
                       </span>
                     </div>
                     <div className=" dark:text-white text-base text-light">Jusqu'a 3 facture par mois</div>

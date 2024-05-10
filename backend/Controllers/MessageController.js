@@ -2,7 +2,8 @@ const Message = require("../Models/MessageShema")
 
 const addMessage = async (req, res) => {
   try {
-    const MessageData = req.query;
+    const MessageData = req.body;
+    console.log("le message :"+MessageData);
     const message = new Message(MessageData);
     await message.save();
     res.status(201).json(message);
