@@ -21,6 +21,7 @@ import MessageOutlinedIcon from '@mui/icons-material/MessageOutlined';
 import LoyaltyOutlinedIcon from '@mui/icons-material/LoyaltyOutlined';
 import SubscriptionsIcon from '@mui/icons-material/Subscriptions';
 import MiscellaneousServicesOutlinedIcon from '@mui/icons-material/MiscellaneousServicesOutlined';
+import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
@@ -60,6 +61,11 @@ const navItems = [
     text: "Messages",
     title: "Messages",
     icon: <MessageOutlinedIcon />,
+  },
+  {
+    text: "Models",
+    title: "Models",
+    icon: <ModelTrainingIcon />,
   },
 ];
 

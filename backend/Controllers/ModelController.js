@@ -3,7 +3,12 @@ const Model = require('../Models/ModelSchema')
 const addModel = async (req, res) => {
   try {
     const ModelData = req.body;
-    const model = new Model(ModelData);
+    const icon = req.file ? req.file.filename : null;
+    const model = new Model({
+      name: ModelData.name,
+      description: ModelData.description,
+      icon,
+    });
     await model.save();
     res.status(201).json(model);
   } catch (error) {

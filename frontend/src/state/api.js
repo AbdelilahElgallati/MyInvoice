@@ -373,6 +373,12 @@ export const {
   useUpdateServiceMutation,
   useRemoveServiceMutation,
 
+  useGetAllModelsQuery,
+  useGetOneModelQuery,
+  useAddModelMutation,
+  useUpdateModelMutation,
+  useRemoveModelMutation,
+
   useGetSubscriptionsQuery,
   useAddSubscriptionMutation,
   useUpdateSubscriptionMutation,

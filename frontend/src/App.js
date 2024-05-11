@@ -48,6 +48,9 @@ import AddCategorie from "pagesClient/categorie/addCategorie";
 import EditCategorie from "pagesClient/categorie/EditCategorie";
 import EditSubscription from "pages/SubscriptionPlan/EditSubscriptionPlan"
 import DarkMode from "components/DarkMode";
+import Models from 'pages/Model';
+import AddModel from 'pages/Model/AddModel'
+import EditModel from 'pages/Model/EditModel'
 
 import Apropos from "components/Apropos";
 
@@ -82,6 +85,9 @@ const App = () => {
             <Route path="/Services" element={<ServicesWithThemeProvider theme={theme} />} />
             <Route path="/Services/new" element={<AddServiceWithThemeProvider theme={theme} />} />
             <Route path="/Services/edit/:id" element={<EditServiceWithThemeProvider theme={theme} />} />
+            <Route path="/models" element={<ModelsWithThemeProvider theme={theme} />} />
+            <Route path="/Models/new" element={<AddModelWithThemeProvider theme={theme} />} />
+            <Route path="/Models/edit/:id" element={<EditModelWithThemeProvider theme={theme} />} />
             <Route path="/SubscriptionsPlans" element={<SubscriptionPalnsWithThemeProvider theme={theme} />} />
             <Route path="/SubscriptionsPlans/edit/:id" element={<EditSubscriptionPalnsWithThemeProvider theme={theme} />} />
             <Route path="/Messages" element={<MessagesWithThemeProvider theme={theme} />} />
@@ -204,6 +210,27 @@ const EditServiceWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <EditService>{children}</EditService>
+  </ThemeProvider>
+);
+
+const ModelsWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Models>{children}</Models>
+  </ThemeProvider>
+);
+
+const AddModelWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <AddModel>{children}</AddModel>
+  </ThemeProvider>
+);
+
+const EditModelWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditModel>{children}</EditModel>
   </ThemeProvider>
 );
 
