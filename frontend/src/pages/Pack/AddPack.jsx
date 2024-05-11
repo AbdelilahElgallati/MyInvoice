@@ -5,7 +5,7 @@ import {  useGetAllServicesQuery, useAddPackMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
 
 const AddPack = () => {
-  const [icon, setIcon] = useState(null);
+  const [logo, setLogo] = useState(null);
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
@@ -34,47 +34,14 @@ const AddPack = () => {
   };
 
   const handleIconChange = (e) => {
-    setIcon(e.target.files[0]);
+    setLogo(e.target.files[0]);
   };
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     console.log(pack);
-  //     await addPack({ pack });
-  //     Navigate("/Pack");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const formDataWithLogo = new FormData();
-  //   if (icon) {
-  //     formDataWithLogo.append("icon", icon);
-  //   }
-  //   Object.entries(formData).forEach(([key, value]) => {
-  //     formDataWithLogo.append(key, value); // Enveloppez les données sous la clé 'pack'
-  //   });
-  //   try {
-  //     console.log("pack : ", formData);
-  //     console.log("pack with icon : ", formDataWithLogo);
-  //     const pack = formDataWithLogo;
-  //     if(pack) {
-  //       await addPack({pack});
-  //       Navigate("/packadmin");
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formDataWithLogo = new FormData();
-    if (icon) {
-      formDataWithLogo.append("icon", icon);
+    if (logo) {
+      formDataWithLogo.append("logo", logo);
     }
     Object.entries(formData).forEach(([key, value]) => {
       formDataWithLogo.append(key, value); // Enveloppez les données sous la clé 'pack'

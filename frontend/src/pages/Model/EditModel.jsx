@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, useTheme, Button, Box, FormControl, InputLabel, Input } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import {  useAddModelMutation } from "state/api";
-import { useNavigate } from "react-router-dom";
+import { useGetOneModelQuery, useUpdateModelMutation, useRemoveModelMutation } from "state/api";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddModel = () => {
+const EditModel = () => {
   const [icon, setIcon] = useState(null);
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
@@ -15,9 +15,20 @@ const AddModel = () => {
     name: "",
     description: "",
   });
-  
-  const [addModel] = useAddModelMutation();
+  const {id} = useParams();
+  const {data: model, isLoading} = useGetOneModelQuery(id);
+  const [updateModel] = useUpdateModelMutation();
+  const [removeModel] = useRemoveModelMutation();
   const Navigate = useNavigate();
+
+  useEffect(() => {
+    if (model) {
+      setFormData({
+        name: model.name || "",
+        description: model.description || "",
+      });
+    }
+  }, [model]);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,13 +45,22 @@ const AddModel = () => {
       formDataWithLogo.append("icon", icon);
     }
     Object.entries(formData).forEach(([key, value]) => {
-      formDataWithLogo.append(key, value); // Enveloppez les données sous la clé 'pack'
+      formDataWithLogo.append(key, value); 
     });
     try {
       console.log("model : ", formData);
       console.log("model with icon : ", formDataWithLogo);
-      await addModel(formDataWithLogo);
+      await updateModel({ id, ModelData: formDataWithLogo });
       Navigate("/models");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await removeModel(id);
+      navigate("/models");
     } catch (error) {
       console.log(error);
     }
@@ -85,7 +105,10 @@ const AddModel = () => {
         </FormControl>
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary">
-            Add model
+            Edit model
+          </Button>
+          <Button type="button" onClick={handleDelete} aria-label="delete" sx={{ ml: 2 }} variant="contained" color="primary">
+            Supprimer le model
           </Button>
         </Box>
       </form>
@@ -93,4 +116,4 @@ const AddModel = () => {
   );
 };
 
-export default AddModel;
+export default EditModel;

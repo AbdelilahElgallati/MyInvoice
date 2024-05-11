@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { TextField, useTheme, Button, Box, FormControl, InputLabel, Select, MenuItem, Chip } from "@mui/material";
+import { TextField, Input, useTheme, Button, Box, FormControl, InputLabel, Select, MenuItem, Chip } from "@mui/material";
 import Header from "componentsAdmin/Header";
 import { useGetAllServicesQuery, useGetOnePackQuery, useRemovePackMutation, useUpdatePackMutation } from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditPack = () => {
+  const [logo, setLogo] = useState(null);
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
@@ -23,6 +24,10 @@ const EditPack = () => {
   const [updatePack] = useUpdatePackMutation();
   const [removePack] = useRemovePackMutation();
   const { data: serviceData } = useGetAllServicesQuery();
+
+  const handleIconChange = (e) => {
+    setLogo(e.target.files[0]);
+  };
 
   useEffect(() => {
     if (packData) {
@@ -48,21 +53,55 @@ const EditPack = () => {
     setPack({ ...pack, services: selectedServices });
   };
 
+  // const handleSubmit = async (event) => {
+  //   event.preventDefault();
+  //   try {
+  //     const formData = new FormData();
+  //     formData.append('name', pack.name);
+  //     formData.append('description', pack.description);
+  //     formData.append('price', pack.price);
+  //     formData.append('startDate', pack.startDate);
+  //     formData.append('endDate', pack.endDate);
+  //     formData.append('services', JSON.stringify(pack.services)); 
+  //     if (logo) {
+  //       formData.append('logo', logo);
+  //     }
+  //     console.log('data : ', formData)
+  //     await updatePack({ id, pack: formData });
+  //     navigate("/packadmin");
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(pack);
-      await updatePack({ id, pack });
-      navigate("/Pack");
+      const formData = new FormData();
+      formData.append('name', pack.name);
+      formData.append('description', pack.description);
+      formData.append('price', pack.price);
+      formData.append('startDate', pack.startDate);
+      formData.append('endDate', pack.endDate);
+      const serviceObjects = pack.services.map(serviceId => ({ serviceId }));
+      formData.append('services', JSON.stringify(serviceObjects)); 
+      if (logo) {
+        formData.append('logo', logo);
+      }
+      console.log('data : ', formData)
+      await updatePack({ id, pack: formData });
+      navigate("/packadmin");
     } catch (error) {
       console.log(error);
     }
   };
+  
+  
 
   const handleDelete = async () => {
     try {
       await removePack(id);
-      navigate("/Pack");
+      navigate("/packadmin");
     } catch (error) {
       console.log(error);
     }
@@ -79,7 +118,7 @@ const EditPack = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="EDIT PACK" subtitle="Modification de pack" />
-      <form onSubmit={handleSubmit} sx={{
+      <form onSubmit={handleSubmit} enctype="multipart/form-data" sx={{
         backgroundImage: "none",
         backgroundColor: theme.palette.background.alt,
         borderRadius: "0.55rem",
@@ -163,6 +202,16 @@ const EditPack = () => {
             shrink: true,
           }}
         />
+        <FormControl fullWidth margin="normal" >
+          <InputLabel htmlFor="icon-input" >Icon</InputLabel>
+          <Input
+            id="icon-input"
+            type="file"
+            name="logo"
+            onChange={handleIconChange}
+            accept="image/*"
+          />
+        </FormControl>
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary">
             Modifier le pack

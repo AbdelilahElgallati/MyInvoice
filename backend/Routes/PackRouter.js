@@ -19,8 +19,8 @@ PackRouter.get( "/ThreePacks", PackController.getThreePacks);
 PackRouter.get( "/AllPacksThreeService", PackController.getAllPacksThreeService);
 PackRouter.get( "/", PackController.getAllPacks); 
 PackRouter.get( "/:id", PackController.getOnePack); 
-PackRouter.post('/add', upload.single('icon'), PackController.addPack);
-PackRouter.put('/edit/:id',PackController.updatePack);
+PackRouter.post('/add', upload.single('logo'), PackController.addPack);
+PackRouter.put('/edit/:id', upload.single('logo'), PackController.updatePack);
 PackRouter.delete("/remove/:id",PackController.removePack);
 
 module.exports = PackRouter;
