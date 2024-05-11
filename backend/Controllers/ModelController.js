@@ -35,14 +35,19 @@ const  getOneModel = async (req, res) => {
   }
 }
 
-const  updateModel = async (req,res)=>{
+const updateModel = async (req, res) => {
   try {
-    const  model = await Model.findByIdAndUpdate(req.params.id, req.body, {new: true});
-    res.status(201).json(model);
+    const icon = req.file ? req.file.filename : null;
+    const modelData = { ...req.body };
+    if (icon) {
+      modelData.icon = icon;
+    }
+    const model = await Model.findByIdAndUpdate(req.params.id, modelData, { new: true });
+    res.status(200).json(model);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la mise à jour de Model");
   }
-}
+};
 
 const  removeModel = async (req, res) => {
   try {

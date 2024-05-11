@@ -18,7 +18,7 @@ const upload = multer({ storage: storage });
 ModelRouter.get( "/", ModelController.getAllModels); 
 ModelRouter.get( "/:id", ModelController.getOneModel); 
 ModelRouter.post('/add', upload.single('icon'), ModelController.addModel);
-ModelRouter.put('/edit/:id',ModelController.updateModel);
+ModelRouter.put('/edit/:id',  upload.single('icon'), ModelController.updateModel);
 ModelRouter.delete("/remove/:id",ModelController.removeModel);
 
 module.exports = ModelRouter;
