@@ -22,8 +22,7 @@ const EditProduit = () => {
   const theme = useTheme();
   const { id } = useParams();
   const { data: produitData } = useGetOneProduitQuery(id);
-  const idcat = produitData.categoryId;
-  const { data: categorieData } = useGetOneCategorieQuery(idcat);
+  const { data: categorieData } = useGetOneCategorieQuery(localStorage.getItem('userId'));
   const [produit, setProduit] = useState({
     categoryId: "",
     name: "",
@@ -135,7 +134,7 @@ const EditProduit = () => {
                   <Chip
                     key={selected}
                     label={
-                      categorieData.find((category) => category._id === selected)?.categoryName || ""
+                      categorieData && categorieData.find((category) => category._id === selected)?.categoryName || ""
                     }
                   />
                   

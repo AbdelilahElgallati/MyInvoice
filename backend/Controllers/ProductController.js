@@ -44,7 +44,7 @@ const  getAllProduitsEnt = async (req, res) => {try {
 const  getOneProduit = async (req, res) => {
   try {
     const  produit = await Produit.findById(req.params.id);
-    //console.log("produit : ", produit)
+    console.log("one produit : ", produit)
     res.status(201).json(produit);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche de produit");

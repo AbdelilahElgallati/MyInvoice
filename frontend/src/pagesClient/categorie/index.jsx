@@ -56,6 +56,7 @@ const Categories = () => {
   const handleDelete = async (id) => {
     try {
       await removeCategorie(id);
+      window.location.reload()
     } catch (error) {
       console.log(error);
     }

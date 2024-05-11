@@ -55,7 +55,7 @@ const getAllEntreprises = async (req, res) => {
 const getOneEntreprise = async (req, res) => {
   try {
     const entreprise = await Entreprise.findById(req.params.id);
-    console.log("entreprise : ", entreprise)
+    //console.log("entreprise : ", entreprise)
     res.status(201).json(entreprise);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche d'entreprise");

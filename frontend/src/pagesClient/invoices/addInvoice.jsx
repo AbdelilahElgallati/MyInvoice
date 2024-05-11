@@ -67,7 +67,6 @@ const AddInvoice = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      // Calculate total amount for payments
       const amount = invoice.items.reduce(
         (acc, item) =>
           acc +
@@ -75,10 +74,8 @@ const AddInvoice = () => {
           item.quantity,
         0
       );
-      
       await AddInvoice({ invoice: { ...invoice, amount } });
       Navigate("/factures");
-      console.log(invoice);
     } catch (error) {
       console.log(error);
     }

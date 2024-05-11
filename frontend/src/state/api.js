@@ -185,6 +185,17 @@ export const api = createApi({
       query: (id) => `Invoice/List/${id}`,
       providesTags: ["Invoices"],
     }),
+    getOneInvoice: build.query({
+      query: (id) => `Invoice/${id}`,
+      providesTags: ["Invoices"],
+    }),
+    updateInvoice: build.mutation({
+      query: ({ id, InvoiceData }) => ({
+        url: `Invoice/edit/${id}`,
+        method: "PUT",
+        body: InvoiceData,
+      }),
+    }),
     addInvoice: build.mutation({
       query: (invoice) => ({
         url: `Invoice/add`,
@@ -198,8 +209,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-
-
     // produit entreprise
     addProduit: build.mutation({
       query: (produit) => ({
@@ -370,4 +379,6 @@ export const {
   useRemoveCategorieMutation,
 
   useGetInvoiceDetailsQuery,
+  useGetOneInvoiceQuery,
+  useUpdateInvoiceMutation,
 } = api;
