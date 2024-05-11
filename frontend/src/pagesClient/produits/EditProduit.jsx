@@ -27,13 +27,10 @@ const EditProduit = () => {
   const theme = useTheme();
   const { id } = useParams();
   const { data: produitData } = useGetOneProduitQuery(id);
-<<<<<<< HEAD
   const { data: categorieData } = useGetOneCategorieQuery(localStorage.getItem('userId'));
-=======
-  console.log("produit : ", produitData);
+   console.log ("produit : ", produitData);
   const { data: categorieData } = useGetAllCategoriesQuery(localStorage.getItem('userId'));
   console.log("categorieData : ", categorieData);
->>>>>>> 1f82e7994f9847912b2037ceccd0d3359a8f9843
   const [produit, setProduit] = useState({
     categoryId: "",
     name: "",
@@ -145,7 +142,6 @@ const EditProduit = () => {
             id="category-select"
             value={produit.categoryId}
             onChange={handleCategoryChange}
-<<<<<<< HEAD
             renderValue={(selected) => (
               <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {selected && (
@@ -159,7 +155,6 @@ const EditProduit = () => {
                 )}
               </div>
             )}
-=======
             renderValue={() => {
               const selectedCategorie = categorieData?.find(
                 (category) => category._id === produit.categoryId
@@ -174,7 +169,6 @@ const EditProduit = () => {
                 </Typography>
               );
             }}
->>>>>>> 1f82e7994f9847912b2037ceccd0d3359a8f9843
           >
             {categorieData &&
               categorieData.map((category) => (
