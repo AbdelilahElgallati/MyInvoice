@@ -46,7 +46,7 @@ const Login = () => {
   return (
     <>
       <Header />
-      <div className="flex flex-col lg:flex-row mt-8  lg:ml-[285px] lg:mt-[150px] ">
+      <div className=" flex flex-col lg:flex-row mt-8  lg:ml-[285px] lg:mt-[150px] ">
         <div className=" dark:bg-black w-full lg:w-[350px]">
           <img
             src={COVER_IMAGE}
@@ -55,7 +55,7 @@ const Login = () => {
           />
         </div>
         <div className="  dark:bg-black w-full lg:w-1/2  bg-[#f5F5F5] p-8 lg:rounded-r-lg lg:shadow-2xl  dark:text-white font-Quicksand font-semibold  ">
-          <h2 className="text-4xl font-semibold mb-4">
+          <h2 className="text-4xl font-semibold mb-4 dark:text-white">
             <span className="text-accent">L</span>ogin
           </h2>
           <p className="text-base mb-4 dark:text-white font-Quicksand font-semibold">
@@ -98,7 +98,7 @@ const Login = () => {
           </button>
           <div className="w-full text-center mb-4">
             <div className="w-full h-px bg-black"></div>
-            <p className="relative inline-block px-2 bg-gray-200 text-sm">ou</p>
+            <p className="relative inline-block px-2 bg-gray-200 text-sm dark:bg-black dark:text-accent">ou</p>
           </div>
           <button className="w-full border border-black text-[#060606] bg-white hover:bg-gray-300 rounded-md py-3 flex items-center justify-center">
             <img src={Gogle} alt="" className="w-4 mr-2" />

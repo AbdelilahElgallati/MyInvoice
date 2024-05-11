@@ -21,12 +21,12 @@ const Generateur = () => {
   return (
     <div>
       <Header />
-      <div className="bg-slate-100 lg:flex justify-evenly mt-[100PX]">
+      <div className= " dark:bg-black bg-slate-100 lg:flex justify-evenly mt-[90PX]">
         <div className="pl-[45px] pt-[100px]">
-          <h1 className="mb-[20px] text-4xl font-Quicksand font-bold">
+          <h1 className=" dark:text-white mb-[20px] text-4xl font-Quicksand font-bold">
             {headerText}
           </h1>
-          <p className="font-Quicksand font-medium">{headerDescription}</p>
+          <p className="font-Quicksand font-medium dark:text-white">{headerDescription}</p>
           <a
             href="#"
             className="inline-flex items-center mt-[20px] inline-block bg-accent text-white font-Quicksand font-semibold py-2 px-4 rounded-md hover:bg-accentHover "
@@ -46,15 +46,15 @@ const Generateur = () => {
         </div>
       </div>
 
-      <div className="lg:flex justify-evenly mt-[100PX]">
+      <div className=" dark:bg-black lg:flex justify-evenly ">
         <div className="">
           <img src={f1Img} className="w-[80%] m-[40px] rounded-xl" alt="" />
         </div>
         <div className="w-[100%] lg:w-[80%] pl-[40px] pr-[20px] lg:pt-[150px] lg:px-[50px]">
-          <h1 className="mb-[20px] text-3xl font-Quicksand font-bold">
+          <h1 className="dark:text-white mb-[20px] text-3xl font-Quicksand font-bold">
             {sectitle}
           </h1>
-          <p className="font-Quicksand font-medium">
+          <p className=" dark:text-white font-Quicksand font-medium">
             {sectext}
           </p>
         </div>

@@ -24,7 +24,7 @@ const Invoices  = () => {
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
-  
+  console.log("invoice : ", data)
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -149,7 +149,7 @@ const Invoices  = () => {
     {
       field: "actions",
       headerName: "Actions",
-      flex: 0.8,  
+      flex: 1,  
       sortable: false,
       renderCell: (params) => (
         <Box>

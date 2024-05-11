@@ -18,8 +18,10 @@ const ServiceRouter = require("./Routes/ServiceRouter");
 const SettingRouter = require("./Routes/SettingsRouter");
 const MessageRouter = require("./Routes/MessageRouter");
 const SubscriptionRouter = require("./Routes/SubscriptionRouter");
+const ModelRouter = require("./Routes/ModelRouter");
 const {
-  updateSubscriptionStatus,EmailSubscriptionStatus
+  updateSubscriptionStatus,
+  EmailSubscriptionStatus,
 } = require("./Controllers/SubscriptionController");
 
 app.use(helmet());
@@ -36,6 +38,7 @@ app.use("/Api/Entreprise", EntrepriseRouter);
 app.use("/Api/Invoice", InvoiceRouter);
 app.use("/Api/Pack", PackRouter);
 app.use("/Api/Message", MessageRouter);
+app.use("/Api/Model", ModelRouter);
 app.use("/Api/Produit", ProductRouter);
 app.use("/Api/Service", ServiceRouter);
 app.use("/Api/Setting", SettingRouter);

@@ -22,7 +22,7 @@ const Header = () => {
   };
   const [mobileNav, setMobileNav] = useState(false);
   const [isActive, setisActive] = useState(false);
-  const { logo, btnText, btnTextDec, IconSun, IconMon } = header;
+  const { logo, btnText, btnTextDec, IconSun, IconMon , IconeHome } = header;
   //scrool event
   useEffect(() => {
     const handleScroll = () => {
@@ -68,7 +68,10 @@ const Header = () => {
       document.documentElement.classList.remove("dark");
     }
   }
-
+  function toggleHome() {
+   navigate("/dashboard");
+  }
+  const id = localStorage.getItem("userId");
   return (
     <header
       className={`${
@@ -104,6 +107,8 @@ const Header = () => {
           data-aos-delay="100"
         >
           <FontAwesomeIcon icon="fa-regular fa-sun-bright" />
+         
+       
           <Nav />
         </div>
         {/* if(localStorage.getItem('userId')) {
@@ -146,8 +151,18 @@ const Header = () => {
             {btnTextDec}
           </button>
         )}
+         {localStorage.getItem("userId")?(
+            <button
+            className="w-45 text-accent  "
+            data-aos="fade-down"
+            data-aos-delay="100"
+            onClick={toggleHome}
+            >
+            {IconeHome}
+            </button>
+          ):(" ")}
         <button
-          className="w-45 text-accent"
+          className="w-45 text-accent ml-[140px] lg:ml-[0px] "
           data-aos="fade-down"
           data-aos-delay="100"
           onClick={toggletheme}

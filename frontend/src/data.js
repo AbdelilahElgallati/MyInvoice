@@ -1,7 +1,7 @@
 // import images
 import LogoImg from '../src/assets/img/header/lgrm.png';
 import HeroImg from '../src/assets/img/hero/VM.png';
-import OverviewProductImg from '../src/assets/img/overview/product.svg';
+// import OverviewProductImg from '../src/assets/img/overview/product.svg';
 import OverviewProductImg1 from '../src/assets/img/overview/screen.png';
 import FacebookImg from '../src/assets/img/overview/brands/facebook.svg';
 import GoogleImg from '../src/assets/img/overview/brands/google.svg';
@@ -29,8 +29,7 @@ import CtaImg2 from '../src/assets/img/cta/image2.svg';
 import FacebookIcon from '../src/assets/img/copyright/facebook.svg';
 import TwitterIcon from '../src/assets/img/copyright/twitter.svg';
 import LinkedinIcon from '../src/assets/img/copyright/linkedin.svg';
-import backgroundImage from "../src/assets/img/Modeles/b1.png";
-import backgroundImage2 from "../src/assets/img/Modeles/b2.png";
+import backgroundImage from '../src/assets/img/overview/inv.png';
 import ic1 from "../src/assets/img/Modeles/Ic1.png";
 import ic2 from "../src/assets/img/Modeles/freelance.webp";
 import ic3 from "../src/assets/img/Modeles/printable.webp";
@@ -46,9 +45,12 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun } from '@fortawesome/free-regular-svg-icons';
 import { faMoon } from '@fortawesome/free-solid-svg-icons';
-
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
+import { useGetMessagesQuery } from 'state/api';
+import { useState, useEffect } from 'react';
 export const header = {
   logo: LogoImg,
+  IconeHome: <FontAwesomeIcon icon={faHouse} />,
   btnText: 'Connexion',
   btnTextDec: 'Déconnexion',
   IconSun : <FontAwesomeIcon icon={faSun} />,
@@ -220,70 +222,90 @@ export const pricing = {
   ],
 };
 
-export const testimonials = {
-  title: 'De quoi les gens parlent.',
-  clients: [
-    {
-      message:
-       "Je suis simplement RAVI de mon expérience MYINVOICE. Je crois que c'est une des applis les plus ergonomiques et agréables à utiliser que j'ai jamais vu.",
-      image: AvatarImg1,
-      name: 'Cameron Williamson',
-      position: 'CEO',
-      borderColor: '#FF7235',
-    },
-    {
-      message:
-        "Très fonctionnel et pratique service client au top.Je recommande !",
-      image: AvatarImg2,
-      name: 'Shirley Hand',
-      position: 'CEO',
-      borderColor: '#FFBE21',
-    },
-    {
-      message:
-        "Un logiciel juste parfait !!!! Après en avoir essayé plusieurs, il est vraiment simple d'utilisation, complet et efficace.... Je le recommande.",
-      image: AvatarImg3,
-      name: 'Dr. Olivia Hansen',
-      position: 'CEO',
-      borderColor: '#4756DF',
-    },
-    {
-      message: "En tant que CEO, j'apprécie la simplicité et l'efficacité de MYINVOICE. Cela me permet de me concentrer sur des aspects plus stratégiques de mon entreprise.",
-      image: AvatarImg4,
-      name: 'Alexandre Dupont',
-      position: 'CEO',
-      borderColor: '#FF9800',
-    },
-    {
-      message: "MYINVOICE a été un ajout précieux à notre suite d'outils de gestion. En tant que CEO, je suis impressionné par son impact positif sur notre efficacité opérationnelle.",
-      image: AvatarImg5,
-      name: 'Isabelle Martin',
-      position: 'CEO',
-      borderColor: '#795548',
-    },
-    {
-      message: "La convivialité de MYINVOICE est incomparable. En tant que CEO, je valorise les outils qui simplifient nos processus et permettent à mon équipe de se concentrer sur l'essentiel.",
-      image: AvatarImg1,
-      name: 'Jean-Luc Moreau',
-      position: 'CEO',
-      borderColor: '#FFC107',
-    },
-    {
-      message: "Je suis constamment impressionné par les mises à jour et les améliorations continues de MYINVOICE. En tant que CEO, je suis confiant dans notre choix de cette application.",
-      image: AvatarImg3,
-      name: 'Sophie Durand',
-      position: 'CEO',
-      borderColor: '#03A9F4',
-    },
-    {
-      message: "MYINVOICE a vraiment dépassé nos attentes en tant que solution de facturation. En tant que CEO, je suis ravi de l'impact positif qu'il a eu sur notre entreprise.",
-      image: AvatarImg5,
-      name: 'Martin Leclerc',
-      position: 'CEO',
-      borderColor: '#4CAF50',
-    }
+// export const testimonials = {
+//   title: 'De quoi les gens parlent.',
+//   clients: [
+//     {
+//       message:
+//        "Je suis simplement RAVI de mon expérience MYINVOICE. Je crois que c'est une des applis les plus ergonomiques et agréables à utiliser que j'ai jamais vu.",
+//       image: AvatarImg1,
+//       name: 'Cameron Williamson',
+//       position: 'CEO',
+//       borderColor: '#FF7235',
+//     },
+//     {
+//       message:
+//         "Très fonctionnel et pratique service client au top.Je recommande !",
+//       image: AvatarImg2,
+//       name: 'Shirley Hand',
+//       position: 'CEO',
+//       borderColor: '#FFBE21',
+//     },
+//     {
+//       message:
+//         "Un logiciel juste parfait !!!! Après en avoir essayé plusieurs, il est vraiment simple d'utilisation, complet et efficace.... Je le recommande.",
+//       image: AvatarImg3,
+//       name: 'Dr. Olivia Hansen',
+//       position: 'CEO',
+//       borderColor: '#4756DF',
+//     },
+//     {
+//       message: "En tant que CEO, j'apprécie la simplicité et l'efficacité de MYINVOICE. Cela me permet de me concentrer sur des aspects plus stratégiques de mon entreprise.",
+//       image: AvatarImg4,
+//       name: 'Alexandre Dupont',
+//       position: 'CEO',
+//       borderColor: '#FF9800',
+//     },
+//     {
+//       message: "MYINVOICE a été un ajout précieux à notre suite d'outils de gestion. En tant que CEO, je suis impressionné par son impact positif sur notre efficacité opérationnelle.",
+//       image: AvatarImg5,
+//       name: 'Isabelle Martin',
+//       position: 'CEO',
+//       borderColor: '#795548',
+//     },
+//     {
+//       message: "La convivialité de MYINVOICE est incomparable. En tant que CEO, je valorise les outils qui simplifient nos processus et permettent à mon équipe de se concentrer sur l'essentiel.",
+//       image: AvatarImg1,
+//       name: 'Jean-Luc Moreau',
+//       position: 'CEO',
+//       borderColor: '#FFC107',
+//     },
+//     {
+//       message: "Je suis constamment impressionné par les mises à jour et les améliorations continues de MYINVOICE. En tant que CEO, je suis confiant dans notre choix de cette application.",
+//       image: AvatarImg3,
+//       name: 'Sophie Durand',
+//       position: 'CEO',
+//       borderColor: '#03A9F4',
+//     },
+//     {
+//       message: "MYINVOICE a vraiment dépassé nos attentes en tant que solution de facturation. En tant que CEO, je suis ravi de l'impact positif qu'il a eu sur notre entreprise.",
+//       image: AvatarImg5,
+//       name: 'Martin Leclerc',
+//       position: 'CEO',
+//       borderColor: '#4CAF50',
+//     }
     
-  ],
+//   ],
+// };
+
+export const TestimonialsData = () => {
+  const { data: messagesData } = useGetMessagesQuery();
+  const [testimonialsData, setTestimonialsData] = useState({ title: 'De quoi les gens parlent.', clients: [] });
+  useEffect(() => {
+    if (messagesData) {
+      const clients = messagesData.map(message => {
+        return {
+          message: message.message,
+          image: message.enterpriseId.image,
+          name: message.enterpriseName,
+          position: 'CEO',
+          borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),
+        };
+      });
+      setTestimonialsData(prevData => ({ ...prevData, clients }));
+    }
+  }, [messagesData]);
+  return testimonialsData;
 };
 
 export const cta = {
@@ -293,7 +315,9 @@ export const cta = {
   img1: CtaImg1,
   img2: CtaImg2,
 };
-
+export const GeneratorData ={
+    imageDark: backgroundImage,
+    title: "Modèles de factures à usage spécifique",};
 export const footer = {
   logo: LogoImg,
   links: [
@@ -338,7 +362,6 @@ export const copyright = {
 export const modelData = [
   {
     imageDark: backgroundImage,
-    imageSom: backgroundImage2,
     title: "Modèles de factures à usage spécifique",
     sections: [
       {

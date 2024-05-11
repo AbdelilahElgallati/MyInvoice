@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/Api" }),
   reducerPath: "adminApi",
-  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie"],
+  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model"],
   endpoints: (build) => ({
     // Entreprise
     getEntreprise: build.query({
@@ -93,6 +93,16 @@ export const api = createApi({
       query: () => "Pack",
       providesTags: ["Pack"],
     }),
+    getThreePacks: build.query({
+      query: () => "Pack/ThreePacks",
+      providesTags: ["Pack"],
+      method: "GET"
+    }),
+    getAllPacksThreeService: build.query({
+      query: () => "Pack/AllPacksThreeService",
+      providesTags: ["Pack"],
+      method: "GET"
+    }),
     addPack: build.mutation({
       query: (PackData) => ({
         url: `Pack/add`,
@@ -171,6 +181,36 @@ export const api = createApi({
     removeMessage: build.mutation({
       query: (id) => ({
         url: `Message/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+    // Model
+    getAllModels: build.query({
+      query: () => `Model`,
+      providesTags: ["Model"],
+    }),
+    addModel: build.mutation({
+      query: (ModelData) => ({
+        url: `Model/add/`,
+        method: "POST",
+        body: ModelData,
+      }),
+    }),
+    getOneModel: build.query({
+      query: (id) => `Model/${id}`,
+      providesTags: ["Model"],
+    }),
+    updateModel: build.mutation({
+      query: ({ id, ModelData }) => ({
+        url: `Model/edit/${id}`,
+        method: "PUT",
+        body: ModelData,
+      }),
+    }),
+    removeModel: build.mutation({
+      query: (id) => ({
+        url: `Model/remove/${id}`,
         method: "DELETE",
       }),
     }),
@@ -333,12 +373,20 @@ export const {
   useAddPackMutation,
   useUpdatePackMutation,
   useRemovePackMutation,
+  useGetThreePacksQuery,
+  useGetAllPacksThreeServiceQuery,
 
   useGetAllServicesQuery,
   useGetOneServiceQuery,
   useAddServiceMutation,
   useUpdateServiceMutation,
   useRemoveServiceMutation,
+
+  useGetAllModelsQuery,
+  useGetOneModelQuery,
+  useAddModelMutation,
+  useUpdateModelMutation,
+  useRemoveModelMutation,
 
   useGetSubscriptionsQuery,
   useAddSubscriptionMutation,
@@ -379,6 +427,10 @@ export const {
   useRemoveCategorieMutation,
 
   useGetInvoiceDetailsQuery,
+<<<<<<< HEAD
   useGetOneInvoiceQuery,
   useUpdateInvoiceMutation,
 } = api;
+=======
+} = api;
+>>>>>>> 1f82e7994f9847912b2037ceccd0d3359a8f9843

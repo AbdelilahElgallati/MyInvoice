@@ -1,13 +1,18 @@
-import React , { useEffect, useState } from "react";
+import React , { useEffect,  useState } from "react";
 
 import { pricing } from "../data";
 import { HiCheck, HiOutlineArrowNarrowRight } from "react-icons/hi";
-import { useGetPacksQuery } from "state/api";
+import { useGetThreePacksQuery } from "state/api";
 const Pricing = () => {
  
-  const [index, setIndex] = useState(1);
-  const { title, cards } = pricing;
-  
+  const [index, setIndex] = useState(0); // Initialize index to 0
+  const { title } = pricing;
+  const { data } = useGetThreePacksQuery();
+  useEffect(() => {
+    if (data && data.length > 0) {
+      setIndex(0);
+    }
+  }, [data]);
 
   return (
     <section className="dark:bg-black section">
@@ -22,37 +27,36 @@ const Pricing = () => {
         </h2>
         {/* card */}
         <div className="flex flex-col lg:flex-row lg:gap-x-[30px] gap-y-[30px] lg:gap-y-0 justify-center items-center">
-          {cards.map((card, cardIndex) => {
-            const { icon, title, services, price, userAmount, btnText, delay } =
-              card;
+          {data && data.map((pack, packIndex) => {
+            const { name, services, price } = pack;
             //card
             return (
               <div
-                key={cardIndex}
+                key={packIndex}
                 data-aos="fade-up"
-                data-aos-delay={delay}
+                data-aos-delay="300"
                 data-aos-offset="300"
               >
                 <div
-                  onClick={() => setIndex(cardIndex)}
+                  onClick={() => setIndex(packIndex)}
                   className={`${
-                    cardIndex === index
+                    packIndex === index
                       ?  "dark:bg-slate-800 bg-white shadow-2xl"
                       : "border border-gray"
                   } w-[350px] h-[550px] rounded-[12px] p-[40px] cursor-pointer transition-all`}
                 >
                   {/* card icon */}
                   <div className="mb-8">
-                    <img src={icon} alt="" />
+                    <img src="#" alt="" />
                   </div>
                   {/* card title */}
                   <div className="dark:text-white text-[32px] font-Quicksand font-semibold mb-8">
-                    {title}
+                    {name}
                   </div>
                   {/* card services */}
                   <div className="flex flex-col gap-y-2 mb-6">
                     {services.map((service, index) => {
-                      const { name } = service;
+                      const { serviceId } = service;
                       return (
                         <div
                           className="flex items-center gap-x-[10px]"
@@ -60,7 +64,7 @@ const Pricing = () => {
                         >
                           <HiCheck className="text-light" />
                           <div className=" dark:text-white font-Quicksand font-semibold">
-                            {name}
+                            {serviceId.ServiceName}
                           </div>
                         </div>
                       );
@@ -69,24 +73,24 @@ const Pricing = () => {
                   <div className="mb-10">
                     <div>
                       <span className="dark:text-white text-2xl font-Quicksand font-semibold">
-                        {price}
+                       ${price} 
                       </span>
                       <span className=" dark:text-white text-xl text-light font-Quicksand font-semibold">
                         {" "}
-                        year
+                        /year
                       </span>
                     </div>
-                    <div className=" dark:text-white text-base text-light">{userAmount}</div>
+                    <div className=" dark:text-white text-base text-light">Jusqu'a 3 facture par mois</div>
                   </div>
                   {/* btn */}
                   <button
                     className={`${
-                      cardIndex === index
+                      packIndex === index
                         ? "bg-accent hover:bg-accentHover text-white"
                         : "border border-accent text-accent"
                     } btn btn-sm space-x-[14px]`}
                   >
-                    <span>{btnText}</span>
+                    <span>Commencer maintenent</span>
                     <HiOutlineArrowNarrowRight />
                   </button>
                 </div>

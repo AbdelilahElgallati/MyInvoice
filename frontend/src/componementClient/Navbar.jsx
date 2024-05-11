@@ -8,7 +8,7 @@ import {
 } from "@mui/icons-material";
 import FlexBetween from "componementClient/FlexBetween";
 import { useDispatch } from "react-redux";
-import { setMode } from "stateClient";
+import { setMode } from "state";
 import {
   AppBar,
   Button,

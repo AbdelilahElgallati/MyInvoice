@@ -8,21 +8,32 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Chip,
+  Typography,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useGetOneCategorieQuery, useUpdateProduitMutation, useRemoveProduitMutation, useGetOneProduitQuery } from "state/api";
+import {
+  useGetAllCategoriesQuery,
+  useUpdateProduitMutation,
+  useRemoveProduitMutation,
+  useGetOneProduitQuery,
+} from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditProduit = () => {
   const Navigate = useNavigate();
-  if(!localStorage.getItem('userId')) {
-    Navigate('/');
+  if (!localStorage.getItem("userId")) {
+    Navigate("/");
   }
   const theme = useTheme();
   const { id } = useParams();
   const { data: produitData } = useGetOneProduitQuery(id);
+<<<<<<< HEAD
   const { data: categorieData } = useGetOneCategorieQuery(localStorage.getItem('userId'));
+=======
+  console.log("produit : ", produitData);
+  const { data: categorieData } = useGetAllCategoriesQuery(localStorage.getItem('userId'));
+  console.log("categorieData : ", categorieData);
+>>>>>>> 1f82e7994f9847912b2037ceccd0d3359a8f9843
   const [produit, setProduit] = useState({
     categoryId: "",
     name: "",
@@ -31,13 +42,18 @@ const EditProduit = () => {
     price: 0,
   });
 
+  // useEffect(() => {
+  //   if (produitData) {
+  //     setProduit(produitData);
+  //   }
+  // }, [produitData]);
+
   useEffect(() => {
     if (produitData) {
       setProduit(produitData);
     }
   }, [produitData]);
 
-  
   const [editProduit] = useUpdateProduitMutation();
   const [removeProduit] = useRemoveProduitMutation();
 
@@ -45,7 +61,8 @@ const EditProduit = () => {
     const { name, value } = e.target;
     setProduit((prevProduit) => ({
       ...prevProduit,
-      [name]: name === "quantity" || name === "price" ? parseFloat(value) : value,
+      [name]:
+        name === "quantity" || name === "price" ? parseFloat(value) : value,
     }));
   };
 
@@ -128,6 +145,7 @@ const EditProduit = () => {
             id="category-select"
             value={produit.categoryId}
             onChange={handleCategoryChange}
+<<<<<<< HEAD
             renderValue={(selected) => (
               <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {selected && (
@@ -141,6 +159,22 @@ const EditProduit = () => {
                 )}
               </div>
             )}
+=======
+            renderValue={() => {
+              const selectedCategorie = categorieData?.find(
+                (category) => category._id === produit.categoryId
+              );
+              return (
+                <Typography>
+                  {
+                    selectedCategorie
+                      ? selectedCategorie.categoryName
+                      : "Catégorie introuvable"
+                  }
+                </Typography>
+              );
+            }}
+>>>>>>> 1f82e7994f9847912b2037ceccd0d3359a8f9843
           >
             {categorieData &&
               categorieData.map((category) => (
