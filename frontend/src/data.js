@@ -45,10 +45,12 @@ import { HiOutlineChevronRight } from "react-icons/hi";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun } from '@fortawesome/free-regular-svg-icons';
 import { faMoon } from '@fortawesome/free-solid-svg-icons';
+import { faHouse } from '@fortawesome/free-solid-svg-icons';
 import { useGetMessagesQuery } from 'state/api';
 import { useState, useEffect } from 'react';
 export const header = {
   logo: LogoImg,
+  IconeHome: <FontAwesomeIcon icon={faHouse} />,
   btnText: 'Connexion',
   btnTextDec: 'Déconnexion',
   IconSun : <FontAwesomeIcon icon={faSun} />,
