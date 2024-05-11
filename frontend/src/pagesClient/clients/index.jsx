@@ -85,6 +85,7 @@ const Clients  = () => {
   const handleDelete = async (id) => {
     try {
       await removeClient(id);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

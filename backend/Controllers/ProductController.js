@@ -2,7 +2,6 @@ const Produit = require("../Models/ProductSchema")
 
 const addProduit = async (req, res) => {
   try {
-    //console.log("req.body : ", req.body)
     const produitData = req.body.produit;
     const produit = new Produit(produitData);
     await produit.save();
@@ -23,7 +22,7 @@ const  getAllProduitsEnt = async (req, res) => {try {
     description: produit.description,
     quantity: produit.quantity,
     price: produit.price,
-    categoryName: produit.categoryId.categoryName // Récupère le nom de la catégorie associée
+    categoryName: produit.categoryId.categoryName 
   }));
 
   res.status(200).json(
@@ -36,7 +35,6 @@ const  getAllProduitsEnt = async (req, res) => {try {
 const  getOneProduit = async (req, res) => {
   try {
     const  produit = await Produit.findById(req.params.id);
-    
     res.status(201).json(produit);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche de produit");

@@ -24,7 +24,6 @@ const Invoices  = () => {
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
-  
   console.log("invoice : ", data)
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -91,7 +90,7 @@ const Invoices  = () => {
     {
       field: "amount",
       headerName: "Montant",
-      flex: 0.7,
+      flex: 0.5,
       renderCell: (params) => {
         // Extract the amount from the payments array
         const paymentAmounts = params.value;
@@ -107,7 +106,7 @@ const Invoices  = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 0.6,
+      flex: 0.5,
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
@@ -209,6 +208,7 @@ const Invoices  = () => {
   const handleDelete = async (id) => {
     try {
       await removeInvoice(id);
+      window.location.reload()
     } catch (error) {
       console.log(error);
     }

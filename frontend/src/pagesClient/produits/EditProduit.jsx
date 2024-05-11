@@ -27,9 +27,7 @@ const EditProduit = () => {
   const theme = useTheme();
   const { id } = useParams();
   const { data: produitData } = useGetOneProduitQuery(id);
-  console.log("produit : ", produitData);
   const { data: categorieData } = useGetAllCategoriesQuery(localStorage.getItem('userId'));
-  console.log("categorieData : ", categorieData);
   const [produit, setProduit] = useState({
     categoryId: "",
     name: "",
@@ -37,12 +35,6 @@ const EditProduit = () => {
     quantity: 0,
     price: 0,
   });
-
-  // useEffect(() => {
-  //   if (produitData) {
-  //     setProduit(produitData);
-  //   }
-  // }, [produitData]);
 
   useEffect(() => {
     if (produitData) {
@@ -141,6 +133,7 @@ const EditProduit = () => {
             id="category-select"
             value={produit.categoryId}
             onChange={handleCategoryChange}
+
             renderValue={() => {
               const selectedCategorie = categorieData?.find(
                 (category) => category._id === produit.categoryId

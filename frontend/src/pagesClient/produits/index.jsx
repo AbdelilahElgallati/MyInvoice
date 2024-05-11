@@ -98,6 +98,7 @@ const Products  = () => {
   const handleDelete = async (id) => {
     try {
       await removeProduit(id);
+      window.location.reload()
     } catch (error) {
       console.log(error);
     }
