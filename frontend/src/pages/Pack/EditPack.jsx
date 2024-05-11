@@ -1,14 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { TextField, Input, useTheme, Button, Box, FormControl, InputLabel, Select, MenuItem, Chip } from "@mui/material";
+import {
+  TextField,
+  Input,
+  useTheme,
+  Button,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Chip,
+} from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useGetAllServicesQuery, useGetOnePackQuery, useRemovePackMutation, useUpdatePackMutation } from "state/api";
+import {
+  useGetAllServicesQuery,
+  useGetOnePackQuery,
+  useRemovePackMutation,
+  useUpdatePackMutation,
+} from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
 
 const EditPack = () => {
   const [logo, setLogo] = useState(null);
-  const navigate = useNavigate()
-  if(!localStorage.getItem('userId')) {
-    navigate('/');
+  const navigate = useNavigate();
+  if (!localStorage.getItem("userId")) {
+    navigate("/");
   }
   const theme = useTheme();
   const [pack, setPack] = useState({
@@ -36,7 +52,7 @@ const EditPack = () => {
       setPack({
         name: packData.name || "",
         description: packData.description || "",
-        services: packData.services.map(service => service.serviceId) || [],
+        services: packData.services.map((service) => service.serviceId) || [],
         price: packData.price || 0,
         startDate: formattedStartDate,
         endDate: formattedEndDate,
@@ -57,15 +73,15 @@ const EditPack = () => {
     event.preventDefault();
     try {
       const formData = new FormData();
-      formData.append('name', pack.name);
-      formData.append('description', pack.description);
-      formData.append('price', pack.price);
-      formData.append('startDate', pack.startDate);
-      formData.append('endDate', pack.endDate);
-      const serviceObjects = pack.services.map(serviceId => ({ serviceId }));
-      formData.append('services', JSON.stringify(serviceObjects)); 
+      formData.append("name", pack.name);
+      formData.append("description", pack.description);
+      formData.append("price", pack.price);
+      formData.append("startDate", pack.startDate);
+      formData.append("endDate", pack.endDate);
+      const serviceObjects = pack.services.map((serviceId) => ({ serviceId }));
+      formData.append("services", JSON.stringify(serviceObjects));
       if (logo) {
-        formData.append('logo', logo);
+        formData.append("logo", logo);
       }
       await updatePack({ id, pack: formData });
       navigate("/packadmin");
@@ -73,8 +89,6 @@ const EditPack = () => {
       console.log(error);
     }
   };
-  
-  
 
   const handleDelete = async () => {
     try {
@@ -96,11 +110,15 @@ const EditPack = () => {
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="EDIT PACK" subtitle="Modification de pack" />
-      <form onSubmit={handleSubmit} enctype="multipart/form-data" sx={{
-        backgroundImage: "none",
-        backgroundColor: theme.palette.background.alt,
-        borderRadius: "0.55rem",
-      }} >
+      <form
+        onSubmit={handleSubmit}
+        enctype="multipart/form-data"
+        sx={{
+          backgroundImage: "none",
+          backgroundColor: theme.palette.background.alt,
+          borderRadius: "0.55rem",
+        }}
+      >
         <TextField
           label="Nom de pack"
           name="name"
@@ -138,21 +156,31 @@ const EditPack = () => {
             value={pack.services}
             onChange={handleServiceChange}
             renderValue={(selected) => (
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+              <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {selected.map((serviceId) => {
-                  const selectedService = serviceData?.find(service => service._id === serviceId);
+                  const selectedService = serviceData?.find(
+                    (service) => service._id === serviceId
+                  );
                   return (
-                    <Chip key={serviceId} label={selectedService ? selectedService.ServiceName : "Service introuvable"} />
+                    <Chip
+                      key={serviceId}
+                      label={
+                        selectedService
+                          ? selectedService.ServiceName
+                          : "Service introuvable"
+                      }
+                    />
                   );
                 })}
               </div>
             )}
           >
-            {serviceData && serviceData.map((service) => (
-              <MenuItem key={service._id} value={service._id}>
-                {service.ServiceName}
-              </MenuItem>
-            ))}
+            {serviceData &&
+              serviceData.map((service) => (
+                <MenuItem key={service._id} value={service._id}>
+                  {service.ServiceName}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
         <TextField
@@ -180,8 +208,8 @@ const EditPack = () => {
             shrink: true,
           }}
         />
-        <FormControl fullWidth margin="normal" >
-          <InputLabel htmlFor="icon-input" >Icon</InputLabel>
+        <FormControl fullWidth margin="normal">
+          <InputLabel htmlFor="icon-input">Icon</InputLabel>
           <Input
             id="icon-input"
             type="file"
@@ -194,7 +222,14 @@ const EditPack = () => {
           <Button type="submit" variant="contained" color="primary">
             Modifier le pack
           </Button>
-          <Button type="button" onClick={handleDelete} aria-label="delete" sx={{ ml: 2 }} variant="contained" color="primary">
+          <Button
+            type="button"
+            onClick={handleDelete}
+            aria-label="delete"
+            sx={{ ml: 2 }}
+            variant="contained"
+            color="primary"
+          >
             Supprimer le pack
           </Button>
         </Box>

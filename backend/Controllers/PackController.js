@@ -1,6 +1,6 @@
 const Pack = require("../Models/PackSchema");
 const Service = require("../Models/ServiceSchema");
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const addPack = async (req, res) => {
   try {
@@ -84,24 +84,29 @@ const updatePack = async (req, res) => {
   try {
     const logo = req.file ? req.file.filename : null;
     let { name, description, services, price, startDate, endDate } = req.body;
-    servicesData = JSON.parse(services);
-    services = servicesData;
-    const updatedPackData = { name, description, services, price, startDate, endDate };
+    services = JSON.parse(services);
+    const updatedPackData = {
+      name,
+      description,
+      services,
+      price,
+      startDate,
+      endDate,
+    };
     if (logo) {
       updatedPackData.logo = logo;
     }
-    const updatedPack = await Pack.findByIdAndUpdate(req.params.id, updatedPackData, { new: true });
+    const updatedPack = await Pack.findByIdAndUpdate(
+      req.params.id,
+      updatedPackData,
+      { new: true }
+    );
     res.status(201).json(updatedPack);
   } catch (error) {
     console.log(error);
     res.status(500).send("Erreur serveur lors de la mise à jour de pack");
   }
 };
-
-
-
-
-
 
 const removePack = async (req, res) => {
   try {
