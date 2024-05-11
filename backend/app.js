@@ -6,9 +6,9 @@ const morgan = require("morgan");
 const cron = require("node-cron");
 const passport = require("passport");
 const session = require("express-session");
-const url = "mongodb://127.0.0.1:27017/MyInvoice";
+const url = "mongodb://127.0.0.1:27017/MyInvoiceTEST";
 const app = express();
-const Port = 3001;
+const Port = 3002;
 require('dotenv').config();
 
 
@@ -55,7 +55,7 @@ app.use("/Api/Produit", ProductRouter);
 app.use("/Api/Service", ServiceRouter);
 app.use("/Api/Setting", SettingRouter);
 app.use("/Api/Subscription", SubscriptionRouter);
-// app.use("/", GoogleAuthRouter);
+app.use("/", GoogleAuthRouter);
 
 mongoose
   .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
