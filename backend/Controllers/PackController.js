@@ -80,43 +80,12 @@ const getOnePack = async (req, res) => {
   }
 };
 
-// const updatePack = async (req, res) => {
-//   try {
-//     console.log("req.body : ", req.body);
-//     console.log("req.file : ", req.file);
-//     const logo = req.file ? req.file.filename : null;
-//     const { name, description, services, price, startDate, endDate } = req.body;
-//     const updatedPackData = { name, description, services, price, startDate, endDate };
-//     if (logo) {
-//       updatedPackData.logo = logo;
-//     }
-//     const updatedPack = await Pack.findByIdAndUpdate(req.params.id, updatedPackData, { new: true });
-//     res.status(201).json(updatedPack);
-//   } catch (error) {
-//     res.status(500).send("Erreur serveur lors de la mise à jour de pack");
-//   }
-// };
-
-
-
 const updatePack = async (req, res) => {
   try {
-    console.log("req.body : ", req.body);
-    console.log("req.file : ", req.file);
     const logo = req.file ? req.file.filename : null;
     let { name, description, services, price, startDate, endDate } = req.body;
-
-    // Convertir la chaîne de caractères en un tableau d'identifiants
-    services = JSON.parse(services);
-
-    // Vérifier si services est un tableau
-    if (!Array.isArray(services)) {
-      throw new Error("Services n'est pas un tableau");
-    }
-
-    // Convertir les identifiants des services en ObjectId
-    services = services.map(serviceId => mongoose.Types.ObjectId(serviceId)); // Utiliser mongoose.Types.ObjectId
-
+    servicesData = JSON.parse(services);
+    services = servicesData;
     const updatedPackData = { name, description, services, price, startDate, endDate };
     if (logo) {
       updatedPackData.logo = logo;

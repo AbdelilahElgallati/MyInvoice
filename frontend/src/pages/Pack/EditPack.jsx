@@ -53,27 +53,6 @@ const EditPack = () => {
     setPack({ ...pack, services: selectedServices });
   };
 
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   try {
-  //     const formData = new FormData();
-  //     formData.append('name', pack.name);
-  //     formData.append('description', pack.description);
-  //     formData.append('price', pack.price);
-  //     formData.append('startDate', pack.startDate);
-  //     formData.append('endDate', pack.endDate);
-  //     formData.append('services', JSON.stringify(pack.services)); 
-  //     if (logo) {
-  //       formData.append('logo', logo);
-  //     }
-  //     console.log('data : ', formData)
-  //     await updatePack({ id, pack: formData });
-  //     navigate("/packadmin");
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -88,7 +67,6 @@ const EditPack = () => {
       if (logo) {
         formData.append('logo', logo);
       }
-      console.log('data : ', formData)
       await updatePack({ id, pack: formData });
       navigate("/packadmin");
     } catch (error) {
