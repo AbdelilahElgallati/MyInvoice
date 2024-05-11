@@ -41,7 +41,7 @@ import Daily from "pagesClient/daily";
 import Monthly from "pagesClient/monthly";
 import LayoutClient from "pagesClient/layout";
 import Abonement from "components/Pack/Abonement";
-import EditProduit from "pagesClient/produits/editProduit";
+import EditProduit from "pagesClient/produits/EditProduit";
 import EditClient from "pagesClient/clients/EditClient";
 import Categories from "pagesClient/categorie";
 import AddCategorie from "pagesClient/categorie/addCategorie";

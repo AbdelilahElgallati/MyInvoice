@@ -427,10 +427,8 @@ export const {
   useRemoveCategorieMutation,
 
   useGetInvoiceDetailsQuery,
-<<<<<<< HEAD
+
   useGetOneInvoiceQuery,
   useUpdateInvoiceMutation,
 } = api;
-=======
-} = api;
->>>>>>> 1f82e7994f9847912b2037ceccd0d3359a8f9843
+
