@@ -55,7 +55,7 @@ app.use("/Api/Produit", ProductRouter);
 app.use("/Api/Service", ServiceRouter);
 app.use("/Api/Setting", SettingRouter);
 app.use("/Api/Subscription", SubscriptionRouter);
-app.use("/", GoogleAuthRouter);
+// app.use("/", GoogleAuthRouter);
 
 mongoose
   .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })

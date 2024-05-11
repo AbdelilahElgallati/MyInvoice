@@ -1,16 +1,16 @@
-const express = require("express");
-const GoogleAuthRouter = express.Router();
-const passport = require("passport");
-const GoogleAuthControllers = require('../Controllers/GoogleAuthController')(passport);
+// const express = require("express");
+// const GoogleAuthRouter = express.Router();
+// const passport = require("passport");
+// const GoogleAuthControllers = require('../Controllers/GoogleAuthController')(passport);
 
-GoogleAuthRouter.get('/auth/google',
-  passport.authenticate('google', { scope: ['profile','email'] }));
+// GoogleAuthRouter.get('/auth/google',
+//   passport.authenticate('google', { scope: ['profile','email'] }));
 
-GoogleAuthRouter.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3000/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('http://localhost:3000/login');
-  });
+// GoogleAuthRouter.get('/auth/google/callback', 
+//   passport.authenticate('google', { failureRedirect: 'http://localhost:3000/login' }),
+//   function(req, res) {
+//     // Successful authentication, redirect home.
+//     res.redirect('http://localhost:3000/login');
+//   });
 
-module.exports = GoogleAuthRouter;
+// module.exports = GoogleAuthRouter;
