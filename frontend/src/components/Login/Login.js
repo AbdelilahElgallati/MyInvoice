@@ -286,15 +286,7 @@ const Login = () => {
               className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
             />
             <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 mr-2 dark:text-white "
-                />
-                <p className="text-sm dark:text-white font-Quicksand font-semibold  ">
-                  Se souvenir de moi pendant 30 jours
-                </p>
-              </div>
+              
               <p className="text-sm font-medium cursor-pointer underline dark:text-white font-Quicksand font-semibold ">
                 Mot de passe oublié
               </p>
@@ -323,12 +315,7 @@ const Login = () => {
             <img src={Gogle} alt="" className="w-4 mr-2" />
             Inscription avec Google
           </button>
-          <p className="mt-4 text-sm font-normal">
-            Vous n'avez pas de compte{" "}
-            <span className="font-semibold underline">
-              Inscrivez-vous gratuitement
-            </span>
-          </p>
+          
         </div>
       </div>
     </>

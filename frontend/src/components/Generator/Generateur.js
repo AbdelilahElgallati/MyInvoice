@@ -18,6 +18,8 @@ const Generateur = () => {
     sectitle,
   } = generatorData;
 
+  const id = localStorage.getItem("userId");
+
   return (
     <div>
       <Header />
@@ -28,11 +30,11 @@ const Generateur = () => {
           </h1>
           <p className="font-Quicksand font-medium dark:text-white">{headerDescription}</p>
           <a
-            href="#"
+            href={id ? "/ajouterFacture" : "/login"}
             className="inline-flex items-center mt-[20px] inline-block bg-accent text-white font-Quicksand font-semibold py-2 px-4 rounded-md hover:bg-accentHover "
           >
             {createButtonText}
-            <span className="ml-2">
+            <span className="ml-2"> 
               <HiOutlineChevronRight />
             </span>
           </a>

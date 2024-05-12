@@ -1,8 +1,15 @@
 import React from 'react';
 import { cta } from '../data';
+import { useNavigate } from 'react-router-dom';
 // import icons ;
 import { HiOutlineChevronDoubleRight } from 'react-icons/hi';
 const Cta = () => {
+  const navigate = useNavigate();
+  const handleLoginClick = () => {
+    const userId = localStorage.getItem("userId");
+    const redirectPath = userId ? "/ajouterFacture" : "/login";
+    navigate(redirectPath);
+  }
   const {title , subtitle, btnText , img1 , img2} = cta;
   return (
     <section className='section bg-cta bg-cover bg-left-top '>
@@ -34,6 +41,7 @@ const Cta = () => {
           <button className='btn btn-md btn-white mt-[40px] lg:text-[22px] gap-x-[10px] mx-auto font-Quicksand font-semibold'
           data-aos= 'fade-up'
           data-aos-delay='400'
+          onClick={handleLoginClick}
           >
             {btnText} <HiOutlineChevronDoubleRight/>
           </button>

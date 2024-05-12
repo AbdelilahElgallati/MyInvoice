@@ -3,11 +3,13 @@ import React , { useEffect,  useState } from "react";
 import { pricing } from "../data";
 import { HiCheck, HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useGetThreePacksQuery } from "state/api";
+import logoIm from '../assets/img/pricing/icon1.svg'
 const Pricing = () => {
  
   const [index, setIndex] = useState(0); // Initialize index to 0
   const { title } = pricing;
   const { data } = useGetThreePacksQuery();
+  
   useEffect(() => {
     if (data && data.length > 0) {
       setIndex(0);
@@ -28,7 +30,7 @@ const Pricing = () => {
         {/* card */}
         <div className="flex flex-col lg:flex-row lg:gap-x-[30px] gap-y-[30px] lg:gap-y-0 justify-center items-center">
           {data && data.map((pack, packIndex) => {
-            const { name, services, price } = pack;
+            const { name, services, price ,logo } = pack;
             //card
             return (
               <div
@@ -47,7 +49,7 @@ const Pricing = () => {
                 >
                   {/* card icon */}
                   <div className="mb-8">
-                    <img src="#" alt="" />
+                    <img src={`http://localhost:3001/Images/${logo}`} alt=""  />
                   </div>
                   {/* card title */}
                   <div className="dark:text-white text-[32px] font-Quicksand font-semibold mb-8">

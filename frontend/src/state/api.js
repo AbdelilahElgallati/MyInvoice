@@ -391,7 +391,7 @@ export const {
   useUpdateServiceMutation,
   useRemoveServiceMutation,
 
-  useGetAllModelsQuery,
+  useGetAllModelsQuery, 
   useGetOneModelQuery,
   useAddModelMutation,
   useUpdateModelMutation,

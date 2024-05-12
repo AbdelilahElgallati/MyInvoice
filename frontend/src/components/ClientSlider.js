@@ -50,12 +50,16 @@ const ClientSlider = ({ clients }) => {
                   {client.message}
                 </div>
                 {/* person name, img , position */}
-                <div className=" flex gap-x-[10px]">
-                  <img src={client.image} alt="" />
+                <div className="flex gap-x-[10px] items-center">
+                  <img
+                    className="w-[30%]"
+                    src={`http://localhost:3001/Images/${client.image}`}
+                    alt=""
+                  />
                   <div className="dark:text-white font-bold font-Quicksand">
                     {client.name}
                   </div>
-                  <div className="text-light font-Quicksand ">
+                  <div className="text-light font-Quicksand">
                     {client.position}
                   </div>
                 </div>

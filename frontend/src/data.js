@@ -296,7 +296,7 @@ export const TestimonialsData = () => {
       const clients = messagesData.map(message => {
         return {
           message: message.message,
-          image: message.enterpriseId.image,
+          image: message.enterpriseLogo,
           name: message.enterpriseName,
           position: 'CEO',
           borderColor: '#' + Math.floor(Math.random()*16777215).toString(16),

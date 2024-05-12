@@ -9,9 +9,10 @@ const Hero = () => {
   const { title, subtitle, btnText, compText, image } = hero;
   const navigate = useNavigate();
   const handleLoginClick = () => {
-    // Redirige vers la page de connexion lorsque le bouton est cliqué
-    navigate('/Login');
-  };
+    const userId = localStorage.getItem("userId");
+    const redirectPath = userId ? "/ajouterFacture" : "/login";
+    navigate(redirectPath);
+  }
   return (
     <section className=' dark:bg-black min-h-[900px]  py-12 mt-[90px]  lg:mt-[50px]'>
       <div className=' container mx-auto min-h-[900px] flex justify-center items-center '>
