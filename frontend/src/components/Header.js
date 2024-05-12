@@ -8,12 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { dark } from "@mui/material/styles/createPalette";
-import { useTheme } from './ThemeContext';
-import { useContext } from 'react';
-import { ThemeContext } from './ThemeContext';
+import { useTheme } from "./ThemeContext";
+import { useContext } from "react";
+import { ThemeContext } from "./ThemeContext";
 
 const Header = () => {
-  
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
@@ -22,7 +21,7 @@ const Header = () => {
   };
   const [mobileNav, setMobileNav] = useState(false);
   const [isActive, setisActive] = useState(false);
-  const { logo, btnText, btnTextDec, IconSun, IconMon , IconeHome } = header;
+  const { logo, btnText, btnTextDec, IconSun, IconMon, IconeHome } = header;
   //scrool event
   useEffect(() => {
     const handleScroll = () => {
@@ -43,7 +42,7 @@ const Header = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
-    //const { theme, toggleTheme } = useContext(ThemeContext);
+  //const { theme, toggleTheme } = useContext(ThemeContext);
   // DARK MODE :
   const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
   console.log(theme);
@@ -69,7 +68,7 @@ const Header = () => {
     }
   }
   function toggleHome() {
-   navigate("/dashboard");
+    navigate("/dashboard");
   }
   const id = localStorage.getItem("userId");
   return (
@@ -106,9 +105,6 @@ const Header = () => {
           data-aos="fade-down"
           data-aos-delay="100"
         >
-          <FontAwesomeIcon icon="fa-regular fa-sun-bright" />
-         
-       
           <Nav />
         </div>
         {/* if(localStorage.getItem('userId')) {
@@ -132,6 +128,7 @@ const Header = () => {
           {btnTextDec}
         </button>
           } */}
+
         {!localStorage.getItem("userId") ? (
           <button
             className="btn btn-sm btn-outline hidden lg:flex"
@@ -151,16 +148,7 @@ const Header = () => {
             {btnTextDec}
           </button>
         )}
-         {localStorage.getItem("userId")?(
-            <button
-            className="w-45 text-accent  "
-            data-aos="fade-down"
-            data-aos-delay="100"
-            onClick={toggleHome}
-            >
-            {IconeHome}
-            </button>
-          ):(" ")}
+
         <button
           className="w-45 text-accent ml-[140px] lg:ml-[0px] "
           data-aos="fade-down"
@@ -169,7 +157,18 @@ const Header = () => {
         >
           {theme === "dark" ? IconSun : IconMon}
         </button>
-
+        {localStorage.getItem("userId") ? (
+          <button
+            className="w-45 text-accent lg:ml-[0px]  "
+            data-aos="fade-down"
+            data-aos-delay="100"
+            onClick={toggleHome}
+          >
+            {IconeHome}
+          </button>
+        ) : (
+          " "
+        )}
         <button className="lg:hidden" onClick={() => setMobileNav(!mobileNav)}>
           {mobileNav ? (
             <HiOutlineX className="text-3xl text-accent" />
@@ -177,21 +176,21 @@ const Header = () => {
             <HiMenuAlt4 className="text-3xl text-accent" />
           )}
         </button>
-        {/* mobile  nav */}
-        {/* <div className ={`
+      </div>
+      {/* mobile  nav */}
+      {/* <div className ={`
       ${ mobileNav ? 'left-0' : '-left-full'} 
       fixed top-0 bottom-0 w-[60vw] lg:hidden 
       transition-all bg-pink-400`} >
         <MobileNav />
       </div> */}
-        <div
-          className={`${
-            mobileNav ? "left-0" : "-left-full"
-          }  fixed top-0 bottom-0 w-[60vw] 
+      <div
+        className={`${
+          mobileNav ? "left-0" : "-left-full"
+        }  fixed top-0 bottom-0 w-[60vw] 
       lg:hidden transition-all`}
-        >
-          <MobileNav />
-        </div>
+      >
+        <MobileNav />
       </div>
     </header>
   );
