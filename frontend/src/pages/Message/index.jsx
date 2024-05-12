@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import { useGetMessagesQuery, useRemoveMessageMutation } from "state/api";
 import Header from "componentsAdmin/Header";
@@ -7,13 +7,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 
 const Messages = () => {
-  const navigate = useNavigate()
-  if(!localStorage.getItem('userId')) {
-    navigate('/');
+  const navigate = useNavigate();
+  if (!localStorage.getItem("userId")) {
+    navigate("/");
   }
+  const [messages, setMessages] = useState([]);
   const theme = useTheme();
   const { data, isLoading } = useGetMessagesQuery();
   const [removeMessage] = useRemoveMessageMutation();
+  useEffect(() => {
+    if (data) {
+      setMessages(data);
+    }
+  }, [data]);
+
   const columns = [
     {
       field: "enterpriseName",
@@ -51,6 +58,7 @@ const Messages = () => {
   const handleDelete = async (id) => {
     try {
       await removeMessage(id);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -88,9 +96,9 @@ const Messages = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading || !messages}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={messages || []} 
           columns={columns}
         />
       </Box>
