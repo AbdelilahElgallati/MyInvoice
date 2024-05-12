@@ -11,10 +11,11 @@ import { dark } from "@mui/material/styles/createPalette";
 import { useTheme } from "./ThemeContext";
 import { useContext } from "react";
 import { ThemeContext } from "./ThemeContext";
+import { useGetOneEntrepriseQuery } from "state/api";
 
 const Header = () => {
   const navigate = useNavigate();
-
+  const {data : entreprise } = useGetOneEntrepriseQuery(localStorage.getItem('userId'));
   const handleLoginClick = () => {
     // Redirige vers la page de connexion lorsque le bouton est cliqué
     navigate("/Login");
@@ -68,9 +69,14 @@ const Header = () => {
     }
   }
   function toggleHome() {
-    navigate("/dashboard");
+    if (entreprise.role === "admin" && entreprise.status === "active"
+    ) {
+      navigate("/dashboard");
+    } else if (entreprise.status === "active") {
+      navigate("/dashboardClient");
+    }
   }
-  const id = localStorage.getItem("userId");
+  // const id = localStorage.getItem("userId");
   return (
     <header
       className={`${
