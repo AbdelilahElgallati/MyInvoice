@@ -26,7 +26,7 @@ const Hero = () => {
               {title}
             </h1>
             <p
-              className='dark:text-white text-xl font-Quicksand lead mb-5 lg:mb-10'
+              className='dark:text-white text-md font-Quicksand lead mb-5 lg:mb-10'
               data-aos='fade-down'
               data-aos-delay='500' // Correction ici
             >
