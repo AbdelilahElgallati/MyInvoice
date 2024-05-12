@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/Api" }),
   reducerPath: "adminApi",
-  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model"],
+  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model","Auth"],
   endpoints: (build) => ({
     // Entreprise
     getEntreprise: build.query({
@@ -352,6 +352,10 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+    getOneAuth: build.query({
+      query: () => `auth/google/`,
+      providesTags: ["Auth"],
+    }),
     
   }),
 });
@@ -430,5 +434,6 @@ export const {
 
   useGetOneInvoiceQuery,
   useUpdateInvoiceMutation,
+  useGetOneAuthQuery,
 } = api;
 

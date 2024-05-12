@@ -1,15 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
 import Gogle from "../../assets/img/Login/th.jpg";
 import { useNavigate } from "react-router-dom";
 import Header from "components/Header";
 import { useLoginEntrepriseMutation } from "state/api";
+import { useParams } from 'react-router-dom';
 const Login = () => {
+  // const { email, fullname, secret } = useParams();
+  // console.log("email is"+email);
+ // useEffect(() => {
+  //   if (email && fullname && secret) {
+  //     localStorage.setItem(
+  //       "user",
+  //       JSON.stringify({
+  //         email,
+  //         fullname,
+  //         secret,
+  //       })
+  //     );
+  //   }
+  // }, []);
   const navigate = useNavigate();
   const [loginEntreprise] = useLoginEntrepriseMutation();
+
   const [emailEnt, setEmailEnt] = useState("");
   const [passwordEnt, setPasswordEnt] = useState("");
+  // useEffect(() => {
+  //   localStorage.setItem(
+  //           "user",
+  //           JSON.stringify({
+  //             email,
+  //             fullname,
+  //             secret,
+  //           })
+  //         );
+  // }, [email, fullname, secret]);
+  // useEffect(() => {
+  //   if (email && fullname && secret) {
+  //     localStorage.setItem(
+  //       "user",
+  //       JSON.stringify({
+  //         email,
+  //         fullname,
+  //         secret,
+  //       })
+  //     );
+  //   }
+  // }, []);
 
+  // useEffect(() => {
+  //   setUser(JSON.parse(localStorage.getItem("user")));
+  // }, []);
   const handleChangeEmail = (e) => {
     setEmailEnt(e.target.value);
   };
@@ -17,10 +58,16 @@ const Login = () => {
   const handleChangePassword = (e) => {
     setPasswordEnt(e.target.value);
   };
+  const handleRegisterGoogle = (e) => {
+    e.preventDefault();
+    window.location.href = "http://localhost:3001/Api/auth/google/";
+  };
+
 
   const handleRegisterClick = () => {
     navigate("/Register");
   };
+
   const hamdelSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -28,19 +75,22 @@ const Login = () => {
         email: emailEnt,
         password: passwordEnt,
       });
-      const entrepriseInfo = Info.data.user
-      if (entrepriseInfo.role === "admin" && entrepriseInfo.status === "active") {
-        localStorage.setItem('token', Info.data.jsenwebtkn);
-        localStorage.setItem('userId', Info.data.user._id);
+      const entrepriseInfo = Info.data.user;
+      if (
+        entrepriseInfo.role === "admin" &&
+        entrepriseInfo.status === "active"
+      ) {
+        localStorage.setItem("token", Info.data.jsenwebtkn);
+        localStorage.setItem("userId", Info.data.user._id);
         navigate("/dashboard");
-      } else if(entrepriseInfo.status === "active") {
-        localStorage.setItem('token', Info.data.jsenwebtkn);
-        localStorage.setItem('userId', Info.data.user._id);
+      } else if (entrepriseInfo.status === "active") {
+        localStorage.setItem("token", Info.data.jsenwebtkn);
+        localStorage.setItem("userId", Info.data.user._id);
         navigate("/dashboardClient");
       }
     } catch (error) {
       console.log(error);
-      navigate("/login"); 
+      navigate("/login");
     }
   };
   return (
@@ -78,8 +128,13 @@ const Login = () => {
             />
             <div className="flex items-center justify-between mb-4">
               <div className="flex items-center">
-                <input type="checkbox" className="w-4 h-4 mr-2 dark:text-white " />
-                <p className="text-sm dark:text-white font-Quicksand font-semibold  ">Se souvenir de moi pendant 30 jours</p>
+                <input
+                  type="checkbox"
+                  className="w-4 h-4 mr-2 dark:text-white "
+                />
+                <p className="text-sm dark:text-white font-Quicksand font-semibold  ">
+                  Se souvenir de moi pendant 30 jours
+                </p>
               </div>
               <p className="text-sm font-medium cursor-pointer underline dark:text-white font-Quicksand font-semibold ">
                 Mot de passe oublié
@@ -98,9 +153,14 @@ const Login = () => {
           </button>
           <div className="w-full text-center mb-4">
             <div className="w-full h-px bg-black"></div>
-            <p className="relative inline-block px-2 bg-gray-200 text-sm dark:bg-black dark:text-accent">ou</p>
+            <p className="relative inline-block px-2 bg-gray-200 text-sm dark:bg-black dark:text-accent">
+              ou
+            </p>
           </div>
-          <button className="w-full border border-black text-[#060606] bg-white hover:bg-gray-300 rounded-md py-3 flex items-center justify-center">
+          <button
+            className="w-full border border-black text-[#060606] bg-white hover:bg-gray-300 rounded-md py-3 flex items-center justify-center"
+            onClick={handleRegisterGoogle}
+          >
             <img src={Gogle} alt="" className="w-4 mr-2" />
             Inscription avec Google
           </button>
@@ -113,7 +173,6 @@ const Login = () => {
         </div>
       </div>
     </>
-
   );
 };
 
