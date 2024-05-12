@@ -60,6 +60,19 @@ const getOneEntreprise = async (req, res) => {
   }
 };
 
+const getEntrepriseByGoogleId = async (req, res) => {
+  try {
+    console.log('start')
+    console.log('req : ', req)
+    console.log('googleId : ', req.id)
+    const entreprise = await Entreprise.findOne({googleId: req.id});
+    console.log('entreprise : ', entreprise)
+    return entreprise;
+  } catch (error) {
+    console.error("Erreur serveur lors de la recherche d'entreprise");
+  }
+};
+
 const getEntrepriseDetail = async (req, res) => {
   try {
     const entreprise = await Entreprise.findById(req.params.id);
@@ -199,4 +212,5 @@ module.exports = {
   login,
   getEnterpriseCountByMonthAndYear,
   getEntrepriseDetail,
+  getEntrepriseByGoogleId,
 };

@@ -14,40 +14,6 @@ const addInvoice = async (req, res) => {
     res.status(500).send("Erreur serveur lors de l'ajout de facture");
   }
 };
-// const getAllInvoices = async (req, res) => {
-//   try {
-//     const { page = 1, pageSize = 20, sort = null, search = "", id } = req.query;
-//     const generateSort = () => {
-//       const sortParsed = JSON.parse(sort);
-//       const sortFormatted = {
-//         [sortParsed.field]: (sortParsed.sort = "asc" ? 1 : -1),
-//       };
-
-//       return sortFormatted;
-//     };
-//     const sortFormatted = Boolean(sort) ? generateSort() : {};
-
-//     const invoices = await Invoice.find({
-//       userId : id,
-//     })
-//       .sort(sortFormatted)
-//       .skip(page * pageSize)
-//       .limit(pageSize);
-
-//     const total = await Invoice.countDocuments({
-//       name: { $regex: search, $options: "i" },
-//     });
-//     const totalItems = await Invoice.countDocuments();
-
-//     res.status(200).json({
-//       invoices,
-//       total,
-//       totalItems,
-//     });
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-// };
 
 const getAllInvoices = async (req, res) => {
   try {

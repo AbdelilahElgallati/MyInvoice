@@ -12,7 +12,7 @@ const EnterpriseSchema = new Schema({
     logo: { type: String },
     status: { type: String, enum: ['active', 'cancelled'], default: 'active' },
     googleId : String,
-    secret : String,
+    // secret : String,
   },
   {timestamps: true}
 );

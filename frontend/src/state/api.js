@@ -18,6 +18,10 @@ export const api = createApi({
       query: (id) => `Entreprise/${id}`,
       providesTags: ["Entreprise"],
     }),
+    getEntrepriseByGoogleId: build.query({
+      query: (id) => `Entreprise/EntrepriseGoogle/${id}`,
+      providesTags: ["Entreprise"],
+    }),
     getEntrepriseDetail: build.query({
       query: (id) => `Entreprise/entreprisedetail/${id}`,
       providesTags: ["Entreprise"],
@@ -371,6 +375,7 @@ export const {
   useRemoveEntrepriseMutation,
   useLoginEntrepriseMutation,
   useRegisterEntrepriseMutation,
+  useGetEntrepriseByGoogleIdQuery,
 
   useGetPacksQuery,
   useGetOnePackQuery,

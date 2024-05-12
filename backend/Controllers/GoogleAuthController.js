@@ -6,7 +6,7 @@ module.exports = (passport) => {
         done(null, user.id)
     });
     passport.deserializeUser(function(id, done) {
-        Enterprise.findById(id).exec() // Utilisation de exec() pour obtenir une promesse
+        Enterprise.findById(id).exec() 
             .then(user => done(null, user))
             .catch(err => done(err));
     });
@@ -27,7 +27,7 @@ module.exports = (passport) => {
                         name: profile.displayName,
                         email: profile.emails[0].value,
                         logo: profile.photos[0].value,
-                        secret: accessToken,
+                        password: accessToken,
                     };
                     await Enterprise.findOneAndUpdate({ googleId: profile.id }, { $set: updateUser }, { new: true });
                     return cb(null, user);
@@ -37,7 +37,7 @@ module.exports = (passport) => {
                         name: profile.displayName,
                         email: profile.emails[0].value,
                         logo: profile.photos[0].value,
-                        secret: accessToken,
+                        password: accessToken,
                     });
                     await newUser.save();
                     return cb(null, newUser);
