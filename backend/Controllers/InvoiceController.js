@@ -135,6 +135,19 @@ const getDashboardStats = async (req, res) => {
     const todayStats = overallStat[0].dailyData.find(({ date }) => {
       return date === currentDay;
     });
+    console.log(  invoices,
+      totalPaidAmount,
+      totalCustomers,
+      totalProducts,
+      totalInvoices,
+      totalPaidInvoices,
+      totalUnpaidInvoices,
+      yearlyTotalSoldUnits,
+      yearlySalesTotal,
+      monthlyData,
+      salesByCategory,
+      thisMonthStats,
+      todayStats,);
     res.status(200).json({
       invoices,
       totalPaidAmount,
