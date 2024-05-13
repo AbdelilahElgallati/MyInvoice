@@ -5,7 +5,6 @@ export const api = createApi({
   reducerPath: "adminApi",
   tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model"],
   endpoints: (build) => ({
-    // Entreprise
     getEntreprise: build.query({
       query: (id) => `Entreprise/${id}`,
       providesTags: ["Entreprise"],
@@ -57,8 +56,6 @@ export const api = createApi({
         body: data,
       }),
     }),
-
-    // Service
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],
@@ -87,8 +84,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-
-    // Pack
     getPacks: build.query({
       query: () => "Pack",
       providesTags: ["Pack"],
@@ -127,8 +122,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-
-    // Subscription
     getSubscriptions: build.query({
       query: () => `Subscription`,
       providesTags: ["Subscription"],
@@ -161,8 +154,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-
-    // Message
     getMessages: build.query({
       query: () => `Message`,
       providesTags: ["Message"],
@@ -184,8 +175,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-
-    // Model
     getAllModels: build.query({
       query: () => `Model`,
       providesTags: ["Model"],
@@ -214,9 +203,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-
-    // Entreprise phase 
-
     getUser: build.query({
       query: (id) => `Entreprise/${id}`,
       providesTags: ["Entreprise"],
@@ -249,7 +235,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-    // produit entreprise
     addProduit: build.mutation({
       query: (produit) => ({
         url: `Produit/add`,
@@ -278,9 +263,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-
-
-    // client entreprise
     addClient: build.mutation({
       query: (client) => ({
         url: `Client/add`,
@@ -309,8 +291,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-
-
     getSales: build.query({
       query: () => "Invoice/summary",
       providesTags: ["Sales"],
@@ -323,7 +303,6 @@ export const api = createApi({
       query: (id) => `Invoice/details/${id}`,
       providesTags: ["Invoices"],
     }),
-    // Categorie
     addCategory: build.mutation({
       query: (categorieData) => ({
         url: `Categorie/add/`,
@@ -400,7 +379,6 @@ export const {
   useGetAllMessagesQuery,
   useAddMessageMutation,
   
-  // Entreprise fnc
   useAddInvoiceMutation,
   useGetUserQuery,
   useGetInvoicesQuery,
@@ -427,6 +405,8 @@ export const {
   useRemoveCategorieMutation,
 
   useGetInvoiceDetailsQuery,
+
   useGetOneInvoiceQuery,
   useUpdateInvoiceMutation,
 } = api;
+

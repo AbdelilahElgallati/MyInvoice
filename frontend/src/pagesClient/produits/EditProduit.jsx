@@ -27,10 +27,7 @@ const EditProduit = () => {
   const theme = useTheme();
   const { id } = useParams();
   const { data: produitData } = useGetOneProduitQuery(id);
-  const { data: categorieData } = useGetOneCategorieQuery(localStorage.getItem('userId'));
-   console.log ("produit : ", produitData);
   const { data: categorieData } = useGetAllCategoriesQuery(localStorage.getItem('userId'));
-  console.log("categorieData : ", categorieData);
   const [produit, setProduit] = useState({
     categoryId: "",
     name: "",
@@ -38,12 +35,6 @@ const EditProduit = () => {
     quantity: 0,
     price: 0,
   });
-
-  // useEffect(() => {
-  //   if (produitData) {
-  //     setProduit(produitData);
-  //   }
-  // }, [produitData]);
 
   useEffect(() => {
     if (produitData) {
@@ -142,19 +133,7 @@ const EditProduit = () => {
             id="category-select"
             value={produit.categoryId}
             onChange={handleCategoryChange}
-            renderValue={(selected) => (
-              <div style={{ display: "flex", flexWrap: "wrap" }}>
-                {selected && (
-                  <Chip
-                    key={selected}
-                    label={
-                      categorieData && categorieData.find((category) => category._id === selected)?.categoryName || ""
-                    }
-                  />
-                  
-                )}
-              </div>
-            )}
+
             renderValue={() => {
               const selectedCategorie = categorieData?.find(
                 (category) => category._id === produit.categoryId
@@ -197,4 +176,4 @@ const EditProduit = () => {
   );
 };
 
-export default EditProduit;
+export default EditProduit;

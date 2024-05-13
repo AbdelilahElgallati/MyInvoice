@@ -36,12 +36,13 @@ import AddProduct from "pagesClient/produits/addProduct";
 import AddClient from "pagesClient/clients/addClient";
 import EditInvoice from "pagesClient/invoices/editInvoice";
 import DetailsInvoice from "pagesClient/invoices/detailsInvoice";
+import PrintInvoice from "pagesClient/invoices/printInvoice";
 import Overview from "pagesClient/overview";
 import Daily from "pagesClient/daily";
 import Monthly from "pagesClient/monthly";
 import LayoutClient from "pagesClient/layout";
 import Abonement from "components/Pack/Abonement";
-import EditProduit from "pagesClient/produits/editProduit";
+import EditProduit from "pagesClient/produits/EditProduit";
 import EditClient from "pagesClient/clients/EditClient";
 import Categories from "pagesClient/categorie";
 import AddCategorie from "pagesClient/categorie/addCategorie";
@@ -75,6 +76,7 @@ const App = () => {
           <Route path="/pack" element={<Abonement/>} />
           <Route path="/DarkMode" element={<DarkMode/>} />
           <Route path="/Apropos" element={<Apropos/>} />
+          <Route path="/factures/imprimer/:id" element={<PrintInvoice/>} />
           <Route element={<LayoutWithThemeProvider theme={theme} />}>
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/PackAdmin" element={<PackWithThemeProvider theme={theme} />} />
