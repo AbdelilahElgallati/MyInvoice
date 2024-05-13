@@ -16,15 +16,17 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage });
 
-
+EntrepriseRouter.get( "/EntrepriseGoogle/:id", EntrepriseController.getEntrepriseByGoogleId); 
 EntrepriseRouter.get( "/entreprisedetail/:id", EntrepriseController.getEntrepriseDetail);
 EntrepriseRouter.get('/dashboard', EntrepriseController.getDashboardInfo); 
 EntrepriseRouter.get('/EnterpriseStat', EntrepriseController.getEnterpriseCountByMonthAndYear);
 EntrepriseRouter.get( "/", EntrepriseController.getAllEntreprises); 
 EntrepriseRouter.get( "/:id", EntrepriseController.getOneEntreprise); 
+
 EntrepriseRouter.post('/register', upload.single('logo'), EntrepriseController.addEntreprise);
 EntrepriseRouter.put('/edit/:id', EntrepriseController.updateEntreprise);
 EntrepriseRouter.delete("/remove/:id", EntrepriseController.removeEntreprise);
 EntrepriseRouter.post('/login',Auth, EntrepriseController.login);
-
+EntrepriseRouter.post('/ForgoutPass', EntrepriseController.ForgoutPass);
+EntrepriseRouter.post('/reset-password/:id/:token', EntrepriseController.ResetPass);
 module.exports = EntrepriseRouter;

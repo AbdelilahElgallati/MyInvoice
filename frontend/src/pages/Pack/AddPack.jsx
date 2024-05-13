@@ -44,12 +44,11 @@ const AddPack = () => {
       formDataWithLogo.append("logo", logo);
     }
     Object.entries(formData).forEach(([key, value]) => {
-      formDataWithLogo.append(key, value); // Enveloppez les données sous la clé 'pack'
+      formDataWithLogo.append(key, value); 
     });
     try {
-      console.log("pack : ", formData);
-      console.log("pack with icon : ", formDataWithLogo);
       await addPack(formDataWithLogo);
+      
       Navigate("/packadmin");
     } catch (error) {
       console.log(error);
@@ -59,7 +58,7 @@ const AddPack = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="ADD SERVICES" subtitle="Ajout d'un nouveau pack" />
+      <Header title="ADD PACK" subtitle="Ajout d'un nouveau pack" />
       <form onSubmit={handleSubmit} sx={{
         backgroundImage: "none",
         backgroundColor: theme.palette.background.alt,

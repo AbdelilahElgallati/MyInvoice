@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  mode: "dark",
+  mode: localStorage.getItem('currentMode'),
   userId: localStorage.getItem('userId') ? localStorage.getItem('userId') : '',
 }
 
@@ -11,6 +11,7 @@ export const globalSlice = createSlice({
   reducers: {
     setMode: (state) => {
       state.mode = state.mode === "light" ? "dark" : "light";
+      localStorage.setItem("currentMode", state.mode);
     },
   },
 });

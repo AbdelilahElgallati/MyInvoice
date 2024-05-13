@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, useTheme, Button, IconButton } from "@mui/material";
 import { useGetAllServicesQuery, useRemoveServiceMutation } from "state/api";
 import Header from "componentsAdmin/Header";
@@ -11,13 +11,23 @@ import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
 
 const Services = () => {
+  
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
+  const [service, setService] = useState({
+    _id: "",
+    ServiceName: "",
+  })
   const theme = useTheme();
   const [removeService] = useRemoveServiceMutation();
   const { data, isLoading } = useGetAllServicesQuery();
+  useEffect(()=>{
+    if(data) {
+      setService(data)
+    }
+  },[data])
 
   const columns = [
     {
@@ -56,6 +66,7 @@ const Services = () => {
   const handleDelete = async (id) => {
     try {
       await removeService(id);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -106,9 +117,9 @@ const Services = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading || !service}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={service || []}
           columns={columns}
         />
       </Box>

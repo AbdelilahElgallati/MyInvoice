@@ -50,8 +50,8 @@ const Abonement = () => {
           Nos <span className="text-accent">abonnements</span>{" "}
         </h1>
         <div className="dark:bg-black flex flex-wrap justify-center lg:justify-evenly gap-y-[30px] lg:gap-y-[30px] lg:gap-x-[40px] lg:w-full items-center">
-          {data && data.map((pack, packIndex) => {
-            const { name, services, price } = pack;
+        {data && data.map((pack, packIndex) => {
+            const { name, services, price ,logo } = pack;
             //card
             return (
               <div
@@ -64,13 +64,13 @@ const Abonement = () => {
                   onClick={() => setIndex(packIndex)}
                   className={`${
                     packIndex === index
-                      ? "dark:bg-slate-800 bg-white shadow-2xl"
+                      ?  "dark:bg-slate-800 bg-white shadow-2xl"
                       : "border border-gray"
                   } w-[350px] h-[550px] rounded-[12px] p-[40px] cursor-pointer transition-all`}
                 >
                   {/* card icon */}
                   <div className="mb-8">
-                    <img src="#" alt="" />
+                    <img src={`http://localhost:3001/Images/${logo}`} alt=""  />
                   </div>
                   {/* card title */}
                   <div className="dark:text-white text-[32px] font-Quicksand font-semibold mb-8">
@@ -96,16 +96,14 @@ const Abonement = () => {
                   <div className="mb-10">
                     <div>
                       <span className="dark:text-white text-2xl font-Quicksand font-semibold">
-                        {price}
+                       ${price} 
                       </span>
                       <span className=" dark:text-white text-xl text-light font-Quicksand font-semibold">
                         {" "}
-                        year
+                        /year
                       </span>
                     </div>
-                    <div className=" dark:text-white text-base text-light">
-                    Jusqu'a 3 facture par mois
-                    </div>
+                    <div className=" dark:text-white text-base text-light">Jusqu'a 3 facture par mois</div>
                   </div>
                   {/* btn */}
                   <button

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme, Button, IconButton, Avatar } from "@mui/material";
 import { useGetAllModelsQuery, useRemoveModelMutation } from "state/api";
 import Header from "componentsAdmin/Header";
@@ -15,9 +15,21 @@ const Models = () => {
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
+  const [model, setModel] = useState({
+    _id: "",
+    name: "",
+    icon: "",
+    description: "",
+  })
+  
   const theme = useTheme();
   const [removeModel] = useRemoveModelMutation();
   const { data, isLoading } = useGetAllModelsQuery();
+  useEffect(()=>{
+    if(data) {
+      setModel(data)
+    }
+  },[data])
 
   const columns = [
     {
@@ -69,6 +81,7 @@ const Models = () => {
   const handleDelete = async (id) => {
     try {
       await removeModel(id);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -119,9 +132,9 @@ const Models = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading || !model}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={model || []}
           columns={columns}
         />
       </Box>

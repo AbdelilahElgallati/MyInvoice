@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Card,
@@ -29,9 +29,9 @@ const Pack = ({
   startDate,
   endDate,
 }) => {
-  const navigate = useNavigate()
-  if(!localStorage.getItem('userId')) {
-    navigate('/');
+  const navigate = useNavigate();
+  if (!localStorage.getItem("userId")) {
+    navigate("/");
   }
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -39,6 +39,7 @@ const Pack = ({
   const handleDelete = async (id) => {
     try {
       await removePack(id);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +72,7 @@ const Pack = ({
         <Button
           variant="primary"
           size="small"
-          onClick={() => window.location.href = `/Pack/edit/${_id}`}
+          onClick={() => (window.location.href = `/Pack/edit/${_id}`)}
         >
           Update
         </Button>
@@ -96,9 +97,7 @@ const Pack = ({
           <List dense>
             {services.map((service, index) => (
               <ListItem key={index}>
-                <ListItemText
-                  primary={service.serviceId.ServiceName}
-                />
+                <ListItemText primary={service.serviceId.ServiceName} />
               </ListItem>
             ))}
           </List>
@@ -112,13 +111,16 @@ const Pack = ({
   );
 };
 
-
 const Packs = () => {
-  const { data, isLoading} = useGetPacksQuery();
-  const isNonMobile = useMediaQuery("(min-width: 1000px)");
-
   
-
+  const [packs, setPacks] = useState([]);
+  const { data } = useGetPacksQuery();
+  const isNonMobile = useMediaQuery("(min-width: 1000px)");
+  useEffect(() => {
+    if (data) {
+      setPacks(data);
+    }
+  }, [data]);
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -135,7 +137,7 @@ const Packs = () => {
           </Button>
         </Link>
       </FlexBetween>
-      {data || !isLoading ? (
+      {packs.length > 0 ? (
         <Box
           mt="20px"
           display="grid"
@@ -147,7 +149,7 @@ const Packs = () => {
             "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
           }}
         >
-          {data.map(
+          {packs.map(
             ({
               _id,
               name,
@@ -175,6 +177,6 @@ const Packs = () => {
       )}
     </Box>
   );
-}
+};
 
 export default Packs;

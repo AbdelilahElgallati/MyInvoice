@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/Api" }),
   reducerPath: "adminApi",
-  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model"],
+  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model","Auth"],
   endpoints: (build) => ({
     getEntreprise: build.query({
       query: (id) => `Entreprise/${id}`,
@@ -15,6 +15,10 @@ export const api = createApi({
     }),
     getOneEntreprise: build.query({
       query: (id) => `Entreprise/${id}`,
+      providesTags: ["Entreprise"],
+    }),
+    getEntrepriseByGoogleId: build.query({
+      query: (id) => `Entreprise/EntrepriseGoogle/${id}`,
       providesTags: ["Entreprise"],
     }),
     getEntrepriseDetail: build.query({
@@ -56,6 +60,25 @@ export const api = createApi({
         body: data,
       }),
     }),
+<<<<<<< HEAD
+=======
+    ForgoutPassword: build.mutation({
+      query: (data) => ({
+        url: `Entreprise/ForgoutPass/`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    ResetPass: build.mutation({
+      query: (data,id,token) => ({
+        url: `Entreprise/reset-password/${id}/${token}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+
+    // Service
+>>>>>>> 271c3e0f6c8f9598de4886297bb1fe67ebfdd3c2
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],
@@ -331,6 +354,10 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+    getOneAuth: build.query({
+      query: () => `auth/google/`,
+      providesTags: ["Auth"],
+    }),
     
   }),
 });
@@ -346,7 +373,9 @@ export const {
   useRemoveEntrepriseMutation,
   useLoginEntrepriseMutation,
   useRegisterEntrepriseMutation,
-
+  useGetEntrepriseByGoogleIdQuery,
+  useForgoutPasswordMutation,
+  useResetPassMutation,
   useGetPacksQuery,
   useGetOnePackQuery,
   useAddPackMutation,
@@ -361,7 +390,7 @@ export const {
   useUpdateServiceMutation,
   useRemoveServiceMutation,
 
-  useGetAllModelsQuery,
+  useGetAllModelsQuery, 
   useGetOneModelQuery,
   useAddModelMutation,
   useUpdateModelMutation,
@@ -408,5 +437,6 @@ export const {
 
   useGetOneInvoiceQuery,
   useUpdateInvoiceMutation,
+  useGetOneAuthQuery,
 } = api;
 

@@ -53,7 +53,9 @@ import Models from 'pages/Model';
 import AddModel from 'pages/Model/AddModel'
 import EditModel from 'pages/Model/EditModel'
 
+import ForgoutPass from "components/Login/ForgoutPass";
 import Apropos from "components/Apropos";
+import ResetPassword from "components/Login/ResetPassword";
 
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
@@ -70,6 +72,8 @@ const App = () => {
           
           <Route path="/" element={<WelcomePage />} />
           <Route path="/Login" element={<Login />} />
+          <Route path="/ForgoutPass" element={<ForgoutPass />} />
+          <Route path="/reset-password/:id/:token" element={<ResetPassword />} />
           <Route path="/Register" element={<Register />} />
           <Route path="/Modeles" element={<Model />} />
           <Route path="/Gener" element={<Generateur/>} />

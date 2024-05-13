@@ -4,9 +4,13 @@ const cors = require("cors");
 const helmet = require("helmet");
 const morgan = require("morgan");
 const cron = require("node-cron");
+const passport = require("passport");
+const session = require("express-session");
 const url = "mongodb://127.0.0.1:27017/MyInvoice";
 const app = express();
 const Port = 3001;
+require('dotenv').config();
+
 
 const CategorieRouter = require("./Routes/CategoryRouter");
 const ClientRouter = require("./Routes/ClientRouter");
@@ -19,6 +23,7 @@ const SettingRouter = require("./Routes/SettingsRouter");
 const MessageRouter = require("./Routes/MessageRouter");
 const SubscriptionRouter = require("./Routes/SubscriptionRouter");
 const ModelRouter = require("./Routes/ModelRouter");
+const GoogleAuthRouter = require("./Routes/GoogleAuth");
 const {
   updateSubscriptionStatus,
   EmailSubscriptionStatus,
@@ -31,6 +36,13 @@ app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("Public"));
+app.use(session({   // Utilisation de express-session
+  secret: "secret",
+  resave: false,
+  saveUninitialized: false
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/Api/Categorie", CategorieRouter);
 app.use("/Api/Client", ClientRouter);
@@ -43,6 +55,7 @@ app.use("/Api/Produit", ProductRouter);
 app.use("/Api/Service", ServiceRouter);
 app.use("/Api/Setting", SettingRouter);
 app.use("/Api/Subscription", SubscriptionRouter);
+app.use("/Api/", GoogleAuthRouter);
 
 mongoose
   .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })

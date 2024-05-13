@@ -4,7 +4,7 @@ const Invoice = require("../Models/InvoiceSchema");
 const Pack = require('../Models/PackSchema')
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
-
+const nodemailer = require('nodemailer')
 const addEntreprise = async (req, res) => {
   try {
     const { name, email, password, phone, address } = req.body;
@@ -57,6 +57,19 @@ const getOneEntreprise = async (req, res) => {
     res.status(201).json(entreprise);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche d'entreprise");
+  }
+};
+
+const getEntrepriseByGoogleId = async (req, res) => {
+  try {
+    console.log('start')
+    console.log('req : ', req)
+    console.log('googleId : ', req.id)
+    const entreprise = await Entreprise.findOne({googleId: req.id});
+    console.log('entreprise : ', entreprise)
+    return entreprise;
+  } catch (error) {
+    console.error("Erreur serveur lors de la recherche d'entreprise");
   }
 };
 
@@ -188,6 +201,58 @@ const getEnterpriseCountByMonthAndYear = async(req, res) => {
     
   }
 }
+const ForgoutPass = async (req, res)=>{
+    console.log(req.body)
+    const {email} = req.body;
+    Entreprise.findOne({email : email}).then (entreprise=>{
+      if(!entreprise){
+        return res.send({Status : "User not existed"})
+      }
+      const token = jwt.sign({id : entreprise._id} , "AbdelilahElgallati1230",{expiresIn:"1d"})
+      var transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+          user: "myinvoice06@gmail.com",
+          pass: "ekiv afoc wbnb mrep",
+        },
+      });
+      
+      var mailOptions = {
+        from: 'myinvoice06@gmail.com',
+        to: email,
+        subject: 'Reset password',
+        text: `http://localhost:3000/reset-password/${entreprise._id}/${token}`
+      };
+      
+      transporter.sendMail(mailOptions, function(error, info){
+        if (error) {
+          console.log(error);
+        } else {
+         return res.send({Status : "Succes"})
+        }
+      });
+    })
+}
+const ResetPass = async(req,res)=>{
+   console.log(req.body)
+   const id  = req.body.id;
+   const token  = req.body.token;
+   const password= req.body.password;
+    console.log(password);
+   jwt.verify(token , "AbdelilahElgallati1230" , (err,decoded)=>{
+    if(err){
+      return res.json({Status : "Error with token"})
+    }else{
+        bcrypt.hash(password ,10).then(
+          hash=>{
+            Entreprise.findByIdAndUpdate({_id :id},{password : hash})
+            .then(u=> res.send({Status : "Success"}))
+            .catch(err=>res.send({Status:err}))
+          }
+        ).catch(err=>res.send({Status:err}))
+      }
+   })
+}
 
 module.exports = {
   getDashboardInfo,
@@ -199,4 +264,7 @@ module.exports = {
   login,
   getEnterpriseCountByMonthAndYear,
   getEntrepriseDetail,
+  getEntrepriseByGoogleId,
+  ForgoutPass,
+  ResetPass,
 };
