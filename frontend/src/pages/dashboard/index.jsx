@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import Header from "componentsAdmin/Header";
 import {
@@ -26,10 +26,21 @@ const Dashboard = () => {
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
+  const [dashboard, setDashboard] = useState({
+    totalEntreprises: "",
+    totalInvoices: "",
+    paidInvoices: "",
+    unpaidInvoices: "",
+  })
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data } = useGetDashboardQuery();
-
+  useEffect(()=>{
+    if(data) {
+      setDashboard(data)
+    }
+  },[data])
+  
   return (
     <Box m="1.5rem 2.5rem" >
       <FlexBetween>
@@ -64,7 +75,7 @@ const Dashboard = () => {
         {/* ROW 1 */}
         <StatBox
           title="Total Entreprises"
-          value={data && data.totalEntreprises}
+          value={dashboard && dashboard.totalEntreprises}
           description="Le nombre total d'entreprise dans le système"
           icon={
             <PersonAdd
@@ -75,7 +86,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Total Invoice"
-          value={data && data.totalInvoices}
+          value={dashboard && dashboard.totalInvoices}
           description="Le nombre total de facture dans le système"
           icon={
             <DescriptionIcon
@@ -86,7 +97,7 @@ const Dashboard = () => {
 
         <StatBox
           title="Paid Invoice"
-          value={data && data.paidInvoices}
+          value={dashboard && dashboard.paidInvoices}
           description="Le nombre total de facture payée dans le système"
           icon={
             <PaidIcon
@@ -96,7 +107,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Inpaid Invoice"
-          value={data && data.unpaidInvoices}
+          value={dashboard && dashboard.unpaidInvoices}
           description="Le nombre total de facture impayée dans le système"
           icon={
             <RemoveIcon

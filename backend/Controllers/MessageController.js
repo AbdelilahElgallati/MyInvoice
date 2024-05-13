@@ -27,8 +27,6 @@ const  getAllMessages = async (req, res) => {
         message: message.message,
       };
     });
-
-    
     res.status(201).json(organizedmessages);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des Messages");

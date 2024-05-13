@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import { useGetSubscriptionsQuery, useRemoveSubscriptionMutation } from "state/api";
 import Header from "componentsAdmin/Header";
@@ -12,9 +12,24 @@ const SubscriptionPalns = () => {
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
+  const [subscriptionPlan, setSubscriptionPlan] = useState({
+    _id: "",
+    enterpriseName: "",
+    packName: "",
+    packPrice: "",
+    startDate: "",
+    endDate: "",
+    status: "",
+  })
   const theme = useTheme();
   const { data, isLoading } = useGetSubscriptionsQuery();
   const [removeSubscription] = useRemoveSubscriptionMutation();
+  useEffect(()=>{
+    if(data) {
+      setSubscriptionPlan(data)
+    }
+  },[data])
+  
   const columns = [
     {
       field: "enterpriseName",
@@ -77,6 +92,7 @@ const SubscriptionPalns = () => {
   const handleDelete = async (id) => {
     try {
       await removeSubscription(id);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -114,9 +130,9 @@ const SubscriptionPalns = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading || !subscriptionPlan}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={subscriptionPlan || []}
           columns={columns}
         />
       </Box>
