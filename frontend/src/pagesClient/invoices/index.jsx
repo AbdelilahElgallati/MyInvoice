@@ -1,10 +1,10 @@
 import React from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetInvoicesQuery, useRemoveInvoiceMutation } from "state/api";
+import { useGetInvoicesQuery, useRemoveInvoiceMutation} from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
-import AddButton from "componementClient/addButton";
+import AddButton from "componementClient/addButton"; 
 import { useNavigate } from "react-router-dom";
 import { CheckCircleOutline, HourglassEmpty, ErrorOutline } from '@mui/icons-material';
 import EditIcon from "@mui/icons-material/Edit";
@@ -24,7 +24,6 @@ const Invoices  = () => {
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
-  console.log("invoice : ", data)
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -194,7 +193,7 @@ const Invoices  = () => {
   };
 
   const handlePrint = (id) => {
-    // Logic for printing
+    navigate(`/factures/imprimer/${id}`);
   };
 
   const handleEmail = (id) => {

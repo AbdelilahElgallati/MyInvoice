@@ -28,7 +28,7 @@ import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
-import profileImage from "assets/LogoImage.jpg";
+import profileImage from "assets/logo-removebg-preview.png";
 
 const navItems = [
   {
@@ -137,7 +137,7 @@ const Sidebar = ({
                 component="img"
                 alt="profile"
                 src={profileImage}
-                // height="40px"
+                height="100px"
                 width="160px"
                 sx={{ objectFit: "cover" }}
               />

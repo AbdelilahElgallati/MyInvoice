@@ -112,6 +112,7 @@ const Pack = ({
 };
 
 const Packs = () => {
+  
   const [packs, setPacks] = useState([]);
   const { data } = useGetPacksQuery();
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
@@ -120,6 +121,7 @@ const Packs = () => {
       setPacks(data);
     }
   }, [data]);
+
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>

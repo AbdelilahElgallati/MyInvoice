@@ -109,7 +109,7 @@ const Navbar = ({
                   fontSize="0.75rem"
                   sx={{ color: theme.palette.secondary[200] }}
                 >
-                  {user.role}
+                  {user.email}
                 </Typography>
               </Box>
               <ArrowDropDownOutlined

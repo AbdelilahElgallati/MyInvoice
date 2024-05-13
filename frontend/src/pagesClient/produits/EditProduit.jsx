@@ -176,4 +176,4 @@ const EditProduit = () => {
   );
 };
 
-export default EditProduit;
+export default EditProduit;

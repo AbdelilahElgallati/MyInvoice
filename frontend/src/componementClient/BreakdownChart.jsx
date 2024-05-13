@@ -19,8 +19,8 @@ const BreakdownChart = () => {
         color: theme.palette.secondary[400],
       },
       {
-        id: "Factures Umpayées",
-        label: "Umpayé",
+        id: "Factures Impayées",
+        label: "Impayé",
         value: data.totalUnpaidInvoices,
         color: theme.palette.secondary[200],
       },

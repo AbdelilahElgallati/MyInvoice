@@ -244,11 +244,6 @@ const Login = () => {
     if (userId) {
       return;
     }
-    // const storedUserId = localStorage.getItem("userId");
-    // console.log('storedUserId: ', storedUserId )
-    // if (storedUserId) {
-    //   navigate("/dashboardClient");
-    // }
   }, [location, navigate, userId]);
 
 
