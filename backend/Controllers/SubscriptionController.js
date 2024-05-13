@@ -36,6 +36,7 @@ const  getAllSubscriptions = async (req, res) => {
         status: subscription.status
       };
     });
+    console.log('organizedSubscriptions : ', organizedSubscriptions)
     res.status(201).json(organizedSubscriptions);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des subscription");

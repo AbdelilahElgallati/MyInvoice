@@ -1,6 +1,6 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const Enterprise = require("../Models/EntrepriseSchema");
-
+const Subscription = require('../Models/SubscriptionSchema')
 module.exports = (passport) => {
     passport.serializeUser(function(user, done) {
         done(null, user.id)
@@ -40,6 +40,15 @@ module.exports = (passport) => {
                         password: accessToken,
                     });
                     await newUser.save();
+                    const subscription = new Subscription({
+                      userId: newUser._id,
+                      packId: '6631005f1c1fec2176ead2cb',
+                      startDate: Date.now(),
+                      endDate: Date.now() + 1000 * 60 * 60 * 24 * 30, 
+                      status: "active",
+                      price: 0,
+                    })
+                    subscription.save()
                     return cb(null, newUser);
                 }
             } catch (err) {

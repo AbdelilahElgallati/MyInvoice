@@ -48,6 +48,7 @@ const AddPack = () => {
     });
     try {
       await addPack(formDataWithLogo);
+      
       Navigate("/packadmin");
     } catch (error) {
       console.log(error);
