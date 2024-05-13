@@ -60,8 +60,6 @@ export const api = createApi({
         body: data,
       }),
     }),
-<<<<<<< HEAD
-=======
     ForgoutPassword: build.mutation({
       query: (data) => ({
         url: `Entreprise/ForgoutPass/`,
@@ -76,9 +74,6 @@ export const api = createApi({
         body: data,
       }),
     }),
-
-    // Service
->>>>>>> 271c3e0f6c8f9598de4886297bb1fe67ebfdd3c2
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],
