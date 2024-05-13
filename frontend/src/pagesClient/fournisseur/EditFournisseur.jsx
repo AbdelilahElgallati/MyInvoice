@@ -1,36 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, useTheme, Button, Box } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useAddClientMutation } from "state/api";
-import { useNavigate } from "react-router-dom";
+import { useUpdateFournisseurMutation, useGetOneFournisseurQuery, useRemoveFournisseurMutation } from "state/api";
+import { useNavigate, useParams } from "react-router-dom";
 
-const AddClient = () => {
+const EditFournisseur = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
   const theme = useTheme();
-  const [client, setClient] = useState({
-    userId: localStorage.getItem("userId") || "",
+  const [fournisseur, setFournisseur] = useState({
     name: "",
     email: "",
     phone: "",
     address: "",
   });
-  const [addClient] = useAddClientMutation();
-  const Navigate = useNavigate();
+  const {id} = useParams();
+  const {data : fournisseurData} =useGetOneFournisseurQuery(id);
+  const [editFournisseur] = useUpdateFournisseurMutation();
+  const [removeFournisseur] = useRemoveFournisseurMutation();
+
+  useEffect(() => {
+    if (fournisseurData) {
+      setFournisseur(fournisseurData);
+    }
+  }, [fournisseurData]);
 
   const handleChange = (e) => {
-    setClient({ ...client, [e.target.name]: e.target.value });
+    setFournisseur({ ...fournisseur, [e.target.name]: e.target.value });
   };
 
+  const handleDelete = async () => {
+    try {
+      await removeFournisseur(id);
+      navigate("/fournisseurs");
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(client);
-      await addClient({ client });
-      Navigate("/clients");
+      console.log(fournisseur);
+      await editFournisseur({ id, fournisseur });
+      navigate("/fournisseurs");
     } catch (error) {
       console.log(error);
     }
@@ -38,7 +53,7 @@ const AddClient = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="ADD SERVICES" subtitle="Ajout d'un nouveau pack" />
+      <Header title="EDIT FOURNISSEUS" subtitle="modification d'un fournisseur" />
       <form onSubmit={handleSubmit} sx={{
         backgroundImage: "none",
         backgroundColor: theme.palette.background.alt,
@@ -47,7 +62,7 @@ const AddClient = () => {
         <TextField
           label="Nom de client"
           name="name"
-          value={client.name}
+          value={fournisseur.name}
           onChange={handleChange}
           fullWidth
           required
@@ -56,7 +71,7 @@ const AddClient = () => {
         <TextField
           label="Email"
           name="email"
-          value={client.email}
+          value={fournisseur.email}
           onChange={handleChange}
           fullWidth
           required
@@ -66,7 +81,7 @@ const AddClient = () => {
           label="Phone number"
           name="phone"
           type="text"
-          value={client.phone}
+          value={fournisseur.phone}
           onChange={handleChange}
           fullWidth
           required
@@ -76,7 +91,7 @@ const AddClient = () => {
           label="Address"
           name="address"
           type="text"
-          value={client.address}
+          value={fournisseur.address}
           onChange={handleChange}
           fullWidth
           required
@@ -84,8 +99,11 @@ const AddClient = () => {
         />
         
         <Box mt={2}>
-          <Button type="submit" variant="contained" color="primary">
-            Add client
+        <Button type="submit" variant="contained" color="primary">
+            Modifier le fournisseur
+          </Button>
+          <Button type="button" onClick={handleDelete} aria-label="delete" sx={{ ml: 2 }} variant="contained" color="primary">
+            Supprimer le fournisseur
           </Button>
         </Box>
       </form>
@@ -93,5 +111,5 @@ const AddClient = () => {
   );
 };
 
-export default AddClient;
+export default EditFournisseur;
 

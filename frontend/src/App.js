@@ -53,9 +53,21 @@ import Models from 'pages/Model';
 import AddModel from 'pages/Model/AddModel'
 import EditModel from 'pages/Model/EditModel'
 
+import Fournisseurs from "pagesClient/fournisseur";
+import AddFournisseur from "pagesClient/fournisseur/addFournisseur";
+import EditFournisseur from "pagesClient/fournisseur/EditFournisseur";
+
 import ForgoutPass from "components/Login/ForgoutPass";
 import Apropos from "components/Apropos";
 import ResetPassword from "components/Login/ResetPassword";
+
+import BonCommandes from "pagesClient/bonCommande";
+import AddBonCommande from "pagesClient/bonCommande/addBonCommande";
+import EditBonCommande from "pagesClient/bonCommande/editBonCommande";
+import DetailsBonCommande from "pagesClient/bonCommande/detailsBonCommande";
+import PrintBonCommande from "pagesClient/bonCommande/printBonCommande";
+
+import Profil from "pagesClient/profil"
 
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
@@ -117,6 +129,15 @@ const App = () => {
             <Route path="/categories" element={<CategoriesWithThemeProvider theme={theme} />} />
             <Route path="/categories/new" element={<NewCategoriesWithThemeProvider theme={theme} />} />
             <Route path="/categories/edit/:id" element={<EditCategoriesWithThemeProvider theme={theme} />} />
+            <Route path="/profil" element={<ProfilWithThemeProvider theme={theme} />} />
+            <Route path="/fournisseurs" element={<FournisseursWithThemeProvider theme={theme} />} />
+            <Route path="/fournisseurs/new" element={<NewFournisseursWithThemeProvider theme={theme} />} />
+            <Route path="/fournisseurs/edit/:id" element={<EditFournisseursWithThemeProvider theme={theme} />} />
+            <Route path="/bon-commandes" element={<BonCommandesWithThemeProvider theme={theme} />} />
+            <Route path="/bon-commandes/new" element={<NewBonCommandesWithThemeProvider theme={theme} />} />
+            <Route path="/bon-commandes/edit/:id" element={<EditBonCommandesWithThemeProvider theme={theme} />} />
+            <Route path="/bon-commandes/details/:id" element={<DetailBonCommandesWithThemeProvider theme={theme} />} />
+            <Route path="/bon-commandes/imprimer/:id" element={<ImprimerBonCommandesWithThemeProvider theme={theme} />} />
           </Route>
         </Routes>
       </div>
@@ -132,6 +153,12 @@ const LayoutWithThemeProvider = ({ theme, children }) => (
   </ThemeProvider>
 );
 
+const ProfilWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Profil>{children}</Profil>
+  </ThemeProvider>
+);
 
 const CategoriesWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
@@ -362,4 +389,64 @@ const AddClientWithThemeProvider = ({ theme, children }) => (
     <AddClient>{children}</AddClient>
   </ThemeProvider>
 );
+
+const BonCommandesWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <BonCommandes>{children}</BonCommandes>
+  </ThemeProvider>
+);
+
+const NewBonCommandesWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <AddBonCommande>{children}</AddBonCommande>
+  </ThemeProvider>
+);
+
+const EditBonCommandesWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditBonCommande>{children}</EditBonCommande>
+  </ThemeProvider>
+);
+
+const DetailBonCommandesWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <DetailsBonCommande>{children}</DetailsBonCommande>
+  </ThemeProvider>
+);
+
+const ImprimerBonCommandesWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <PrintBonCommande>{children}</PrintBonCommande>
+  </ThemeProvider>
+);
+
+const EditFournisseursWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <EditFournisseur>{children}</EditFournisseur>
+  </ThemeProvider>
+);
+
+const FournisseursWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Fournisseurs>{children}</Fournisseurs>
+  </ThemeProvider>
+);
+
+const NewFournisseursWithThemeProvider = ({ theme, children }) => (
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <AddFournisseur>{children}</AddFournisseur>
+  </ThemeProvider>
+);
+
+
+
+
 export default App;

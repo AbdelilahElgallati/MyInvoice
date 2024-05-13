@@ -3,7 +3,7 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/Api" }),
   reducerPath: "adminApi",
-  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model","Auth"],
+  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model","Auth", "Fournisseurs","BonCommandes"],
   endpoints: (build) => ({
     getEntreprise: build.query({
       query: (id) => `Entreprise/${id}`,
@@ -34,10 +34,10 @@ export const api = createApi({
       providesTags: ["Entreprise"],
     }),
     updateEntreprise: build.mutation({
-      query: ({ id, formData }) => ({
+      query: ({ id, entreprise }) => ({
         url: `Entreprise/edit/${id}`,
         method: "PUT",
-        body: formData,
+        body: entreprise,
       }),
     }),
     removeEntreprise: build.mutation({
@@ -72,6 +72,13 @@ export const api = createApi({
         url: `Entreprise/reset-password/${id}/${token}`,
         method: "POST",
         body: data,
+      }),
+    }),
+    changePasswordEntreprise: build.mutation({
+      query: ({ id, enterpriseMotPasse }) => ({
+        url: `Entreprise/changePassword/${id}`,
+        method: "PUT",
+        body: enterpriseMotPasse,
       }),
     }),
 
@@ -312,6 +319,37 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+
+    addFournisseur: build.mutation({
+      query: (fournisseur) => ({
+        url: `Fournisseur/add`,
+        method: "POST",
+        body: fournisseur,
+      }),
+    }),
+    getFournisseurs: build.query({
+      query: (id) => `Fournisseur/Entreprise/${id}`,
+      providesTags: ["Fournisseurs"],
+    }),
+    getOneFournisseur: build.query({
+      query: (id) => `Fournisseur/${id}`,
+      providesTags: ["Fournisseurs"],
+    }),
+    updateFournisseur: build.mutation({
+      query: ({ id, fournisseur }) => ({
+        url: `Fournisseur/edit/${id}`,
+        method: "PUT",
+        body: fournisseur,
+      }),
+    }),
+    removeFournisseur: build.mutation({
+      query: (id) => ({
+        url: `Fournisseur/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+
     getSales: build.query({
       query: () => "Invoice/summary",
       providesTags: ["Sales"],
@@ -356,6 +394,40 @@ export const api = createApi({
       query: () => `auth/google/`,
       providesTags: ["Auth"],
     }),
+
+    // Bon de commandes
+    getBonCommandes: build.query({
+      query: (id) => `BonCommandes/List/${id}`,
+      providesTags: ["BonCommandes"],
+    }),
+    getOneBonCommande: build.query({
+      query: (id) => `BonCommandes/${id}`,
+      providesTags: ["BonCommandes"],
+    }),
+    updateBonCommande: build.mutation({
+      query: ({ id, InvoiceData }) => ({
+        url: `BonCommandes/edit/${id}`,
+        method: "PUT",
+        body: InvoiceData,
+      }),
+    }),
+    addBonCommande: build.mutation({
+      query: (invoice) => ({
+        url: `BonCommandes/add`,
+        method: "POST",
+        body: invoice,
+      }),
+    }),
+    getBonCommandeDetails: build.query({
+      query: (id) => `BonCommandes/details/${id}`,
+      providesTags: ["BonCommandes"],
+    }),
+    removeBonCommande: build.mutation({
+      query: (id) => ({
+        url: `BonCommandes/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
     
   }),
 });
@@ -381,6 +453,7 @@ export const {
   useRemovePackMutation,
   useGetThreePacksQuery,
   useGetAllPacksThreeServiceQuery,
+  useChangePasswordEntrepriseMutation,
 
   useGetAllServicesQuery,
   useGetOneServiceQuery,
@@ -425,6 +498,12 @@ export const {
   useRemoveClientMutation,  
   useGetClientsQuery,
 
+  useGetFournisseursQuery,
+  useGetOneFournisseurQuery,
+  useAddFournisseurMutation,
+  useUpdateFournisseurMutation,
+  useRemoveFournisseurMutation,
+
   useGetAllCategoriesQuery,
   useAddCategoryMutation,
   useGetOneCategorieQuery,
@@ -436,5 +515,12 @@ export const {
   useGetOneInvoiceQuery,
   useUpdateInvoiceMutation,
   useGetOneAuthQuery,
-} = api;
 
+  // bon de commandes 
+  useGetBonCommandesQuery,
+  useAddBonCommandeMutation,
+  useGetBonCommandeDetailsQuery,
+  useGetOneBonCommandeQuery,
+  useUpdateBonCommandeMutation,
+  useRemoveBonCommandeMutation,
+} = api;
