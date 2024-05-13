@@ -2,7 +2,7 @@
 import LogoImg from '../src/assets/img/header/lgrm.png';
 import HeroImg from '../src/assets/img/hero/VM.png';
 // import OverviewProductImg from '../src/assets/img/overview/product.svg';
-import OverviewProductImg1 from '../src/assets/img/overview/screen.png';
+import OverviewProductImg1 from '../src/assets/img/overview/screenA.PNG';
 import FacebookImg from '../src/assets/img/overview/brands/facebook.svg';
 import GoogleImg from '../src/assets/img/overview/brands/google.svg';
 import CocaColaImg from '../src/assets/img/overview/brands/coca-cola.svg';
