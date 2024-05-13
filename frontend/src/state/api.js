@@ -61,6 +61,20 @@ export const api = createApi({
         body: data,
       }),
     }),
+    ForgoutPassword: build.mutation({
+      query: (data) => ({
+        url: `Entreprise/ForgoutPass/`,
+        method: "POST",
+        body: data,
+      }),
+    }),
+    ResetPass: build.mutation({
+      query: (data,id,token) => ({
+        url: `Entreprise/reset-password/${id}/${token}`,
+        method: "POST",
+        body: data,
+      }),
+    }),
 
     // Service
     getAllServices: build.query({
@@ -376,7 +390,8 @@ export const {
   useLoginEntrepriseMutation,
   useRegisterEntrepriseMutation,
   useGetEntrepriseByGoogleIdQuery,
-
+  useForgoutPasswordMutation,
+  useResetPassMutation,
   useGetPacksQuery,
   useGetOnePackQuery,
   useAddPackMutation,

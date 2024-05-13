@@ -27,5 +27,6 @@ EntrepriseRouter.post('/register', upload.single('logo'), EntrepriseController.a
 EntrepriseRouter.put('/edit/:id', EntrepriseController.updateEntreprise);
 EntrepriseRouter.delete("/remove/:id", EntrepriseController.removeEntreprise);
 EntrepriseRouter.post('/login',Auth, EntrepriseController.login);
-
+EntrepriseRouter.post('/ForgoutPass', EntrepriseController.ForgoutPass);
+EntrepriseRouter.post('/reset-password/:id/:token', EntrepriseController.ResetPass);
 module.exports = EntrepriseRouter;

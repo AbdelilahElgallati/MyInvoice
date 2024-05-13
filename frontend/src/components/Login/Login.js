@@ -175,7 +175,7 @@
 import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
 import Gogle from "../../assets/img/Login/th.jpg";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import Header from "components/Header";
 import {
   useLoginEntrepriseMutation,
@@ -288,7 +288,7 @@ const Login = () => {
             <div className="flex items-center justify-between mb-4">
               
               <p className="text-sm font-medium cursor-pointer underline dark:text-white font-Quicksand font-semibold ">
-                Mot de passe oublié
+               <Link to="/ForgoutPass" >Mot de passe oublié</Link> 
               </p>
             </div>
             <button className="w-full bg-[#060606] hover:bg-accent text-white rounded-md py-3 mb-4 font-Quicksand font-semibold dark:border dark:border-accent">

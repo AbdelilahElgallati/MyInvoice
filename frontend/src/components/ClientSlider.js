@@ -52,7 +52,7 @@ const ClientSlider = ({ clients }) => {
                 {/* person name, img , position */}
                 <div className="flex gap-x-[10px] items-center">
                   <img
-                    className="w-[30%]"
+                    className="w-[10%] rounded-xl"
                     src={`http://localhost:3001/Images/${client.image}`}
                     alt=""
                   />
