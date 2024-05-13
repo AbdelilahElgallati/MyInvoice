@@ -10,8 +10,8 @@ const url = "mongodb://127.0.0.1:27017/MyInvoice";
 const app = express();
 const Port = 3001;
 require('dotenv').config();
-
-
+const  OverallStat = require("../backend/Models/OverallStateSchema") ;
+const {dataOverallStat}= require("../backend/data") ;
 const CategorieRouter = require("./Routes/CategoryRouter");
 const ClientRouter = require("./Routes/ClientRouter");
 const EntrepriseRouter = require("./Routes/EntrepriseRouter");
@@ -78,5 +78,6 @@ cron.schedule(
 );
 
 app.listen(Port, () => {
+  // OverallStat.insertMany(dataOverallStat)
   console.log("the platform is running well");
 });
