@@ -74,6 +74,11 @@ export const api = createApi({
         body: data,
       }),
     }),
+<<<<<<< HEAD
+=======
+
+    // Service
+>>>>>>> b1e17b7ce2ededaef2e8b40a2630734390f64c3b
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],

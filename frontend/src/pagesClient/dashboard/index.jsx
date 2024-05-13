@@ -1,16 +1,15 @@
-
-import React from "react";
+import React, { useState, useEffect } from "react";
 import FlexBetween from "componementClient/FlexBetween";
 import {
   DownloadOutlined,
   PersonAdd,
-  CheckCircleOutline, 
-  HourglassEmpty, 
-  ErrorOutline, 
+  CheckCircleOutline,
+  HourglassEmpty,
+  ErrorOutline,
 } from "@mui/icons-material";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import ReceiptIcon from '@mui/icons-material/Receipt';
-import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import ReceiptIcon from "@mui/icons-material/Receipt";
+import MonetizationOnIcon from "@mui/icons-material/MonetizationOn";
 import {
   Box,
   Button,
@@ -25,19 +24,55 @@ import { useGetDashboardClientQuery } from "state/api";
 import StatBox from "componementClient/StatBox";
 
 const Dashboard = () => {
-  const id = localStorage.getItem('userId');
-  console.log('user id : ', id)
+  const [dashboard, setDashboard] = useState({
+    invoices: [],
+    totalPaidAmount: 0,
+    totalCustomers: 0,
+    totalProducts: 0,
+    totalInvoices: 0,
+    totalPaidInvoices: 0,
+    totalUnpaidInvoices: 0,
+    yearlyTotalSoldUnits: [],
+    yearlySalesTotal: [],
+    monthlyData: [],
+    salesByCategory: [],
+    thisMonthStats: [],
+    todayStats: [],
+  });
+  const id = localStorage.getItem("userId");
+  console.log("user id : ", id);
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data, isLoading } = useGetDashboardClientQuery(id);
-  console.log("data : ", data)
+  useEffect(() => {
+    if (data) {
+      console.log('data : ', data)
+      setDashboard({
+        invoices: data.invoices,
+        totalPaidAmount: data.totalPaidAmount,
+        totalCustomers: data.totalCustomers,
+        totalProducts: data.totalProducts,
+        totalInvoices: data.totalInvoices,
+        totalPaidInvoices: data.totalPaidInvoices,
+        totalUnpaidInvoices: data.totalUnpaidInvoices,
+        yearlyTotalSoldUnits: data.yearlyTotalSoldUnits,
+        yearlySalesTotal: data.yearlySalesTotal,
+        monthlyData: data.monthlyData,
+        salesByCategory: data.salesByCategory,
+        thisMonthStats: data.thisMonthStats,
+        todayStats: data.todayStats,
+      });
+    }
+  }, [data]);
+
+  console.log("dashboard : ", dashboard);
 
   const formatDate = (dateString) => {
-    if (!dateString) return '';
+    if (!dateString) return "";
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
-      console.error('Invalid date string:', dateString);
-      return '';
+      console.error("Invalid date string:", dateString);
+      return "";
     }
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return date.toLocaleDateString("fr-FR", options);
@@ -57,7 +92,7 @@ const Dashboard = () => {
             backgroundColor: "gray",
             borderRadius: "4px",
             padding: "5px 10px",
-            lineHeight: "1", 
+            lineHeight: "1",
           }}
         >
           #{params.value}
@@ -76,7 +111,7 @@ const Dashboard = () => {
       flex: 0.5,
       renderCell: (params) => formatDate(params.value),
     },
-     {
+    {
       field: "dueDate",
       headerName: "Date d'échéance",
       flex: 0.5,
@@ -87,9 +122,12 @@ const Dashboard = () => {
       headerName: "Produits",
       flex: 0.4,
       sortable: false,
-      renderCell:(params) => {
+      renderCell: (params) => {
         // Sum the quantities of all items in the array
-        const totalQuantity = params.value.reduce((acc, curr) => acc + curr.quantity, 0);
+        const totalQuantity = params.value.reduce(
+          (acc, curr) => acc + curr.quantity,
+          0
+        );
         return totalQuantity;
       },
     },
@@ -104,11 +142,11 @@ const Dashboard = () => {
         // Display the total amount
         return (
           <span style={{ color: textColor }}>
-              {paymentAmounts.toFixed(2)} DH
+            {paymentAmounts.toFixed(2)} DH
           </span>
-          );
+        );
+      },
     },
-  },
     {
       field: "status",
       headerName: "Status",
@@ -116,65 +154,73 @@ const Dashboard = () => {
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
-  
+
         switch (status) {
-          case 'sent':
-            icon = <HourglassEmpty style={{ color: 'white', fontSize: '1rem' }} />;
-            backgroundColor = 'orange';
+          case "sent":
+            icon = (
+              <HourglassEmpty style={{ color: "white", fontSize: "1rem" }} />
+            );
+            backgroundColor = "orange";
             break;
-          case 'paid':
-            icon = <CheckCircleOutline style={{ color: 'white' , fontSize: '1rem' }} />;
-            backgroundColor = 'green';
+          case "paid":
+            icon = (
+              <CheckCircleOutline
+                style={{ color: "white", fontSize: "1rem" }}
+              />
+            );
+            backgroundColor = "green";
             break;
-          case 'late':
-            icon = <ErrorOutline style={{ color: 'white', fontSize: '1rem' }} />;
-            backgroundColor = 'red';
+          case "late":
+            icon = (
+              <ErrorOutline style={{ color: "white", fontSize: "1rem" }} />
+            );
+            backgroundColor = "red";
             break;
           default:
             icon = null;
-            backgroundColor = 'transparent';
+            backgroundColor = "transparent";
         }
-  
+
         return (
           <span
-          style={{
-            display: "inline-block",
-            alignItems: "center",
-            color: "white",
-            backgroundColor:  backgroundColor,
-            borderRadius: "4px",
-            padding: "5px 10px",
-            lineHeight: "1", 
-          }}
-        >
-          {icon} {status}
+            style={{
+              display: "inline-block",
+              alignItems: "center",
+              color: "white",
+              backgroundColor: backgroundColor,
+              borderRadius: "4px",
+              padding: "5px 10px",
+              lineHeight: "1",
+            }}
+          >
+            {icon} {status}
           </span>
         );
       },
     },
   ];
-  
+
   return (
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         <Box>
-      <Typography
-        variant="h2"
-        color={theme.palette.secondary[100]}
-        fontWeight="bold"
-        sx={{ mb: "5px" }}
-      >
-          TABLEAU DE BORD
-      </Typography>
-      <Typography variant="h5" color={theme.palette.secondary[300]}>
-          Bienvenue sur votre tableau de bord
-      </Typography>
-      </Box>
+          <Typography
+            variant="h2"
+            color={theme.palette.secondary[100]}
+            fontWeight="bold"
+            sx={{ mb: "5px" }}
+          >
+            TABLEAU DE BORD
+          </Typography>
+          <Typography variant="h5" color={theme.palette.secondary[300]}>
+            Bienvenue sur votre tableau de bord
+          </Typography>
+        </Box>
         <Box>
           <Button
             sx={{
               backgroundColor: theme.palette.secondary[400],
-              color : theme.palette.secondary[50],
+              color: theme.palette.secondary[50],
               fontSize: "14px",
               fontWeight: "bold",
               padding: "10px 20px",
@@ -199,7 +245,7 @@ const Dashboard = () => {
         {/* ROW 1 */}
         <StatBox
           title="Total  Clients"
-          value={data && data.totalCustomers}
+          value={dashboard && dashboard.totalCustomers}
           icon={
             <PersonAdd
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -208,7 +254,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Total Produits"
-          value={data && data.totalProducts}
+          value={dashboard && dashboard.totalProducts}
           icon={
             <AddShoppingCartIcon
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -226,7 +272,7 @@ const Dashboard = () => {
         </Box>
         <StatBox
           title="Total Factures"
-          value={data && data.totalInvoices}
+          value={dashboard && dashboard.totalInvoices}
           icon={
             <ReceiptIcon
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -235,7 +281,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Ventes (Dhs)"
-          value={data && data.totalPaidAmount}
+          value={dashboard && dashboard.totalPaidAmount}
           icon={
             <MonetizationOnIcon
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}
@@ -274,9 +320,9 @@ const Dashboard = () => {
           }}
         >
           <DataGrid
-            loading={isLoading || !data}
+            loading={isLoading || !dashboard}
             getRowId={(row) => row._id}
-            rows={(data && data.invoices) || []}
+            rows={(dashboard && dashboard.invoices) || []}
             columns={columns}
           />
         </Box>
@@ -296,8 +342,8 @@ const Dashboard = () => {
             fontSize="0.8rem"
             sx={{ color: theme.palette.secondary[200] }}
           >
-           Répartition des factures et des informations
-            par status de revenus réalisés pour cette année et ventes totales.
+            Répartition des factures et des informations par status de revenus
+            réalisés pour cette année et ventes totales.
           </Typography>
         </Box>
       </Box>
@@ -305,4 +351,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default Dashboard;

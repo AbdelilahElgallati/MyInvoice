@@ -104,23 +104,33 @@ const getSales = async (req, res) => {
 
 const getDashboardStats = async (req, res) => {
   try {
+    console.log('start')
     const currentMonth = "Mai";
-    const currentYear = 2021;
-    const currentDay = "2021-05-05";
-
+    const currentYear = 2024;
+    const currentDay = "2024-05-05";
+    console.log('req : ', req.params)
     const Allinvoices = await Invoice.find().populate("clientId").limit(50).sort({ createdOn: -1 });
+    console.log('Allinvoices : ',Allinvoices )
     const invoices = Allinvoices.filter(invoice => invoice.userId.toString() === req.params.id);
+    console.log('invoices : ',invoices )
     const totalCustomers = await Client.countDocuments({ userId: req.params.id });
+    console.log('totalCustomers : ',totalCustomers )
     const totalProducts = await Product.countDocuments({ userId: req.params.id });
+    console.log('totalProducts : ',totalProducts )
     const totalInvoices = await Invoice.countDocuments({ userId: req.params.id });
+    console.log('totalInvoices : ',totalInvoices )
     const totalPaidInvoices = await Invoice.countDocuments({ userId: req.params.id, status: "paid" });
+    console.log('totalPaidInvoices : ',totalPaidInvoices )
     const totalUnpaidInvoices = await Invoice.countDocuments({
       userId: req.params.id, status: { $nin: ["paid"] },
     });
+    console.log('totalUnpaidInvoices : ',totalUnpaidInvoices )
     const overallStat = await OverallStat.find({ year: currentYear });
+    console.log('overallStat : ',overallStat )
     const paidInvoices = await Invoice.find({ userId: req.params.id, status: "paid" });
+    console.log('paidInvoices : ',paidInvoices )
     const totalPaidAmount = paidInvoices.reduce((total, invoice) => total + invoice.amount, 0);
-
+    console.log('totalPaidAmount : ',totalPaidAmount )
     const {
       yearlyTotalSoldUnits,
       yearlySalesTotal,
