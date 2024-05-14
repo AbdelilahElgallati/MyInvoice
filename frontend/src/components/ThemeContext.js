@@ -1,12 +1,11 @@
-import React, { createContext, useContext, useEffect, useState } from "react";
+// ThemeContext.js
+import React, { createContext, useState , useEffect  } from 'react';
 
-// Créer le contexte de thème
-const ThemeContext = createContext();
+export const ThemeContext = createContext();
 
-// Créer un fournisseur de thème
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
-
+   console.log(theme);
   useEffect(() => {
     const storedTheme = localStorage.getItem("currentMode");
     if (storedTheme) {
@@ -18,18 +17,16 @@ export const ThemeProvider = ({ children }) => {
       }
     }
   }, []);
-
-  // Fonction pour basculer entre les thèmes
-  const toggleTheme = () => {
+  function toggleTheme() {
     const newTheme = theme === "dark" ? "light" : "dark";
-    setTheme(newTheme);
-    localStorage.setItem("currentMode", newTheme);
+    setTheme(newTheme); // Mettre à jour l'état theme
+    localStorage.setItem("currentMode", newTheme); // Mettre à jour le stockage local
     if (newTheme === "dark") {
       document.documentElement.classList.add("dark");
     } else {
       document.documentElement.classList.remove("dark");
     }
-  };
+  }
 
   return (
     <ThemeContext.Provider value={{ theme, toggleTheme }}>
@@ -37,6 +34,3 @@ export const ThemeProvider = ({ children }) => {
     </ThemeContext.Provider>
   );
 };
-
-// Fonction utilitaire pour utiliser le contexte de thème dans un composant
-export const useTheme = () => useContext(ThemeContext);

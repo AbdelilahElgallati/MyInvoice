@@ -7,6 +7,19 @@ import Header from "components/Header";
 import {useForgoutPasswordMutation} from '../../state/api'
 
 const ForgoutPass = () => {
+  
+// Le composant ForgoutPass est une page de récupération
+// de mot de passe qui permet à l'utilisateur d'entrer
+// son adresse e-mail pour recevoir des instructions 
+// de réinitialisation de mot de passe. Il utilise
+// useState pour gérer l'état de l'e-mail entré,
+// useEffect pour gérer les effets secondaires,
+// et les fonctions handleChangeEmail et handleSubmit 
+// pour gérer les événements de modification et de 
+// soumission du formulaire. Il importe également
+// des éléments tels que Header, des images, et des 
+// fonctions de routage
+// de react-router-dom pour la navigation.
     const [ForgoutPass] = useForgoutPasswordMutation();
   const [emailEnt, setEmailEnt] = useState("");
   

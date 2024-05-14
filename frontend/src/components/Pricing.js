@@ -43,7 +43,7 @@ const Pricing = () => {
                   onClick={() => setIndex(packIndex)}
                   className={`${
                     packIndex === index
-                      ?  "dark:bg-slate-800 bg-white shadow-2xl"
+                      ?  "dark:bg-gray-800 bg-white shadow-2xl"
                       : "border border-gray"
                   } w-[350px] h-[550px] rounded-[12px] p-[40px] cursor-pointer transition-all`}
                 >

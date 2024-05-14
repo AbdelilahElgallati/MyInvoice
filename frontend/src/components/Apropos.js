@@ -6,9 +6,9 @@ import Footer from './Footer';
 const Apropos = () => {
   // destructure product data
   const {title , subtitle} = product ;
-  return <section className=' dark:bg-black mt-[170PX] lg:mt-[-80PX] section'>
+  return <section className=' dark:bg-black mt-[130PX] lg:mt-[-80PX] section'>
     <Header/>
-    <div className='container mx-auto '>
+    <div className='container mx-auto  '>
       {/* title subtitle */}
       <div className='flex flex-col items-center
        lg:flex-row mb-10 lg:mb-20 lg:ml-[90px]'>

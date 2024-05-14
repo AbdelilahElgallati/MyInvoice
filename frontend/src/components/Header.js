@@ -3,14 +3,8 @@ import { header } from "../data";
 import { HiMenuAlt4, HiOutlineX } from "react-icons/hi";
 import MobileNav from "../components/MobileNav";
 import Nav from "../components/Nav";
-import Cta from "./Cta";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { dark } from "@mui/material/styles/createPalette";
-import { useTheme } from "./ThemeContext";
-import { useContext } from "react";
-import { ThemeContext } from "./ThemeContext";
 import { useGetOneEntrepriseQuery } from "state/api";
 
 const Header = () => {
@@ -43,10 +37,11 @@ const Header = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
-  //const { theme, toggleTheme } = useContext(ThemeContext);
+  
   // DARK MODE :
+  
   const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
-  console.log(theme);
+   console.log(theme);
   useEffect(() => {
     const storedTheme = localStorage.getItem("currentMode");
     if (storedTheme) {
@@ -76,7 +71,7 @@ const Header = () => {
       navigate("/dashboardClient");
     }
   }
-  // const id = localStorage.getItem("userId");
+
   return (
     <header
       className={`${
@@ -100,10 +95,6 @@ const Header = () => {
           >
             <img className="w-[160px]" src={logo} alt="Logo" />
           </Link>
-          {/* <span className="font-bodyfont text-white absolute bg-accent rounded-full h-10 w-10 flex items-center justify-center -top-2 left-[-35px]">
-            MY
-          </span>
-          <span className=" font-bodyfont ml-2">INVOICE</span> */}
         </a>
 
         <div
@@ -113,28 +104,7 @@ const Header = () => {
         >
           <Nav />
         </div>
-        {/* if(localStorage.getItem('userId')) {
-          <button
-          className="btn btn-sm btn-outline hidden lg:flex"
-          data-aos="fade-down"
-          data-aos-delay="100"
-          onClick={handleLoginClick}
-        >
-          {btnText}
-        </button>
-        } else {
-
       
-       <button
-          className="btn btn-sm btn-outline hidden lg:flex"
-          data-aos="fade-down"
-          data-aos-delay="100"
-          onClick={handleLogout}
-        >
-          {btnTextDec}
-        </button>
-          } */}
-
         {!localStorage.getItem("userId") ? (
           <button
             className="btn btn-sm btn-outline hidden lg:flex"
@@ -183,13 +153,7 @@ const Header = () => {
           )}
         </button>
       </div>
-      {/* mobile  nav */}
-      {/* <div className ={`
-      ${ mobileNav ? 'left-0' : '-left-full'} 
-      fixed top-0 bottom-0 w-[60vw] lg:hidden 
-      transition-all bg-pink-400`} >
-        <MobileNav />
-      </div> */}
+     
       <div
         className={`${
           mobileNav ? "left-0" : "-left-full"

@@ -3,6 +3,7 @@ import LogoImg from '../src/assets/img/header/lgrm.png';
 import HeroImg from '../src/assets/img/hero/VM.png';
 // import OverviewProductImg from '../src/assets/img/overview/product.svg';
 import OverviewProductImg1 from '../src/assets/img/overview/screenA.PNG';
+import OverviewProductImg2 from '../src/assets/img/overview/screenB.PNG';
 import FacebookImg from '../src/assets/img/overview/brands/facebook.svg';
 import GoogleImg from '../src/assets/img/overview/brands/google.svg';
 import CocaColaImg from '../src/assets/img/overview/brands/coca-cola.svg';
@@ -82,7 +83,8 @@ export const hero = {
 };
 
 export const overview = {
-  productImg: OverviewProductImg1,
+  productImgDark: OverviewProductImg1,
+  productImgSombre: OverviewProductImg2,
   brands: [
     {
       image: FacebookImg,
@@ -110,7 +112,7 @@ export const overview = {
 
 export const features = {
   feature1: {
-    pretitle: 'Alwalys online',
+    pretitle: 'Facturation Instantanée',
     title: 'Modèles de factures professionnelles',
     subtitle:
       "Vous souhaitez envoyer une facture dès maintenant ? Utilisez notre générateur de factures en ligne ou l'un de nos modèles de factures téléchargeables, imprimables et entièrement personnalisables !",
@@ -119,7 +121,7 @@ export const features = {
     image: Feature1Img,
   },
   feature2: {
-    pretitle: 'Free some cost',
+    pretitle: 'Facturation sans interruption',
     title: 'Générateur de factures en ligne',
     subtitle:
       "Utilisez notre générateur de factures pour gérer votre facturation depuis n'importe quel appareil, à tout moment. Votre compte est toujours connecté et vos données sont sauvegardées en toute sécurité pour vous.",
@@ -128,7 +130,7 @@ export const features = {
     image: Feature2Img,
   },
   feature3: {
-    pretitle: 'Use anytime',
+    pretitle: 'Estimation Instantanée',
     title: "Modèles d'estimation faciles à utiliser",
     subtitle:
       "Envoyez immédiatement des devis pour obtenir de nouveaux emplois. Convertissez ces devis en factures d'une simple pression sur un bouton.",
@@ -137,7 +139,7 @@ export const features = {
     image: Feature3Img,
   },
   feature4: {
-    pretitle: 'Use anytime',
+    pretitle: 'SimpliGestion',
     title: "Suivi des dépenses de l'entreprise",
     subtitle:
       "Le suivi des dépenses n'a jamais été aussi simple. Notre outil de suivi des dépenses et des reçus vous permet de scanner n'importe quel reçu et de saisir automatiquement les informations clés. Toutes les données relatives à vos dépenses sont prêtes à être exportées dans un rapport récapitulatif chaque fois que vous en avez besoin.",
@@ -321,20 +323,23 @@ export const GeneratorData ={
 export const footer = {
   logo: LogoImg,
   links: [
+
     { name: 'Accueil', href: '/' },
-    { name: 'Tarification', href: '/' },
-    { name: 'A propos de', href: '/' },
-    { name: 'Caractéristiques', href: '/' },
+    { name: 'Tarification', href: '/pack' },
+    { name: 'À propos de', href: '/Apropos' },
+    { name: 'Modèles', href: '/Modeles' },
+    { name: 'Générateur en ligne', href: '/Gener' },
   ],
   legal: [
     { name: 'Accueil', href: '/' },
-    { name: 'Tarification', href: '/' },
-    { name: 'A propos de', href: '/' },
-    { name: 'Caractéristiques', href: '/' },
+    { name: 'Tarification', href: '/pack' },
+    { name: 'À propos de', href: '/Apropos' },
+    { name: 'Modèles', href: '/Modeles' },
+    { name: 'Générateur en ligne', href: '/Gener' },
   ],
   newsletter: {
-    title: 'Envoyez un message',
-    subtitle: "Plus de 5 ans d'expérience",
+    title: "Plus de 5 ans d'expérience",
+    subtitle: 'Envoyez un message',
   },
   form: {
     placeholder: 'Envoyez votre message',

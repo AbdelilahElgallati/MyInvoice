@@ -23,7 +23,7 @@ const Feature2 = () => {
           <div className='dark:text-white pretitle'>{pretitle}</div>
           <div className='dark:text-white title'>{title}</div>
           <div className='dark:text-white lead'>{subtitle}</div>
-          <button className='btn-link flex items-center gap-x-3 hover:gap-x-5 transition-all font-Quicksand font-semibold'
+          <button className='mt-[10px] mb-[10px]  lg:mt-[0px] lg:mb-[0px] btn-link flex items-center gap-x-3 hover:gap-x-5 transition-all font-Quicksand font-semibold'
           onClick={handleGenerClick}>
             {btnLink} <img src={btnIcon} alt=''></img>
           </button>
