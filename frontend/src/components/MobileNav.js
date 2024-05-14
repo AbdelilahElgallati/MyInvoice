@@ -10,7 +10,7 @@ const MobileNav = () => {
         const {href , name } = item;
         return (
           <li key={index}>
-            <a className='link text-white text-xl'
+            <a className='link text-white text-xl font-Quicksand font-semibold hover:text-black'
             href={href}>
               {name}
             </a>

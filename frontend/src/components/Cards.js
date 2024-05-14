@@ -18,7 +18,7 @@ const Cards = () => {
           <div key={cardIndex} data-aos = 'zoom-out' data-aos-offset='300' data-aos-delay="delay" >
             <div 
             onClick={()=>setIndex(cardIndex)}
-            className={`${index === cardIndex &&  'dark:bg-slate-900 bg-white shadow-2xl'} w-[350px] h-[350px] flex flex-col 
+            className={`${index === cardIndex &&  'dark:bg-gray-800 bg-white shadow-2xl'} w-[350px] h-[350px] flex flex-col 
             justify-center items-center mx-auto p-[65px] text-center rounded-[12px] cursor-pointer transition-all`}
             >
               {/* card icon */}

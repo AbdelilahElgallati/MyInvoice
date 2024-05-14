@@ -9,7 +9,7 @@ const Feature3 = () => {
     <div className='container mx-auto'>
       <div className='flex flex-col lg:flex-row lg:items-center lg:gap-x-[30px]'>
         {/* text */}
-        <div className='flex-1' data-aos = "fade-right" data-aos-offset ='400' >
+        <div className=' mb-[20px]   lg:mb-[0px] flex-1' data-aos = "fade-right" data-aos-offset ='400' >
           <div className=' dark:text-white pretitle'>{pretitle}</div>
           <div className='dark:text-white title'>{title}</div>
           <div className='dark:text-white lead'>{subtitle}</div>

@@ -15,7 +15,7 @@ const Feature4 = () => {
           <img className ='rounded-lg' src= {image} ></img>
         </div> 
         {/* text */}
-        <div className='flex-1 order-1 lg:order-2' data-aos = "fade-right" data-aos-offset ='400' >
+        <div className='mb-[20px]   lg:mb-[0px] flex-1 order-1 lg:order-2' data-aos = "fade-right" data-aos-offset ='400' >
           <div className='dark:text-white pretitle'>{pretitle}</div>
           <div className='dark:text-white title'>{title}</div>
           <div className='dark:text-white lead'>{subtitle}</div>

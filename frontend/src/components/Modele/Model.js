@@ -27,7 +27,7 @@ const Model = () => {
           <img
             src={imageDark}
             alt=""
-            className="w-[50%] lg:w-[25%] ml-[120px]  lg:mb-[50px] lg:ml-[500px] "
+            className="ml-[160px] lg:ml-[0px] w-[50%] lg:w-[25%] ml-[120px]  lg:mb-[50px] lg:ml-[500px] "
           />
         </div>
       </div>
