@@ -45,7 +45,7 @@ const prepareBonCommandeDetails = async (req, res) => {
         price: item.productId.price,
       };
     });
-      bonCommandeNumber= bonCommande.bonCommandeNumber;
+      _id= bonCommande._id;
       bonCommandeStatus = bonCommande.status;
       userName = bonCommande.userId.name;
       userEmail = bonCommande.userId.email;
@@ -59,7 +59,7 @@ const prepareBonCommandeDetails = async (req, res) => {
       amount = bonCommande.amount;
       
       res.status(200).json({
-        bonCommandeNumber,
+        _id,
         bonCommandeStatus,
         userName,
         userEmail,

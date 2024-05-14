@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { useGetProductsQuery, useGetFournisseursQuery, useAddBonCommandeMutation } from "state/api";
+import { useGetProductsQuery, useGetClientsQuery, useAddDeviMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
 
-const AddBonCommande = () => {
+const AddDevi = () => {
   const navigate = useNavigate();
 
   if (!localStorage.getItem("userId")) {
@@ -23,59 +23,58 @@ const AddBonCommande = () => {
   }
   const theme = useTheme();
   const id = localStorage.getItem("userId");
-  const [bonCommande, setBonCommande] = useState({
+  const [devi, setDevi] = useState({
     userId: localStorage.getItem("userId") || "",
-    fournisseurId: "",
-    bonCommandeNumber: "",
-    dueDate: new Date(),
+    clientId: "",
+    Date: new Date(),
     items: [{ productId: "", quantity: 0 }],
     amount: 0,
   });
-  const [AddBonCommande] = useAddBonCommandeMutation();
-  const { data: fournisseursData } = useGetFournisseursQuery(id);
+  const [AddDevi] = useAddDeviMutation();
+  const { data:  clientsData } = useGetClientsQuery(id);
   const { data: productsData } = useGetProductsQuery(id);
 
   const Navigate = useNavigate();
 
   const handleChange = (e) => {
-    setBonCommande({ ...bonCommande, [e.target.name]: e.target.value });
+    setDevi({ ...devi, [e.target.name]: e.target.value });
   };
 
   const handleProductAdd = () => {
-    setBonCommande({
-      ...bonCommande,
-      items: [...bonCommande.items, { productId: "", quantity: 0 }],
+    setDevi({
+      ...devi,
+      items: [...devi.items, { productId: "", quantity: 0 }],
     });
   };
 
   const handleProductChange = (index, productId) => {
-    const updatedItems = [...bonCommande.items];
+    const updatedItems = [...devi.items];
     updatedItems[index].productId = productId;
-    setBonCommande({ ...bonCommande, items: updatedItems });
+    setDevi({ ...devi, items: updatedItems });
   };
 
   const handleQuantityChange = (index, quantity) => {
-    const updatedItems = [...bonCommande.items];
+    const updatedItems = [...devi.items];
     updatedItems[index].quantity = parseInt(quantity);
-    setBonCommande({ ...bonCommande, items: updatedItems });
+    setDevi({ ...devi, items: updatedItems });
   };
 
-  const handleFournisseurChange = (event) => {
-    setBonCommande({ ...bonCommande, fournisseurId: event.target.value });
+  const handleClientChange = (event) => {
+    setDevi({ ...devi, clientId: event.target.value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const amount = bonCommande.items.reduce(
+      const amount = devi.items.reduce(
         (acc, item) =>
           acc +
           (productsData.find((product) => product._id === item.productId)?.price || 0) *
           item.quantity,
         0
       );
-      await AddBonCommande({ bonCommande: { ...bonCommande, amount } });
-      Navigate("/bon-commandes");
+      await AddDevi({ devi: { ...devi, amount } });
+      Navigate("/devis");
     } catch (error) {
       console.log(error);
     }
@@ -83,27 +82,16 @@ const AddBonCommande = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-    <Header title="AJOUTER DES BON DE COMMANDE" subtitle="Ajout d'une nouvelle bon de commande" />
+    <Header title="AJOUTER DES DEVIS" subtitle="Ajout d'un nouvelle devi" />
     <Box m="1.5rem auto" fullWidth border={`2px solid ${theme.palette.primary.main}`} borderRadius="0.5rem" p="1rem">
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextField
-              label="Numéro de bon de commande"
-              name="bonCommandeNumber"
-              value={bonCommande.invoiceNumber}
-              onChange={handleChange}
-              fullWidth
-              required
-              margin="normal"
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              label="Date d'échéance"
-              name="dueDate"
+              label="Date"
+              name="date"
               type="date"
-              value={bonCommande.dueDate}
+              value={devi.date}
               onChange={handleChange}
               fullWidth
               required
@@ -115,19 +103,19 @@ const AddBonCommande = () => {
           </Grid>
           <Grid item xs={12}>
             <FormControl fullWidth>
-              <InputLabel id="client-label">Sélectionnez Un Fournisseur</InputLabel>
+              <InputLabel id="client-label">Sélectionnez Un Client</InputLabel>
               <Select
                 labelId="client-label"
                 id="client-select"
-                value={bonCommande.fournisseurId}
-                onChange={handleFournisseurChange}
+                value={devi.clientId}
+                onChange={handleClientChange}
                 fullWidth
                 required
               >
-                {fournisseursData &&
-                  fournisseursData.map((fournisseur) => (
-                    <MenuItem key={fournisseur._id} value={fournisseur._id}>
-                      {fournisseur.name}
+                {clientsData &&
+                  clientsData.map((client) => (
+                    <MenuItem key={client._id} value={client._id}>
+                      {client.name}
                     </MenuItem>
                   ))}
               </Select>
@@ -145,7 +133,7 @@ const AddBonCommande = () => {
               Ajouter produit
             </Button>
           </Grid>
-          {bonCommande.items.map((item, index) => (
+          {devi.items.map((item, index) => (
             <React.Fragment key={index}>
               <Grid item xs={6}>
                 <FormControl fullWidth>
@@ -183,7 +171,7 @@ const AddBonCommande = () => {
           ))}
           <Grid item xs={12}>
             <Button type="submit" variant="contained" color="primary">
-              Ajouter le bon de commande
+              Ajouter la devi
             </Button>
           </Grid>
         </Grid>
@@ -193,4 +181,4 @@ const AddBonCommande = () => {
   );
 };
 
-export default AddBonCommande;
+export default AddDevi;

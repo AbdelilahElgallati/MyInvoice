@@ -24,7 +24,9 @@ const MessageRouter = require("./Routes/MessageRouter");
 const SubscriptionRouter = require("./Routes/SubscriptionRouter");
 const ModelRouter = require("./Routes/ModelRouter");
 const FournisseurRouter = require('./Routes/FournisseurRouter');
-const BonCommandesRouter = require('./Routes/BonCommandesRouter')
+const BonCommandesRouter = require('./Routes/BonCommandesRouter');
+const BonLivraisonRouter = require('./Routes/BonLivraisonRouter');
+const DeviRouter = require('./Routes/DeviRouter');
 const GoogleAuthRouter = require("./Routes/GoogleAuth");
 const {
   updateSubscriptionStatus,
@@ -52,6 +54,8 @@ app.use("/Api/Fournisseur", FournisseurRouter);
 app.use("/Api/Entreprise", EntrepriseRouter);
 app.use("/Api/Invoice", InvoiceRouter);
 app.use("/Api/BonCommandes", BonCommandesRouter);
+app.use("/Api/BonLivraison", BonLivraisonRouter);
+app.use("/Api/Devi", DeviRouter);
 app.use("/Api/Pack", PackRouter);
 app.use("/Api/Message", MessageRouter);
 app.use("/Api/Model", ModelRouter);

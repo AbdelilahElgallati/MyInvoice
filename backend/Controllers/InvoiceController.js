@@ -104,7 +104,6 @@ const getSales = async (req, res) => {
 
 const getDashboardStats = async (req, res) => {
   try {
-    console.log('start')
     const currentMonth = "Mai";
     const currentYear = 2024;
     const currentDay = "2024-05-05";
@@ -134,19 +133,6 @@ const getDashboardStats = async (req, res) => {
     const todayStats = overallStat[0].dailyData.find(({ date }) => {
       return date === currentDay;
     });
-    console.log(  invoices,
-      totalPaidAmount,
-      totalCustomers,
-      totalProducts,
-      totalInvoices,
-      totalPaidInvoices,
-      totalUnpaidInvoices,
-      yearlyTotalSoldUnits,
-      yearlySalesTotal,
-      monthlyData,
-      salesByCategory,
-      thisMonthStats,
-      todayStats,);
     res.status(200).json({
       invoices,
       totalPaidAmount,

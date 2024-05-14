@@ -9,7 +9,6 @@ const BonCommandeSchema = new Schema(
       ref: "Fournisseur",
       required: true,
     },
-    bonCommandeNumber: { type: String, required: true },
     date: { type: Date, default: Date.now },
     dueDate: { type: Date, required: true },
     items: [
@@ -23,7 +22,7 @@ const BonCommandeSchema = new Schema(
         price: { type: Number },
       },
     ],
-    status: { type: String, enum: ["sent", "paid", "late"], default: "sent" },
+    status: { type: String, enum: ["attentTraitement", "auCourTraitement", "expédié"], default: "attentTraitement" },
     amount: { type: Number, required: true },
   },
   { timestamps: true }

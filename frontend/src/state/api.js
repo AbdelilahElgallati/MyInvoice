@@ -3,7 +3,25 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/Api" }),
   reducerPath: "adminApi",
-  tagTypes: ["Entreprise", "Pack", "Subscription", "Service", "Message","Products", "Clients", "Sales", "Dashboard", "Invoices", "Categorie", "Model","Auth", "Fournisseurs","BonCommandes"],
+  tagTypes: [
+    "Entreprise",
+    "Pack",
+    "Subscription",
+    "Service",
+    "Message",
+    "Products",
+    "Clients",
+    "Sales",
+    "Dashboard",
+    "Invoices",
+    "Categorie",
+    "Model",
+    "Auth",
+    "Fournisseurs",
+    "BonCommandes",
+    "BonLivraison",
+    "Devi"
+  ],
   endpoints: (build) => ({
     getEntreprise: build.query({
       query: (id) => `Entreprise/${id}`,
@@ -68,7 +86,7 @@ export const api = createApi({
       }),
     }),
     ResetPass: build.mutation({
-      query: (data,id,token) => ({
+      query: (data, id, token) => ({
         url: `Entreprise/reset-password/${id}/${token}`,
         method: "POST",
         body: data,
@@ -82,7 +100,6 @@ export const api = createApi({
         body: enterpriseMotPasse,
       }),
     }),
-
 
     // Service
     getAllServices: build.query({
@@ -120,12 +137,12 @@ export const api = createApi({
     getThreePacks: build.query({
       query: () => "Pack/ThreePacks",
       providesTags: ["Pack"],
-      method: "GET"
+      method: "GET",
     }),
     getAllPacksThreeService: build.query({
       query: () => "Pack/AllPacksThreeService",
       providesTags: ["Pack"],
-      method: "GET"
+      method: "GET",
     }),
     addPack: build.mutation({
       query: (PackData) => ({
@@ -142,8 +159,8 @@ export const api = createApi({
       query: ({ id, pack }) => ({
         url: `Pack/edit/${id}`,
         method: "PUT",
-        body: pack, 
-      })
+        body: pack,
+      }),
     }),
     removePack: build.mutation({
       query: (id) => ({
@@ -350,7 +367,6 @@ export const api = createApi({
       }),
     }),
 
-
     getSales: build.query({
       query: () => "Invoice/summary",
       providesTags: ["Sales"],
@@ -429,7 +445,74 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-    
+
+    // Bon de Livraison
+    getBonLivraison: build.query({
+      query: (id) => `BonLivraison/List/${id}`,
+      providesTags: ["BonLivraison"],
+    }),
+    getOneBonLivraison: build.query({
+      query: (id) => `BonLivraison/${id}`,
+      providesTags: ["BonLivraison"],
+    }),
+    updateBonLivraison: build.mutation({
+      query: ({ id, BonLivraisonData }) => ({
+        url: `BonLivraison/edit/${id}`,
+        method: "PUT",
+        body: BonLivraisonData,
+      }),
+    }),
+    addBonLivraison: build.mutation({
+      query: (bonLivraison) => ({
+        url: `BonLivraison/add`,
+        method: "POST",
+        body: bonLivraison,
+      }),
+    }),
+    getBonLivraisonDetails: build.query({
+      query: (id) => `BonLivraison/details/${id}`,
+      providesTags: ["BonLivraison"],
+    }),
+    removeBonLivraison: build.mutation({
+      query: (id) => ({
+        url: `BonLivraison/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
+
+    // Devi
+    getDevis: build.query({
+      query: (id) => `Devi/List/${id}`,
+      providesTags: ["Devi"],
+    }),
+    getOneDevi: build.query({
+      query: (id) => `Devi/${id}`,
+      providesTags: ["Devi"],
+    }),
+    updateDevi: build.mutation({
+      query: ({ id, deviData }) => ({
+        url: `Devi/edit/${id}`,
+        method: "PUT",
+        body: deviData,
+      }),
+    }),
+    addDevi: build.mutation({
+      query: (devi) => ({
+        url: `Devi/add`,
+        method: "POST",
+        body: devi,
+      }),
+    }),
+    getDeviDetails: build.query({
+      query: (id) => `Devi/details/${id}`,
+      providesTags: ["Devi"],
+    }),
+    removeDevi: build.mutation({
+      query: (id) => ({
+        url: `Devi/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -462,7 +545,7 @@ export const {
   useUpdateServiceMutation,
   useRemoveServiceMutation,
 
-  useGetAllModelsQuery, 
+  useGetAllModelsQuery,
   useGetOneModelQuery,
   useAddModelMutation,
   useUpdateModelMutation,
@@ -479,14 +562,14 @@ export const {
   useRemoveMessageMutation,
   useGetAllMessagesQuery,
   useAddMessageMutation,
-  
+
   useAddInvoiceMutation,
   useGetUserQuery,
   useGetInvoicesQuery,
   useRemoveInvoiceMutation,
   useGetSalesQuery,
   useGetDashboardClientQuery,
-  
+
   useGetProductsQuery,
   useAddProduitMutation,
   useGetOneProduitQuery,
@@ -496,7 +579,7 @@ export const {
   useAddClientMutation,
   useGetOneClientQuery,
   useUpdateClientMutation,
-  useRemoveClientMutation,  
+  useRemoveClientMutation,
   useGetClientsQuery,
 
   useGetFournisseursQuery,
@@ -517,11 +600,27 @@ export const {
   useUpdateInvoiceMutation,
   useGetOneAuthQuery,
 
-  // bon de commandes 
+  // bon de commandes
   useGetBonCommandesQuery,
   useAddBonCommandeMutation,
   useGetBonCommandeDetailsQuery,
   useGetOneBonCommandeQuery,
   useUpdateBonCommandeMutation,
   useRemoveBonCommandeMutation,
+
+  // bon de livraison
+  useGetBonLivraisonQuery,
+  useAddBonLivraisonMutation,
+  useGetBonLivraisonDetailsQuery,
+  useGetOneBonLivraisonQuery,
+  useUpdateBonLivraisonMutation,
+  useRemoveBonLivraisonMutation,
+
+  // Devi
+  useGetDevisQuery,
+  useAddDeviMutation,
+  useGetDeviDetailsQuery,
+  useGetOneDeviQuery,
+  useUpdateDeviMutation,
+  useRemoveDeviMutation,
 } = api;
