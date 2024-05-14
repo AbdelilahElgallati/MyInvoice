@@ -96,10 +96,7 @@ const App = () => {
           <Route path="/" element={<WelcomePage />} />
           <Route path="/Login" element={<Login />} />
           <Route path="/ForgoutPass" element={<ForgoutPass />} />
-          <Route
-            path="/reset-password/:id/:token"
-            element={<ResetPassword />}
-          />
+          <Route path="/reset-password/:id/:token" element={<ResetPassword />}/>
           <Route path="/Register" element={<Register />} />
           <Route path="/Modeles" element={<Model />} />
           <Route path="/Gener" element={<Generateur />} />
