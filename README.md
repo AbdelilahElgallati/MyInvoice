@@ -8,6 +8,12 @@
 ![image](https://github.com/AbdelilahElgallati/MyInvoice/assets/99350672/43320aac-c70b-4fc6-a281-4959f40c3329)
 ![image](https://github.com/AbdelilahElgallati/MyInvoice/assets/99350672/aeffae30-9823-4aee-a6f7-e25e2c2f1d9a)
 ![image](https://github.com/AbdelilahElgallati/MyInvoice/assets/99350672/45a4366f-e9ec-4f1f-9053-271dfd967e81)
+![image](https://github.com/AbdelilahElgallati/MyInvoice/assets/99350672/7354e1e4-d7b2-4b6b-bad2-7ca23d5b720e)
+![image](https://github.com/AbdelilahElgallati/MyInvoice/assets/99350672/86b665ae-7abd-4582-8582-d63684cd86ef)
+![image](https://github.com/AbdelilahElgallati/MyInvoice/assets/99350672/c5b63da3-1062-444a-9b4f-4be19bcaef45)
+
+
+
 
 
 
