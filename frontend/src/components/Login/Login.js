@@ -239,7 +239,6 @@ const Login = () => {
     
     const params = new URLSearchParams(location.search);
     const userId = params.get("userId");
-    console.log('user id: ', userId )
     setUserId(userId);
     if (userId) {
       return;

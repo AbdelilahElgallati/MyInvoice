@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
-  useGetBonCommandesQuery,
-  useRemoveBonCommandeMutation,
+  useGetDevisQuery,
+  useRemoveDeviMutation,
+  useGetDeviDetailsQuery,
 } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
+import FlexBetween from "componentsAdmin/FlexBetween";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {
   CheckCircleOutline,
@@ -18,20 +22,17 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import PrintIcon from "@mui/icons-material/Print";
-import FlexBetween from "componentsAdmin/FlexBetween";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link } from "react-router-dom";
 
-const BonCommandes = () => {
-  const theme = useTheme();
+const Devis = () => {
   const navigate = useNavigate();
-  const id = localStorage.getItem("userId");
-  const { data, isLoading } = useGetBonCommandesQuery(id);
-  const [removeBonCommandes] = useRemoveBonCommandeMutation();
-
   if (!localStorage.getItem("userId")) {
     navigate("/");
   }
+  const theme = useTheme();
+  const id = localStorage.getItem("userId");
+  const { data, isLoading } = useGetDevisQuery(id);
+  const [removeDevi] = useRemoveDeviMutation();
+  const [idDevi, setIdDevi] = useState("");
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -46,7 +47,7 @@ const BonCommandes = () => {
   const columns = [
     {
       field: "_id",
-      headerName: "Numéro",
+      headerName: "Numéro de devi",
       flex: 1,
 
       renderCell: (params) => (
@@ -66,21 +67,15 @@ const BonCommandes = () => {
       ),
     },
     {
-      field: "fournisseurId",
-      headerName: "Fournisseur",
-      flex: 1,
-      renderCell: (params) => params.row.fournisseurId.name,
+      field: "clientId",
+      headerName: "Client",
+      flex: 0.8,
+      renderCell: (params) => params.row.clientId.name,
     },
     {
       field: "date",
       headerName: "Date de création",
       flex: 0.7,
-      renderCell: (params) => formatDate(params.value),
-    },
-    {
-      field: "dueDate",
-      headerName: "Date d'échéance",
-      flex: 0.5,
       renderCell: (params) => formatDate(params.value),
     },
     {
@@ -116,19 +111,19 @@ const BonCommandes = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 0.5,
+      flex: 0.7,
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
 
         switch (status) {
-          case "sent":
+          case "attente d'approbation":
             icon = (
               <HourglassEmpty style={{ color: "white", fontSize: "1rem" }} />
             );
             backgroundColor = "orange";
             break;
-          case "paid":
+          case "approuvé":
             icon = (
               <CheckCircleOutline
                 style={{ color: "white", fontSize: "1rem" }}
@@ -136,7 +131,7 @@ const BonCommandes = () => {
             );
             backgroundColor = "green";
             break;
-          case "late":
+          case "rejeté":
             icon = (
               <ErrorOutline style={{ color: "white", fontSize: "1rem" }} />
             );
@@ -206,25 +201,30 @@ const BonCommandes = () => {
     },
   ];
 
+  const { data: deviDetail } = useGetDeviDetailsQuery(idDevi);
+
   const handleDetails = (id) => {
-    window.location.href = `/bon-commandes/details/${id}`;
+    window.location.href = `/devis/details/${id}`;
   };
 
   const handlePrint = (id) => {
-    navigate(`/bon-commandes/imprimer/${id}`);
+    navigate(`/devis/imprimer/${id}`);
   };
 
   const handleEmail = (id) => {
-    // Logic for sending email
+    setIdDevi(id);
+    if (deviDetail) {
+      console.log("devi : ", deviDetail);
+    }
   };
 
   const handleEdit = (id) => {
-    window.location.href = `/bon-commandes/edit/${id}`;
+    window.location.href = `/devis/edit/${id}`;
   };
 
   const handleDelete = async (id) => {
     try {
-      await removeBonCommandes(id);
+      await removeDevi(id);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -235,11 +235,11 @@ const BonCommandes = () => {
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         <Header
-          title="BON COMMANDES"
-          subtitle="Liste des bon de commandes "
+          title="DEVIS"
+          subtitle="Liste des bon de devi "
           total={data ? data.length : 0}
         />
-        <Link to="/bon-commandes/new">
+        <Link to="/devis/new">
           <Button
             variant="contained"
             color="primary"
@@ -293,4 +293,4 @@ const BonCommandes = () => {
   );
 };
 
-export default BonCommandes;
+export default Devis;

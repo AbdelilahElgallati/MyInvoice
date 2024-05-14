@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetBonCommandeDetailsQuery } from "state/api";
+import { useGetDeviDetailsQuery } from "state/api";
 import { useParams, useNavigate } from "react-router-dom";
 import {
   Grid,
@@ -18,19 +18,19 @@ import {
 } from "@mui/material";
 import profileImage from "assets/logo.png";
 
-const PrintBonCommande = () => {
+const PrintInvoice = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
     navigate("/");
   }
   const { id } = useParams();
-  const { data, isLoading } = useGetBonCommandeDetailsQuery(id);
+  const { data, isLoading } = useGetDeviDetailsQuery(id);
   const theme = useTheme();
   const getStatusColor = (status) => {
     switch (status) {
-      case "paid":
+      case "approuvé":
         return "green";
-      case "late":
+      case "attente d'approbation":
         return "red";
       default:
         return "orange";
@@ -42,16 +42,16 @@ const PrintBonCommande = () => {
 
   const {
     _id,
-    bonCommandeStatus,
+    deviStatus,
     userName,
     userEmail,
     userPhone,
     userAddress,
     userLogo,
-    fournisseurName,
-    fournisseurEmail,
-    fournisseurPhone,
-    fournisseurAddress,
+    clientName,
+    clientEmail,
+    clientPhone,
+    clientAddress,
     formattedDate,
     formattedDueDate,
     itemsTable,
@@ -85,10 +85,10 @@ const PrintBonCommande = () => {
               variant="h6"
               sx={{ color: "white", fontWeight: "bold" }}
             >
-              Numéro de bon de commande: #{_id}
+              Numéro de devi: #{_id}
             </Typography>
           </Box>
-          <Box bgcolor={getStatusColor(bonCommandeStatus)} borderRadius={4} p={2}>
+          <Box bgcolor={getStatusColor(deviStatus)} borderRadius={4} p={2}>
             <Typography
               variant="h6"
               sx={{
@@ -97,7 +97,7 @@ const PrintBonCommande = () => {
                 "@media print": { display: "none" },
               }}
             >
-              Status: {bonCommandeStatus}
+              Status: {deviStatus}
             </Typography>
           </Box>
         </Box>
@@ -147,21 +147,21 @@ const PrintBonCommande = () => {
               fontWeight="bold"
               color={theme.palette.secondary[300]}
             >
-              Facture à : <br />
+              Devi à : <br />
               <br />
               <br />
             </Typography>
             <Typography variant="body1" fontWeight="bold">
-              Nom: {fournisseurName}
+              Nom: {clientName}
             </Typography>
             <Typography variant="body1" fontWeight="bold">
-              Email: {fournisseurEmail}
+              Email: {clientEmail}
             </Typography>
             <Typography variant="body1" fontWeight="bold">
-              Téléphone: {fournisseurPhone}
+              Téléphone: {clientPhone}
             </Typography>
             <Typography variant="body1" fontWeight="bold">
-              Addresse: {fournisseurAddress}
+              Addresse: {clientAddress}
             </Typography>
           </Box>
         </Box>
@@ -258,4 +258,4 @@ const PrintBonCommande = () => {
   );
 };
 
-export default PrintBonCommande;
+export default PrintInvoice;

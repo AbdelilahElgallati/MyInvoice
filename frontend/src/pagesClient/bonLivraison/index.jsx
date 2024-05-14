@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
-  useGetBonCommandesQuery,
-  useRemoveBonCommandeMutation,
+  useGetBonLivraisonQuery,
+  useGetBonLivraisonDetailsQuery,
+  useRemoveBonLivraisonMutation,
 } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
+import FlexBetween from "componentsAdmin/FlexBetween";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import {
   CheckCircleOutline,
@@ -18,20 +22,20 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import PrintIcon from "@mui/icons-material/Print";
-import FlexBetween from "componentsAdmin/FlexBetween";
-import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
-import { Link } from "react-router-dom";
 
-const BonCommandes = () => {
+const BonLivraison = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const id = localStorage.getItem("userId");
-  const { data, isLoading } = useGetBonCommandesQuery(id);
-  const [removeBonCommandes] = useRemoveBonCommandeMutation();
-
+  const { data, isLoading } = useGetBonLivraisonQuery(id);
+  const [removeBonLivraison] = useRemoveBonLivraisonMutation();
+  if(data) {
+    console.log("data : ", data);
+  }
   if (!localStorage.getItem("userId")) {
     navigate("/");
   }
+  const [idBonLivraison, setIdBonLivraison] = useState("");
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -46,7 +50,7 @@ const BonCommandes = () => {
   const columns = [
     {
       field: "_id",
-      headerName: "Numéro",
+      headerName: "Numéro de bon de livraison",
       flex: 1,
 
       renderCell: (params) => (
@@ -66,36 +70,30 @@ const BonCommandes = () => {
       ),
     },
     {
-      field: "fournisseurId",
-      headerName: "Fournisseur",
+      field: "bonCommandeId",
+      headerName: "Numéro de commande",
       flex: 1,
-      renderCell: (params) => params.row.fournisseurId.name,
+      renderCell: (params) => (
+        <span
+          style={{
+            display: "inline-block",
+            fontWeight: "bold",
+            color: "white",
+            backgroundColor: "gray",
+            borderRadius: "4px",
+            padding: "5px 10px",
+            lineHeight: "1",
+          }}
+        >
+          #{params.row.bonCommandeId._id}
+        </span>
+      ),
     },
     {
-      field: "date",
-      headerName: "Date de création",
+      field: "dateLivraison",
+      headerName: "Date de livraison",
       flex: 0.7,
       renderCell: (params) => formatDate(params.value),
-    },
-    {
-      field: "dueDate",
-      headerName: "Date d'échéance",
-      flex: 0.5,
-      renderCell: (params) => formatDate(params.value),
-    },
-    {
-      field: "items",
-      headerName: "Produits",
-      flex: 0.4,
-      sortable: false,
-      renderCell: (params) => {
-        // Sum the quantities of all items in the array
-        const totalQuantity = params.value.reduce(
-          (acc, curr) => acc + curr.quantity,
-          0
-        );
-        return totalQuantity;
-      },
     },
     {
       field: "amount",
@@ -116,19 +114,19 @@ const BonCommandes = () => {
     {
       field: "status",
       headerName: "Status",
-      flex: 0.5,
+      flex: 0.8,
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
 
         switch (status) {
-          case "sent":
+          case "attent de confirmation":
             icon = (
               <HourglassEmpty style={{ color: "white", fontSize: "1rem" }} />
             );
             backgroundColor = "orange";
             break;
-          case "paid":
+          case "confirmé":
             icon = (
               <CheckCircleOutline
                 style={{ color: "white", fontSize: "1rem" }}
@@ -136,7 +134,7 @@ const BonCommandes = () => {
             );
             backgroundColor = "green";
             break;
-          case "late":
+          case "attent de reception":
             icon = (
               <ErrorOutline style={{ color: "white", fontSize: "1rem" }} />
             );
@@ -206,25 +204,31 @@ const BonCommandes = () => {
     },
   ];
 
+  const { data: bonLivraisonDetail } =
+    useGetBonLivraisonDetailsQuery(idBonLivraison);
+
   const handleDetails = (id) => {
-    window.location.href = `/bon-commandes/details/${id}`;
+    window.location.href = `/bon-livraison/details/${id}`;
   };
 
   const handlePrint = (id) => {
-    navigate(`/bon-commandes/imprimer/${id}`);
+    navigate(`/bon-livraison/imprimer/${id}`);
   };
 
   const handleEmail = (id) => {
-    // Logic for sending email
+    setIdBonLivraison(id);
+    if (bonLivraisonDetail) {
+      console.log("invoice : ", bonLivraisonDetail);
+    }
   };
 
   const handleEdit = (id) => {
-    window.location.href = `/bon-commandes/edit/${id}`;
+    window.location.href = `/bon-livraison/edit/${id}`;
   };
 
   const handleDelete = async (id) => {
     try {
-      await removeBonCommandes(id);
+      await removeBonLivraison(id);
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -235,11 +239,11 @@ const BonCommandes = () => {
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         <Header
-          title="BON COMMANDES"
-          subtitle="Liste des bon de commandes "
+          title="BON DE LIVRAISON"
+          subtitle="Liste des bon de livraison "
           total={data ? data.length : 0}
         />
-        <Link to="/bon-commandes/new">
+        <Link to="/bon-livraison/new">
           <Button
             variant="contained"
             color="primary"
@@ -249,7 +253,7 @@ const BonCommandes = () => {
             Add
           </Button>
         </Link>
-      </FlexBetween>
+      </FlexBetween>{" "}
       <Box
         height="80vh"
         sx={{
@@ -293,4 +297,4 @@ const BonCommandes = () => {
   );
 };
 
-export default BonCommandes;
+export default BonLivraison;
