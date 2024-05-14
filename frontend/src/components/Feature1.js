@@ -1,11 +1,33 @@
 import React , { useEffect, useState } from "react";
 import { features } from '../data';
 import { useNavigate } from 'react-router-dom';
+import tr from "Services/tr";
+import Cookies from "js-cookie";
 const Feature1 = () => {
   
   const {feature1} = features;
-  const { pretitle , title , subtitle , btnLink , btnIcon , image }= feature1;
+  const {  btnIcon , image }= feature1;
+  //pretitle , title , subtitle , btnLink
+  const [pretitle,setpretitle] = useState(feature1.pretitle);
+  const [title,settitle] = useState(feature1.title);
+  const [subtitle,setsubtitle] = useState(feature1.subtitle);
+  const [btnLink,setbtnLink] = useState(feature1.btnLink);
   const navigate = useNavigate();
+  
+   useEffect(() => {
+     const langto = Cookies.get("to");
+     // fonction multiThreads
+     const translateData = async () => {
+      if (langto != "fra" && langto) {
+        setpretitle(await tr(pretitle , "fra", langto))
+        settitle(await tr(title , "fra", langto))
+        setsubtitle(await tr(subtitle , "fra", langto))
+        setbtnLink(await tr(btnLink , "fra", langto))
+      }
+     };
+ 
+     translateData();
+   }, []);
   const handleModelClick = () => {
     // Redirige vers la page de connexion lorsque le bouton est cliqué
     navigate('/Modeles');

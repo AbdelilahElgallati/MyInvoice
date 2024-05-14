@@ -188,6 +188,7 @@ export const pricing = {
         
       ],
       price: '$9.99',
+      year : 'Annee',
       userAmount: "Jusqu'à 3 factures par mois",
       btnText: 'COMMENCER MAINTENANT',
       delay: 300,
@@ -203,6 +204,7 @@ export const pricing = {
         
       ],
       price: '$13.99',
+      year : 'Annee',
       userAmount: "Jusqu'à 10 factures par mois",
       btnText: 'COMMENCER MAINTENANT',
       delay: 600,
@@ -217,6 +219,7 @@ export const pricing = {
      
       ],
       price: '$29.99',
+      year : 'Annee',
       userAmount: 'up to 3 user + 1.99 per user',
       btnText: 'COMMENCER MAINTENANT',
       delay: 900,

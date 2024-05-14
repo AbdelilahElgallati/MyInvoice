@@ -2,17 +2,42 @@ import React , { useEffect, useState } from "react";
 
 import { product } from '../data';
 import ArrowImg from '../assets/img/product/cards/arrow.svg';
+import tr from "Services/tr";
+import Cookies from "js-cookie";
 const Cards = () => {
   
   //index store 
   const [index , setIndex] =useState(1);
   //destructure product data
   const {cards} = product;
+
+  const [translatedData, setTranslatedData] = useState([]);
+  useEffect(() => {
+    const langto = Cookies.get("to");
+    // fonction multiThreads
+    const translateData = async () => {
+      const translatedItems = await Promise.all(
+        // pour exécuter plusieurs promesses en parallèle. Cela signifie que toutes les promesses à l'intérieur de Promise.all doivent se terminer avant que la fonction ne continue.
+        cards.map(async (item) => {
+          const it = item;
+          if (langto != "fra" && langto) {
+            it.subtitle = await tr(item.subtitle, "fra", langto);
+            it.title = await tr(item.title, "fra", langto);
+          }
+          // Test de premiere fois : (data par default c'est fra)
+          return { ...it };
+        })
+      );
+      setTranslatedData(translatedItems);
+    };
+
+    translateData();
+  }, []);
   return <>
    {/* cards   */}
    <div className='dark:bg-black flex flex-col gap-y-[30px] lg:flex-row lg:gap-x-[30px]'>
     {
-      cards.map((card , cardIndex)=>{
+      translatedData.map((card , cardIndex)=>{
         const { icon , title , subtitle , delay} = card;
         return (
           <div key={cardIndex} data-aos = 'zoom-out' data-aos-offset='300' data-aos-delay="delay" >

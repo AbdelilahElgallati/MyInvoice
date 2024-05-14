@@ -1,9 +1,35 @@
 import React , { useEffect, useState } from "react";
 import { features } from '../data';
+import tr from "Services/tr";
+import Cookies from "js-cookie";
 const Feature3 = () => {
   
   const {feature3} = features;
-  const { pretitle , title , subtitle , btnLink , btnIcon , image }= feature3;
+
+  const {  btnIcon , image }= feature3;
+  //pretitle , title , subtitle , btnLink
+  const [pretitle,setpretitle] = useState(feature3.pretitle);
+  const [title,settitle] = useState(feature3.title);
+  const [subtitle,setsubtitle] = useState(feature3.subtitle);
+  const [btnLink,setbtnLink] = useState(feature3.btnLink);
+ 
+  
+   useEffect(() => {
+     const langto = Cookies.get("to");
+     // fonction multiThreads
+     const translateData = async () => {
+      if (langto != "fra" && langto) {
+        setpretitle(await tr(pretitle , "fra", langto))
+        settitle(await tr(title , "fra", langto))
+        setsubtitle(await tr(subtitle , "fra", langto))
+        setbtnLink(await tr(btnLink , "fra", langto))
+      }
+     };
+ 
+     translateData();
+   }, []);
+  
+
 
   return <section className=' dark:bg-black section '>
     <div className='container mx-auto'>

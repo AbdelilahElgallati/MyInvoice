@@ -9,7 +9,7 @@ const Overview = () => {
   // const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
   // console.log(theme);
   const { theme } = useContext(ThemeContext);
-  console.log( "theme is :"+theme);
+
 
 
   // Choisissez l'image en fonction de currentMode

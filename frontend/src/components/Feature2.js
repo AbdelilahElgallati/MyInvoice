@@ -1,6 +1,8 @@
 import React , { useEffect, useState } from "react";
 import { features } from '../data';
 import { useNavigate } from 'react-router-dom';
+import tr from "Services/tr";
+import Cookies from "js-cookie";
 const Feature2 = () => {
   
   const navigate = useNavigate();
@@ -9,7 +11,29 @@ const Feature2 = () => {
     navigate('/Gener');
   };
   const {feature2} = features;
-  const { pretitle , title , subtitle , btnLink , btnIcon , image }= feature2;
+
+  const {  btnIcon , image }= feature2;
+  //pretitle , title , subtitle , btnLink
+  const [pretitle,setpretitle] = useState(feature2.pretitle);
+  const [title,settitle] = useState(feature2.title);
+  const [subtitle,setsubtitle] = useState(feature2.subtitle);
+  const [btnLink,setbtnLink] = useState(feature2.btnLink);
+ 
+  
+   useEffect(() => {
+     const langto = Cookies.get("to");
+     // fonction multiThreads
+     const translateData = async () => {
+      if (langto != "fra" && langto) {
+        setpretitle(await tr(pretitle , "fra", langto))
+        settitle(await tr(title , "fra", langto))
+        setsubtitle(await tr(subtitle , "fra", langto))
+        setbtnLink(await tr(btnLink , "fra", langto))
+      }
+     };
+ 
+     translateData();
+   }, []);
 
   return <section className=' dark:bg-black section '>
     <div className='container mx-auto'>

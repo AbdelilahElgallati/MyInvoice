@@ -6,17 +6,21 @@ import Nav from "../components/Nav";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { useGetOneEntrepriseQuery } from "state/api";
-
+import tr from "Services/tr";
+import Cookies from "js-cookie";
+import { nav } from "../data";
 const Header = () => {
   const navigate = useNavigate();
-  const {data : entreprise } = useGetOneEntrepriseQuery(localStorage.getItem('userId'));
+  const { data: entreprise } = useGetOneEntrepriseQuery(
+    localStorage.getItem("userId")
+  );
   const handleLoginClick = () => {
     // Redirige vers la page de connexion lorsque le bouton est cliqué
     navigate("/Login");
   };
   const [mobileNav, setMobileNav] = useState(false);
   const [isActive, setisActive] = useState(false);
-  const { logo, btnText, btnTextDec, IconSun, IconMon, IconeHome } = header;
+  const { logo, IconSun, IconMon, IconeHome } = header;
   //scrool event
   useEffect(() => {
     const handleScroll = () => {
@@ -37,11 +41,11 @@ const Header = () => {
     localStorage.removeItem("token");
     navigate("/");
   };
-  
+
   // DARK MODE :
-  
+
   const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
-   console.log(theme);
+ 
   useEffect(() => {
     const storedTheme = localStorage.getItem("currentMode");
     if (storedTheme) {
@@ -64,13 +68,73 @@ const Header = () => {
     }
   }
   function toggleHome() {
-    if (entreprise.role === "admin" && entreprise.status === "active"
-    ) {
+    if (entreprise.role === "admin" && entreprise.status === "active") {
       navigate("/dashboard");
     } else if (entreprise.status === "active") {
       navigate("/dashboardClient");
     }
   }
+  // Translate :
+  // une UseState pour changer la valleur de lang de option
+  const [lang, setLang] = useState();
+  // fonction de changeLanguages : qui prend deux parametre (from , to) pour remplie la cookies
+  const changeLanguage = (from, to) => {
+    Cookies.set("from", from, { expires: 365 });
+    Cookies.set("to", to, { expires: 365 });
+  };
+  // fonction handleLanguageChange qui change la langage prend en consederation la selectedLanguage (Update Cookies)
+  const handleLanguageChange = (e) => {
+    window.location.reload();
+    const selectedLanguage = e.target.value; // la valeur de l'option
+    changeLanguage(lang, selectedLanguage); // Update Cookies
+  };
+
+  // useState de  translatedData
+  const [translatedData, setTranslatedData] = useState([]);
+
+  const [btnText , setBtntext] = useState(header.btnText);
+  const [btnTextDec , setBtntextDec] = useState(header.btnTextDec);
+  var trText = ""
+  
+  useEffect(() => {
+    const lang = Cookies.get("from");
+    const langto = Cookies.get("to");
+    if (lang) {
+      // pour tester la premiere demmarage de notre site
+      // remplier les cookies
+      changeLanguage(lang, langto);
+      setLang(langto);
+    } else {
+      // segnifier la premiere langagues que je trouve apres le demmarage
+      setLang("fra");
+    }
+    // fonction multiThreads
+    
+    const translateData = async () => {
+      if (langto != "fra" && langto) {
+      trText = await tr(btnText, "fra", langto);
+      setBtntext(trText)
+      trText = await tr(btnTextDec, "fra", langto);
+      setBtntextDec(trText)
+    }
+
+      const translatedItems = await Promise.all(
+        
+        // pour exécuter plusieurs promesses en parallèle. Cela signifie que toutes les promesses à l'intérieur de Promise.all doivent se terminer avant que la fonction ne continue.
+        nav.map(async (item) => {
+          const it = item;
+          if (langto != "fra" && langto) {
+            it.name = await tr(item.name, "fra", langto);
+          }
+          // Test de premiere fois : (data par default c'est fra)
+          return { ...it };
+        })
+      );
+      setTranslatedData(translatedItems);
+    };
+
+    translateData();
+  }, [lang]);
 
   return (
     <header
@@ -104,7 +168,7 @@ const Header = () => {
         >
           <Nav />
         </div>
-      
+        <div className=" flex justify-evenly gap-x-6">
         {!localStorage.getItem("userId") ? (
           <button
             className="btn btn-sm btn-outline hidden lg:flex"
@@ -152,8 +216,38 @@ const Header = () => {
             <HiMenuAlt4 className="text-3xl text-accent" />
           )}
         </button>
+        <select
+          onChange={handleLanguageChange}
+          value={lang}
+          className=" border border-accent dark:bg-black text-accent block rounded-md  py-2 px-[10px] focus:outline-none focus:border-accent  font-Quicksand cursor-pointer"
+          // data-aos="fade-down"
+          // data-aos-delay="100"
+        >
+          <option
+            value="eng"
+            className="text-accent hover:accent-accentHover "
+          >
+            English
+          </option>
+          <option
+            value="fra"
+            className="text-accent hover:accent-accentHover "
+          >
+            French
+          </option>
+          <option
+            value="ara"
+            className="text-accent hover:accent-accentHover "
+          >
+            Arabic
+          </option>
+          {/* Ajoutez d'autres options de langues au besoin */}
+        </select>
+        </div>
+
+        
       </div>
-     
+
       <div
         className={`${
           mobileNav ? "left-0" : "-left-full"

@@ -3,10 +3,35 @@ import { hero } from '../data';
 import { HiOutlineChevronDown } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import tr from "Services/tr";
+import Cookies from "js-cookie";
+
 
 const Hero = () => {
+   // useState de  translatedData
+   const [title,setTitle] = useState(hero.title);
+  const [subtitle,setSubtitle] = useState(hero.subtitle);
+  const [btnText,setBtnText] = useState(hero.btnText);
+   const [translatedData, setTranslatedData] = useState([]);
+   var trText = "";
+   useEffect(() => {
+     const langto = Cookies.get("to");
+     // fonction multiThreads
+     const translateData = async () => {
+      if (langto != "fra" && langto) {
+        trText = await tr(title , "fra", langto);
+        setTitle(trText);
+        trText = await tr(subtitle , "fra", langto);
+        setSubtitle(trText)
+        trText = await tr(btnText , "fra", langto);
+        setBtnText(trText)
+      }
+     };
+ 
+     translateData();
+   }, []);
+  const { image } = hero;
   
-  const { title, subtitle, btnText, compText, image } = hero;
   const navigate = useNavigate();
   const handleLoginClick = () => {
     const userId = localStorage.getItem("userId");

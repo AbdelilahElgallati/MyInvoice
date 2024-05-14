@@ -1,10 +1,34 @@
-import React from "react";
+import React , { useEffect, useState } from "react";
 
 // import swiper react componenet
 import { Swiper, SwiperSlide } from "swiper/react";
 //import 'swiper/css
 import "swiper/css";
+import tr from "Services/tr";
+import Cookies from "js-cookie";
 const ClientSlider = ({ clients }) => {
+  const [translatedData, setTranslatedData] = useState([]);
+  useEffect(() => {
+    const langto = Cookies.get("to");
+    // fonction multiThreads
+    const translateData = async () => {
+      const translatedItems = await Promise.all(
+        // pour exécuter plusieurs promesses en parallèle. Cela signifie que toutes les promesses à l'intérieur de Promise.all doivent se terminer avant que la fonction ne continue.
+        clients.map(async (item) => {
+          const it = item;
+          if (langto != "fra" && langto) {
+            it.name = await tr(item.name, "fra", langto);
+            it.message = await tr(item.message, "fra", langto);
+          }
+          // Test de premiere fois : (data par default c'est fra)
+          return { ...it };
+        })
+      );
+      setTranslatedData(translatedItems);
+    };
+
+    translateData();
+  }, []);
   return (
     <Swiper
       slidesPerView={1}
@@ -30,8 +54,8 @@ const ClientSlider = ({ clients }) => {
         },
       }}
     >
-      {clients &&
-        clients.map((client, index) => {
+      {translatedData &&
+        translatedData.map((client, index) => {
           // const { message , image , name ,position , borderColor}=client;
           //slide
           return (

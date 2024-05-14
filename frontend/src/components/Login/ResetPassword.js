@@ -15,7 +15,7 @@ const ResetPassword = () => {
   // entré, et useParams pour obtenir les paramètres d'URL,
   // tels que l'identifiant utilisateur (id) et le jeton
   // (token). Le composant utilise également
-  // useResetPassMutation pour appeler la mutation
+  // useResetPassMutation pour appeler la mutationds
   // API nécessaire pour réinitialiser le mot de 
   // passe. Une fois le mot de passe réinitialisé 
   // avec succès, l'utilisateur est redirigé
