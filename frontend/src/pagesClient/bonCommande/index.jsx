@@ -1,36 +1,43 @@
-import React, { useState } from "react";
-import { Box, useTheme, IconButton } from "@mui/material";
+import React from "react";
+import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetInvoicesQuery, useRemoveInvoiceMutation , useGetInvoiceDetailsQuery} from "state/api";
+import {
+  useGetBonCommandesQuery,
+  useRemoveBonCommandeMutation,
+} from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
-import AddButton from "componementClient/addButton"; 
 import { useNavigate } from "react-router-dom";
-import { CheckCircleOutline, HourglassEmpty, ErrorOutline } from '@mui/icons-material';
+import {
+  CheckCircleOutline,
+  HourglassEmpty,
+  ErrorOutline,
+} from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import InfoIcon from '@mui/icons-material/Info';
-import EmailIcon from '@mui/icons-material/Email';
-import PrintIcon from '@mui/icons-material/Print';
+import InfoIcon from "@mui/icons-material/Info";
+import EmailIcon from "@mui/icons-material/Email";
+import PrintIcon from "@mui/icons-material/Print";
+import FlexBetween from "componentsAdmin/FlexBetween";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import { Link } from "react-router-dom";
 
-const Invoices  = () => {
-
+const BonCommandes = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const id = localStorage.getItem('userId');
-  const { data, isLoading } = useGetInvoicesQuery(id);
-  const [removeInvoice] = useRemoveInvoiceMutation();
+  const id = localStorage.getItem("userId");
+  const { data, isLoading } = useGetBonCommandesQuery(id);
+  const [removeBonCommandes] = useRemoveBonCommandeMutation();
 
-  if(!localStorage.getItem('userId')) {
-    navigate('/');
+  if (!localStorage.getItem("userId")) {
+    navigate("/");
   }
-  const [idInvoice, setIdInvoice] = useState("")
   const formatDate = (dateString) => {
-    if (!dateString) return '';
+    if (!dateString) return "";
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
-      console.error('Invalid date string:', dateString);
-      return '';
+      console.error("Invalid date string:", dateString);
+      return "";
     }
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return date.toLocaleDateString("fr-FR", options);
@@ -38,8 +45,8 @@ const Invoices  = () => {
 
   const columns = [
     {
-      field: "invoiceNumber",
-      headerName: "Numéro de Facture",
+      field: "bonCommandeNumber",
+      headerName: "Numéro",
       flex: 0.7,
 
       renderCell: (params) => (
@@ -51,7 +58,7 @@ const Invoices  = () => {
             backgroundColor: "gray",
             borderRadius: "4px",
             padding: "5px 10px",
-            lineHeight: "1", 
+            lineHeight: "1",
           }}
         >
           #{params.value}
@@ -59,10 +66,10 @@ const Invoices  = () => {
       ),
     },
     {
-      field: "clientId",
-      headerName: "Client",
+      field: "fournisseurId",
+      headerName: "Fournisseur",
       flex: 1,
-      renderCell: (params) => params.row.clientId.name,
+      renderCell: (params) => params.row.fournisseurId.name,
     },
     {
       field: "date",
@@ -70,7 +77,7 @@ const Invoices  = () => {
       flex: 0.7,
       renderCell: (params) => formatDate(params.value),
     },
-     {
+    {
       field: "dueDate",
       headerName: "Date d'échéance",
       flex: 0.5,
@@ -81,9 +88,12 @@ const Invoices  = () => {
       headerName: "Produits",
       flex: 0.4,
       sortable: false,
-      renderCell:(params) => {
+      renderCell: (params) => {
         // Sum the quantities of all items in the array
-        const totalQuantity = params.value.reduce((acc, curr) => acc + curr.quantity, 0);
+        const totalQuantity = params.value.reduce(
+          (acc, curr) => acc + curr.quantity,
+          0
+        );
         return totalQuantity;
       },
     },
@@ -98,11 +108,11 @@ const Invoices  = () => {
         // Display the total amount
         return (
           <span style={{ color: textColor }}>
-              {paymentAmounts.toFixed(2)} DH
+            {paymentAmounts.toFixed(2)} DH
           </span>
-          );
+        );
+      },
     },
-  },
     {
       field: "status",
       headerName: "Status",
@@ -110,38 +120,46 @@ const Invoices  = () => {
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
-  
+
         switch (status) {
-          case 'sent':
-            icon = <HourglassEmpty style={{ color: 'white', fontSize: '1rem' }} />;
-            backgroundColor = 'orange';
+          case "sent":
+            icon = (
+              <HourglassEmpty style={{ color: "white", fontSize: "1rem" }} />
+            );
+            backgroundColor = "orange";
             break;
-          case 'paid':
-            icon = <CheckCircleOutline style={{ color: 'white' , fontSize: '1rem' }} />;
-            backgroundColor = 'green';
+          case "paid":
+            icon = (
+              <CheckCircleOutline
+                style={{ color: "white", fontSize: "1rem" }}
+              />
+            );
+            backgroundColor = "green";
             break;
-          case 'late':
-            icon = <ErrorOutline style={{ color: 'white', fontSize: '1rem' }} />;
-            backgroundColor = 'red';
+          case "late":
+            icon = (
+              <ErrorOutline style={{ color: "white", fontSize: "1rem" }} />
+            );
+            backgroundColor = "red";
             break;
           default:
             icon = null;
-            backgroundColor = 'transparent';
+            backgroundColor = "transparent";
         }
-  
+
         return (
           <span
-          style={{
-            display: "inline-block",
-            alignItems: "center",
-            color: "white",
-            backgroundColor:  backgroundColor,
-            borderRadius: "4px",
-            padding: "5px 10px",
-            lineHeight: "1", 
-          }}
-        >
-          {icon} {status}
+            style={{
+              display: "inline-block",
+              alignItems: "center",
+              color: "white",
+              backgroundColor: backgroundColor,
+              borderRadius: "4px",
+              padding: "5px 10px",
+              lineHeight: "1",
+            }}
+          >
+            {icon} {status}
           </span>
         );
       },
@@ -149,13 +167,14 @@ const Invoices  = () => {
     {
       field: "actions",
       headerName: "Actions",
-      flex: 1,  
+      flex: 1,
       sortable: false,
       renderCell: (params) => (
         <Box>
-           <IconButton 
-           onClick={() => handleDetails(params.row._id)}
-            aria-label="details">
+          <IconButton
+            onClick={() => handleDetails(params.row._id)}
+            aria-label="details"
+          >
             <InfoIcon />
           </IconButton>
           <IconButton
@@ -164,14 +183,16 @@ const Invoices  = () => {
           >
             <EditIcon />
           </IconButton>
-          <IconButton 
-          onClick={() => handleEmail(params.row._id)}
-           aria-label="email">
+          <IconButton
+            onClick={() => handleEmail(params.row._id)}
+            aria-label="email"
+          >
             <EmailIcon />
           </IconButton>
-          <IconButton 
-          onClick={() => handlePrint(params.row._id)}
-           aria-label="print">
+          <IconButton
+            onClick={() => handlePrint(params.row._id)}
+            aria-label="print"
+          >
             <PrintIcon />
           </IconButton>
           <IconButton
@@ -185,47 +206,50 @@ const Invoices  = () => {
     },
   ];
 
-  const {data: invoiceDetail} = useGetInvoiceDetailsQuery(idInvoice);
-
-  const handleAddButton = () => {
-    navigate(`/ajouterFacture`);
-  };
-
   const handleDetails = (id) => {
-    window.location.href = `/factures/details/${id}`;
+    window.location.href = `/bon-commandes/details/${id}`;
   };
 
   const handlePrint = (id) => {
-    navigate(`/factures/imprimer/${id}`);
+    navigate(`/bon-commandes/imprimer/${id}`);
   };
 
-  
   const handleEmail = (id) => {
-    setIdInvoice(id);
-    if(invoiceDetail ) {
-      console.log('invoice : ', invoiceDetail)
-    }
+    // Logic for sending email
   };
 
   const handleEdit = (id) => {
-    window.location.href = `/factures/edit/${id}`;
-    };
-  
+    window.location.href = `/bon-commandes/edit/${id}`;
+  };
+
   const handleDelete = async (id) => {
     try {
-      await removeInvoice(id);
-      window.location.reload()
+      await removeBonCommandes(id);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
 
-  
-
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="FACTURES" subtitle="Liste entier des "   total= {data ? data.length : 0} />
-      <AddButton label="Nouvelle Facture" onClick={handleAddButton} />
+      <FlexBetween>
+        <Header
+          title="BON COMMANDES"
+          subtitle="Liste des bon de commandes "
+          total={data ? data.length : 0}
+        />
+        <Link to="/bon-commandes/new">
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddOutlinedIcon />}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Add
+          </Button>
+        </Link>
+      </FlexBetween>
       <Box
         height="80vh"
         sx={{
@@ -256,7 +280,7 @@ const Invoices  = () => {
         <DataGrid
           loading={isLoading || !data}
           getRowId={(row) => row._id}
-          rows={data  || []}
+          rows={data || []}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
@@ -269,4 +293,4 @@ const Invoices  = () => {
   );
 };
 
-export default Invoices;
+export default BonCommandes;

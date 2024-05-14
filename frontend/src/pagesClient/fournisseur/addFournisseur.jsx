@@ -1,36 +1,36 @@
 import React, { useState } from "react";
 import { TextField, useTheme, Button, Box } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useAddClientMutation } from "state/api";
+import { useAddFournisseurMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
 
-const AddClient = () => {
+const AddFournisseur = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
   const theme = useTheme();
-  const [client, setClient] = useState({
+  const [fournisseur, setFournisseur] = useState({
     userId: localStorage.getItem("userId") || "",
     name: "",
     email: "",
     phone: "",
     address: "",
   });
-  const [addClient] = useAddClientMutation();
+  const [addFournisseurs] = useAddFournisseurMutation();
   const Navigate = useNavigate();
 
   const handleChange = (e) => {
-    setClient({ ...client, [e.target.name]: e.target.value });
+    setFournisseur({ ...fournisseur, [e.target.name]: e.target.value });
   };
 
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(client);
-      await addClient({ client });
-      Navigate("/clients");
+      console.log(fournisseur);
+      await addFournisseurs({ fournisseur });
+      Navigate("/fournisseurs");
     } catch (error) {
       console.log(error);
     }
@@ -38,16 +38,16 @@ const AddClient = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="ADD SERVICES" subtitle="Ajout d'un nouveau pack" />
+      <Header title="ADD FOURNISSEURS" subtitle="Ajout d'un nouveau fournisseurs" />
       <form onSubmit={handleSubmit} sx={{
         backgroundImage: "none",
         backgroundColor: theme.palette.background.alt,
         borderRadius: "0.55rem",
       }} >
         <TextField
-          label="Nom de client"
+          label="Nom de fournisseur"
           name="name"
-          value={client.name}
+          value={fournisseur.name}
           onChange={handleChange}
           fullWidth
           required
@@ -56,7 +56,7 @@ const AddClient = () => {
         <TextField
           label="Email"
           name="email"
-          value={client.email}
+          value={fournisseur.email}
           onChange={handleChange}
           fullWidth
           required
@@ -66,7 +66,7 @@ const AddClient = () => {
           label="Phone number"
           name="phone"
           type="text"
-          value={client.phone}
+          value={fournisseur.phone}
           onChange={handleChange}
           fullWidth
           required
@@ -76,7 +76,7 @@ const AddClient = () => {
           label="Address"
           name="address"
           type="text"
-          value={client.address}
+          value={fournisseur.address}
           onChange={handleChange}
           fullWidth
           required
@@ -85,7 +85,7 @@ const AddClient = () => {
         
         <Box mt={2}>
           <Button type="submit" variant="contained" color="primary">
-            Add client
+            Ajouter un fournisseur
           </Button>
         </Box>
       </form>
@@ -93,5 +93,5 @@ const AddClient = () => {
   );
 };
 
-export default AddClient;
+export default AddFournisseur;
 

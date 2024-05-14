@@ -5,6 +5,7 @@ const Pack = require('../Models/PackSchema')
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const nodemailer = require('nodemailer')
+
 const addEntreprise = async (req, res) => {
   try {
     const { name, email, password, phone, address } = req.body;
@@ -62,11 +63,7 @@ const getOneEntreprise = async (req, res) => {
 
 const getEntrepriseByGoogleId = async (req, res) => {
   try {
-    console.log('start')
-    console.log('req : ', req)
-    console.log('googleId : ', req.id)
     const entreprise = await Entreprise.findOne({googleId: req.id});
-    console.log('entreprise : ', entreprise)
     return entreprise;
   } catch (error) {
     console.error("Erreur serveur lors de la recherche d'entreprise");
@@ -107,9 +104,15 @@ const getEntrepriseDetail = async (req, res) => {
 
 const updateEntreprise = async (req, res) => {
   try {
+    const logo = req.file ? req.file.filename : null;
+    let { name, email, phone, address } = req.body;
+    const updatedEntrepriseData = {name, email, phone, address};
+    if (logo) {
+      updatedEntrepriseData.logo = logo;
+    }
     const entreprise = await Entreprise.findByIdAndUpdate(
       req.params.id,
-      req.body,
+      updatedEntrepriseData,
       { new: true }
     );
     res.status(201).json(entreprise);
@@ -254,6 +257,28 @@ const ResetPass = async(req,res)=>{
    })
 }
 
+const changePassword = async (req, res) => {
+  try {
+    const { oldPassword, newPassword, confirmPassword } = req.body;
+    const user = await Entreprise.findById(req.params.id);
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    } else {
+      const isMatch = await bcrypt.compare(oldPassword, user.password);
+      if (!isMatch) {
+        return res.status(401).json({ message: "Incorrect password" });
+      } else {
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.password = hashedPassword;
+        await user.save();
+        res.status(200).json({ message: "Password changed successfully" });
+      }
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   getDashboardInfo,
   addEntreprise,
@@ -267,4 +292,5 @@ module.exports = {
   getEntrepriseByGoogleId,
   ForgoutPass,
   ResetPass,
+  changePassword,
 };
