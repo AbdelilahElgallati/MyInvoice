@@ -16,11 +16,13 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Products  = () => {
   const theme = useTheme();
+
   const navigate = useNavigate();
+
   const id = localStorage.getItem('userId')
   const [Product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // hadi
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,6 +41,7 @@ const Products  = () => {
       navigate("/");
     }
   }, [id, navigate]);  
+
   const [removeProduit] = useRemoveProduitMutation();
   const columns = [
     {
@@ -68,9 +71,10 @@ const Products  = () => {
       flex: 1,
     },
     {
-        field: "categoryName",
+        field: "categoryId",
         headerName: "Catégorie",
         flex: 0.6,
+        renderCell: (params) => params.row.categoryId.categoryName,
     },
     {
         field: "quantity",

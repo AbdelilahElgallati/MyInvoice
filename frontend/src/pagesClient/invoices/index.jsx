@@ -17,11 +17,14 @@ const Invoices  = () => {
 
   const theme = useTheme();
   const navigate = useNavigate();
+  const removeInvoice = useRemoveInvoiceMutation();
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
+  }
   const id = localStorage.getItem('userId');
-  const [Facture, setFacture] = useState([]);
 
+  const [Facture, setFacture] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  // hadi
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -39,12 +42,7 @@ const Invoices  = () => {
     } else {
       navigate("/");
     }
-  }, [id, navigate]);  
-  const [removeInvoice] = useRemoveInvoiceMutation();
-
-  if(!localStorage.getItem('userId')) {
-    navigate('/');
-  }
+  }, [id, navigate]);
   const [idInvoice, setIdInvoice] = useState("")
   const formatDate = (dateString) => {
     if (!dateString) return '';
@@ -222,10 +220,7 @@ const Invoices  = () => {
 
   
   const handleEmail = (id) => {
-    setIdInvoice(id);
-    if(invoiceDetail ) {
-      console.log('invoice : ', invoiceDetail)
-    }
+    navigate(`/factures/email/${id}`);
   };
 
   const handleEdit = (id) => {
@@ -241,7 +236,6 @@ const Invoices  = () => {
     }
   };
 
-  
 
   return (
     <Box m="1.5rem 2.5rem">
