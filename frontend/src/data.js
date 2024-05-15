@@ -325,6 +325,8 @@ export const GeneratorData ={
     title: "Modèles de factures à usage spécifique",};
 export const footer = {
   logo: LogoImg,
+  lien :"Links",
+  legale : "Legal",
   links: [
 
     { name: 'Accueil', href: '/' },
@@ -371,38 +373,7 @@ export const modelData = [
   {
     imageDark: backgroundImage,
     title: "Modèles de factures à usage spécifique",
-    sections: [
-      {
-        image: ic1,
-        title: "Modèles de factures de construction",
-        description: "Conçus avec des sections distinctes pour les matériaux et la main-d'œuvre. Elles incluent également la 'localisation du site' au lieu des détails/adresses/coûts d'expédition.",
-      },
-      {
-        image: ic2,
-        title: "Modèles de factures pour les freelances",
-        description: "Inclut quelques modèles de factures gratuits adaptés aux projets d'indépendants avec facturation détaillée et suivi du temps de travail.",
-      },
-      {
-        image: ic3,
-        title: "Modèle de facture imprimable",
-        description: "Ce modèle en noir et blanc a été conçu pour être imprimable afin de vous permettre d'établir facilement une facture fiable pour votre petite entreprise.",
-      },
-      {
-        image: ic4,
-        title: "Modèle de facture pour la conception graphique",
-        description: "Vous travaillez comme graphiste indépendant ? Ces modèles sont faits pour vous ! Vous avez le choix entre des factures conçues pour des projets à tarif fixe ou à tarif horaire.",
-      },
-      {
-        image: ic5,
-        title: "Modèle de facture pour la photographie",
-        description: "Cette page contient quelques conseils sur la rédaction d'une facture complète pour les travaux de photographie, ainsi que plusieurs modèles pertinents.",
-      },
-      {
-        image: ic6,
-        title: "Modèle de facture pour les entrepreneurs",
-        description: "Ces modèles comportent des sections consacrées aux matériaux et à la main-d'œuvre. Cette page contient également des conseils sur ce qu'il faut inclure pour laisser une bonne impression finale.",
-      },
-    ],
+   
   },
 ];
 export const generatorData = {
@@ -442,5 +413,6 @@ export const generatorData = {
 export const pack = {
   Title: "Faciliter l'établissement des factures",
   Subtitle: 'Commencez gratuitement, puis choisissez le meilleur plan pour votre entreprise',
- 
+  Nos : "Nos",
+  abonnements : "abonnements",
 };

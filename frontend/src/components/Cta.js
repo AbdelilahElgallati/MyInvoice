@@ -1,6 +1,9 @@
-import React from 'react';
+import React , { useEffect,  useState } from "react";
 import { cta } from '../data';
 import { useNavigate } from 'react-router-dom';
+import tr from "Services/tr";
+import Cookies from "js-cookie";
+
 // import icons ;
 import { HiOutlineChevronDoubleRight } from 'react-icons/hi';
 const Cta = () => {
@@ -10,7 +13,25 @@ const Cta = () => {
     const redirectPath = userId ? "/ajouterFacture" : "/login";
     navigate(redirectPath);
   }
-  const {title , subtitle, btnText , img1 , img2} = cta;
+  const { img1 , img2} = cta;
+  // title , subtitle, btnText ,
+  const [title,settitle] = useState(cta.title);
+  const [subtitle,setsubtitle] = useState(cta.subtitle);
+  const [btnText,setbtnText] = useState(cta.btnText);
+  useEffect(() => {
+    const langto = Cookies.get("to");
+    // fonction multiThreads
+    const translateData = async () => {
+     if (langto != "fra" && langto) {
+      
+       settitle(await tr(title , "fra", langto))
+       setsubtitle(await tr(subtitle , "fra", langto))
+       setbtnText(await tr(btnText , "fra", langto))
+     }
+    };
+
+    translateData();
+  }, []);
   return (
     <section className='section bg-cta bg-cover bg-left-top '>
       <img className='hidden xl:flex lg:w-[46%] lg:absolute lg:mt-[-191px] lg:ml-[-230px]' src={img1} alt=''
