@@ -13,9 +13,10 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const Clients  = () => {
   const theme = useTheme();
   const id = localStorage.getItem('userId')
+  // hadi
   const { data, isLoading } = useGetClientsQuery(id);
   const [removeClient] = useRemoveClientMutation();
-  const totalInvoices = data ? data.totalItems : 0;
+  // const totalInvoices = data ? data.totalItems : 0;
   const columns = [
     
     {

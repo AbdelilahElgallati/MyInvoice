@@ -9,6 +9,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Services = () => {
   
@@ -22,12 +23,20 @@ const Services = () => {
   })
   const theme = useTheme();
   const [removeService] = useRemoveServiceMutation();
-  const { data, isLoading } = useGetAllServicesQuery();
-  useEffect(()=>{
-    if(data) {
-      setService(data)
-    }
-  },[data])
+  // hadi
+  useEffect(() => {
+    const fetchServices = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/Api/Service/");
+        setService(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchServices();
+  }, []);
+ 
 
   const columns = [
     {
@@ -117,7 +126,7 @@ const Services = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !service}
+          loading={!service.length}
           getRowId={(row) => row._id}
           rows={service || []}
           columns={columns}

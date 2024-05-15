@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Drawer,
@@ -22,10 +22,8 @@ import {
   TodayOutlined,
   CalendarMonthOutlined,
   AdminPanelSettingsOutlined,
-  
 } from "@mui/icons-material";
-import CategoryOutlinedIcon from '@mui/icons-material/CategoryOutlined';
-import { useEffect, useState } from "react";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 import profileImage from "assets/logo-removebg-preview.png";
@@ -42,9 +40,15 @@ const navItems = [
     icon: null,
   },
   {
-    text: "Factures",
-    title: "factures",
+    text: "Documents",
+    title: "",
     icon: <ReceiptLongOutlined />,
+    subMenu: [
+      { text: "Facture", title: "factures" },
+      { text: "Bon de livraison", title: "bon-livraison" },
+      { text: "Bon de commandes", title: "bon-commandes" },
+      { text: "Devis", title: "devis" },
+    ],
   },
   {
     text: "Produits",
@@ -59,6 +63,11 @@ const navItems = [
   {
     text: "Clients",
     title: "clients",
+    icon: <Groups2Outlined />,
+  },
+  {
+    text: "Fournisseurs",
+    title: "fournisseurs",
     icon: <Groups2Outlined />,
   },
   {
@@ -88,7 +97,7 @@ const navItems = [
   },
   {
     text: "Profil",
-    title: "",
+    title: "profil",
     icon: <AdminPanelSettingsOutlined />,
   },
 ];
@@ -101,13 +110,24 @@ const Sidebar = ({
   isNonMobile,
 }) => {
   const { pathname } = useLocation();
-  const [active, setActive] = useState("");
   const navigate = useNavigate();
   const theme = useTheme();
+  const [active, setActive] = useState("");
 
   useEffect(() => {
     setActive(pathname.substring(1));
   }, [pathname]);
+
+  // État pour suivre l'ouverture des sous-menus
+  const [subMenuOpen, setSubMenuOpen] = useState({});
+
+  // Fonction pour basculer l'état d'ouverture d'un sous-menu
+  const toggleSubMenu = (title) => {
+    setSubMenuOpen((prevState) => ({
+      ...prevState,
+      [title]: !prevState[title],
+    }));
+  };
 
   return (
     <Box component="nav">
@@ -122,7 +142,7 @@ const Sidebar = ({
             "& .MuiDrawer-paper": {
               color: theme.palette.secondary[200],
               backgroundColor: theme.palette.background.alt,
-              boxSixing: "border-box",
+              boxSizing: "border-box",
               borderWidth: isNonMobile ? 0 : "2px",
               width: drawerWidth,
             },
@@ -132,15 +152,14 @@ const Sidebar = ({
             <Box m="1.5rem 2rem 2rem 3rem">
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
-                 
-                   <Box
-                component="img"
-                alt="profile"
-                src={profileImage}
-                height="100px"
-                width="160px"
-                sx={{ objectFit: "cover" }}
-              />
+                  <Box
+                    component="img"
+                    alt="profile"
+                    src={profileImage}
+                    height="100px"
+                    width="160px"
+                    sx={{ objectFit: "cover" }}
+                  />
                 </Box>
                 {!isNonMobile && (
                   <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>
@@ -150,10 +169,13 @@ const Sidebar = ({
               </FlexBetween>
             </Box>
             <List>
-              {navItems.map(({ text, icon, title }) => {
+              {navItems.map(({ text, icon, title, subMenu }) => {
                 if (!icon) {
                   return (
-                    <Typography key={text} sx={{ m: "2.25rem 0 1rem 3.25rem", fontWeight : 'bold'}}>
+                    <Typography
+                      key={text}
+                      sx={{ m: "2.25rem 0 1rem 3.25rem", fontWeight: "bold" }}
+                    >
                       {text}
                     </Typography>
                   );
@@ -161,40 +183,76 @@ const Sidebar = ({
                 const lcTitle = title.toLowerCase();
 
                 return (
-                  <ListItem key={text} disablePadding>
-                    <ListItemButton
-                      onClick={() => {
-                        navigate(`/${lcTitle}`);
-                        setActive(lcTitle);
-                      }}
-                      sx={{
-                        backgroundColor:
-                          active === lcTitle
-                            ? theme.palette.secondary[400]
-                            : "transparent",
-                        color:
-                          active === lcTitle
-                            ? theme.palette.primary[600]
-                            : theme.palette.secondary[100],
-                      }}
-                    >
-                      <ListItemIcon
+                  <div key={text}>
+                    <ListItem disablePadding>
+                      <ListItemButton
+                        onClick={() => {
+                          if (subMenu) {
+                            toggleSubMenu(title);
+                            setActive(subMenu[0].title);
+                          } else {
+                            navigate(`/${lcTitle}`);
+                            setActive(lcTitle);
+                          }
+                        }}
                         sx={{
-                          ml: "1rem",
+                          backgroundColor:
+                            active === lcTitle
+                              ? theme.palette.secondary[400]
+                              : "transparent",
                           color:
                             active === lcTitle
                               ? theme.palette.primary[600]
-                              : theme.palette.secondary[200],
+                              : theme.palette.secondary[100],
                         }}
                       >
-                        {icon}
-                      </ListItemIcon>
-                      <ListItemText primary={text} />
-                      {active === lcTitle && (
-                        <ChevronRightOutlined sx={{ ml: "auto" }} />
-                      )}
-                    </ListItemButton>
-                  </ListItem>
+                        <ListItemIcon
+                          sx={{
+                            ml: "1rem",
+                            color:
+                              active === lcTitle
+                                ? theme.palette.primary[600]
+                                : theme.palette.secondary[200],
+                          }}
+                        >
+                          {icon}
+                        </ListItemIcon>
+                        <ListItemText primary={text} />
+                        {subMenu && subMenuOpen[title] && (
+                          <ChevronRightOutlined sx={{ ml: "auto" }} />
+                        )}
+                      </ListItemButton>
+                    </ListItem>
+                    {subMenu && subMenuOpen[title] && (
+                      <List>
+                        {subMenu.map(({ text: subText, title: subTitle }) => (
+                          <ListItem
+                            key={subText}
+                            disablePadding
+                            sx={{ pl: 4, py: 0.5 }}
+                          >
+                            <ListItemButton
+                              onClick={() => {
+                                navigate(`/${subTitle}`);
+                              }}
+                              sx={{
+                                backgroundColor:
+                                  active === subTitle
+                                    ? theme.palette.secondary[400]
+                                    : "transparent",
+                                color:
+                                  active === subTitle
+                                    ? theme.palette.primary[600]
+                                    : theme.palette.secondary[100],
+                              }}
+                            >
+                              <ListItemText primary={subText} />
+                            </ListItemButton>
+                          </ListItem>
+                        ))}
+                      </List>
+                    )}
+                  </div>
                 );
               })}
             </List>

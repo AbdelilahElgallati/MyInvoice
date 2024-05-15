@@ -14,7 +14,7 @@ import Pricing from './Pricing';
 import Testimonials from './Testimonials';
 import Cta from './Cta';
 import Footer from './Footer';
-
+import { ThemeProvider } from './ThemeContext';
 const WelcomePage = () => {
   const { email, fullname, secret } = useParams();
 
@@ -27,18 +27,20 @@ const WelcomePage = () => {
 
   return (
     <div className='overflow-hidden'>
-      <Header />
-      <Hero />
-      <Overview />
-      <Feature1 />
-      <Feature2 />
-      <Feature3 />
-      <Feature4 />
-      <Product />
-      <Pricing />
-      <Testimonials />
-      <Cta />
-      <Footer />
+      <ThemeProvider>
+        <Header />
+        <Hero />
+        <Overview />
+        <Feature1 />
+        <Feature2 />
+        <Feature3 />
+        <Feature4 />
+        <Product />
+        <Pricing />
+        <Testimonials />
+        <Cta />
+        <Footer />
+      </ThemeProvider>
       <div className='h-5'></div>
     </div>
   );

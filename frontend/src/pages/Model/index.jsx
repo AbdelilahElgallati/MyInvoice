@@ -10,6 +10,9 @@ import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
 
+import axios from "axios"; // Importer axios
+
+
 const Models = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
@@ -24,12 +27,19 @@ const Models = () => {
   
   const theme = useTheme();
   const [removeModel] = useRemoveModelMutation();
-  const { data, isLoading } = useGetAllModelsQuery();
-  useEffect(()=>{
-    if(data) {
-      setModel(data)
-    }
-  },[data])
+  // hadi
+  useEffect(() => {
+    const fetchModels = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/Api/Model/");
+        setModel(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchModels();
+  }, []);
 
   const columns = [
     {
@@ -132,7 +142,7 @@ const Models = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !model}
+          loading={!model.length}
           getRowId={(row) => row._id}
           rows={model || []}
           columns={columns}

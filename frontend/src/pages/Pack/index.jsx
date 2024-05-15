@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Pack = ({
   _id,
@@ -101,10 +102,6 @@ const Pack = ({
               </ListItem>
             ))}
           </List>
-          <Typography>
-            Période: {new Date(startDate).toLocaleDateString()} -{" "}
-            {new Date(endDate).toLocaleDateString()}
-          </Typography>
         </CardContent>
       </Collapse>
     </Card>
@@ -114,13 +111,21 @@ const Pack = ({
 const Packs = () => {
   
   const [packs, setPacks] = useState([]);
-  const { data } = useGetPacksQuery();
-  const isNonMobile = useMediaQuery("(min-width: 1000px)");
+  // hadi
   useEffect(() => {
-    if (data) {
-      setPacks(data);
-    }
-  }, [data]);
+    const fetchPacks = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/Api/Pack/");
+        setPacks(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchPacks();
+  }, []);
+  const isNonMobile = useMediaQuery("(min-width: 1000px)");
+ 
 
   return (
     <Box m="1.5rem 2.5rem">
@@ -156,8 +161,6 @@ const Packs = () => {
               description,
               services,
               price,
-              startDate,
-              endDate,
             }) => (
               <Pack
                 key={_id}
@@ -165,8 +168,6 @@ const Packs = () => {
                 name={name}
                 description={description}
                 price={price}
-                startDate={startDate}
-                endDate={endDate}
                 services={services}
               />
             )

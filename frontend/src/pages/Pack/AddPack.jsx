@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, useTheme, Button, Box, FormControl, InputLabel, Select, MenuItem, Chip, Input } from "@mui/material";
+import { TextField, useTheme, Button, Box, FormControl, InputLabel, Select,Typography,  MenuItem, Chip, Input } from "@mui/material";
 import Header from "componentsAdmin/Header";
 import {  useGetAllServicesQuery, useAddPackMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
@@ -16,8 +16,6 @@ const AddPack = () => {
     description: "",
     services: [],
     price: 0,
-    startDate: new Date(),
-    endDate: null,
   });
   
   const [addPack] = useAddPackMutation();
@@ -115,32 +113,7 @@ const AddPack = () => {
             ))}
           </Select>
         </FormControl>
-        <TextField
-          label="Date de début"
-          name="startDate"
-          type="date"
-          value={formData.startDate}
-          onChange={handleChange}
-          fullWidth
-          required
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField
-          label="Date de fin"
-          name="endDate"
-          type="date"
-          value={formData.endDate}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <FormControl fullWidth margin="normal" >
+        {/* <FormControl fullWidth margin="normal" >
           <InputLabel htmlFor="icon-input" >Icon</InputLabel>
           <Input
             id="icon-input"
@@ -148,6 +121,26 @@ const AddPack = () => {
             name="icon"
             onChange={handleIconChange}
             accept="image/*"
+          />
+        </FormControl> */}
+        <FormControl fullWidth margin="normal">
+          <Typography variant="body1" component="label" htmlFor="icon-input" sx={{ display: 'block', marginBottom: '0.5rem' }}>
+            Icon
+          </Typography>
+          {/* <InputLabel htmlFor="icon-input" >Icon</InputLabel> */}
+          <Input
+            id="icon-input"
+            type="file"
+            name="icon"
+            onChange={handleIconChange}
+            accept="image/*"
+            sx={{
+              display: 'block',
+              padding: '10px 14px',
+              border: `1px solid ${theme.palette.divider}`,
+              borderRadius: '4px',
+              cursor: 'pointer',
+            }}
           />
         </FormControl>
         <Box mt={2}>

@@ -6,6 +6,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
 
 const SubscriptionPalns = () => {
   const navigate = useNavigate()
@@ -22,13 +23,21 @@ const SubscriptionPalns = () => {
     status: "",
   })
   const theme = useTheme();
-  const { data, isLoading } = useGetSubscriptionsQuery();
+  // hadi
+  useEffect(() => {
+    const fetchSubscription = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/Api/Subscription/");
+        setSubscriptionPlan(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchSubscription();
+  }, []);
   const [removeSubscription] = useRemoveSubscriptionMutation();
-  useEffect(()=>{
-    if(data) {
-      setSubscriptionPlan(data)
-    }
-  },[data])
+ 
   
   const columns = [
     {
@@ -130,7 +139,7 @@ const SubscriptionPalns = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !subscriptionPlan}
+          loading={!subscriptionPlan.length}
           getRowId={(row) => row._id}
           rows={subscriptionPlan || []}
           columns={columns}

@@ -17,7 +17,7 @@ import {
 } from "@mui/material";
 
 import OverviewChart from "componentsAdmin/OverviewChart";
-import { useGetDashboardQuery } from "state/api";
+import axios from 'axios'; // Importez axios
 import StatBox from "componentsAdmin/StatBox";
 import { useNavigate } from "react-router-dom";
 
@@ -34,13 +34,20 @@ const Dashboard = () => {
   })
   const theme = useTheme();
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
-  const { data } = useGetDashboardQuery();
-  useEffect(()=>{
-    if(data) {
-      setDashboard(data)
-    }
-  },[data])
   
+  useEffect(()=>{
+    const fetchDashboardData = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/Api/Entreprise/dashboard");
+        setDashboard(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchDashboardData();
+  },[]) // Utilisez une dépendance vide pour exécuter cet effet une seule fois
+
   return (
     <Box m="1.5rem 2.5rem" >
       <FlexBetween>

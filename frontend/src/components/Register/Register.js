@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
 import Gogle from "../../assets/img/Login/th.jpg";
 import Header from "components/Header";
@@ -47,7 +47,7 @@ const SignUp = () => {
   return (
     <>
       <Header />
-      <div className=" mx-auto max-w-screen-lg flex flex-col lg:flex-row mt-8 lg:ml-[285px] lg:mt-[150px] lg:mb-[100px] ">
+      <div className=" mx-auto max-w-screen-lg flex flex-col lg:flex-row mt-[130px] lg:ml-[285px] lg:mt-[150px] lg:mb-[100px] ">
         <div className=" w-full lg:w-[350px] ">
           <img
             src={COVER_IMAGE}
@@ -56,7 +56,7 @@ const SignUp = () => {
           />
         </div>
         <div className="dark:bg-black w-full lg:w-1/2 bg-[#f5F5F5] p-8 lg:rounded-r-lg lg:shadow-2xl">
-          <h2 className="text-4xl font-semibold mb-4 dark:text-white">
+          <h2 className="text-4xl font-Quicksand font-semibold mb-4 dark:text-white">
             <span className="text-accent">S</span>'inscrire
           </h2>
           <form onSubmit={handleSubmit}>
@@ -66,7 +66,7 @@ const SignUp = () => {
               placeholder="Entreprise name"
               value={formData.name}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
+              className="w-full text-black py-2 my-2 font-Quicksand font-semibold bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -75,7 +75,7 @@ const SignUp = () => {
               placeholder="Email"
               value={formData.email}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
+              className="w-full text-black py-2 my-2 font-Quicksand font-semibold bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -84,7 +84,7 @@ const SignUp = () => {
               placeholder="Mot de passe"
               value={formData.password}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
+              className="w-full text-black py-2 my-2 font-Quicksand font-semibold bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -93,7 +93,7 @@ const SignUp = () => {
               placeholder="Confirmez le mot de passe"
               value={formData.confirmPassword}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
+              className="w-full text-black py-2 my-2 font-Quicksand font-semibold bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -102,7 +102,7 @@ const SignUp = () => {
               placeholder="Téléphone"
               value={formData.phone}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
+              className="w-full text-black py-2 my-2 bg-transparent font-Quicksand font-semibold border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -111,7 +111,7 @@ const SignUp = () => {
               placeholder="Adresse"
               value={formData.address}
               onChange={handleChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
+              className="w-full text-black py-2 my-2 bg-transparent font-Quicksand font-semibold border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
             <input
@@ -119,29 +119,30 @@ const SignUp = () => {
               name="logo"
               accept="image/*"
               onChange={handleLogoChange}
-              className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
+              className="w-full text-black py-2 my-2 bg-transparent font-Quicksand font-semibold border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
             />
             <button
               type="submit"
-              className="w-full bg-[#060606] hover:bg-accent text-white rounded-md py-3 mb-4 dark:border dark:border-accent  "
+              className="w-full bg-[#060606] hover:bg-accent font-Quicksand font-semibold text-white rounded-md py-3 mb-4 dark:border dark:border-accent  "
             >
               S'inscrire
             </button>
           </form>
           <div className="w-full text-center mb-4">
             <div className="w-full h-px bg-black"></div>
-            <p className="relative inline-block px-2 bg-gray-200 text-sm dark:bg-black dark:text-accent">ou</p>
+            <p className="relative inline-block px-2 bg-gray-200 text-sm font-Quicksand font-semibold dark:bg-black dark:text-accent">
+              ou
+            </p>
           </div>
-          <button className="w-full border border-black text-[#060606] bg-white hover:bg-gray-300 rounded-md py-3 flex items-center justify-center">
-            <img src={Gogle} alt="" className="w-4 mr-2" />
-            Inscription avec Google
-          </button>
-          <p className="mt-4 text-sm font-normal dark:text-white ">
-            Vous avez déjà un compte ?{" "}
-            <span className="font-semibold underline cursor-pointer dark:text-white">
-              Connectez-vous
-            </span>
-          </p>
+
+          <Link to="/login">
+            <p className="mt-4 text-sm font-normal dark:text-white font-Quicksand font-semibold ">
+              Vous avez déjà un compte ?{" "}
+              <span className="font-semibold underline cursor-pointer font-Quicksand font-semibold dark:text-white">
+                Connectez-vous
+              </span>
+            </p>
+          </Link>
         </div>
       </div>
     </>

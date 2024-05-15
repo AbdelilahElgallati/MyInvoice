@@ -8,6 +8,18 @@ import {useResetPassMutation} from '../../state/api';
 
 
 const ResetPassword = () => {
+  // Le composant ResetPassword est une page permettant 
+  // à l'utilisateur de réinitialiser son mot de passe
+  // en entrant un nouveau mot de passe. Il utilise
+  // useState pour gérer l'état du nouveau mot de passe
+  // entré, et useParams pour obtenir les paramètres d'URL,
+  // tels que l'identifiant utilisateur (id) et le jeton
+  // (token). Le composant utilise également
+  // useResetPassMutation pour appeler la mutationds
+  // API nécessaire pour réinitialiser le mot de 
+  // passe. Une fois le mot de passe réinitialisé 
+  // avec succès, l'utilisateur est redirigé
+  // vers la page de connexion.
   const navigate = useNavigate();
   const {id,token} = useParams();
   const [ResetPass] = useResetPassMutation();

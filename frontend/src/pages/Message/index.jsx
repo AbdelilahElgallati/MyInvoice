@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
-import { useGetMessagesQuery, useRemoveMessageMutation } from "state/api";
+import axios from "axios"; // Importer axios
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -13,13 +13,28 @@ const Messages = () => {
   }
   const [messages, setMessages] = useState([]);
   const theme = useTheme();
-  const { data, isLoading } = useGetMessagesQuery();
-  const [removeMessage] = useRemoveMessageMutation();
+
   useEffect(() => {
-    if (data) {
-      setMessages(data);
+    const fetchMessages = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/Api/Message/");
+        setMessages(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchMessages();
+  }, []);
+
+  const handleDelete = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/Api/Message/remove/${id}`);
+      setMessages(messages.filter((message) => message._id !== id));
+    } catch (error) {
+      console.log(error);
     }
-  }, [data]);
+  };
 
   const columns = [
     {
@@ -55,15 +70,6 @@ const Messages = () => {
     },
   ];
 
-  const handleDelete = async (id) => {
-    try {
-      await removeMessage(id);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   return (
     <Box m="1.5rem 2.5rem">
       <Header title="MESSAGES" subtitle="Liste de messages" />
@@ -96,9 +102,9 @@ const Messages = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !messages}
+          loading={!messages.length}
           getRowId={(row) => row._id}
-          rows={messages || []} 
+          rows={messages || []}
           columns={columns}
         />
       </Box>

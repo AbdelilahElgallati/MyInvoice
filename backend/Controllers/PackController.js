@@ -13,8 +13,6 @@ const addPack = async (req, res) => {
       description: packData.description,
       services: serviceIds.map((serviceId) => ({ serviceId })),
       price: packData.price,
-      startDate: packData.startDate,
-      endDate: packData.endDate,
       logo,
     });
     await pack.save();
@@ -83,15 +81,13 @@ const getOnePack = async (req, res) => {
 const updatePack = async (req, res) => {
   try {
     const logo = req.file ? req.file.filename : null;
-    let { name, description, services, price, startDate, endDate } = req.body;
+    let { name, description, services, price } = req.body;
     services = JSON.parse(services);
     const updatedPackData = {
       name,
       description,
       services,
       price,
-      startDate,
-      endDate,
     };
     if (logo) {
       updatedPackData.logo = logo;

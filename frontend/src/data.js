@@ -3,6 +3,7 @@ import LogoImg from '../src/assets/img/header/lgrm.png';
 import HeroImg from '../src/assets/img/hero/VM.png';
 // import OverviewProductImg from '../src/assets/img/overview/product.svg';
 import OverviewProductImg1 from '../src/assets/img/overview/screenA.PNG';
+import OverviewProductImg2 from '../src/assets/img/overview/screenB.PNG';
 import FacebookImg from '../src/assets/img/overview/brands/facebook.svg';
 import GoogleImg from '../src/assets/img/overview/brands/google.svg';
 import CocaColaImg from '../src/assets/img/overview/brands/coca-cola.svg';
@@ -82,7 +83,8 @@ export const hero = {
 };
 
 export const overview = {
-  productImg: OverviewProductImg1,
+  productImgDark: OverviewProductImg1,
+  productImgSombre: OverviewProductImg2,
   brands: [
     {
       image: FacebookImg,
@@ -110,7 +112,7 @@ export const overview = {
 
 export const features = {
   feature1: {
-    pretitle: 'Alwalys online',
+    pretitle: 'Facturation Instantanée',
     title: 'Modèles de factures professionnelles',
     subtitle:
       "Vous souhaitez envoyer une facture dès maintenant ? Utilisez notre générateur de factures en ligne ou l'un de nos modèles de factures téléchargeables, imprimables et entièrement personnalisables !",
@@ -119,7 +121,7 @@ export const features = {
     image: Feature1Img,
   },
   feature2: {
-    pretitle: 'Free some cost',
+    pretitle: 'Facturation sans interruption',
     title: 'Générateur de factures en ligne',
     subtitle:
       "Utilisez notre générateur de factures pour gérer votre facturation depuis n'importe quel appareil, à tout moment. Votre compte est toujours connecté et vos données sont sauvegardées en toute sécurité pour vous.",
@@ -128,7 +130,7 @@ export const features = {
     image: Feature2Img,
   },
   feature3: {
-    pretitle: 'Use anytime',
+    pretitle: 'Estimation Instantanée',
     title: "Modèles d'estimation faciles à utiliser",
     subtitle:
       "Envoyez immédiatement des devis pour obtenir de nouveaux emplois. Convertissez ces devis en factures d'une simple pression sur un bouton.",
@@ -137,7 +139,7 @@ export const features = {
     image: Feature3Img,
   },
   feature4: {
-    pretitle: 'Use anytime',
+    pretitle: 'SimpliGestion',
     title: "Suivi des dépenses de l'entreprise",
     subtitle:
       "Le suivi des dépenses n'a jamais été aussi simple. Notre outil de suivi des dépenses et des reçus vous permet de scanner n'importe quel reçu et de saisir automatiquement les informations clés. Toutes les données relatives à vos dépenses sont prêtes à être exportées dans un rapport récapitulatif chaque fois que vous en avez besoin.",
@@ -175,51 +177,54 @@ export const product = {
 
 export const pricing = {
   title: "Faciliter l'établissement des factures",
-  cards: [
-    {
-      icon: PricingIcon1,
-      title: "L'ESSENTIEL",
-      services: [
-        { name: "Automatisation des données." },
-        { name: 'Paiements en ligne' },
-        { name: 'Reçus de lecture en temps réel' },
+  // cards: [
+  //   {
+  //     icon: PricingIcon1,
+  //     title: "L'ESSENTIEL",
+  //     services: [
+  //       { name: "Automatisation des données." },
+  //       { name: 'Paiements en ligne' },
+  //       { name: 'Reçus de lecture en temps réel' },
         
-      ],
-      price: '$9.99',
-      userAmount: "Jusqu'à 3 factures par mois",
-      btnText: 'COMMENCER MAINTENANT',
-      delay: 300,
-    },
-    {
-      icon: PricingIcon2,
-      title: 'PLUS',
-      services: [
-        { name: 'Ajouter des photos' },
-        { name: "Propriétaire signe." },
-        { name: "Rapports de synthèse" },
+  //     ],
+  //     price: '$9.99',
+  //     year : 'Annee',
+  //     userAmount: "Jusqu'à 3 factures par mois",
+  //     btnText: 'COMMENCER MAINTENANT',
+  //     delay: 300,
+  //   },
+  //   {
+  //     icon: PricingIcon2,
+  //     title: 'PLUS',
+  //     services: [
+  //       { name: 'Ajouter des photos' },
+  //       { name: "Propriétaire signe." },
+  //       { name: "Rapports de synthèse" },
        
         
-      ],
-      price: '$13.99',
-      userAmount: "Jusqu'à 10 factures par mois",
-      btnText: 'COMMENCER MAINTENANT',
-      delay: 600,
-    },
-    {
-      icon: PricingIcon3,
-      title: 'PRIME',
-      services: [
-        { name: 'Réactivité clientèle primordiale' },
-        { name: 'Signatures des clients' },
-        { name: 'Modèles Premium' },
+  //     ],
+  //     price: '$13.99',
+  //     year : 'Annee',
+  //     userAmount: "Jusqu'à 10 factures par mois",
+  //     btnText: 'COMMENCER MAINTENANT',
+  //     delay: 600,
+  //   },
+  //   {
+  //     icon: PricingIcon3,
+  //     title: 'PRIME',
+  //     services: [
+  //       { name: 'Réactivité clientèle primordiale' },
+  //       { name: 'Signatures des clients' },
+  //       { name: 'Modèles Premium' },
      
-      ],
-      price: '$29.99',
-      userAmount: 'up to 3 user + 1.99 per user',
-      btnText: 'COMMENCER MAINTENANT',
-      delay: 900,
-    },
-  ],
+  //     ],
+  //     price: '$29.99',
+  //     year : 'Annee',
+  //     userAmount: 'up to 3 user + 1.99 per user',
+  //     btnText: 'COMMENCER MAINTENANT',
+  //     delay: 900,
+  //   },
+  // ],
 };
 
 // export const testimonials = {
@@ -320,21 +325,26 @@ export const GeneratorData ={
     title: "Modèles de factures à usage spécifique",};
 export const footer = {
   logo: LogoImg,
+  lien :"Links",
+  legale : "Legal",
   links: [
+
     { name: 'Accueil', href: '/' },
-    { name: 'Tarification', href: '/' },
-    { name: 'A propos de', href: '/' },
-    { name: 'Caractéristiques', href: '/' },
+    { name: 'Tarification', href: '/pack' },
+    { name: 'À propos de', href: '/Apropos' },
+    { name: 'Modèles', href: '/Modeles' },
+    { name: 'Générateur en ligne', href: '/Gener' },
   ],
   legal: [
     { name: 'Accueil', href: '/' },
-    { name: 'Tarification', href: '/' },
-    { name: 'A propos de', href: '/' },
-    { name: 'Caractéristiques', href: '/' },
+    { name: 'Tarification', href: '/pack' },
+    { name: 'À propos de', href: '/Apropos' },
+    { name: 'Modèles', href: '/Modeles' },
+    { name: 'Générateur en ligne', href: '/Gener' },
   ],
   newsletter: {
-    title: 'Envoyez un message',
-    subtitle: "Plus de 5 ans d'expérience",
+    title: "Plus de 5 ans d'expérience",
+    subtitle: 'Envoyez un message',
   },
   form: {
     placeholder: 'Envoyez votre message',
@@ -363,38 +373,7 @@ export const modelData = [
   {
     imageDark: backgroundImage,
     title: "Modèles de factures à usage spécifique",
-    sections: [
-      {
-        image: ic1,
-        title: "Modèles de factures de construction",
-        description: "Conçus avec des sections distinctes pour les matériaux et la main-d'œuvre. Elles incluent également la 'localisation du site' au lieu des détails/adresses/coûts d'expédition.",
-      },
-      {
-        image: ic2,
-        title: "Modèles de factures pour les freelances",
-        description: "Inclut quelques modèles de factures gratuits adaptés aux projets d'indépendants avec facturation détaillée et suivi du temps de travail.",
-      },
-      {
-        image: ic3,
-        title: "Modèle de facture imprimable",
-        description: "Ce modèle en noir et blanc a été conçu pour être imprimable afin de vous permettre d'établir facilement une facture fiable pour votre petite entreprise.",
-      },
-      {
-        image: ic4,
-        title: "Modèle de facture pour la conception graphique",
-        description: "Vous travaillez comme graphiste indépendant ? Ces modèles sont faits pour vous ! Vous avez le choix entre des factures conçues pour des projets à tarif fixe ou à tarif horaire.",
-      },
-      {
-        image: ic5,
-        title: "Modèle de facture pour la photographie",
-        description: "Cette page contient quelques conseils sur la rédaction d'une facture complète pour les travaux de photographie, ainsi que plusieurs modèles pertinents.",
-      },
-      {
-        image: ic6,
-        title: "Modèle de facture pour les entrepreneurs",
-        description: "Ces modèles comportent des sections consacrées aux matériaux et à la main-d'œuvre. Cette page contient également des conseils sur ce qu'il faut inclure pour laisser une bonne impression finale.",
-      },
-    ],
+   
   },
 ];
 export const generatorData = {
@@ -434,5 +413,6 @@ export const generatorData = {
 export const pack = {
   Title: "Faciliter l'établissement des factures",
   Subtitle: 'Commencez gratuitement, puis choisissez le meilleur plan pour votre entreprise',
- 
+  Nos : "Nos",
+  abonnements : "abonnements",
 };

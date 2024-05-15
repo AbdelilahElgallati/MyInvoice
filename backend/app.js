@@ -23,6 +23,11 @@ const SettingRouter = require("./Routes/SettingsRouter");
 const MessageRouter = require("./Routes/MessageRouter");
 const SubscriptionRouter = require("./Routes/SubscriptionRouter");
 const ModelRouter = require("./Routes/ModelRouter");
+const FournisseurRouter = require('./Routes/FournisseurRouter');
+const BonCommandesRouter = require('./Routes/BonCommandesRouter');
+const BonLivraisonRouter = require('./Routes/BonLivraisonRouter');
+const DeviRouter = require('./Routes/DeviRouter');
+const DemandeRouter = require('./Routes/DemandeRouter');
 const GoogleAuthRouter = require("./Routes/GoogleAuth");
 const {
   updateSubscriptionStatus,
@@ -46,8 +51,13 @@ app.use(passport.session());
 
 app.use("/Api/Categorie", CategorieRouter);
 app.use("/Api/Client", ClientRouter);
+app.use("/Api/Fournisseur", FournisseurRouter);
 app.use("/Api/Entreprise", EntrepriseRouter);
 app.use("/Api/Invoice", InvoiceRouter);
+app.use("/Api/BonCommandes", BonCommandesRouter);
+app.use("/Api/BonLivraison", BonLivraisonRouter);
+app.use("/Api/Devi", DeviRouter);
+app.use("/Api/Demande", DemandeRouter);
 app.use("/Api/Pack", PackRouter);
 app.use("/Api/Message", MessageRouter);
 app.use("/Api/Model", ModelRouter);

@@ -67,7 +67,7 @@ const AddClient = () => {
           label="Phone number"
           name="phone"
           type="text"
-          value={client.price}
+          value={client.phone}
           onChange={handleChange}
           fullWidth
           required

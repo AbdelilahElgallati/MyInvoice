@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Box, useMediaQuery } from "@mui/material";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
 import Navbar from "componementClient/Navbar";
 import Sidebar from "componementClient/Sidebar";
 import { useGetUserQuery } from "state/api";
@@ -9,7 +8,7 @@ import { useGetUserQuery } from "state/api";
 const Layout = () => {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // boolean for knowing the state of sidebar
-  const userId = useSelector((state) => state.global.userId);
+  const userId = localStorage.getItem('userId');
   const { data } = useGetUserQuery(userId);//get data with the id in state
   //console.log("Data de l'entreprise",data);
   return (
