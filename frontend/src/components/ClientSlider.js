@@ -11,10 +11,13 @@ const ClientSlider = ({ clients }) => {
   useEffect(() => {
     const langto = Cookies.get("to");
     // fonction multiThreads
+    console.log(clients)
     const translateData = async () => {
       const translatedItems = await Promise.all(
+       
         // pour exécuter plusieurs promesses en parallèle. Cela signifie que toutes les promesses à l'intérieur de Promise.all doivent se terminer avant que la fonction ne continue.
         clients.map(async (item) => {
+          console.log("Clients"+item);
           const it = item;
           if (langto != "fra" && langto) {
             it.name = await tr(item.name, "fra", langto);

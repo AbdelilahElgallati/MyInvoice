@@ -239,7 +239,19 @@ const Header = () => {
             value="ara"
             className="text-accent hover:accent-accentHover "
           >
-            Arabic
+           العربية
+          </option>
+          <option
+            value="spa"
+            className="text-accent hover:accent-accentHover "
+          >
+           Espagnol
+          </option>
+          <option
+            value="chi"
+            className="text-accent hover:accent-accentHover "
+          >
+          Chinois
           </option>
           {/* Ajoutez d'autres options de langues au besoin */}
         </select>

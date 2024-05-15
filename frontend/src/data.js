@@ -177,54 +177,54 @@ export const product = {
 
 export const pricing = {
   title: "Faciliter l'établissement des factures",
-  cards: [
-    {
-      icon: PricingIcon1,
-      title: "L'ESSENTIEL",
-      services: [
-        { name: "Automatisation des données." },
-        { name: 'Paiements en ligne' },
-        { name: 'Reçus de lecture en temps réel' },
+  // cards: [
+  //   {
+  //     icon: PricingIcon1,
+  //     title: "L'ESSENTIEL",
+  //     services: [
+  //       { name: "Automatisation des données." },
+  //       { name: 'Paiements en ligne' },
+  //       { name: 'Reçus de lecture en temps réel' },
         
-      ],
-      price: '$9.99',
-      year : 'Annee',
-      userAmount: "Jusqu'à 3 factures par mois",
-      btnText: 'COMMENCER MAINTENANT',
-      delay: 300,
-    },
-    {
-      icon: PricingIcon2,
-      title: 'PLUS',
-      services: [
-        { name: 'Ajouter des photos' },
-        { name: "Propriétaire signe." },
-        { name: "Rapports de synthèse" },
+  //     ],
+  //     price: '$9.99',
+  //     year : 'Annee',
+  //     userAmount: "Jusqu'à 3 factures par mois",
+  //     btnText: 'COMMENCER MAINTENANT',
+  //     delay: 300,
+  //   },
+  //   {
+  //     icon: PricingIcon2,
+  //     title: 'PLUS',
+  //     services: [
+  //       { name: 'Ajouter des photos' },
+  //       { name: "Propriétaire signe." },
+  //       { name: "Rapports de synthèse" },
        
         
-      ],
-      price: '$13.99',
-      year : 'Annee',
-      userAmount: "Jusqu'à 10 factures par mois",
-      btnText: 'COMMENCER MAINTENANT',
-      delay: 600,
-    },
-    {
-      icon: PricingIcon3,
-      title: 'PRIME',
-      services: [
-        { name: 'Réactivité clientèle primordiale' },
-        { name: 'Signatures des clients' },
-        { name: 'Modèles Premium' },
+  //     ],
+  //     price: '$13.99',
+  //     year : 'Annee',
+  //     userAmount: "Jusqu'à 10 factures par mois",
+  //     btnText: 'COMMENCER MAINTENANT',
+  //     delay: 600,
+  //   },
+  //   {
+  //     icon: PricingIcon3,
+  //     title: 'PRIME',
+  //     services: [
+  //       { name: 'Réactivité clientèle primordiale' },
+  //       { name: 'Signatures des clients' },
+  //       { name: 'Modèles Premium' },
      
-      ],
-      price: '$29.99',
-      year : 'Annee',
-      userAmount: 'up to 3 user + 1.99 per user',
-      btnText: 'COMMENCER MAINTENANT',
-      delay: 900,
-    },
-  ],
+  //     ],
+  //     price: '$29.99',
+  //     year : 'Annee',
+  //     userAmount: 'up to 3 user + 1.99 per user',
+  //     btnText: 'COMMENCER MAINTENANT',
+  //     delay: 900,
+  //   },
+  // ],
 };
 
 // export const testimonials = {
