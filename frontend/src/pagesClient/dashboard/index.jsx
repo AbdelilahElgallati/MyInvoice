@@ -20,7 +20,10 @@ import {
 import { DataGrid } from "@mui/x-data-grid";
 import BreakdownChart from "componementClient/BreakdownChart";
 import OverviewChart from "componementClient/OverviewChart";
-import { useGetDashboardClientQuery } from "state/api";
+import {
+  useGetDashboardClientQuery,
+  useGetOnePackQuery,
+} from "state/api";
 import StatBox from "componementClient/StatBox";
 
 const Dashboard = () => {
@@ -40,13 +43,27 @@ const Dashboard = () => {
     todayStats: [],
   });
   const id = localStorage.getItem("userId");
-  console.log("user id : ", id);
+  const packId = localStorage.getItem("packId");
   const theme = useTheme();
+  const genererRapport = "6630fe581c1fec2176ead2c9;";
+  const { data: packData } = useGetOnePackQuery(packId);
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data, isLoading } = useGetDashboardClientQuery(id);
+
+  const [generateRapport, setGenerateRapport] = useState(false);
+
+  useEffect(() => {
+    if (packData) {
+      setGenerateRapport(
+        packData.services.some(
+          (service) => service.serviceId === genererRapport
+        )
+      );
+    }
+  }, [packData]);
+
   useEffect(() => {
     if (data) {
-      console.log('data : ', data)
       setDashboard({
         invoices: data.invoices,
         totalPaidAmount: data.totalPaidAmount,
@@ -64,8 +81,6 @@ const Dashboard = () => {
       });
     }
   }, [data]);
-
-  console.log("dashboard : ", dashboard);
 
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -216,20 +231,24 @@ const Dashboard = () => {
             Bienvenue sur votre tableau de bord
           </Typography>
         </Box>
-        <Box>
-          <Button
-            sx={{
-              backgroundColor: theme.palette.secondary[400],
-              color: theme.palette.secondary[50],
-              fontSize: "14px",
-              fontWeight: "bold",
-              padding: "10px 20px",
-            }}
-          >
-            <DownloadOutlined sx={{ mr: "10px" }} />
-            Télécharger Rapports
-          </Button>
-        </Box>
+        {generateRapport ? (
+          <Box>
+            <Button
+              sx={{
+                backgroundColor: theme.palette.secondary[400],
+                color: theme.palette.secondary[50],
+                fontSize: "14px",
+                fontWeight: "bold",
+                padding: "10px 20px",
+              }}
+            >
+              <DownloadOutlined sx={{ mr: "10px" }} />
+              Télécharger Rapports
+            </Button>
+          </Box>
+        ) : (
+          ""
+        )}
       </FlexBetween>
 
       <Box
@@ -281,7 +300,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Ventes (Dhs)"
-          value={dashboard && dashboard.totalPaidAmount}
+          value={dashboard && dashboard.totalPaidAmount.toFixed(2)}
           icon={
             <MonetizationOnIcon
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}

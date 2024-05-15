@@ -6,7 +6,7 @@ const addDemande = async (req, res) => {
     const demandeData = req.body;
     const demande = new Demande(demandeData);
     await demande.save();
-    res.status(201).json(demande);
+    res.status(201).json({message: "Envoie avec success"});
   } catch (error) {
     res.status(500).send("Erreur serveur lors de l'ajout du demande");
   }
@@ -14,21 +14,21 @@ const addDemande = async (req, res) => {
 
 const  getAllDemandes = async (req, res) => {
   try {
-    const  demande = await Demande.find().populate('userId', 'name').populate('packId', 'name price');
+    const  demande = await Demande.find().populate('userId').populate('packId');
     const organizedDemandes = demande.map(demande => {
       return {
         _id: demande._id,
         enterpriseId: demande.userId._id,
         enterpriseName: demande.userId.name,
+        enterpriseLogo: demande.userId.logo,
         packId: demande.packId._id,
         packName: demande.packId.name,
         packPrice: demande.packId.price,
         nombreAnnee: demande.nombreAnnee,
-        amount: demande.price,
-        status: demande.status
+        amount: demande.amount,
+        status: demande.status,
       };
     });
-    console.log('organizedDemandes : ', organizedDemandes)
     res.status(201).json(organizedDemandes);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des demande");

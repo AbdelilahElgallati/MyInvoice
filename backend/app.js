@@ -7,6 +7,7 @@ const cron = require("node-cron");
 const passport = require("passport");
 const session = require("express-session");
 const url = "mongodb://127.0.0.1:27017/MyInvoice";
+const bodyParser = require("body-parser");
 const app = express();
 const Port = 3001;
 require('dotenv').config();
@@ -38,6 +39,7 @@ app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(express.json());
+app.use(bodyParser.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("Public"));
@@ -77,7 +79,7 @@ mongoose
   });
 
 cron.schedule(
-  "00 12 * * *",
+  "15 17 * * *",
   () => {
     updateSubscriptionStatus();
     EmailSubscriptionStatus();

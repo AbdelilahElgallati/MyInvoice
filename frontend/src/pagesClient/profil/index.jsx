@@ -82,32 +82,6 @@ const Profil = () => {
     }
   };
 
-  // const handleChangePassword = (event) => {
-  //   event.preventDefault();
-  
-  //   console.log("Mot de passe de l'entreprise modifié :", enterpriseMotPasse);
-  //   try {
-  //     if (
-  //       enterpriseMotPasse.newPassword === enterpriseMotPasse.confirmPassword
-  //     ) {
-  //       console.log(enterpriseMotPasse)
-  //       const res = changePassword({ id, enterpriseMotPasse : enterpriseMotPasse });
-  //       console.log(res)
-  //       if (res.data.message === "Password changed successfully") {
-  //         localStorage.removeItem("userId");
-  //         localStorage.removeItem("token");
-  //         navigate("/");
-  //       } else {
-  //         console.log("message : ", res.data.message);
-  //       }
-  //     } else {
-  //       console.log("Passwords don't match");
-  //     }
-  //   } catch (err) {
-  //     console.log("err : ", err);
-  //   }
-  // };
-
   const handleChangePassword = async (event) => {
     event.preventDefault();
     console.log("Mot de passe de l'entreprise modifié :", enterpriseMotPasse);
@@ -212,6 +186,38 @@ const Profil = () => {
             value={enterpriseDetails.address}
             margin="normal"
             onChange={(e) => handleFieldChange("address", e.target.value)}
+          />
+          <TextField
+            label="Pack d'entreprise"
+            variant="outlined"
+            fullWidth
+            value={enterpriseDetails.pack}
+            margin="normal"
+            disabled
+          />
+          <TextField
+            label="Prix de pack d'entreprise"
+            variant="outlined"
+            fullWidth
+            value={enterpriseDetails.price}
+            margin="normal"
+            disabled
+          />
+          <TextField
+            label="la date de start d'abonnenent d'entreprise"
+            variant="outlined"
+            fullWidth
+            value={enterpriseDetails.subscriptionStartDate}
+            margin="normal"
+            disabled
+          />
+          <TextField
+            label="la date de fin d'abonnenent d'entreprise"
+            variant="outlined"
+            fullWidth
+            value={enterpriseDetails.subscriptionEndDate}
+            margin="normal"
+            disabled
           />
           <Box mt={2}>
             <Button type="submit" variant="contained" color="primary">

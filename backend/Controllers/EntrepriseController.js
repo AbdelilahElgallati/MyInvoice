@@ -92,6 +92,7 @@ const getEntrepriseDetail = async (req, res) => {
       subscriptionStartDate : startDate,
       subscriptionEndDate : endDate,
       pack : filteredpackEntreprise.name,
+      packId: filteredpackEntreprise._id,
       price : filteredpackEntreprise.price,
     };
     res.status(200).json(entrepriseDetail);
@@ -135,10 +136,13 @@ const login = async (req, res) => {
   try {
     const jsenwebtkn = req.token;
     const user = req.user;
+    const sub = await Subscription.findOne({userId: user._id});
+    const pack = await Pack.findById(sub.packId);
     if (!user) {
       return res.status(404).json({ error: "Utilisateur non trouvé" });
     }
-    res.json({ jsenwebtkn, user });
+
+    res.json({ jsenwebtkn, user, pack  });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: "Erreur serveur" });

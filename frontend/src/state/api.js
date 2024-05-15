@@ -169,6 +169,8 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+
+    // Subscription
     getSubscriptions: build.query({
       query: () => `Subscription`,
       providesTags: ["Subscription"],
@@ -189,10 +191,10 @@ export const api = createApi({
       providesTags: ["Subscription"],
     }),
     updateSubscription: build.mutation({
-      query: ({ id, SubscriptionData }) => ({
+      query: ({ id, subscription }) => ({
         url: `Subscription/edit/${id}`,
         method: "PUT",
-        body: SubscriptionData,
+        body: subscription,
       }),
     }),
     removeSubscription: build.mutation({
@@ -517,7 +519,7 @@ export const api = createApi({
 
     // Demande
     getDemandes: build.query({
-      query: (id) => `Demande/${id}`,
+      query: (id) => `Demande`,
       providesTags: ["Demande"],
     }),
     getOneDemande: build.query({
@@ -561,6 +563,8 @@ export const {
   useGetEntrepriseByGoogleIdQuery,
   useForgoutPasswordMutation,
   useResetPassMutation,
+  useChangePasswordEntrepriseMutation,
+
   useGetPacksQuery,
   useGetOnePackQuery,
   useAddPackMutation,
@@ -568,7 +572,7 @@ export const {
   useRemovePackMutation,
   useGetThreePacksQuery,
   useGetAllPacksThreeServiceQuery,
-  useChangePasswordEntrepriseMutation,
+  useGetPackByServiceIdQuery,
 
   useGetAllServicesQuery,
   useGetOneServiceQuery,

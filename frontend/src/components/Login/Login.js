@@ -60,12 +60,15 @@ const Login = () => {
         entrepriseInfo.role === "admin" &&
         entrepriseInfo.status === "active"
       ) {
+        // console.log(Info.data);
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
         navigate("/dashboard");
       } else if (entrepriseInfo.status === "active") {
+        // console.log(Info.data.Services);
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
+        localStorage.setItem("packId", Info.data.pack._id);
         navigate("/dashboardClient");
       }
     } catch (error) {

@@ -79,6 +79,9 @@ import EditBonLivraison from "pagesClient/bonLivraison/editBonLivraison";
 import DetailsBonLivraison from "pagesClient/bonLivraison/detailsBonLivraison";
 import PrintBonLivraison from "pagesClient/bonLivraison/printBonLivraison";
 
+import Demandes from 'pages/Demande'
+import AddDemande from 'pagesClient/Demande/AddDemande'
+
 import Profil from "pagesClient/profil";
 
 const App = () => {
@@ -124,12 +127,14 @@ const App = () => {
             <Route path="/SubscriptionsPlans" element={<AddThemeProvider theme={theme} pages={SubscriptionPalns} />}/>
             <Route path="/SubscriptionsPlans/edit/:id" element={<AddThemeProvider theme={theme} pages={EditSubscription} />}/>
             <Route path="/Messages" element={<AddThemeProvider theme={theme} pages={Messages} />}/>
+            <Route path="/Demandes" element={<AddThemeProvider theme={theme} pages={Demandes} />}/>
           </Route>
 
           <Route element={<AddThemeProvider theme={theme} pages={LayoutClient} />}>
             {/* générale */}
             <Route path="/dashboardClient"element={  <AddThemeProvider theme={theme} pages={DashboardClient} />}/>
             <Route path="/profil" element={<AddThemeProvider theme={theme} pages={Profil} />}/>
+            <Route path="/add-demande" element={<AddThemeProvider theme={theme} pages={AddDemande} />}/>
             {/* facture */}
             <Route  path="/factures" element={<AddThemeProvider theme={theme} pages={Invoices} />}/>
             <Route path="/ajouterFacture" element={<AddThemeProvider theme={theme} pages={AddInvoice} />}/>

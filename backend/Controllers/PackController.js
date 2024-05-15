@@ -78,6 +78,7 @@ const getOnePack = async (req, res) => {
   }
 };
 
+
 const updatePack = async (req, res) => {
   try {
     const logo = req.file ? req.file.filename : null;
