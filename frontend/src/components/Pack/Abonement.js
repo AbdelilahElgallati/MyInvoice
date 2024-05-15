@@ -7,7 +7,7 @@ import { useGetAllPacksThreeServiceQuery } from "state/api";
 import { HiCheck, HiOutlineArrowNarrowRight } from "react-icons/hi";
 import tr from "Services/tr";
 import Cookies from "js-cookie";
-
+// les donnes n'affiche pas dans le cas de fr
 const Abonement = () => {
   const [index, setIndex] = useState(1);
   const [title, setTitle] = useState(pack.Title);
