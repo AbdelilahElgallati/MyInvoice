@@ -9,6 +9,7 @@ import {
   Select,
   MenuItem,
   Chip,
+  Typography,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
 import { useGetAllCategoriesQuery, useAddProduitMutation } from "state/api";
@@ -112,12 +113,11 @@ const AddProduit = () => {
             renderValue={(selected) => (
               <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {selected && (
-                  <Chip
-                    key={selected}
-                    label={
+                  <Typography>
+                    {
                       categorieData.find((category) => category._id === selected)?.categoryName || ""
                     }
-                  />
+                  </Typography>
                 )}
               </div>
             )}

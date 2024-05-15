@@ -3,7 +3,7 @@ import { Box, useMediaQuery } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import Navbar from "componentsAdmin/Navbar";
 import Sidebar from "componentsAdmin/Sidebar";
-import { useGetEntrepriseQuery } from 'state/api';
+import axios from 'axios'; // Importez axios
 
 const Layout = () => {
   const isNonMobile = useMediaQuery("(min-width: 600px)");
@@ -17,13 +17,22 @@ const Layout = () => {
     logo: "",
   })
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const userId = localStorage.getItem('userId')
-  const { data } = useGetEntrepriseQuery(userId);
+  const userId = localStorage.getItem('userId');
+
   useEffect(()=>{
-    if(data) {
-      setEntreprise(data)
+    const fetchEntreprise = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/Entreprise/${userId}`);
+        setEntreprise(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    if(userId) {
+      fetchEntreprise();
     }
-  },[data])
+  },[userId])
 
   return (
     <Box display={isNonMobile ? "flex" : "block"} width="100%" height="100%">

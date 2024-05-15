@@ -18,44 +18,47 @@ const Abonement = () => {
   const [btnCom, setBtnCom] = useState("Commencer Maintenant");
   const [year, setYear] = useState("Année");
   const [desc, setDesc] = useState("Jusqu'à 3 factures par mois");
+  const [translatedData, setTranslatedData] = useState([]);
 
   useEffect(() => {
-    translateTexts();
-  }, [data]);
-
-  const translateTexts = async () => {
-    const langto = Cookies.get("to");
-    if (langto && langto !== "fra") {
-      setBtnCom(await tr("Commencer Maintenant", "fra", langto));
-      setYear(await tr("Année", "fra", langto));
-      setDesc(await tr("Jusqu'à 3 factures par mois", "fra", langto));
-      setTitle(await tr(title, "fra", langto));
-      setSubtitle(await tr(subtitle, "fra", langto));
-      setNos(await tr(Nos, "fra", langto));
-      setabonnements(await tr(abonnements, "fra", langto));
-
-      if (data && data.length > 0) {
-        const translatedData = await Promise.all(
-          data.map(async (item) => {
-            let translatedItem = { ...item };
-            translatedItem.name = await tr(item.name, "fra", langto);
-            translatedItem.services = await Promise.all(
-              item.services.map(async (service) => {
-                let translatedService = { ...service, serviceId: { ...service.serviceId } };
-                translatedService.serviceId.ServiceName = await tr(service.serviceId.ServiceName, "fra", langto);
-                return translatedService;
-              })
-            );
-            translatedItem.description = await tr(item.description, "fra", langto);
-            return translatedItem;
-          })
-        );
-        setTranslatedData(translatedData);
-      }
+    if (data && data.length > 0) {
+      setIndex(0);
+      translateData();
     }
+  }, [data]);
+  
+  const translateData = async () => {
+    const langto = Cookies.get("to");
+    if (langto !== "fra" && langto) {
+      setTitle(await tr(title, "fra", langto))
+      setSubtitle(await tr(subtitle, "fra", langto))
+      setBtnCom(await tr(btnCom, "fra", langto))
+      setYear(await tr(year, "fra", langto))
+      setDesc(await tr(desc, "fra", langto))
+      setNos(await tr(Nos, "fra", langto))
+      setabonnements(await tr(abonnements, "fra", langto))
+    }
+    const translatedItems = await Promise.all(
+      data.map(async (item) => {
+        let it = { ...item };
+        if (langto !== "fra" && langto) {
+          it.name = await tr(item.name, "fra", langto);
+          // Map over services to translate each service name
+          it.services = await Promise.all(item.services.map(async (service) => {
+            // Create a deep copy of the service
+            let itSer = JSON.parse(JSON.stringify(service));
+            // Translate the service name
+            itSer.serviceId.ServiceName = await tr(service.serviceId.ServiceName, "fra", langto);
+            return itSer;
+          }));
+          it.description = await tr(item.description, "fra", langto);
+        }
+        return it;
+      })
+    );
+    console.log(translatedItems);
+    setTranslatedData(translatedItems);
   };
-
-  const [translatedData, setTranslatedData] = useState([]);
 
   return (
     <>

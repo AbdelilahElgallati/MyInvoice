@@ -49,7 +49,6 @@ const Dashboard = () => {
   const { data: packData } = useGetOnePackQuery(packId);
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data, isLoading } = useGetDashboardClientQuery(id);
-
   const [generateRapport, setGenerateRapport] = useState(false);
 
   useEffect(() => {

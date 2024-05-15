@@ -149,15 +149,15 @@ const Header = () => {
           href="#"
           data-aos="fade-down"
           data-aos-delay="200"
-          className=" font-bodyfont inline-block relative mt-3 md:mt-0 ml-[25px]"
+          className=" font-bodyfont inline-block relative mt-3 md:mt-0 lg:ml-[-100px] "
         >
           <Link
             to="/"
             data-aos="fade-down"
             data-aos-delay="100"
-            className="font-bodyfont inline-block relative mt-3 md:mt-0 ml-25"
+            className="font-bodyfont inline-block relative mt-3 md:mt-0 ml-5"
           >
-            <img className="w-[160px]" src={logo} alt="Logo" />
+            <img className="w-[160px] " src={logo} alt="Logo" />
           </Link>
         </a>
 
@@ -168,7 +168,7 @@ const Header = () => {
         >
           <Nav />
         </div>
-        <div className=" flex justify-evenly gap-x-6">
+        <div className=" flex justify-evenly gap-x-6 ml-[10px]">
         {!localStorage.getItem("userId") ? (
           <button
             className="btn btn-sm btn-outline hidden lg:flex"

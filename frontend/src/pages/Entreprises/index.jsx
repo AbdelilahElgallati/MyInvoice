@@ -9,6 +9,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Importer axios
 
 const Entreprises = () => {
   const navigate = useNavigate();
@@ -18,14 +19,27 @@ const Entreprises = () => {
   const [entreprises, setEntreprises] = useState([]);
   const theme = useTheme();
   // hadi
-  const { data, isLoading } = useGetAllEntreprisesQuery();
+  const [isLoading, setIsLoading] = useState(true);
   const [removeEntreprise] = useRemoveEntrepriseMutation();
-
   useEffect(() => {
-    if (data) {
-      setEntreprises(data);
-    }
-  }, [data]);
+    const fetchEntreprises = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/Api/Entreprise");
+        setEntreprises(response.data);
+        setIsLoading(false); // Mettre à jour l'état de chargement une fois la requête terminée
+      } catch (error) {
+        console.log(error);
+        setIsLoading(false); // Mettre à jour l'état de chargement en cas d'erreur
+      }
+    };
+
+    fetchEntreprises();
+  }, []);
+  // useEffect(() => {
+  //   if (data) {
+  //     setEntreprises(data);
+  //   }
+  // }, [data]);
 
   const handleEdit = (id) => {
     navigate(`/Enterprises/Details/${id}`);

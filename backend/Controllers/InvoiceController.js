@@ -3,6 +3,7 @@ const OverallStat = require ("../Models/OverallStateSchema");
 const Client = require  ("../Models/ClientSchema");
 const Product = require  ("../Models/ProductSchema");
 const Enterprise = require("../Models/EntrepriseSchema");
+const nodemailer = require('nodemailer');
 
 const addInvoice = async (req, res) => {
   try {
@@ -102,6 +103,67 @@ const getSales = async (req, res) => {
   }
 };
 
+
+const transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: "myinvoice06@gmail.com",
+    pass: "ekiv afoc wbnb mrep",
+  },
+});
+
+const sendEmail = async (req, res) => {
+  const { clientEmail, clientName, userName, invoiceNumber, itemsTable, amount, formattedDueDate, userPhone, userAddress, userEmail } = req.body;
+  const itemsTableHTML = itemsTable.map(item => `<tr><td>${item.productName}</td><td>${item.quantity}</td><td>${item.price.toFixed(2)} DHs</td></tr>`).join('');
+  const body = `
+  <p>Cher Client(e) Mr/Mme.<strong> ${clientName}</strong>,</br></p>
+  <p>Vous avez reçu une facture de l'entreprise <strong><i>${userName}</i></strong>, vérifiez les détails ci-dessous:</br></p>
+  <p> - Numéro de facture :<strong> #${invoiceNumber}</strong></p></br>
+  <table border="1" cellspacing="0" cellpadding="5">
+    <thead>
+      <tr>
+        <th><strong>Nom du Produit</strong></th>
+        <th><strong>Quantité</strong></th>
+        <th><strong>Prix</strong></th>
+      </tr>
+    </thead>
+    <tbody>
+      ${itemsTableHTML}
+    </tbody>
+    <tfoot>
+      <tr>
+        <th><strong>Montant : </strong></th>
+        <td colspan="2"> <strong>${amount.toFixed(2)} DHs</strong> </td>
+      </tr>
+    </tfoot>
+  </table>
+  </br>
+  <p>Considérez s'il vous plaît le paiement de votre facture avant le <strong>"<font color="red">${formattedDueDate}</font>"</strong>.</p></br>
+  <p>Si vous avez des questions, vous trouverez ci-dessus les coordonnées de l'entreprise :</p></br>
+  <ul>
+    <li> Téléphone :<strong> ${userPhone}</strong></li>
+    <li> Adresse :<strong> ${userAddress}</strong></li>
+    <li> Email :<strong> ${userEmail}</strong></li>
+  </ul></br>
+  <p>Cordialement,</p></br>
+  <p><strong>MY INVOICE TEAM</strong></p>
+`;
+  var mailOptions = {
+    from: "myinvoice06@gmail.com",
+    to: clientEmail,
+    subject: `Facture envoyée depuis ${userName}`,
+    html: body,
+  }
+  try {
+    await transporter.sendMail(mailOptions);
+
+    res.status(200).json({ message: 'Email sent successfully' });
+  } catch (error) {
+    console.error('Error sending email:', error.message);
+    res.status(500).json({ error: 'Failed to send email' });
+  }
+};
+
 const getDashboardStats = async (req, res) => {
   try {
     const currentMonth = "Mai";
@@ -133,6 +195,19 @@ const getDashboardStats = async (req, res) => {
     const todayStats = overallStat[0].dailyData.find(({ date }) => {
       return date === currentDay;
     });
+   /* console.log(  invoices,
+      totalPaidAmount,
+      totalCustomers,
+      totalProducts,
+      totalInvoices,
+      totalPaidInvoices,
+      totalUnpaidInvoices,
+      yearlyTotalSoldUnits,
+      yearlySalesTotal,
+      monthlyData,
+      salesByCategory,
+      thisMonthStats,
+      todayStats,);*/
     res.status(200).json({
       invoices,
       totalPaidAmount,
@@ -190,4 +265,5 @@ module.exports = {
   getSales,
   getDashboardStats,
   prepareInvoiceDetails,
+  sendEmail,
 };

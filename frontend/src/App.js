@@ -37,6 +37,7 @@ import AddClient from "pagesClient/clients/addClient";
 import EditInvoice from "pagesClient/invoices/editInvoice";
 import DetailsInvoice from "pagesClient/invoices/detailsInvoice";
 import PrintInvoice from "pagesClient/invoices/printInvoice";
+import SendEmailInvoice from "pagesClient/invoices/sendEmailInvoice";
 import Overview from "pagesClient/overview";
 import Daily from "pagesClient/daily";
 import Monthly from "pagesClient/monthly";
@@ -140,6 +141,7 @@ const App = () => {
             <Route path="/ajouterFacture" element={<AddThemeProvider theme={theme} pages={AddInvoice} />}/>
             <Route path="/factures/edit/:id" element={<AddThemeProvider theme={theme} pages={EditInvoice} />}/>
             <Route path="/factures/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsInvoice} /> }/>
+            <Route path="/factures/email/:id" element={<AddThemeProvider theme={theme} pages={SendEmailInvoice} />} />
             {/* produit */}
             <Route path="/produits" element={<AddThemeProvider theme={theme} pages={Products} />}/>
             <Route path="/ajouterProduit" element={<AddThemeProvider theme={theme} pages={AddProduct} />}/>
@@ -188,5 +190,6 @@ const AddThemeProvider = ({ theme, children, pages }) => (
     {React.createElement(pages, null, children)}
   </ThemeProvider>
 );
+
 
 export default App;

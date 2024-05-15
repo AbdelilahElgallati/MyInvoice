@@ -19,6 +19,7 @@ import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Pack = ({
   _id,
@@ -111,13 +112,20 @@ const Packs = () => {
   
   const [packs, setPacks] = useState([]);
   // hadi
-  const { data } = useGetPacksQuery();
-  const isNonMobile = useMediaQuery("(min-width: 1000px)");
   useEffect(() => {
-    if (data) {
-      setPacks(data);
-    }
-  }, [data]);
+    const fetchPacks = async () => {
+      try {
+        const response = await axios.get("http://localhost:3001/Api/Pack/");
+        setPacks(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchPacks();
+  }, []);
+  const isNonMobile = useMediaQuery("(min-width: 1000px)");
+ 
 
   return (
     <Box m="1.5rem 2.5rem">

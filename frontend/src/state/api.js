@@ -93,16 +93,6 @@ export const api = createApi({
         body: data,
       }),
     }),
-
-    changePasswordEntreprise: build.mutation({
-      query: ({ id, enterpriseMotPasse }) => ({
-        url: `Entreprise/changePassword/${id}`,
-        method: "PUT",
-        body: enterpriseMotPasse,
-      }),
-    }),
-
-    // Service
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],
@@ -374,6 +364,17 @@ export const api = createApi({
       query: () => "Invoice/summary",
       providesTags: ["Sales"],
     }),
+    sendEmail: build.mutation({
+      query: ({ clientEmail, clientName, userName, invoiceNumber, itemsTable, amount, formattedDueDate,
+         userPhone,userAddress,userEmail
+       }) => ({
+        url: `Invoice/email`,
+        method: "POST",
+        body: { clientEmail, clientName, userName, invoiceNumber, itemsTable, amount, formattedDueDate,
+          userPhone,userAddress,userEmail
+        },
+      }),
+    }),
     getDashboardClient: build.query({
       query: (id) => `Invoice/dashboard/${id}`,
       providesTags: ["Dashboard"],
@@ -628,6 +629,8 @@ export const {
   useGetOneCategorieQuery,
   useUpdateCategorieMutation,
   useRemoveCategorieMutation,
+
+  useSendEmailMutation,
 
   useGetInvoiceDetailsQuery,
 

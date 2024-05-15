@@ -15,8 +15,10 @@ import {
   useChangePasswordEntrepriseMutation,
 } from "state/api";
 import Header from "componentsAdmin/Header";
+import axios from "axios";
 
 const Profil = () => {
+  
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
     navigate("/");
@@ -33,16 +35,30 @@ const Profil = () => {
 
   const [logo, setLogo] = useState(null);
   const [updateEntreprise] = useUpdateEntrepriseMutation();
+  // const [Profil, setProfil] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   // hadi
-  const { data, isLoading } = useGetEntrepriseDetailQuery(
-    localStorage.getItem("userId")
-  );
-
   useEffect(() => {
-    if (data) {
-      setEnterpriseDetails(data);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/Entreprise/entreprisedetail/${id}`);
+        setEnterpriseDetails(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
     }
-  }, [data]);
+  }, [id, navigate]); 
+   
+ 
+
 
   if (isLoading || !enterpriseDetails) {
     return <Typography>Loading...</Typography>;

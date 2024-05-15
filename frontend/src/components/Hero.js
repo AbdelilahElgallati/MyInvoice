@@ -39,11 +39,11 @@ const Hero = () => {
     navigate(redirectPath);
   }
   return (
-    <section className=' dark:bg-black min-h-[900px]  py-12 mt-[90px]  lg:mt-[50px]'>
-      <div className=' container mx-auto min-h-[900px] flex justify-center items-center '>
-        <div className='xl:mt-[-230px]  md: mt-0 flex flex-col lg:gap-x-[30px] gap-y-8 lg:flex-row items-center justify-center text-center lg:text-left'>
+    <section className=' dark:bg-black    mt-[90px]  lg:mt-[140px]'>
+      <div className=' container mx-auto  flex justify-center items-center lg:mt-[-47px] lg:pt-[30px] '>
+        <div className='xl:mt-[-230px]  mt-[0px] flex flex-col lg:gap-x-[30px] gap-y-8 lg:flex-row items-center justify-center text-center lg:text-left'>
           {/* text */}
-          <div className='flex-1'>
+          <div className='flex-1 mt-[103px] lg:mt-[0px] '>
             <h1
               className='dark:text-white text-4xl  title mb-2 lg:mb-5 font-Quicksand  font-bold'
               data-aos='fade-down'
@@ -75,7 +75,7 @@ const Hero = () => {
             data-aos='fade-up'
             data-aos-delay='800' // Correction ici
           >
-            <img  className='lg:ml-[120px]' src={image} alt="hero" /> 
+            <img  className=' lg:ml-[120px]' src={image} alt="hero" /> 
           </div>
         </div>
       </div>

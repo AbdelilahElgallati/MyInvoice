@@ -11,22 +11,11 @@ const addProduit = async (req, res) => {
   }
 }
 
-const  getAllProduitsEnt = async (req, res) => {try {
+const  getAllProduitsEnt = async (req, res) => {
+  try {
   const Allproducts = await Produit.find().populate("categoryId");
   const products = Allproducts.filter(produit => produit.userId.toString() === req.params.id);
-
-  const productsEnt = products.map(produit => ({
-    _id: produit._id,
-    userId: produit.userId,
-    name: produit.name,
-    description: produit.description,
-    quantity: produit.quantity,
-    price: produit.price,
-    categoryName: produit.categoryId.categoryName 
-  }));
-
-  res.status(200).json(
-    productsEnt);
+  res.status(200).json(products);
   } catch (error) {
     res.status(404).json({ message: error.message });
   }
