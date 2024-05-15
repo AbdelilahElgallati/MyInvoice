@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import { Box, useTheme, Button, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetProductsQuery, useRemoveProduitMutation } from "state/api";
@@ -10,12 +11,34 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
 
+import axios from "axios";
 const Products  = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const id = localStorage.getItem('userId')
+  const [Product, setProduct] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   // hadi
-  const { data, isLoading } = useGetProductsQuery(id);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/Produit/Entreprise/${id}`);
+        setProduct(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, [id, navigate]);  
   const [removeProduit] = useRemoveProduitMutation();
   const columns = [
     {
@@ -110,7 +133,7 @@ const Products  = () => {
     <Box m="1.5rem 2.5rem">
       
       <FlexBetween>
-        <Header title="PRODUITS" subtitle="Liste entier des "   total= {data ? data.length : 0} />        
+        <Header title="PRODUITS" subtitle="Liste entier des "   total= {Product ? Product.length : 0} />        
         <Link to="/ajouterProduit">
           <Button
             variant="contained"
@@ -151,9 +174,9 @@ const Products  = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading }
           getRowId={(row) => row._id}
-          rows={data  || []}
+          rows={Product}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination

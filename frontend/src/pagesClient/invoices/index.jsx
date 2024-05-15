@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { useGetInvoicesQuery, useRemoveInvoiceMutation , useGetInvoiceDetailsQuery} from "state/api";
@@ -12,14 +12,34 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from '@mui/icons-material/Info';
 import EmailIcon from '@mui/icons-material/Email';
 import PrintIcon from '@mui/icons-material/Print';
-
+import axios from "axios";
 const Invoices  = () => {
 
   const theme = useTheme();
   const navigate = useNavigate();
   const id = localStorage.getItem('userId');
+  const [Facture, setFacture] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
   // hadi
-  const { data, isLoading } = useGetInvoicesQuery(id);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/Invoice/List/${id}`);
+        setFacture(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, [id, navigate]);  
   const [removeInvoice] = useRemoveInvoiceMutation();
 
   if(!localStorage.getItem('userId')) {
@@ -225,7 +245,7 @@ const Invoices  = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="FACTURES" subtitle="Liste entier des "   total= {data ? data.length : 0} />
+      <Header title="FACTURES" subtitle="Liste entier des "   total= {Facture ? Facture.length : 0} />
       <AddButton label="Nouvelle Facture" onClick={handleAddButton} />
       <Box
         height="80vh"
@@ -255,9 +275,9 @@ const Invoices  = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading}
           getRowId={(row) => row._id}
-          rows={data  || []}
+          rows={Facture}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination

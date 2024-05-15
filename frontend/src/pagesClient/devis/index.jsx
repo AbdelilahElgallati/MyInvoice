@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
@@ -22,7 +22,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import PrintIcon from "@mui/icons-material/Print";
-
+import axios from "axios";
 const Devis = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
@@ -30,8 +30,29 @@ const Devis = () => {
   }
   const theme = useTheme();
   const id = localStorage.getItem("userId");
+  const [Devis, setDevis] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+
   // hadi
-  const { data, isLoading } = useGetDevisQuery(id);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/Devi/List/${id}`);
+        setDevis(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, [id, navigate]); 
   const [removeDevi] = useRemoveDeviMutation();
   const [idDevi, setIdDevi] = useState("");
   const formatDate = (dateString) => {
@@ -238,7 +259,7 @@ const Devis = () => {
         <Header
           title="DEVIS"
           subtitle="Liste des bon de devi "
-          total={data ? data.length : 0}
+          total={Devis ? Devis.length : 0}
         />
         <Link to="/devis/new">
           <Button
@@ -279,9 +300,9 @@ const Devis = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={Devis}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination

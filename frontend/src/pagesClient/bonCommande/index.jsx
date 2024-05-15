@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
+import Header from "componementClient/Header";
 import {
-  useGetBonCommandesQuery,
+  
+  
   useRemoveBonCommandeMutation,
 } from "state/api";
-import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,18 +22,35 @@ import PrintIcon from "@mui/icons-material/Print";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const BonCommandes = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const id = localStorage.getItem("userId");
-  // hadi
-  const { data, isLoading } = useGetBonCommandesQuery(id);
+  const [bonCommandes, setBonCommandes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/BonCommandes/List/${id}`);
+        setBonCommandes(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, [id, navigate]);
   const [removeBonCommandes] = useRemoveBonCommandeMutation();
 
-  if (!localStorage.getItem("userId")) {
-    navigate("/");
-  }
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -223,7 +241,7 @@ const BonCommandes = () => {
     window.location.href = `/bon-commandes/edit/${id}`;
   };
 
-  const handleDelete = async (id) => {
+ const handleDelete = async (id) => {
     try {
       await removeBonCommandes(id);
       window.location.reload();
@@ -238,7 +256,7 @@ const BonCommandes = () => {
         <Header
           title="BON COMMANDES"
           subtitle="Liste des bon de commandes "
-          total={data ? data.length : 0}
+          total={bonCommandes ? bonCommandes.length : 0}
         />
         <Link to="/bon-commandes/new">
           <Button
@@ -279,9 +297,9 @@ const BonCommandes = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={bonCommandes}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
@@ -295,3 +313,4 @@ const BonCommandes = () => {
 };
 
 export default BonCommandes;
+

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
@@ -22,17 +22,37 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import PrintIcon from "@mui/icons-material/Print";
-
+import axios from "axios";
 const BonLivraison = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const id = localStorage.getItem("userId");
+  const [bonLivraison, setbonLivraison] = useState([]);
+
+  const [isLoading, setIsLoading] = useState(true);
+
   // hadi
-  const { data, isLoading } = useGetBonLivraisonQuery(id);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/BonLivraison/List/${id}`);
+        setbonLivraison(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, [id, navigate]);
   const [removeBonLivraison] = useRemoveBonLivraisonMutation();
-  if(data) {
-    console.log("data : ", data);
-  }
+ 
+  
   if (!localStorage.getItem("userId")) {
     navigate("/");
   }
@@ -242,7 +262,7 @@ const BonLivraison = () => {
         <Header
           title="BON DE LIVRAISON"
           subtitle="Liste des bon de livraison "
-          total={data ? data.length : 0}
+          total={bonLivraison ? bonLivraison.length : 0}
         />
         <Link to="/bon-livraison/new">
           <Button
@@ -283,9 +303,9 @@ const BonLivraison = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={bonLivraison}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
