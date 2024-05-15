@@ -54,6 +54,7 @@ const AddClient = () => {
           margin="normal"
         />
         <TextField
+          type="email"
           label="Email"
           name="email"
           value={client.email}

@@ -281,7 +281,7 @@ const Dashboard = () => {
         />
         <StatBox
           title="Ventes (Dhs)"
-          value={dashboard && dashboard.totalPaidAmount}
+          value={dashboard && dashboard.totalPaidAmount.toFixed(2)}
           icon={
             <MonetizationOnIcon
               sx={{ color: theme.palette.secondary[300], fontSize: "26px" }}

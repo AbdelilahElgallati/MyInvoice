@@ -17,13 +17,16 @@ const Invoices  = () => {
 
   const theme = useTheme();
   const navigate = useNavigate();
-  const id = localStorage.getItem('userId');
-  const { data, isLoading } = useGetInvoicesQuery(id);
-  const [removeInvoice] = useRemoveInvoiceMutation();
 
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
+
+  const id = localStorage.getItem('userId');
+  const { data, isLoading } = useGetInvoicesQuery(id);
+  const [removeInvoice] = useRemoveInvoiceMutation();
+  
+
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -197,7 +200,7 @@ const Invoices  = () => {
   };
 
   const handleEmail = (id) => {
-    // Logic for sending email
+    navigate(`/factures/email/${id}`);
   };
 
   const handleEdit = (id) => {
@@ -213,7 +216,6 @@ const Invoices  = () => {
     }
   };
 
-  
 
   return (
     <Box m="1.5rem 2.5rem">

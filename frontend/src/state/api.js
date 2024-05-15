@@ -74,11 +74,6 @@ export const api = createApi({
         body: data,
       }),
     }),
-<<<<<<< HEAD
-=======
-
-    // Service
->>>>>>> b1e17b7ce2ededaef2e8b40a2630734390f64c3b
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],
@@ -318,6 +313,17 @@ export const api = createApi({
       query: () => "Invoice/summary",
       providesTags: ["Sales"],
     }),
+    sendEmail: build.mutation({
+      query: ({ clientEmail, clientName, userName, invoiceNumber, itemsTable, amount, formattedDueDate,
+         userPhone,userAddress,userEmail
+       }) => ({
+        url: `Invoice/email`,
+        method: "POST",
+        body: { clientEmail, clientName, userName, invoiceNumber, itemsTable, amount, formattedDueDate,
+          userPhone,userAddress,userEmail
+        },
+      }),
+    }),
     getDashboardClient: build.query({
       query: (id) => `Invoice/dashboard/${id}`,
       providesTags: ["Dashboard"],
@@ -432,6 +438,8 @@ export const {
   useGetOneCategorieQuery,
   useUpdateCategorieMutation,
   useRemoveCategorieMutation,
+
+  useSendEmailMutation,
 
   useGetInvoiceDetailsQuery,
 

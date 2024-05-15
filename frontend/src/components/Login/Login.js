@@ -223,10 +223,12 @@ const Login = () => {
       ) {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
+        localStorage.setItem("userName", Info.data.user.name);
         navigate("/dashboard");
       } else if (entrepriseInfo.status === "active") {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
+        localStorage.setItem("userName", Info.data.user.name);
         navigate("/dashboardClient");
       }
     } catch (error) {

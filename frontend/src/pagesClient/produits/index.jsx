@@ -13,8 +13,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Products  = () => {
   const theme = useTheme();
-  const id = localStorage.getItem('userId')
+  const id = localStorage.getItem('userId');
   const { data, isLoading } = useGetProductsQuery(id);
+  console.log("data produits :", data);
   const [removeProduit] = useRemoveProduitMutation();
   const columns = [
     {
@@ -44,9 +45,10 @@ const Products  = () => {
       flex: 1,
     },
     {
-        field: "categoryName",
+        field: "categoryId",
         headerName: "Catégorie",
         flex: 0.6,
+        renderCell: (params) => params.row.categoryId.categoryName,
     },
     {
         field: "quantity",

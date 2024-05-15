@@ -64,7 +64,7 @@ const PrintInvoice = () => {
             <Box m={2}/>
           <Box display="flex" justifyContent="space-between" alignItems="center">
             <Box bgcolor="gray" borderRadius={4} p={2} >
-            <Typography variant="h6" sx={{ color: "white", fontWeight: "bold" }}>Numéro de Facture: #{invoiceNumber}</Typography>
+            <Typography variant="h6" sx={{ color: "white", fontWeight: "bold" }}>Facture N° :  #{invoiceNumber}</Typography>
             </Box>  
             <Box bgcolor={getStatusColor(invoiceStatus)} borderRadius={4} p={2}>
             <Typography variant="h6" sx={{ color: "white", fontWeight: "bold", '@media print': { display: 'none' } }}>Status: {invoiceStatus}</Typography>
@@ -120,6 +120,13 @@ const PrintInvoice = () => {
           </TableBody>
         </Table>
       </TableContainer>
+      <Box m={7} />
+      <Box mt={2} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+        <Box p={1}>
+          <Typography variant="body1" fontWeight="bold">Signature:</Typography>
+          <Box sx={{ width: '200px', height: '100px', border: '1px solid #000', marginLeft: '10px' }}></Box>
+        </Box>
+      </Box>
       </Paper>
       <Grid container spacing={2} justifyContent="center" sx={{ '@media print': { display: 'none' } }}>
         <Grid item>

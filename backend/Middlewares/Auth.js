@@ -13,6 +13,7 @@ const loginMiddleware = async (req, res, next) => {
     if (!isPasswordValid) {
       return res.status(401).json({ error: "Email ou mot de passe incorrect" });
     }
+
     const jsenwebtkn = jwt.sign({ userId: user._id }, "AbdelilahElgallati1230");
     req.token = jsenwebtkn;
     req.user = user;
