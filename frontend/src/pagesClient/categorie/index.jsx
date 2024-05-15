@@ -18,6 +18,7 @@ const Categories = () => {
   const theme = useTheme();
   const id = localStorage.getItem('userId')
   const [removeCategorie] = useRemoveCategorieMutation();
+  // hadi
   const { data, isLoading } = useGetAllCategoriesQuery(id);
   const columns = [
     {

@@ -22,6 +22,7 @@ const SubscriptionPalns = () => {
     status: "",
   })
   const theme = useTheme();
+  // hadi
   const { data, isLoading } = useGetSubscriptionsQuery();
   const [removeSubscription] = useRemoveSubscriptionMutation();
   useEffect(()=>{

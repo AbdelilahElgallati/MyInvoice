@@ -101,10 +101,6 @@ const Pack = ({
               </ListItem>
             ))}
           </List>
-          <Typography>
-            Période: {new Date(startDate).toLocaleDateString()} -{" "}
-            {new Date(endDate).toLocaleDateString()}
-          </Typography>
         </CardContent>
       </Collapse>
     </Card>
@@ -114,6 +110,7 @@ const Pack = ({
 const Packs = () => {
   
   const [packs, setPacks] = useState([]);
+  // hadi
   const { data } = useGetPacksQuery();
   const isNonMobile = useMediaQuery("(min-width: 1000px)");
   useEffect(() => {
@@ -156,8 +153,6 @@ const Packs = () => {
               description,
               services,
               price,
-              startDate,
-              endDate,
             }) => (
               <Pack
                 key={_id}
@@ -165,8 +160,6 @@ const Packs = () => {
                 name={name}
                 description={description}
                 price={price}
-                startDate={startDate}
-                endDate={endDate}
                 services={services}
               />
             )

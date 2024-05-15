@@ -236,12 +236,6 @@ const Header = () => {
             French
           </option>
           <option
-            value="ara"
-            className="text-accent hover:accent-accentHover "
-          >
-           العربية
-          </option>
-          <option
             value="spa"
             className="text-accent hover:accent-accentHover "
           >
@@ -252,6 +246,12 @@ const Header = () => {
             className="text-accent hover:accent-accentHover "
           >
           Chinois
+          </option>
+          <option
+            value="ara"
+            className="text-accent hover:accent-accentHover "
+          >
+           العربية
           </option>
           {/* Ajoutez d'autres options de langues au besoin */}
         </select>

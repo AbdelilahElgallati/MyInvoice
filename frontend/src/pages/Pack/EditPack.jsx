@@ -32,8 +32,6 @@ const EditPack = () => {
     description: "",
     services: [],
     price: 0,
-    startDate: "",
-    endDate: "",
   });
   const { id } = useParams();
   const { data: packData } = useGetOnePackQuery(id);
@@ -47,15 +45,11 @@ const EditPack = () => {
 
   useEffect(() => {
     if (packData) {
-      const formattedStartDate = formatDate(packData.startDate);
-      const formattedEndDate = formatDate(packData.endDate);
       setPack({
         name: packData.name || "",
         description: packData.description || "",
         services: packData.services.map((service) => service.serviceId) || [],
         price: packData.price || 0,
-        startDate: formattedStartDate,
-        endDate: formattedEndDate,
       });
     }
   }, [packData]);
@@ -76,8 +70,6 @@ const EditPack = () => {
       formData.append("name", pack.name);
       formData.append("description", pack.description);
       formData.append("price", pack.price);
-      formData.append("startDate", pack.startDate);
-      formData.append("endDate", pack.endDate);
       const serviceObjects = pack.services.map((serviceId) => ({ serviceId }));
       formData.append("services", JSON.stringify(serviceObjects));
       if (logo) {
@@ -97,14 +89,6 @@ const EditPack = () => {
     } catch (error) {
       console.log(error);
     }
-  };
-
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const month = (date.getMonth() + 1).toString().padStart(2, "0");
-    const day = date.getDate().toString().padStart(2, "0");
-    const year = date.getFullYear();
-    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -183,31 +167,6 @@ const EditPack = () => {
               ))}
           </Select>
         </FormControl>
-        <TextField
-          label="Date de début"
-          name="startDate"
-          type="date"
-          value={pack.startDate}
-          onChange={handleChange}
-          fullWidth
-          required
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
-        <TextField
-          label="Date de fin"
-          name="endDate"
-          type="date"
-          value={pack.endDate}
-          onChange={handleChange}
-          fullWidth
-          margin="normal"
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
         <FormControl fullWidth margin="normal">
           <InputLabel htmlFor="icon-input">Icon</InputLabel>
           <Input

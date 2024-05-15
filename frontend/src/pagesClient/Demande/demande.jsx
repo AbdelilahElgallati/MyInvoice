@@ -10,9 +10,8 @@ import {
   Input,
 } from "@mui/material";
 import {
-  useGetEntrepriseDetailQuery,
-  useUpdateEntrepriseMutation,
-  useChangePasswordEntrepriseMutation,
+  useGetPacksQuery,
+  useAddDemandeMutation,
 } from "state/api";
 import Header from "componentsAdmin/Header";
 
@@ -23,121 +22,50 @@ const Profil = () => {
   }
   const id = localStorage.getItem("userId");
   const theme = useTheme();
-  const [enterpriseDetails, setEnterpriseDetails] = useState(null);
-  const [changePassword] = useChangePasswordEntrepriseMutation(id);
+  const [AddDemande] = useAddDemandeMutation();
+  const [pack, setPack] = useState(null);
+  const [demande, setDemande] = useState({
+    userId: id,
+    packId: "",
+    nombreAnnee: "",
+    status: "en attent",
+    amount: 0,
+  })
   const [enterpriseMotPasse, setEnterpriseMotPasse] = useState({
     oldPassword: "",
     newPassword: "",
     confirmPassword: "",
   });
 
-  const [logo, setLogo] = useState(null);
-  const [updateEntreprise] = useUpdateEntrepriseMutation();
+  
   // hadi
-  const { data, isLoading } = useGetEntrepriseDetailQuery(
-    localStorage.getItem("userId")
-  );
+  const { data, isLoading } = useGetPacksQuery();
 
   useEffect(() => {
     if (data) {
-      setEnterpriseDetails(data);
+      setPack(data);
     }
   }, [data]);
 
-  if (isLoading || !enterpriseDetails) {
-    return <Typography>Loading...</Typography>;
-  }
+  
 
   const handleFieldChange = (field, value) => {
-    setEnterpriseDetails((prevDetails) => ({
-      ...prevDetails,
-      [field]: value,
-    }));
-  };
-
-  const handleFieldPasswordChange = (field, value) => {
-    setEnterpriseMotPasse((prevDetails) => ({
-      ...prevDetails,
+    setDemande((prevDemande) => ({
+      ...prevDemande,
       [field]: value,
     }));
   };
 
   const handleSubmit = async (event) => {
-    console.log("Détails de l'entreprise modifiés :", enterpriseDetails);
+    console.log("les informations de demande :", demande);
     event.preventDefault();
     try {
-      const formData = new FormData();
-      formData.append("name", enterpriseDetails.name);
-      formData.append("email", enterpriseDetails.email);
-      formData.append("phone", enterpriseDetails.phone);
-      formData.append("address", enterpriseDetails.address);
-      if (logo) {
-        formData.append("logo", logo);
-      }
-      const id = localStorage.getItem("userId");
-      await updateEntreprise({ id, entreprise: formData });
-      window.location.reload();
+      await AddDemande({ demande  });
     } catch (error) {
       console.log(error);
     }
   };
 
-  // const handleChangePassword = (event) => {
-  //   event.preventDefault();
-  
-  //   console.log("Mot de passe de l'entreprise modifié :", enterpriseMotPasse);
-  //   try {
-  //     if (
-  //       enterpriseMotPasse.newPassword === enterpriseMotPasse.confirmPassword
-  //     ) {
-  //       console.log(enterpriseMotPasse)
-  //       const res = changePassword({ id, enterpriseMotPasse : enterpriseMotPasse });
-  //       console.log(res)
-  //       if (res.data.message === "Password changed successfully") {
-  //         localStorage.removeItem("userId");
-  //         localStorage.removeItem("token");
-  //         navigate("/");
-  //       } else {
-  //         console.log("message : ", res.data.message);
-  //       }
-  //     } else {
-  //       console.log("Passwords don't match");
-  //     }
-  //   } catch (err) {
-  //     console.log("err : ", err);
-  //   }
-  // };
-
-  const handleChangePassword = async (event) => {
-    event.preventDefault();
-    console.log("Mot de passe de l'entreprise modifié :", enterpriseMotPasse);
-    try {
-      if (enterpriseMotPasse.newPassword === enterpriseMotPasse.confirmPassword) {
-        const { data, error } = await changePassword({ id, enterpriseMotPasse: enterpriseMotPasse });
-        if (data) {
-          console.log("Message :", data.message);
-          if (data.message === "Password changed successfully") {
-            localStorage.removeItem("userId");
-            localStorage.removeItem("token");
-            navigate("/");
-          } else {
-            console.log("Message :", data.message);
-          }
-        } else if (error) {
-          console.log("Erreur :", error);
-        }
-      } else {
-        console.log("Passwords don't match");
-      }
-    } catch (err) {
-      console.log("Erreur :", err);
-    }
-  };
-  
-
-  const handleIconChange = (e) => {
-    setLogo(e.target.files[0]);
-  };
 
   return (
     <Box m="2rem 2.5rem">

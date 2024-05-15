@@ -20,7 +20,8 @@ export const api = createApi({
     "Fournisseurs",
     "BonCommandes",
     "BonLivraison",
-    "Devi"
+    "Devi",
+    "Demande"
   ],
   endpoints: (build) => ({
     getEntreprise: build.query({
@@ -513,6 +514,36 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+
+    // Demande
+    getDemandes: build.query({
+      query: (id) => `Demande/${id}`,
+      providesTags: ["Demande"],
+    }),
+    getOneDemande: build.query({
+      query: (id) => `Demande/${id}`,
+      providesTags: ["Demande"],
+    }),
+    updateDemande: build.mutation({
+      query: ({ id, DemandeData }) => ({
+        url: `Demande/edit/${id}`,
+        method: "PUT",
+        body: DemandeData,
+      }),
+    }),
+    addDemande: build.mutation({
+      query: (Demande) => ({
+        url: `Demande/add`,
+        method: "POST",
+        body: Demande,
+      }),
+    }),
+    removeDemande: build.mutation({
+      query: (id) => ({
+        url: `Demande/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -623,4 +654,11 @@ export const {
   useGetOneDeviQuery,
   useUpdateDeviMutation,
   useRemoveDeviMutation,
+
+  // Demande
+  useGetDemandesQuery,
+  useGetOneDemandeQuery,
+  useUpdateDemandeMutation,
+  useAddDemandeMutation,
+  useRemoveDemandeMutation,
 } = api;

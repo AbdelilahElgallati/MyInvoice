@@ -8,8 +8,6 @@ const PackSchema = new Schema({
     serviceId: { type: Schema.Types.ObjectId, ref: 'Service', required: true },
   }],
   price: { type: Number, required: true },
-  startDate: { type: Date, default: Date.now },
-  endDate: { type: Date },
   logo: { type: String },
 },
 {timestamps: true}

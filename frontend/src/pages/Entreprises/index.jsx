@@ -17,6 +17,7 @@ const Entreprises = () => {
   }
   const [entreprises, setEntreprises] = useState([]);
   const theme = useTheme();
+  // hadi
   const { data, isLoading } = useGetAllEntreprisesQuery();
   const [removeEntreprise] = useRemoveEntrepriseMutation();
 

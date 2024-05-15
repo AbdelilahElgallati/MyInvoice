@@ -22,6 +22,7 @@ const Services = () => {
   })
   const theme = useTheme();
   const [removeService] = useRemoveServiceMutation();
+  // hadi
   const { data, isLoading } = useGetAllServicesQuery();
   useEffect(()=>{
     if(data) {

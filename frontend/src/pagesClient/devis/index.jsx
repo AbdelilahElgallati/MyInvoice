@@ -30,6 +30,7 @@ const Devis = () => {
   }
   const theme = useTheme();
   const id = localStorage.getItem("userId");
+  // hadi
   const { data, isLoading } = useGetDevisQuery(id);
   const [removeDevi] = useRemoveDeviMutation();
   const [idDevi, setIdDevi] = useState("");

@@ -26,6 +26,7 @@ const BonCommandes = () => {
   const theme = useTheme();
   const navigate = useNavigate();
   const id = localStorage.getItem("userId");
+  // hadi
   const { data, isLoading } = useGetBonCommandesQuery(id);
   const [removeBonCommandes] = useRemoveBonCommandeMutation();
 

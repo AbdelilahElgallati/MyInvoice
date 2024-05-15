@@ -24,6 +24,7 @@ const Models = () => {
   
   const theme = useTheme();
   const [removeModel] = useRemoveModelMutation();
+  // hadi
   const { data, isLoading } = useGetAllModelsQuery();
   useEffect(()=>{
     if(data) {

@@ -14,6 +14,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 const Products  = () => {
   const theme = useTheme();
   const id = localStorage.getItem('userId')
+  // hadi
   const { data, isLoading } = useGetProductsQuery(id);
   const [removeProduit] = useRemoveProduitMutation();
   const columns = [
