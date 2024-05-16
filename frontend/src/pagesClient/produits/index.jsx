@@ -13,12 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 const Products  = () => {
   const theme = useTheme();
-<<<<<<< HEAD
   const id = localStorage.getItem('userId');
-=======
-  const id = localStorage.getItem('userId')
-  // hadi
->>>>>>> 1b3d9d58fe49bf9daf641578b7e4a8e16165cdbf
   const { data, isLoading } = useGetProductsQuery(id);
   console.log("data produits :", data);
   const [removeProduit] = useRemoveProduitMutation();
@@ -171,7 +166,5 @@ const Products  = () => {
     </Box>
   );
 };
-
-// test add .
 
 export default Products;

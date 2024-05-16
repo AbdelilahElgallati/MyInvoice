@@ -195,7 +195,6 @@ const getDashboardStats = async (req, res) => {
     const todayStats = overallStat[0].dailyData.find(({ date }) => {
       return date === currentDay;
     });
-<<<<<<< HEAD
    /* console.log(  invoices,
       totalPaidAmount,
       totalCustomers,
@@ -209,8 +208,6 @@ const getDashboardStats = async (req, res) => {
       salesByCategory,
       thisMonthStats,
       todayStats,);*/
-=======
->>>>>>> 1b3d9d58fe49bf9daf641578b7e4a8e16165cdbf
     res.status(200).json({
       invoices,
       totalPaidAmount,

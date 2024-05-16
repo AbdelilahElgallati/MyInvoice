@@ -63,12 +63,14 @@ const Login = () => {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
         localStorage.setItem("userName", Info.data.user.name);
-        navigate("/dashboard");
+        const userName = localStorage.getItem('userName');
+        navigate(`/${userName}/dashboard`);
       } else if (entrepriseInfo.status === "active") {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
         localStorage.setItem("userName", Info.data.user.name);
-        navigate("/dashboardClient");
+        const userName = localStorage.getItem('userName');
+        navigate(`/${userName}/dashboardClient`);
       }
     } catch (error) {
       console.log(error);

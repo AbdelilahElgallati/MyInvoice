@@ -17,27 +17,15 @@ const Invoices  = () => {
 
   const theme = useTheme();
   const navigate = useNavigate();
-<<<<<<< HEAD
-=======
-  const id = localStorage.getItem('userId');
-  // hadi
-  const { data, isLoading } = useGetInvoicesQuery(id);
-  const [removeInvoice] = useRemoveInvoiceMutation();
->>>>>>> 1b3d9d58fe49bf9daf641578b7e4a8e16165cdbf
 
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
-<<<<<<< HEAD
-
   const id = localStorage.getItem('userId');
   const { data, isLoading } = useGetInvoicesQuery(id);
   const [removeInvoice] = useRemoveInvoiceMutation();
   
-
-=======
   const [idInvoice, setIdInvoice] = useState("")
->>>>>>> 1b3d9d58fe49bf9daf641578b7e4a8e16165cdbf
   const formatDate = (dateString) => {
     if (!dateString) return '';
     const date = new Date(dateString);
@@ -212,16 +200,13 @@ const Invoices  = () => {
     navigate(`/factures/imprimer/${id}`);
   };
 
-  
+
   const handleEmail = (id) => {
-<<<<<<< HEAD
     navigate(`/factures/email/${id}`);
-=======
     setIdInvoice(id);
     if(invoiceDetail ) {
       console.log('invoice : ', invoiceDetail)
     }
->>>>>>> 1b3d9d58fe49bf9daf641578b7e4a8e16165cdbf
   };
 
   const handleEdit = (id) => {

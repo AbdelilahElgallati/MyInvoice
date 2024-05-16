@@ -93,9 +93,6 @@ export const api = createApi({
         body: data,
       }),
     }),
-<<<<<<< HEAD
-=======
-
     changePasswordEntreprise: build.mutation({
       query: ({ id, enterpriseMotPasse }) => ({
         url: `Entreprise/changePassword/${id}`,
@@ -103,9 +100,7 @@ export const api = createApi({
         body: enterpriseMotPasse,
       }),
     }),
-
     // Service
->>>>>>> 1b3d9d58fe49bf9daf641578b7e4a8e16165cdbf
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],

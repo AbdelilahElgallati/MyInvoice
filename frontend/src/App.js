@@ -104,10 +104,10 @@ const App = () => {
           <Route path="/pack" element={<Abonement />} />
           <Route path="/DarkMode" element={<DarkMode />} />
           <Route path="/Apropos" element={<Apropos />} />
-          <Route path="/factures/imprimer/:id" element={<PrintInvoice />} />
-          <Route path="/bon-commandes/imprimer/:id" element={<PrintBonCommande />} />
-          <Route path="/bon-livraison/imprimer/:id" element={<PrintBonLivraison />} />
-          <Route path="/devis/imprimer/:id" element={<PrintDevi />} />
+          <Route path="/:userName/factures/imprimer/:id" element={<PrintInvoice />} />
+          <Route path="/:userName/bon-commandes/imprimer/:id" element={<PrintBonCommande />} />
+          <Route path="/:userName/bon-livraison/imprimer/:id" element={<PrintBonLivraison />} />
+          <Route path="/:userName/devis/imprimer/:id" element={<PrintDevi />} />
 
           <Route element={<AddThemeProvider theme={theme} pages={Layout} />}>
             <Route path="/dashboard" element={<Dashboard />} />
@@ -126,73 +126,70 @@ const App = () => {
             <Route path="/SubscriptionsPlans/edit/:id" element={<AddThemeProvider theme={theme} pages={EditSubscription} />}/>
             <Route path="/Messages" element={<AddThemeProvider theme={theme} pages={Messages} />}/>
           </Route>
-
-<<<<<<< HEAD
           <Route element={<LayoutClientWithThemeProvider theme={theme} />}>
-            <Route path="/dashboardClient" element={<DachboardClientWithThemeProvider theme={theme} />} />
-            <Route path="/factures" element={<InvoiceWithThemeProvider theme={theme} />} />
-            <Route path="/factures/edit/:id" element={<EditInvoiceWithThemeProvider theme={theme} />} />
-            <Route path="/factures/details/:id" element={<DetailsInvoiceWithThemeProvider theme={theme} />} />
-            <Route path="/factures/email/:id" element={<SendEmailInvoiceWithThemeProvider theme={theme} />} />
-            <Route path="/produits" element={<ProductWithThemeProvider theme={theme} />} />
-            <Route path="/produits/edit/:id" element={<EditProductWithThemeProvider theme={theme} />} />
-            <Route path="/clients" element={<ClientsWithThemeProvider theme={theme} />} />
-            <Route path="/clients/edit/:id" element={<EditClientsWithThemeProvider theme={theme} />} />
-            <Route path="/apercu" element={<ApercuWithThemeProvider theme={theme} />} />
-            <Route path="/quotidien" element={<QuotidienWithThemeProvider theme={theme} />} />
-            <Route path="/mensuel" element={<MensuelWithThemeProvider theme={theme} />} />
-            <Route path="/ajouterFacture" element={<AddInvoiceWithThemeProvider theme={theme} />} />
-            <Route path="/ajouterProduit" element={<AddProductWithThemeProvider theme={theme} />} />
-            <Route path="/ajouterClient" element={<AddClientWithThemeProvider theme={theme} />} />
-            <Route path="/categories" element={<CategoriesWithThemeProvider theme={theme} />} />
-            <Route path="/categories/new" element={<NewCategoriesWithThemeProvider theme={theme} />} />
-            <Route path="/categories/edit/:id" element={<EditCategoriesWithThemeProvider theme={theme} />} />
-=======
+            <Route path="/:userName/dashboardClient" element={<DachboardClientWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/factures" element={<InvoiceWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/factures/edit/:id" element={<EditInvoiceWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/factures/details/:id" element={<DetailsInvoiceWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/factures/email/:id" element={<SendEmailInvoiceWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/produits" element={<ProductWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/produits/edit/:id" element={<EditProductWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/clients" element={<ClientsWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/clients/edit/:id" element={<EditClientsWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/apercu" element={<ApercuWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/quotidien" element={<QuotidienWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/mensuel" element={<MensuelWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/ajouterFacture" element={<AddInvoiceWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/ajouterProduit" element={<AddProductWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/ajouterClient" element={<AddClientWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/categories" element={<CategoriesWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/categories/new" element={<NewCategoriesWithThemeProvider theme={theme} />} />
+            <Route path="/:userName/categories/edit/:id" element={<EditCategoriesWithThemeProvider theme={theme} />} />
           <Route element={<AddThemeProvider theme={theme} pages={LayoutClient} />}>
             {/* générale */}
-            <Route path="/dashboardClient"element={  <AddThemeProvider theme={theme} pages={DashboardClient} />}/>
-            <Route path="/profil" element={<AddThemeProvider theme={theme} pages={Profil} />}/>
+            <Route path="/:userName/dashboardClient"element={  <AddThemeProvider theme={theme} pages={DashboardClient} />}/>
+            <Route path="/:userName/profil" element={<AddThemeProvider theme={theme} pages={Profil} />}/>
             {/* facture */}
-            <Route  path="/factures" element={<AddThemeProvider theme={theme} pages={Invoices} />}/>
-            <Route path="/ajouterFacture" element={<AddThemeProvider theme={theme} pages={AddInvoice} />}/>
-            <Route path="/factures/edit/:id" element={<AddThemeProvider theme={theme} pages={EditInvoice} />}/>
-            <Route path="/factures/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsInvoice} /> }/>
+            <Route  path="/:userName/factures" element={<AddThemeProvider theme={theme} pages={Invoices} />}/>
+            <Route path="/:userName/ajouterFacture" element={<AddThemeProvider theme={theme} pages={AddInvoice} />}/>
+            <Route path="/:userName/factures/edit/:id" element={<AddThemeProvider theme={theme} pages={EditInvoice} />}/>
+            <Route path="/:userName/factures/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsInvoice} /> }/>
             {/* produit */}
-            <Route path="/produits" element={<AddThemeProvider theme={theme} pages={Products} />}/>
-            <Route path="/ajouterProduit" element={<AddThemeProvider theme={theme} pages={AddProduct} />}/>
-            <Route path="/produits/edit/:id" element={<AddThemeProvider theme={theme} pages={EditProduit} />}/>
+            <Route path="/:userName/produits" element={<AddThemeProvider theme={theme} pages={Products} />}/>
+            <Route path="/:userName/ajouterProduit" element={<AddThemeProvider theme={theme} pages={AddProduct} />}/>
+            <Route path="/:userName/produits/edit/:id" element={<AddThemeProvider theme={theme} pages={EditProduit} />}/>
             {/* client */}
-            <Route path="/clients" element={<AddThemeProvider theme={theme} pages={Clients} />}/>
-            <Route path="/ajouterClient" element={<AddThemeProvider theme={theme} pages={AddClient} />}/>
-            <Route path="/clients/edit/:id" element={<AddThemeProvider theme={theme} pages={EditClient} />}/>
+            <Route path="/:userName/clients" element={<AddThemeProvider theme={theme} pages={Clients} />}/>
+            <Route path="/:userName/ajouterClient" element={<AddThemeProvider theme={theme} pages={AddClient} />}/>
+            <Route path="/:userName/clients/edit/:id" element={<AddThemeProvider theme={theme} pages={EditClient} />}/>
             {/* statistique */}
-            <Route path="/apercu" element={<AddThemeProvider theme={theme} pages={Overview} />}/>
-            <Route path="/quotidien" element={<AddThemeProvider theme={theme} pages={Daily} />}/>
-            <Route path="/mensuel" element={<AddThemeProvider theme={theme} pages={Monthly} />}/>
+            <Route path="/:userName/apercu" element={<AddThemeProvider theme={theme} pages={Overview} />}/>
+            <Route path="/:userName/quotidien" element={<AddThemeProvider theme={theme} pages={Daily} />}/>
+            <Route path="/:userName/mensuel" element={<AddThemeProvider theme={theme} pages={Monthly} />}/>
             {/* categorie */}
-            <Route path="/categories" element={<AddThemeProvider theme={theme} pages={Categories} />}/>
-            <Route path="/categories/new" element={<AddThemeProvider theme={theme} pages={AddCategorie} />}  />
-            <Route path="/categories/edit/:id" element={<AddThemeProvider theme={theme} pages={EditCategorie} />}/>
+            <Route path="/:userName/categories" element={<AddThemeProvider theme={theme} pages={Categories} />}/>
+            <Route path="/:userName/categories/new" element={<AddThemeProvider theme={theme} pages={AddCategorie} />}  />
+            <Route path="/:userName/categories/edit/:id" element={<AddThemeProvider theme={theme} pages={EditCategorie} />}/>
             {/* fournisseur */}
-            <Route path="/fournisseurs" element={<AddThemeProvider theme={theme} pages={Fournisseurs} />}/>
-            <Route path="/fournisseurs/new" element={   <AddThemeProvider theme={theme} pages={AddFournisseur} /> }/>
-            <Route path="/fournisseurs/edit/:id" element={   <AddThemeProvider theme={theme} pages={EditFournisseur} /> }/>
+            <Route path="/:userName/fournisseurs" element={<AddThemeProvider theme={theme} pages={Fournisseurs} />}/>
+            <Route path="/:userName/fournisseurs/new" element={   <AddThemeProvider theme={theme} pages={AddFournisseur} /> }/>
+            <Route path="/:userName/fournisseurs/edit/:id" element={   <AddThemeProvider theme={theme} pages={EditFournisseur} /> }/>
             {/* bon de commande */}
-            <Route path="/bon-commandes" element={<AddThemeProvider theme={theme} pages={BonCommandes} />}/>
-            <Route path="/bon-commandes/new" element={   <AddThemeProvider theme={theme} pages={AddBonCommande} /> }/>
-            <Route path="/bon-commandes/edit/:id" element={   <AddThemeProvider theme={theme} pages={EditBonCommande} /> }/>
-            <Route path="/bon-commandes/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsBonCommande} /> }/>
+            <Route path="/:userName/bon-commandes" element={<AddThemeProvider theme={theme} pages={BonCommandes} />}/>
+            <Route path="/:userName/bon-commandes/new" element={   <AddThemeProvider theme={theme} pages={AddBonCommande} /> }/>
+            <Route path="/:userName/bon-commandes/edit/:id" element={   <AddThemeProvider theme={theme} pages={EditBonCommande} /> }/>
+            <Route path="/:userName/bon-commandes/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsBonCommande} /> }/>
             {/* bon de livraison */}
-            <Route path="/bon-livraison" element={<AddThemeProvider theme={theme} pages={BonLivraison} />}/>
-            <Route path="/bon-livraison/new" element={   <AddThemeProvider theme={theme} pages={AddBonLivraison} /> }/>
-            <Route path="/bon-livraison/edit/:id" element={   <AddThemeProvider theme={theme} pages={EditBonLivraison} /> }/>
-            <Route path="/bon-livraison/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsBonLivraison} /> }/>
+            <Route path="/:userName/bon-livraison" element={<AddThemeProvider theme={theme} pages={BonLivraison} />}/>
+            <Route path="/:userName/bon-livraison/new" element={   <AddThemeProvider theme={theme} pages={AddBonLivraison} /> }/>
+            <Route path="/:userName/bon-livraison/edit/:id" element={   <AddThemeProvider theme={theme} pages={EditBonLivraison} /> }/>
+            <Route path="/:userName/bon-livraison/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsBonLivraison} /> }/>
             {/* devis */}
-            <Route path="/devis" element={<AddThemeProvider theme={theme} pages={Devis} />}/>
-            <Route path="/devis/new" element={<AddThemeProvider theme={theme} pages={AddDevi} />}/>
-            <Route path="/devis/edit/:id" element={<AddThemeProvider theme={theme} pages={EditDevi} />}/>
-            <Route path="/devis/details/:id" element={<AddThemeProvider theme={theme} pages={DetailsDevi} />}/>
->>>>>>> 1b3d9d58fe49bf9daf641578b7e4a8e16165cdbf
+            <Route path="/:userName/devis" element={<AddThemeProvider theme={theme} pages={Devis} />}/>
+            <Route path="/:userName/devis/new" element={<AddThemeProvider theme={theme} pages={AddDevi} />}/>
+            <Route path="/:userName/devis/edit/:id" element={<AddThemeProvider theme={theme} pages={EditDevi} />}/>
+            <Route path="/:userName/devis/details/:id" element={<AddThemeProvider theme={theme} pages={DetailsDevi} />}/>
+          </Route>
           </Route>
         </Routes>
       </div>
@@ -206,8 +203,6 @@ const AddThemeProvider = ({ theme, children, pages }) => (
     {React.createElement(pages, null, children)}
   </ThemeProvider>
 );
-
-<<<<<<< HEAD
 
 const CategoriesWithThemeProvider = ({ theme, children }) => (
   <ThemeProvider theme={theme}>
@@ -445,6 +440,5 @@ const AddClientWithThemeProvider = ({ theme, children }) => (
     <AddClient>{children}</AddClient>
   </ThemeProvider>
 );
-=======
->>>>>>> 1b3d9d58fe49bf9daf641578b7e4a8e16165cdbf
+
 export default App;
