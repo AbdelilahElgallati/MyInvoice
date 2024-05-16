@@ -12,8 +12,11 @@ const addMessage = async (req, res) => {
 }
 
 const  getAllMessages = async (req, res) => {
+  console.log("hello from msgs");
   try {
+
     const  messages = await Message.find().populate('userId', ['name', 'logo']);
+    console.log("message :"+message);
     const organizedmessages = messages.map(message => {
       const createdAt = new Date(message.createdAt).toLocaleDateString('fr-FR');
       return {
