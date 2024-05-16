@@ -219,7 +219,7 @@ const Header = () => {
         <select
           onChange={handleLanguageChange}
           value={lang}
-          className=" border border-accent dark:bg-black text-accent block rounded-md  py-2 px-[10px] focus:outline-none focus:border-accent  font-Quicksand cursor-pointer"
+          className=" border border-accent dark:bg-black bg-white text-accent block rounded-md  py-2 pl-[10px] focus:outline-none focus:border-accent  font-Quicksand cursor-pointer"
           // data-aos="fade-down"
           // data-aos-delay="100"
         >
