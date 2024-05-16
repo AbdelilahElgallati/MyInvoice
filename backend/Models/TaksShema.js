@@ -8,4 +8,4 @@ const TaksShema = new Schema({
 
 const Taks = mongoose.model('Taks', TaksShema);
 
-module.exports = Taks;
+module.exports = Taks; 

@@ -1,86 +1,65 @@
-import React, { useEffect, useState } from "react";
-import { Box, useTheme, IconButton } from "@mui/material";
-import axios from "axios"; // Importer axios
+import React, { useState, useEffect } from "react";
+import { Box, useTheme, Button, IconButton } from "@mui/material";
+import { useGetAllCategoriesQuery, useRemoveTaksMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
+import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Link } from "react-router-dom";
+import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
-import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
-import { useUpdateMessageMutation } from "state/api";
-
-const Messages = () => {
+import axios from "axios";
+const Categories = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
     navigate("/");
   }
-  const [messages, setMessages] = useState([]);
   const theme = useTheme();
-  const [updateMessage] = useUpdateMessageMutation();
+  const id = localStorage.getItem("userId");
+  const [Taks, setTaks] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  // hadi
   useEffect(() => {
-    const fetchMessages = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Message/");
-        setMessages(response.data);
+        const response = await axios.get(
+          `http://localhost:3001/Api/Taks/Entreprise/${id}`
+        );
+        setTaks(response.data);
+        setIsLoading(false);
       } catch (error) {
-        console.log(error);
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
       }
     };
 
-    fetchMessages();
-  }, []);
-
-  const handleDelete = async (id) => {
-    try {
-      await axios.delete(`http://localhost:3001/Api/Message/remove/${id}`);
-      setMessages(messages.filter((message) => message._id !== id));
-    } catch (error) {
-      console.log(error);
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
     }
-  };
-
-  const handleEditAccept = async (id) => {
-    const thisMessage = messages.find((message) => message._id === id);
-    if(thisMessage) {
-      thisMessage.status = "accepter";
-      await updateMessage({ id, MessageData : thisMessage });
-    }
-  };
+  }, [id, navigate]);
+  const [removeTaks] = useRemoveTaksMutation();
 
   const columns = [
     {
-      field: "enterpriseName",
-      headerName: "Entreprise",
+      field: "TaksValleur",
+      headerName: "Taxes",
       flex: 1,
-    },
-    {
-      field: "message",
-      headerName: "Message",
-      flex: 1,
-    },
-    {
-      field: "createdAt",
-      headerName: "Date d'envoie",
-      flex: 1,
-    },
-    {
-      field: "status",
-      headerName: "Status",
-      flex: 0.6,
+      renderCell: (params) => {
+        const Taxe = params.value;
+        return <span>{Taxe} %</span>;
+      },
     },
     {
       field: "actions",
       headerName: "Actions",
-      flex: 0.4,
+      flex: 0.2,
       sortable: false,
       renderCell: (params) => (
         <Box>
-          <IconButton
-            onClick={() => handleEditAccept(params.row._id)}
-            aria-label="edit"
-          >
-            <AddTaskOutlinedIcon />
-          </IconButton>
-
           <IconButton
             onClick={() => handleDelete(params.row._id)}
             aria-label="delete"
@@ -92,9 +71,31 @@ const Messages = () => {
     },
   ];
 
+  const handleDelete = async (id) => {
+    try {
+      await removeTaks(id);
+      window.location.reload();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="MESSAGES" subtitle="Liste de messages" />
+      <FlexBetween>
+        <Header title="Taxes" subtitle="Liste de Taxes" />
+        <Link to="/Taks/new">
+          <Button
+            variant="contained"
+            color="primary"
+            startIcon={<AddOutlinedIcon />}
+            sx={{ mt: 3, mb: 2 }}
+          >
+            Add
+          </Button>
+        </Link>
+      </FlexBetween>
+
       <Box
         mt="40px"
         height="75vh"
@@ -124,9 +125,9 @@ const Messages = () => {
         }}
       >
         <DataGrid
-          loading={!messages.length}
+          loading={isLoading}
           getRowId={(row) => row._id}
-          rows={messages || []}
+          rows={Taks || []}
           columns={columns}
         />
       </Box>
@@ -134,4 +135,4 @@ const Messages = () => {
   );
 };
 
-export default Messages;
+export default Categories;

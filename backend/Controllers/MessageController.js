@@ -12,8 +12,11 @@ const addMessage = async (req, res) => {
 }
 
 const  getAllMessages = async (req, res) => {
+  console.log("hello from msgs");
   try {
+
     const  messages = await Message.find().populate('userId', ['name', 'logo']);
+    console.log("message :"+message);
     const organizedmessages = messages.map(message => {
       const createdAt = new Date(message.createdAt).toLocaleDateString('fr-FR');
       return {
@@ -23,6 +26,28 @@ const  getAllMessages = async (req, res) => {
         enterpriseLogo: message.userId.logo, 
         createdAt: createdAt,
         message: message.message,
+        status: message.status,
+      };
+    });
+    res.status(201).json(organizedmessages);
+  } catch (error) {
+    res.status(500).send("Erreur serveur lors de la recherche des Messages");
+  }
+}
+
+const  getAllMessagesAccepter = async (req, res) => {
+  try {
+    const  messages = await Message.find({status: "accepter"}).populate('userId', ['name', 'logo']);
+    const organizedmessages = messages.map(message => {
+      const createdAt = new Date(message.createdAt).toLocaleDateString('fr-FR');
+      return {
+        _id: message._id,
+        enterpriseId: message.userId._id,
+        enterpriseName: message.userId.name,
+        enterpriseLogo: message.userId.logo, 
+        createdAt: createdAt,
+        message: message.message,
+        status: message.status,
       };
     });
     res.status(201).json(organizedmessages);
@@ -42,7 +67,7 @@ const  getOneMessage = async (req, res) => {
 
 const  updateMessage = async (req,res)=>{
   try {
-    const  message = await Message.findByIdAndUpdate(req.params.id, req.query, {new: true});
+    const  message = await Message.findByIdAndUpdate(req.params.id, req.body, {new: true});
     res.status(201).json(message);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la mise à jour de Message");
@@ -58,4 +83,4 @@ const  removeMessage = async (req, res) => {
   }
 }
 
-module.exports = {addMessage,getAllMessages,getOneMessage,updateMessage,removeMessage};
+module.exports = {addMessage,getAllMessages,getOneMessage,updateMessage,removeMessage,getAllMessagesAccepter};

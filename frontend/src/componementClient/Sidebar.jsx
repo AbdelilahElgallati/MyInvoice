@@ -27,7 +27,10 @@ import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 import profileImage from "assets/logo-removebg-preview.png";
-import TryIcon from '@mui/icons-material/Try';
+import TryIcon from "@mui/icons-material/Try";
+import { Link } from "react-router-dom";
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
+
 const navItems = [
   {
     text: "Tableau de bord",
@@ -49,6 +52,11 @@ const navItems = [
       { text: "Bon de commandes", title: "bon-commandes" },
       { text: "Devis", title: "devis" },
     ],
+  },
+  {
+    text: "Tax",
+    title: "Taks",
+    icon: <PaidOutlinedIcon />,
   },
   {
     text: "Produits",
@@ -158,14 +166,16 @@ const Sidebar = ({
             <Box m="1.5rem 2rem 2rem 3rem">
               <FlexBetween color={theme.palette.secondary.main}>
                 <Box display="flex" alignItems="center" gap="0.5rem">
-                  <Box
-                    component="img"
-                    alt="profile"
-                    src={profileImage}
-                    height="100px"
-                    width="160px"
-                    sx={{ objectFit: "cover" }}
-                  />
+                  <Link to="/">
+                    <Box
+                      component="img"
+                      alt="profile"
+                      src={profileImage}
+                      height="100px"
+                      width="160px"
+                      sx={{ objectFit: "cover" }}
+                    />
+                  </Link>
                 </Box>
                 {!isNonMobile && (
                   <IconButton onClick={() => setIsSidebarOpen(!isSidebarOpen)}>

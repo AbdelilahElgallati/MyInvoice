@@ -45,7 +45,7 @@ const Dashboard = () => {
   const id = localStorage.getItem("userId");
   const packId = localStorage.getItem("packId");
   const theme = useTheme();
-  const genererRapport = "6630fe581c1fec2176ead2c9;";
+  const genererRapport = "6630fe581c1fec2176ead2c9";
   const { data: packData } = useGetOnePackQuery(packId);
   const isNonMediumScreens = useMediaQuery("(min-width: 1200px)");
   const { data, isLoading } = useGetDashboardClientQuery(id);

@@ -94,10 +94,10 @@ export const api = createApi({
       }),
     }),
     ChangePasswordEntreprise: build.mutation({
-      query: (id,oldPassword, newPassword, confirmPassword) => ({
+      query: ({ id, oldPassword, newPassword }) => ({
         url: `Entreprise/changePassword/${id}`,
-        method: "POST",
-        body: {oldPassword, newPassword, confirmPassword},
+        method: "PUT",
+        body: { oldPassword, newPassword },
       }),
     }),
     // Service
@@ -213,9 +213,20 @@ export const api = createApi({
       }),
     }),
     getAllMessages: build.query({
-      query: (id) => `Message`,
+      query: () => `Message`,
       providesTags: ["Message"],
     }),
+    getMessageAccepter: build.query({
+      query: () => `Message/accepter`,
+      providesTags: ["Message"],
+    }),
+    updateMessage: build.mutation({
+      query: ({ id, MessageData }) => ({
+        url: `Message/edit/${id}`,
+        method: "PUT",
+        body: MessageData,
+      }),
+    }), 
     removeMessage: build.mutation({
       query: (id) => ({
         url: `Message/remove/${id}`,
@@ -555,8 +566,27 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+<<<<<<< HEAD
   })
 })
+=======
+    // Taks 
+    AddTaks: build.mutation({
+      query: (TaksData) => ({
+        url: `Taks/add/`,
+        method: "POST",
+        body: TaksData,
+      }),
+    }),
+    removeTaks: build.mutation({
+      query: (id) => ({
+        url: `Taks/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
+  }),
+});
+>>>>>>> 3993d5918e8f6972ab2e199099df7af203d19cb5
 
 export const {
   useGetEntrepriseQuery,
@@ -603,9 +633,11 @@ export const {
   useGetSubscriptionEntQuery,
 
   useGetMessagesQuery,
+  useGetMessageAccepterQuery,
   useRemoveMessageMutation,
   useGetAllMessagesQuery,
   useAddMessageMutation,
+  useUpdateMessageMutation,
 
   useAddInvoiceMutation,
   useGetUserQuery,
@@ -676,4 +708,7 @@ export const {
   useUpdateDemandeMutation,
   useAddDemandeMutation,
   useRemoveDemandeMutation,
+  //Taks
+  useAddTaksMutation,
+  useRemoveTaksMutation,
 } = api;

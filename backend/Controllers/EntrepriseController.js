@@ -22,16 +22,23 @@ const addEntreprise = async (req, res) => {
         logo,
       });
       await entreprise.save();
-      const subscription = new Subscription({
-        userId: entreprise._id,
-        packId: '6631005f1c1fec2176ead2cb',
-        startDate: Date.now(),
-        endDate: Date.now() + 1000 * 60 * 60 * 24 * 30, // 30 days
-        status: "active",
-        price: 0,
-      })
-      subscription.save()
-      return res.status(201).json(entreprise);
+      const pack = await Pack.findOne({name: "Pack Standard"})
+      console.log("pack : ",pack)
+      if(pack) {
+        const subscription = new Subscription({
+          userId: entreprise._id,
+          packId: pack._id,
+          startDate: Date.now(),
+          endDate: Date.now() + 1000 * 60 * 60 * 24 * 30, // 30 days
+          status: "active",
+          price: 0,
+        })
+        subscription.save()
+        return res.status(201).json(entreprise);
+      } else {
+        return res.status(400).json({ message: "Le pack n'existe pas" });
+      }
+      
     } else {
       return res.status(400).json({ message: "L'entreprise existe déjà" });
     }
@@ -213,7 +220,7 @@ const ForgoutPass = async (req, res)=>{
     const {email} = req.body;
     Entreprise.findOne({email : email}).then (entreprise=>{
       if(!entreprise){
-        return res.send({Status : "User not existed"})
+        return res.json({message : "User not existed"})
       }
       const token = jwt.sign({id : entreprise._id} , "AbdelilahElgallati1230",{expiresIn:"1d"})
       var transporter = nodemailer.createTransport({
@@ -233,9 +240,10 @@ const ForgoutPass = async (req, res)=>{
       
       transporter.sendMail(mailOptions, function(error, info){
         if (error) {
-          console.log(error);
+          console.error('Error sending email:', error.message);
+           res.status(500).json({ message: 'Failed to send email' })
         } else {
-         return res.send({Status : "Succes"})
+          res.status(200).json({ message: 'Email envoyez avec succes!!!!! Verifiez votre email  ' }); 
         }
       });
     })
@@ -263,7 +271,7 @@ const ResetPass = async(req,res)=>{
 
 const changePassword = async (req, res) => {
   try {
-    const { oldPassword, newPassword, confirmPassword } = req.body;
+    const { oldPassword, newPassword } = req.body;
     const user = await Entreprise.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -279,9 +287,9 @@ const changePassword = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error)
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 module.exports = {
   getDashboardInfo,

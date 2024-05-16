@@ -22,6 +22,7 @@ const ForgoutPass = () => {
 // de react-router-dom pour la navigation.
     const [ForgoutPass] = useForgoutPasswordMutation();
   const [emailEnt, setEmailEnt] = useState("");
+  const [succes , setSuccess] = useState("")
   
   const handleChangeEmail = (e) => {
     setEmailEnt(e.target.value);
@@ -32,6 +33,7 @@ const ForgoutPass = () => {
          const Info = await ForgoutPass({
          email: emailEnt,
       });
+       setSuccess(Info.data.message)
     } catch (error) {
         console.log(error);
     }
@@ -67,6 +69,7 @@ const ForgoutPass = () => {
               Envoyez
             </button>
           </form>
+          <p className="text-red-600" >{succes}</p>
           </div>  
           </div> 
     </>

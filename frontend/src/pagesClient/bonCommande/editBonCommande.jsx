@@ -33,7 +33,6 @@ const EditBonCommande = () => {
   const [bonCommande, setBonCommande] = useState({
     userId: localStorage.getItem("userId") || "",
     clientId: "",
-    invoiceNumber: "",
     date: new Date(),
     dueDate: new Date(),
     items: [{ productId: "", quantity: 0 }],
@@ -157,18 +156,7 @@ const EditBonCommande = () => {
       <form onSubmit={handleSubmit}>
       <Card elevation={3} style={{ borderRadius: 8, padding: "1.5rem", marginBottom: "1.5rem" }}>
         <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <TextField
-              label="Numéro de facture"
-              name="invoiceNumber"
-              value={bonCommande.bonCommandeNumber || ""}
-              onChange={handleChange}
-              fullWidth
-              required
-              margin="normal"
-            />
-          </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={16}>
             <FormControl fullWidth margin="normal">
               <InputLabel id="status-label">Status</InputLabel>
               <Select
@@ -178,7 +166,7 @@ const EditBonCommande = () => {
                 onChange={handleChange}
                 name="status"
               >
-                {["sent", "paid", "late"].map((status) => (
+                {["attent de traitement", "au cour de traitement", "expédié"].map((status) => (
                   <MenuItem key={status} value={status}>
                     {status}
                   </MenuItem>
