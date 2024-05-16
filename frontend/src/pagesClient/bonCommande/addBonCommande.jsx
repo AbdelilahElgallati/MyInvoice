@@ -23,6 +23,7 @@ const AddBonCommande = () => {
   }
   const theme = useTheme();
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const [bonCommande, setBonCommande] = useState({
     userId: localStorage.getItem("userId") || "",
     fournisseurId: "",
@@ -74,7 +75,7 @@ const AddBonCommande = () => {
         0
       );
       await AddBonCommande({ bonCommande: { ...bonCommande, amount } });
-      Navigate("/bon-commandes");
+      Navigate(`/${userName}/bon-commandes`);
     } catch (error) {
       console.log(error);
     }

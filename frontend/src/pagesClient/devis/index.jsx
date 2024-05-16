@@ -31,6 +31,7 @@ const Devis = () => {
   const theme = useTheme();
   const packId = localStorage.getItem("packId");
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const formPdf = "6630fdb21c1fec2176ead2c1";
   const { data: packData } = useGetOnePackQuery(packId);
   const [Devis, setDevis] = useState([]);
@@ -242,11 +243,11 @@ const Devis = () => {
   const { data: deviDetail } = useGetDeviDetailsQuery(idDevi);
 
   const handleDetails = (id) => {
-    window.location.href = `/devis/details/${id}`;
+    window.location.href = `/${userName}/devis/details/${id}`;
   };
 
   const handlePrint = (id) => {
-    navigate(`/devis/imprimer/${id}`);
+    navigate(`/${userName}/devis/imprimer/${id}`);
   };
 
   const handleEmail = (id) => {
@@ -254,7 +255,7 @@ const Devis = () => {
   };
 
   const handleEdit = (id) => {
-    window.location.href = `/devis/edit/${id}`;
+    window.location.href = `/${userName}/devis/edit/${id}`;
   };
 
   const handleDelete = async (id) => {
@@ -274,7 +275,7 @@ const Devis = () => {
           subtitle="Liste des bon de devi "
           total={Devis ? Devis.length : 0}
         />
-        <Link to="/devis/new">
+        <Link to={`/${userName}/devis/new`}>
           <Button
             variant="contained"
             color="primary"

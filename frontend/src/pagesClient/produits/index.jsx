@@ -16,10 +16,11 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const Products  = () => {
   const theme = useTheme();
+  const id = localStorage.getItem('userId');
+  const userName = localStorage.getItem("userName");
 
   const navigate = useNavigate();
 
-  const id = localStorage.getItem('userId')
   const [Product, setProduct] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -120,7 +121,7 @@ const Products  = () => {
   ];
 
   const handleEdit = (id) => {
-    window.location.href = `/produits/edit/${id}`;
+    window.location.href = `/${userName}/produits/edit/${id}`;
     };
   
   const handleDelete = async (id) => {
@@ -138,7 +139,7 @@ const Products  = () => {
       
       <FlexBetween>
         <Header title="PRODUITS" subtitle="Liste entier des "   total= {Product ? Product.length : 0} />        
-        <Link to="/ajouterProduit">
+        <Link to={`/${userName}/ajouterProduit`}>
           <Button
             variant="contained"
             color="primary"
@@ -192,7 +193,5 @@ const Products  = () => {
     </Box>
   );
 };
-
-// test add .
 
 export default Products;

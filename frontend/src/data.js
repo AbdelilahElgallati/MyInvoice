@@ -294,7 +294,9 @@ export const pricing = {
 // };
 
 export const TestimonialsData = () => {
+
   const { data: messagesData } = useGetMessageAccepterQuery();
+
   const [testimonialsData, setTestimonialsData] = useState({ title: 'De quoi les gens parlent.', clients: [] });
   useEffect(() => {
     if (messagesData) {
@@ -310,6 +312,7 @@ export const TestimonialsData = () => {
       });
       setTestimonialsData(prevData => ({ ...prevData, clients }));
     }
+    console.log(testimonialsData);
   }, [messagesData]);
   return testimonialsData;
 };

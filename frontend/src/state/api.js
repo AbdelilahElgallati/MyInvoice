@@ -23,7 +23,7 @@ export const api = createApi({
     "Devi",
     "Demande"
   ],
-  endpoints: (build) => ({
+  endpoints: (build) =>({
     getEntreprise: build.query({
       query: (id) => `Entreprise/${id}`,
       providesTags: ["Entreprise"],
@@ -100,7 +100,7 @@ export const api = createApi({
         body: { oldPassword, newPassword },
       }),
     }),
-
+    // Service
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],
@@ -583,6 +583,7 @@ export const api = createApi({
   }),
 });
 
+
 export const {
   useGetEntrepriseQuery,
   useGetAllEntreprisesQuery,
@@ -606,7 +607,7 @@ export const {
   useRemovePackMutation,
   useGetThreePacksQuery,
   useGetAllPacksThreeServiceQuery,
-  useGetPackByServiceIdQuery,
+  //useGetPackByServiceIdQuery,
 
   useGetAllServicesQuery,
   useGetOneServiceQuery,

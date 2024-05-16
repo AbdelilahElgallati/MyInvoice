@@ -16,7 +16,8 @@ const Categories = () => {
     navigate('/');
   }
   const theme = useTheme();
-  const id = localStorage.getItem('userId')
+  const id = localStorage.getItem('userId');
+  const userName = localStorage.getItem("userName");
   const [Categorie, setCategorie] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -72,7 +73,7 @@ const Categories = () => {
   ];
 
   const handleEdit = (id) => {
-    window.location.href = `/categories/edit/${id}`;
+    window.location.href = `/${userName}/categories/edit/${id}`;
   };
 
   const handleDelete = async (id) => {
@@ -88,7 +89,7 @@ const Categories = () => {
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         <Header title="CATEGORY" subtitle="Liste de categories" />
-        <Link to="/categories/new">
+        <Link to={`/${userName}/categories/new`}>
           <Button
             variant="contained"
             color="primary"

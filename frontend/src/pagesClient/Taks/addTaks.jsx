@@ -10,6 +10,8 @@ const AddClient = () => {
     navigate('/');
   }
   const theme = useTheme();
+  const userName = localStorage.getItem("userName");
+
   const [Taks, setTaks] = useState({
     userId: localStorage.getItem("userId") || "",
     TaksValleur : 0,
@@ -27,7 +29,7 @@ const AddClient = () => {
     try {
       console.log(Taks);
       await addTaks({ Taks });
-      Navigate("/Taks");
+      Navigate(`/${userName}/Taks`);
     } catch (error) {
       console.log(error);
     }

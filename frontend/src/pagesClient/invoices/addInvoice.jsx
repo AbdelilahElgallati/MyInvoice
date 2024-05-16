@@ -23,6 +23,7 @@ const AddInvoice = () => {
   }
   const theme = useTheme();
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const [invoice, setInvoice] = useState({
     userId: localStorage.getItem("userId") || "",
     clientId: "",
@@ -75,7 +76,7 @@ const AddInvoice = () => {
         0
       );
       await AddInvoice({ invoice: { ...invoice, amount } });
-      Navigate("/factures");
+      Navigate(`/${userName}/factures`);
     } catch (error) {
       console.log(error);
     }

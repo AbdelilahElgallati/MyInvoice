@@ -4,7 +4,6 @@ import { DataGrid } from "@mui/x-data-grid";
 import {
   useGetOnePackQuery,
   useRemoveInvoiceMutation,
-  useGetInvoiceDetailsQuery,
 } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
@@ -24,12 +23,13 @@ import axios from "axios";
 const Invoices = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const removeInvoice = useRemoveInvoiceMutation();
-  if (!localStorage.getItem("userId")) {
-    navigate("/");
+  if(!localStorage.getItem('userId')) {
+    navigate('/');
   }
+  const removeInvoice = useRemoveInvoiceMutation();
   const packId = localStorage.getItem("packId");
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const formPdf = "6630fdb21c1fec2176ead2c1";
   const { data: packData } = useGetOnePackQuery(packId);
   const [Facture, setFacture] = useState([]);
@@ -64,7 +64,7 @@ const Invoices = () => {
       navigate("/");
     }
   }, [id, navigate]);
-  const [idInvoice, setIdInvoice] = useState("");
+
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -243,26 +243,24 @@ const Invoices = () => {
     },
   ];
 
-  const { data: invoiceDetail } = useGetInvoiceDetailsQuery(idInvoice);
-
   const handleAddButton = () => {
-    navigate(`/ajouterFacture`);
+    navigate(`/${userName}/ajouterFacture`);
   };
 
   const handleDetails = (id) => {
-    window.location.href = `/factures/details/${id}`;
+    window.location.href = `/${userName}/factures/details/${id}`;
   };
 
   const handlePrint = (id) => {
-    navigate(`/factures/imprimer/${id}`);
+    navigate(`/${userName}/factures/imprimer/${id}`);
   };
 
   const handleEmail = (id) => {
-    navigate(`/factures/email/${id}`);
-  };
+    navigate(`/${userName}/factures/email/${id}`);
+    }
 
   const handleEdit = (id) => {
-    window.location.href = `/factures/edit/${id}`;
+    window.location.href = `/${userName}/factures/edit/${id}`;
   };
 
   const handleDelete = async (id) => {

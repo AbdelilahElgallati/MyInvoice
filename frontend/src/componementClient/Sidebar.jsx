@@ -122,6 +122,7 @@ const Sidebar = ({
   setIsSidebarOpen,
   isNonMobile,
 }) => {
+  const userName = localStorage.getItem('userName');
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -206,7 +207,7 @@ const Sidebar = ({
                             toggleSubMenu(title);
                             setActive(subMenu[0].title);
                           } else {
-                            navigate(`/${lcTitle}`);
+                            navigate(`/${userName}/${lcTitle}`);
                             setActive(lcTitle);
                           }
                         }}
@@ -248,7 +249,7 @@ const Sidebar = ({
                           >
                             <ListItemButton
                               onClick={() => {
-                                navigate(`/${subTitle}`);
+                                navigate(`/${userName}/${subTitle}`);
                               }}
                               sx={{
                                 backgroundColor:

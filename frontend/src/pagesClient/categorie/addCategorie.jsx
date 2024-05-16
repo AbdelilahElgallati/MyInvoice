@@ -10,6 +10,7 @@ const AddClient = () => {
     navigate('/');
   }
   const theme = useTheme();
+  const userName = localStorage.getItem("userName");
   const [categorie, setCategorie] = useState({
     userId: localStorage.getItem("userId") || "",
     categoryName: "",
@@ -27,7 +28,7 @@ const AddClient = () => {
     try {
       console.log(categorie);
       await addCategorie({ categorie });
-      Navigate("/categories");
+      Navigate(`/${userName}/categories`);
     } catch (error) {
       console.log(error);
     }

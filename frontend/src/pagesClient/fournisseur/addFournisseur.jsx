@@ -19,6 +19,7 @@ const AddFournisseur = () => {
   });
   const [addFournisseurs] = useAddFournisseurMutation();
   const Navigate = useNavigate();
+  const userName = localStorage.getItem("userName");
 
   const handleChange = (e) => {
     setFournisseur({ ...fournisseur, [e.target.name]: e.target.value });
@@ -30,7 +31,7 @@ const AddFournisseur = () => {
     try {
       console.log(fournisseur);
       await addFournisseurs({ fournisseur });
-      Navigate("/fournisseurs");
+      Navigate(`/${userName}/fournisseurs`);
     } catch (error) {
       console.log(error);
     }

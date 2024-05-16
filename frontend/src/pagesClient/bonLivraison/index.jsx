@@ -28,6 +28,7 @@ const BonLivraison = () => {
   const navigate = useNavigate();
   const packId = localStorage.getItem("packId");
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const formPdf = "6630fdb21c1fec2176ead2c1";
   const { data: packData } = useGetOnePackQuery(packId);
   const [bonLivraison, setbonLivraison] = useState([]);
@@ -245,11 +246,11 @@ const BonLivraison = () => {
     useGetBonLivraisonDetailsQuery(idBonLivraison);
 
   const handleDetails = (id) => {
-    window.location.href = `/bon-livraison/details/${id}`;
+    window.location.href = `/${userName}/bon-livraison/details/${id}`;
   };
 
   const handlePrint = (id) => {
-    navigate(`/bon-livraison/imprimer/${id}`);
+    navigate(`/${userName}/bon-livraison/imprimer/${id}`);
   };
 
   const handleEmail = (id) => {
@@ -257,7 +258,7 @@ const BonLivraison = () => {
   };
 
   const handleEdit = (id) => {
-    window.location.href = `/bon-livraison/edit/${id}`;
+    window.location.href = `/${userName}/bon-livraison/edit/${id}`;
   };
 
   const handleDelete = async (id) => {
@@ -277,7 +278,7 @@ const BonLivraison = () => {
           subtitle="Liste des bon de livraison "
           total={bonLivraison ? bonLivraison.length : 0}
         />
-        <Link to="/bon-livraison/new">
+        <Link to={`/${userName}/bon-livraison/new`}>
           <Button
             variant="contained"
             color="primary"

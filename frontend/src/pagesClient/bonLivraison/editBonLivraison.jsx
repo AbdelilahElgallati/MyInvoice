@@ -36,6 +36,7 @@ const EditInvoice = () => {
 
   const { data: bonLivraisonData } = useGetOneBonLivraisonQuery(id);
   const userId = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const { data:  bonCommandesData } = useGetBonCommandesQuery(userId);
 
   useEffect(() => {
@@ -81,7 +82,7 @@ const EditInvoice = () => {
       }
       console.log(updatedBonLivraison);
       await updateBonLivraison({ id, BonLivraisonData: updatedBonLivraison });
-      Navigate("/bon-livraison");
+      Navigate(`/${userName}/bon-livraison`);
     } catch (error) {
       console.log(error);
     }
@@ -91,7 +92,7 @@ const EditInvoice = () => {
   const handleDelete = async () => {
     try {
       await removeBonLivraison(id);
-      Navigate("/bon-livraison");
+      Navigate(`/${userName}/bon-livraison`);
     } catch (error) {
       console.log(error);
     }
@@ -103,7 +104,7 @@ const EditInvoice = () => {
 
 
   const handleCancel = () => {
-    Navigate("/bon-livraison");
+    Navigate(`/${userName}/bon-livraison`);
   };
 
   return (

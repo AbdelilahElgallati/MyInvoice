@@ -31,6 +31,7 @@ const AddProduit = () => {
   });
   const [AddProduit] = useAddProduitMutation();
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const { data: categorieData } = useGetAllCategoriesQuery(id);
   const Navigate = useNavigate();
 
@@ -48,7 +49,7 @@ const AddProduit = () => {
     try {
       console.log(produit);
       await AddProduit({ produit });
-      Navigate("/produits");
+      Navigate(`/${userName}/produits`);
     } catch (error) {
       console.log(error);
     }

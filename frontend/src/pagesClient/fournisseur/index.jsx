@@ -21,6 +21,7 @@ const Fournisseurs = () => {
   const navigate = useNavigate();
   const id = localStorage.getItem("userId");
   // hadi
+  const userName = localStorage.getItem("userName");
   const [Fourinsseur, setFourinsseur] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -106,7 +107,7 @@ const Fournisseurs = () => {
   ];
 
   const handleEdit = (id) => {
-    window.location.href = `/fournisseurs/edit/${id}`;
+    window.location.href = `/${userName}/fournisseurs/edit/${id}`;
   };
 
   const handleDelete = async (id) => {
@@ -126,7 +127,7 @@ const Fournisseurs = () => {
           subtitle="Liste des fournisseus"
           total={Fourinsseur ? Fourinsseur.length : 0}
         />
-        <Link to="/fournisseurs/new">
+        <Link to={`/${userName}/fournisseurs/new`}>
           <Button
             variant="contained"
             color="primary"

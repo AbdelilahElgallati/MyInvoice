@@ -21,6 +21,8 @@ const Header = () => {
   const [mobileNav, setMobileNav] = useState(false);
   const [isActive, setisActive] = useState(false);
   const { logo, IconSun, IconMon, IconeHome } = header;
+  const userName = localStorage.getItem('userName');
+
   //scrool event
   useEffect(() => {
     const handleScroll = () => {
@@ -71,7 +73,7 @@ const Header = () => {
     if (entreprise.role === "admin" && entreprise.status === "active") {
       navigate("/dashboard");
     } else if (entreprise.status === "active") {
-      navigate("/dashboardClient");
+      navigate(`/${userName}/dashboardClient`);
     }
   }
   // Translate :

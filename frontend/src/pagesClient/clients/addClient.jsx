@@ -9,6 +9,7 @@ const AddClient = () => {
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
+  const userName = localStorage.getItem("userName");
   const theme = useTheme();
   const [client, setClient] = useState({
     userId: localStorage.getItem("userId") || "",
@@ -30,7 +31,7 @@ const AddClient = () => {
     try {
       console.log(client);
       await addClient({ client });
-      Navigate("/clients");
+      Navigate(`/${userName}/clients`);
     } catch (error) {
       console.log(error);
     }

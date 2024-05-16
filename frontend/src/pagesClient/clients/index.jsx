@@ -16,7 +16,8 @@ import { useNavigate } from "react-router-dom";
 const Clients  = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-  const id = localStorage.getItem('userId')
+  const id = localStorage.getItem('userId');
+  const userName = localStorage.getItem("userName");
   // hadi
   const [Client, setClient] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -103,7 +104,7 @@ const Clients  = () => {
   ];
 
   const handleEdit = (id) => {
-    window.location.href = `/clients/edit/${id}`;
+    window.location.href = `/${userName}/clients/edit/${id}`;
   };
   
   const handleDelete = async (id) => {
@@ -121,7 +122,7 @@ const Clients  = () => {
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
       <Header title="CLIENTS" subtitle="Liste entier des "   total={Client ? Client.length : 0} />
-        <Link to="/ajouterClient">
+        <Link to={`/${userName}/ajouterClient`}>
           <Button
             variant="contained"
             color="primary"

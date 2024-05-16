@@ -9,6 +9,7 @@ const EditCategorie = () => {
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
+  const userName = localStorage.getItem("userName");
   const theme = useTheme();
   const [categorie, setCategorie] = useState({
     categoryName: "",
@@ -32,7 +33,7 @@ const EditCategorie = () => {
   const handleDelete = async () => {
     try {
       await removeCategorie(id);
-      navigate("/categories");
+      navigate(`/${userName}/categories`);
     } catch (error) {
       console.log(error);
     }
@@ -43,7 +44,7 @@ const EditCategorie = () => {
     try {
       console.log(categorie);
       await editCategorie({ id, categorie });
-      navigate("/categories");
+      navigate(`/${userName}/categories`);
     } catch (error) {
       console.log(error);
     }
