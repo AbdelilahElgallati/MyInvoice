@@ -93,6 +93,14 @@ export const api = createApi({
         body: data,
       }),
     }),
+    ChangePasswordEntreprise: build.mutation({
+      query: (id,oldPassword, newPassword, confirmPassword) => ({
+        url: `Entreprise/changePassword/${id}`,
+        method: "POST",
+        body: {oldPassword, newPassword, confirmPassword},
+      }),
+    }),
+
     getAllServices: build.query({
       query: () => `Service`,
       providesTags: ["Service"],

@@ -10,7 +10,6 @@ import {
   Input,
 } from "@mui/material";
 import {
-  useGetEntrepriseDetailQuery,
   useUpdateEntrepriseMutation,
   useChangePasswordEntrepriseMutation,
 } from "state/api";
