@@ -22,16 +22,23 @@ const addEntreprise = async (req, res) => {
         logo,
       });
       await entreprise.save();
-      const subscription = new Subscription({
-        userId: entreprise._id,
-        packId: '6631005f1c1fec2176ead2cb',
-        startDate: Date.now(),
-        endDate: Date.now() + 1000 * 60 * 60 * 24 * 30, // 30 days
-        status: "active",
-        price: 0,
-      })
-      subscription.save()
-      return res.status(201).json(entreprise);
+      const pack = await Pack.findOne({name: "Pack Standard"})
+      console.log("pack : ",pack)
+      if(pack) {
+        const subscription = new Subscription({
+          userId: entreprise._id,
+          packId: pack._id,
+          startDate: Date.now(),
+          endDate: Date.now() + 1000 * 60 * 60 * 24 * 30, // 30 days
+          status: "active",
+          price: 0,
+        })
+        subscription.save()
+        return res.status(201).json(entreprise);
+      } else {
+        return res.status(400).json({ message: "Le pack n'existe pas" });
+      }
+      
     } else {
       return res.status(400).json({ message: "L'entreprise existe déjà" });
     }
@@ -263,6 +270,8 @@ const ResetPass = async(req,res)=>{
 
 const changePassword = async (req, res) => {
   try {
+    console.log('start')
+    console.log(req);
     const { oldPassword, newPassword, confirmPassword } = req.body;
     const user = await Entreprise.findById(req.params.id);
     if (!user) {
