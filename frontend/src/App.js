@@ -85,6 +85,8 @@ import AddDemande from 'pagesClient/Demande/AddDemande'
 
 import Profil from "pagesClient/profil";
 
+import AddTaks from "pagesClient/Taks/addTaks";
+import Taks from "pagesClient/Taks/index";
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -158,6 +160,10 @@ const App = () => {
             <Route path="/categories" element={<AddThemeProvider theme={theme} pages={Categories} />}/>
             <Route path="/categories/new" element={<AddThemeProvider theme={theme} pages={AddCategorie} />}  />
             <Route path="/categories/edit/:id" element={<AddThemeProvider theme={theme} pages={EditCategorie} />}/>
+              {/* taks */}
+            <Route path="/Taks" element={<AddThemeProvider theme={theme} pages={Taks} />}/>
+            <Route path="/Taks/new" element={<AddThemeProvider theme={theme} pages={AddTaks} />}  />
+            {/* <Route path="/categories/edit/:id" element={<AddThemeProvider theme={theme} pages={EditCategorie} />}/> */}
             {/* fournisseur */}
             <Route path="/fournisseurs" element={<AddThemeProvider theme={theme} pages={Fournisseurs} />}/>
             <Route path="/fournisseurs/new" element={   <AddThemeProvider theme={theme} pages={AddFournisseur} /> }/>
