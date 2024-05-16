@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
@@ -13,11 +14,33 @@ import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Fournisseurs = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const id = localStorage.getItem("userId");
   // hadi
-  const { data, isLoading } = useGetFournisseursQuery(id);
+  const [Fourinsseur, setFourinsseur] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/Fournisseur/Entreprise/${id}`);
+        setFourinsseur(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, [id, navigate]); 
   const [removeFournisseur] = useRemoveFournisseurMutation();
   const columns = [
     {
@@ -101,7 +124,7 @@ const Fournisseurs = () => {
         <Header
           title="FOURNISSEURS"
           subtitle="Liste des fournisseus"
-          total={data ? data.length : 0}
+          total={Fourinsseur ? Fourinsseur.length : 0}
         />
         <Link to="/fournisseurs/new">
           <Button
@@ -143,9 +166,9 @@ const Fournisseurs = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading }
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={Fourinsseur}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination
