@@ -44,6 +44,7 @@ const EditProduit = () => {
 
   const [editProduit] = useUpdateProduitMutation();
   const [removeProduit] = useRemoveProduitMutation();
+  const userName = localStorage.getItem("userName");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -62,7 +63,7 @@ const EditProduit = () => {
     event.preventDefault();
     try {
       await editProduit({ id, ProduitData: produit });
-      Navigate("/produits");
+      Navigate(`/${userName}/produits`);
     } catch (error) {
       console.log(error);
     }
@@ -71,7 +72,7 @@ const EditProduit = () => {
   const handleDelete = async () => {
     try {
       await removeProduit(id);
-      Navigate("/produits");
+      Navigate(`/${userName}/produits`);
     } catch (error) {
       console.log(error);
     }

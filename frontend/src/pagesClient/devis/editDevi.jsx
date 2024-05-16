@@ -43,6 +43,7 @@ const EditInvoice = () => {
 
   const { data: deviData } = useGetOneDeviQuery(id);
   const userId = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const { data: allClientsData } = useGetClientsQuery(userId);
   const { data: allProductsData } = useGetProductsQuery(userId);
 
@@ -114,7 +115,7 @@ const EditInvoice = () => {
         updatedDevi = { ...updatedDevi, amount: 0 };
       }
       await updateDevi({ id, deviData: updatedDevi });
-      Navigate("/devis");
+      Navigate(`/${userName}/devis`);
     } catch (error) {
       console.log(error);
     }
@@ -130,7 +131,7 @@ const EditInvoice = () => {
   const handleDelete = async () => {
     try {
       await removeDevi(id);
-      Navigate("/devis");
+      Navigate(`/${userName}/devis`);
     } catch (error) {
       console.log(error);
     }
@@ -144,7 +145,7 @@ const EditInvoice = () => {
   };
 
   const handleCancel = () => {
-    Navigate("/devis");
+    Navigate(`/${userName}/devis`);
   };
 
   return (

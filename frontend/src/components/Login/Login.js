@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
 import Gogle from "../../assets/img/Login/th.jpg";
@@ -63,11 +61,11 @@ const Login = () => {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
         localStorage.setItem("userName", Info.data.user.name);
-        const userName = localStorage.getItem('userName');
-        navigate(`/${userName}/dashboard`);
+        navigate(`/dashboard`);
       } else if (entrepriseInfo.status === "active") {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
+        localStorage.setItem("packId", Info.data.pack._id);
         localStorage.setItem("userName", Info.data.user.name);
         const userName = localStorage.getItem('userName');
         navigate(`/${userName}/dashboardClient`);

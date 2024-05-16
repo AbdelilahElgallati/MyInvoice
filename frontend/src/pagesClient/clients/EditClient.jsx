@@ -20,6 +20,7 @@ const EditClient = () => {
   const {data : clientData} =useGetOneClientQuery(id);
   const [editClient] = useUpdateClientMutation();
   const [removeClient] = useRemoveClientMutation();
+  const userName = localStorage.getItem("userName");
 
   useEffect(() => {
     if (clientData) {
@@ -34,7 +35,7 @@ const EditClient = () => {
   const handleDelete = async () => {
     try {
       await removeClient(id);
-      navigate("/clients");
+      navigate(`/${userName}/clients`);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +46,7 @@ const EditClient = () => {
     try {
       console.log(client);
       await editClient({ id, client });
-      navigate("/clients");
+      navigate(`/${userName}/clients`);
     } catch (error) {
       console.log(error);
     }

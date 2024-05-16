@@ -23,6 +23,7 @@ const AddBonLivraison = () => {
   }
   const theme = useTheme();
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const [bonLivraison, setBonLivraison] = useState({
     userId: localStorage.getItem("userId") || "",
     bonCommandeId: "",
@@ -60,7 +61,7 @@ const AddBonLivraison = () => {
         // Ajouter le bon de livraison avec le montant de la commande
         await AddBonLivraison({ bonLivraison: { ...bonLivraison, amount } });
         console.log(bonLivraison);
-        Navigate("/bon-livraison");
+        Navigate(`/${userName}/bon-livraison`);
       } else {
         console.error("Détails de la commande non trouvés.");
       }

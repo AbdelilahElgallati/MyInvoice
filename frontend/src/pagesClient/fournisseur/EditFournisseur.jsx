@@ -20,6 +20,7 @@ const EditFournisseur = () => {
   const {data : fournisseurData} =useGetOneFournisseurQuery(id);
   const [editFournisseur] = useUpdateFournisseurMutation();
   const [removeFournisseur] = useRemoveFournisseurMutation();
+  const userName = localStorage.getItem("userName");
 
   useEffect(() => {
     if (fournisseurData) {
@@ -34,7 +35,7 @@ const EditFournisseur = () => {
   const handleDelete = async () => {
     try {
       await removeFournisseur(id);
-      navigate("/fournisseurs");
+      navigate(`/${userName}/fournisseurs`);
     } catch (error) {
       console.log(error);
     }
@@ -45,7 +46,7 @@ const EditFournisseur = () => {
     try {
       console.log(fournisseur);
       await editFournisseur({ id, fournisseur });
-      navigate("/fournisseurs");
+      navigate(`/${userName}/fournisseurs`);
     } catch (error) {
       console.log(error);
     }

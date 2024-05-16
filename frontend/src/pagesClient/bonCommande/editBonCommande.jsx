@@ -45,6 +45,7 @@ const EditBonCommande = () => {
 
   const { data: bonCommandeData } = useGetOneBonCommandeQuery(id);
   const userId = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const { data: allFournisseursData } = useGetFournisseursQuery(userId);
   const { data: allProductsData } = useGetProductsQuery(userId);
 
@@ -116,7 +117,7 @@ const EditBonCommande = () => {
         updatedBonCommande = { ...updatedBonCommande, amount: 0 };
       }
       await updateInvoice({ id, bonCommandeData: updatedBonCommande });
-      Navigate("/bon-commandes");
+      Navigate(`/${userName}/bon-commandes`);
     } catch (error) {
       console.log(error);
     }
@@ -132,7 +133,7 @@ const EditBonCommande = () => {
   const handleDelete = async () => {
     try {
       await removeBonCommande(id);
-      Navigate("/bon-commandes");
+      Navigate(`/${userName}/bon-commandes`);
     } catch (error) {
       console.log(error);
     }
@@ -146,7 +147,7 @@ const EditBonCommande = () => {
   };
 
   const handleCancel = () => {
-    Navigate("/bon-commandes");
+    Navigate(`/${userName}/bon-commandes`);
   };
 
   return (

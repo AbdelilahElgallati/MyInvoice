@@ -27,7 +27,7 @@ import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
 import profileImage from "assets/logo-removebg-preview.png";
-
+import TryIcon from '@mui/icons-material/Try';
 const navItems = [
   {
     text: "Tableau de bord",
@@ -94,6 +94,11 @@ const navItems = [
     text: "Paramètres",
     title: "",
     icon: null,
+  },
+  {
+    text: "Demande",
+    title: "add-demande",
+    icon: <TryIcon />,
   },
   {
     text: "Profil",

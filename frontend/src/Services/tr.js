@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const tr = async (input, from, to) => { // la fonction tr prend trois parametre : input + from + to
+const tr = async (input, from, to) => { // la fonction tr prend trois parametre : input + from +
     // declaration d'un varaible :
     // Request contient : headers + jsonData
   const headers = {

@@ -23,10 +23,10 @@ const AddBonCommande = () => {
   }
   const theme = useTheme();
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const [bonCommande, setBonCommande] = useState({
     userId: localStorage.getItem("userId") || "",
     fournisseurId: "",
-    bonCommandeNumber: "",
     dueDate: new Date(),
     items: [{ productId: "", quantity: 0 }],
     amount: 0,
@@ -75,7 +75,7 @@ const AddBonCommande = () => {
         0
       );
       await AddBonCommande({ bonCommande: { ...bonCommande, amount } });
-      Navigate("/bon-commandes");
+      Navigate(`/${userName}/bon-commandes`);
     } catch (error) {
       console.log(error);
     }
@@ -87,18 +87,7 @@ const AddBonCommande = () => {
     <Box m="1.5rem auto" fullWidth border={`2px solid ${theme.palette.primary.main}`} borderRadius="0.5rem" p="1rem">
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
-          <Grid item xs={6}>
-            <TextField
-              label="Numéro de bon de commande"
-              name="bonCommandeNumber"
-              value={bonCommande.invoiceNumber}
-              onChange={handleChange}
-              fullWidth
-              required
-              margin="normal"
-            />
-          </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <TextField
               label="Date d'échéance"
               name="dueDate"

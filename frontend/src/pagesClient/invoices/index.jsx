@@ -1,37 +1,76 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetInvoicesQuery, useRemoveInvoiceMutation , useGetInvoiceDetailsQuery} from "state/api";
+import {
+  useGetOnePackQuery,
+  useRemoveInvoiceMutation,
+} from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
-import AddButton from "componementClient/addButton"; 
+import AddButton from "componementClient/addButton";
 import { useNavigate } from "react-router-dom";
-import { CheckCircleOutline, HourglassEmpty, ErrorOutline } from '@mui/icons-material';
+import {
+  CheckCircleOutline,
+  HourglassEmpty,
+  ErrorOutline,
+} from "@mui/icons-material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
-import InfoIcon from '@mui/icons-material/Info';
-import EmailIcon from '@mui/icons-material/Email';
-import PrintIcon from '@mui/icons-material/Print';
-
-const Invoices  = () => {
-
+import InfoIcon from "@mui/icons-material/Info";
+import EmailIcon from "@mui/icons-material/Email";
+import PrintIcon from "@mui/icons-material/Print";
+import axios from "axios";
+const Invoices = () => {
   const theme = useTheme();
   const navigate = useNavigate();
-
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
-  const id = localStorage.getItem('userId');
-  const { data, isLoading } = useGetInvoicesQuery(id);
-  const [removeInvoice] = useRemoveInvoiceMutation();
-  
-  const [idInvoice, setIdInvoice] = useState("")
+  const removeInvoice = useRemoveInvoiceMutation();
+  const packId = localStorage.getItem("packId");
+  const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
+  const formPdf = "6630fdb21c1fec2176ead2c1";
+  const { data: packData } = useGetOnePackQuery(packId);
+  const [Facture, setFacture] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [generatePdf, setGeneratePdf] = useState(false);
+
+  useEffect(() => {
+    if (packData) {
+      setGeneratePdf(
+        packData.services.some((service) => service.serviceId === formPdf)
+      );
+    }
+  }, [packData]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/Api/Invoice/List/${id}`
+        );
+        setFacture(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, [id, navigate]);
+
   const formatDate = (dateString) => {
-    if (!dateString) return '';
+    if (!dateString) return "";
     const date = new Date(dateString);
     if (isNaN(date.getTime())) {
-      console.error('Invalid date string:', dateString);
-      return '';
+      console.error("Invalid date string:", dateString);
+      return "";
     }
     const options = { year: "numeric", month: "2-digit", day: "2-digit" };
     return date.toLocaleDateString("fr-FR", options);
@@ -52,7 +91,7 @@ const Invoices  = () => {
             backgroundColor: "gray",
             borderRadius: "4px",
             padding: "5px 10px",
-            lineHeight: "1", 
+            lineHeight: "1",
           }}
         >
           #{params.value}
@@ -71,7 +110,7 @@ const Invoices  = () => {
       flex: 0.7,
       renderCell: (params) => formatDate(params.value),
     },
-     {
+    {
       field: "dueDate",
       headerName: "Date d'échéance",
       flex: 0.5,
@@ -82,9 +121,12 @@ const Invoices  = () => {
       headerName: "Produits",
       flex: 0.4,
       sortable: false,
-      renderCell:(params) => {
+      renderCell: (params) => {
         // Sum the quantities of all items in the array
-        const totalQuantity = params.value.reduce((acc, curr) => acc + curr.quantity, 0);
+        const totalQuantity = params.value.reduce(
+          (acc, curr) => acc + curr.quantity,
+          0
+        );
         return totalQuantity;
       },
     },
@@ -99,11 +141,11 @@ const Invoices  = () => {
         // Display the total amount
         return (
           <span style={{ color: textColor }}>
-              {paymentAmounts.toFixed(2)} DH
+            {paymentAmounts.toFixed(2)} DH
           </span>
-          );
+        );
+      },
     },
-  },
     {
       field: "status",
       headerName: "Status",
@@ -111,38 +153,46 @@ const Invoices  = () => {
       renderCell: (params) => {
         const status = params.value;
         let icon, backgroundColor;
-  
+
         switch (status) {
-          case 'sent':
-            icon = <HourglassEmpty style={{ color: 'white', fontSize: '1rem' }} />;
-            backgroundColor = 'orange';
+          case "sent":
+            icon = (
+              <HourglassEmpty style={{ color: "white", fontSize: "1rem" }} />
+            );
+            backgroundColor = "orange";
             break;
-          case 'paid':
-            icon = <CheckCircleOutline style={{ color: 'white' , fontSize: '1rem' }} />;
-            backgroundColor = 'green';
+          case "paid":
+            icon = (
+              <CheckCircleOutline
+                style={{ color: "white", fontSize: "1rem" }}
+              />
+            );
+            backgroundColor = "green";
             break;
-          case 'late':
-            icon = <ErrorOutline style={{ color: 'white', fontSize: '1rem' }} />;
-            backgroundColor = 'red';
+          case "late":
+            icon = (
+              <ErrorOutline style={{ color: "white", fontSize: "1rem" }} />
+            );
+            backgroundColor = "red";
             break;
           default:
             icon = null;
-            backgroundColor = 'transparent';
+            backgroundColor = "transparent";
         }
-  
+
         return (
           <span
-          style={{
-            display: "inline-block",
-            alignItems: "center",
-            color: "white",
-            backgroundColor:  backgroundColor,
-            borderRadius: "4px",
-            padding: "5px 10px",
-            lineHeight: "1", 
-          }}
-        >
-          {icon} {status}
+            style={{
+              display: "inline-block",
+              alignItems: "center",
+              color: "white",
+              backgroundColor: backgroundColor,
+              borderRadius: "4px",
+              padding: "5px 10px",
+              lineHeight: "1",
+            }}
+          >
+            {icon} {status}
           </span>
         );
       },
@@ -150,13 +200,14 @@ const Invoices  = () => {
     {
       field: "actions",
       headerName: "Actions",
-      flex: 1,  
+      flex: 1,
       sortable: false,
       renderCell: (params) => (
         <Box>
-           <IconButton 
-           onClick={() => handleDetails(params.row._id)}
-            aria-label="details">
+          <IconButton
+            onClick={() => handleDetails(params.row._id)}
+            aria-label="details"
+          >
             <InfoIcon />
           </IconButton>
           <IconButton
@@ -165,16 +216,22 @@ const Invoices  = () => {
           >
             <EditIcon />
           </IconButton>
-          <IconButton 
-          onClick={() => handleEmail(params.row._id)}
-           aria-label="email">
+          <IconButton
+            onClick={() => handleEmail(params.row._id)}
+            aria-label="email"
+          >
             <EmailIcon />
           </IconButton>
-          <IconButton 
-          onClick={() => handlePrint(params.row._id)}
-           aria-label="print">
-            <PrintIcon />
-          </IconButton>
+          {generatePdf === true ? (
+            <IconButton
+              onClick={() => handlePrint(params.row._id)}
+              aria-label="print"
+            >
+              <PrintIcon />
+            </IconButton>
+          ) : (
+            ""
+          )}
           <IconButton
             onClick={() => handleDelete(params.row._id)}
             aria-label="delete"
@@ -186,46 +243,42 @@ const Invoices  = () => {
     },
   ];
 
-  const {data: invoiceDetail} = useGetInvoiceDetailsQuery(idInvoice);
-
   const handleAddButton = () => {
-    navigate(`/ajouterFacture`);
+    navigate(`/${userName}/ajouterFacture`);
   };
 
   const handleDetails = (id) => {
-    window.location.href = `/factures/details/${id}`;
+    window.location.href = `/${userName}/factures/details/${id}`;
   };
 
   const handlePrint = (id) => {
-    navigate(`/factures/imprimer/${id}`);
+    navigate(`/${userName}/factures/imprimer/${id}`);
   };
-
 
   const handleEmail = (id) => {
-    navigate(`/factures/email/${id}`);
-    setIdInvoice(id);
-    if(invoiceDetail ) {
-      console.log('invoice : ', invoiceDetail)
+    navigate(`/${userName}/factures/email/${id}`);
     }
-  };
 
   const handleEdit = (id) => {
-    window.location.href = `/factures/edit/${id}`;
-    };
-  
+    window.location.href = `/${userName}/factures/edit/${id}`;
+  };
+
   const handleDelete = async (id) => {
     try {
       await removeInvoice(id);
-      window.location.reload()
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
   };
 
-
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="FACTURES" subtitle="Liste entier des "   total= {data ? data.length : 0} />
+      <Header
+        title="FACTURES"
+        subtitle="Liste entier des "
+        total={Facture ? Facture.length : 0}
+      />
       <AddButton label="Nouvelle Facture" onClick={handleAddButton} />
       <Box
         height="80vh"
@@ -255,9 +308,9 @@ const Invoices  = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading}
           getRowId={(row) => row._id}
-          rows={data  || []}
+          rows={Facture}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination

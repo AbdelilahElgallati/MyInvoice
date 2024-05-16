@@ -9,6 +9,7 @@ import {
   Select,
   MenuItem,
   Chip,
+  Typography,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
 import { useGetAllCategoriesQuery, useAddProduitMutation } from "state/api";
@@ -30,6 +31,7 @@ const AddProduit = () => {
   });
   const [AddProduit] = useAddProduitMutation();
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const { data: categorieData } = useGetAllCategoriesQuery(id);
   const Navigate = useNavigate();
 
@@ -47,7 +49,7 @@ const AddProduit = () => {
     try {
       console.log(produit);
       await AddProduit({ produit });
-      Navigate("/produits");
+      Navigate(`/${userName}/produits`);
     } catch (error) {
       console.log(error);
     }
@@ -112,12 +114,11 @@ const AddProduit = () => {
             renderValue={(selected) => (
               <div style={{ display: "flex", flexWrap: "wrap" }}>
                 {selected && (
-                  <Chip
-                    key={selected}
-                    label={
+                  <Typography>
+                    {
                       categorieData.find((category) => category._id === selected)?.categoryName || ""
                     }
-                  />
+                  </Typography>
                 )}
               </div>
             )}

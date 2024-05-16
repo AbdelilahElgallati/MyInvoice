@@ -23,6 +23,7 @@ const AddDevi = () => {
   }
   const theme = useTheme();
   const id = localStorage.getItem("userId");
+  const userName = localStorage.getItem("userName");
   const [devi, setDevi] = useState({
     userId: localStorage.getItem("userId") || "",
     clientId: "",
@@ -74,7 +75,7 @@ const AddDevi = () => {
         0
       );
       await AddDevi({ devi: { ...devi, amount } });
-      Navigate("/devis");
+      Navigate(`/${userName}/devis`);
     } catch (error) {
       console.log(error);
     }

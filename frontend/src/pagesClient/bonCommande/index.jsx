@@ -1,11 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import {
-  useGetBonCommandesQuery,
-  useRemoveBonCommandeMutation,
-} from "state/api";
 import Header from "componementClient/Header";
+import { useGetOnePackQuery, useRemoveBonCommandeMutation } from "state/api";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import { useNavigate } from "react-router-dom";
 import {
@@ -21,18 +18,51 @@ import PrintIcon from "@mui/icons-material/Print";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const BonCommandes = () => {
   const theme = useTheme();
   const navigate = useNavigate();
+  const packId = localStorage.getItem("packId");
   const id = localStorage.getItem("userId");
-  // hadi
-  const { data, isLoading } = useGetBonCommandesQuery(id);
+  const userName = localStorage.getItem("userName");
+  const formPdf = "6630fdb21c1fec2176ead2c1";
+  const { data: packData } = useGetOnePackQuery(packId);
+  const [bonCommandes, setBonCommandes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [generatePdf, setGeneratePdf] = useState(false);
+
+  useEffect(() => {
+    if (packData) {
+      setGeneratePdf(
+        packData.services.some((service) => service.serviceId === formPdf)
+      );
+      
+    }
+  }, [packData]);
+  
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:3001/Api/BonCommandes/List/${id}`
+        );
+        setBonCommandes(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
+    }
+  }, [id, navigate]);
   const [removeBonCommandes] = useRemoveBonCommandeMutation();
 
-  if (!localStorage.getItem("userId")) {
-    navigate("/");
-  }
   const formatDate = (dateString) => {
     if (!dateString) return "";
     const date = new Date(dateString);
@@ -190,12 +220,16 @@ const BonCommandes = () => {
           >
             <EmailIcon />
           </IconButton>
-          <IconButton
-            onClick={() => handlePrint(params.row._id)}
-            aria-label="print"
-          >
-            <PrintIcon />
-          </IconButton>
+          { generatePdf === true ? (
+            <IconButton
+              onClick={() => handlePrint(params.row._id)}
+              aria-label="print"
+            >
+              <PrintIcon />
+            </IconButton>
+          ) : (
+            ""
+          )}
           <IconButton
             onClick={() => handleDelete(params.row._id)}
             aria-label="delete"
@@ -208,11 +242,11 @@ const BonCommandes = () => {
   ];
 
   const handleDetails = (id) => {
-    window.location.href = `/bon-commandes/details/${id}`;
+    window.location.href = `/${userName}/bon-commandes/details/${id}`;
   };
 
   const handlePrint = (id) => {
-    navigate(`/bon-commandes/imprimer/${id}`);
+    navigate(`/${userName}/bon-commandes/imprimer/${id}`);
   };
 
   const handleEmail = (id) => {
@@ -220,7 +254,7 @@ const BonCommandes = () => {
   };
 
   const handleEdit = (id) => {
-    window.location.href = `/bon-commandes/edit/${id}`;
+    window.location.href = `/${userName}/bon-commandes/edit/${id}`;
   };
 
   const handleDelete = async (id) => {
@@ -238,9 +272,9 @@ const BonCommandes = () => {
         <Header
           title="BON COMMANDES"
           subtitle="Liste des bon de commandes "
-          total={data ? data.length : 0}
+          total={bonCommandes ? bonCommandes.length : 0}
         />
-        <Link to="/bon-commandes/new">
+        <Link to={`/${userName}/bon-commandes/new`}>
           <Button
             variant="contained"
             color="primary"
@@ -279,9 +313,9 @@ const BonCommandes = () => {
         }}
       >
         <DataGrid
-          loading={isLoading || !data}
+          loading={isLoading}
           getRowId={(row) => row._id}
-          rows={data || []}
+          rows={bonCommandes}
           columns={columns}
           rowsPerPageOptions={[20, 50, 100]}
           pagination

@@ -25,6 +25,7 @@ import ModelTrainingIcon from '@mui/icons-material/ModelTraining';
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import FlexBetween from "./FlexBetween";
+import TryIcon from '@mui/icons-material/Try';
 
 const navItems = [
   {
@@ -66,6 +67,11 @@ const navItems = [
     text: "Models",
     title: "Models",
     icon: <ModelTrainingIcon />,
+  },
+  {
+    text: "Demandes",
+    title: "Demandes",
+    icon: <TryIcon />,
   },
 ];
 

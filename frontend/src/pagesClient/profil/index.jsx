@@ -10,13 +10,14 @@ import {
   Input,
 } from "@mui/material";
 import {
-  useGetEntrepriseDetailQuery,
   useUpdateEntrepriseMutation,
   useChangePasswordEntrepriseMutation,
 } from "state/api";
 import Header from "componentsAdmin/Header";
+import axios from "axios";
 
 const Profil = () => {
+  
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
     navigate("/");
@@ -33,16 +34,30 @@ const Profil = () => {
 
   const [logo, setLogo] = useState(null);
   const [updateEntreprise] = useUpdateEntrepriseMutation();
+  // const [Profil, setProfil] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   // hadi
-  const { data, isLoading } = useGetEntrepriseDetailQuery(
-    localStorage.getItem("userId")
-  );
-
   useEffect(() => {
-    if (data) {
-      setEnterpriseDetails(data);
+    const fetchData = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/Api/Entreprise/entreprisedetail/${id}`);
+        setEnterpriseDetails(response.data);
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    if (id) {
+      fetchData();
+    } else {
+      navigate("/");
     }
-  }, [data]);
+  }, [id, navigate]); 
+   
+ 
+
 
   if (isLoading || !enterpriseDetails) {
     return <Typography>Loading...</Typography>;
@@ -81,32 +96,6 @@ const Profil = () => {
       console.log(error);
     }
   };
-
-  // const handleChangePassword = (event) => {
-  //   event.preventDefault();
-  
-  //   console.log("Mot de passe de l'entreprise modifié :", enterpriseMotPasse);
-  //   try {
-  //     if (
-  //       enterpriseMotPasse.newPassword === enterpriseMotPasse.confirmPassword
-  //     ) {
-  //       console.log(enterpriseMotPasse)
-  //       const res = changePassword({ id, enterpriseMotPasse : enterpriseMotPasse });
-  //       console.log(res)
-  //       if (res.data.message === "Password changed successfully") {
-  //         localStorage.removeItem("userId");
-  //         localStorage.removeItem("token");
-  //         navigate("/");
-  //       } else {
-  //         console.log("message : ", res.data.message);
-  //       }
-  //     } else {
-  //       console.log("Passwords don't match");
-  //     }
-  //   } catch (err) {
-  //     console.log("err : ", err);
-  //   }
-  // };
 
   const handleChangePassword = async (event) => {
     event.preventDefault();
@@ -212,6 +201,38 @@ const Profil = () => {
             value={enterpriseDetails.address}
             margin="normal"
             onChange={(e) => handleFieldChange("address", e.target.value)}
+          />
+          <TextField
+            label="Pack d'entreprise"
+            variant="outlined"
+            fullWidth
+            value={enterpriseDetails.pack}
+            margin="normal"
+            disabled
+          />
+          <TextField
+            label="Prix de pack d'entreprise"
+            variant="outlined"
+            fullWidth
+            value={enterpriseDetails.price}
+            margin="normal"
+            disabled
+          />
+          <TextField
+            label="la date de start d'abonnenent d'entreprise"
+            variant="outlined"
+            fullWidth
+            value={enterpriseDetails.subscriptionStartDate}
+            margin="normal"
+            disabled
+          />
+          <TextField
+            label="la date de fin d'abonnenent d'entreprise"
+            variant="outlined"
+            fullWidth
+            value={enterpriseDetails.subscriptionEndDate}
+            margin="normal"
+            disabled
           />
           <Box mt={2}>
             <Button type="submit" variant="contained" color="primary">

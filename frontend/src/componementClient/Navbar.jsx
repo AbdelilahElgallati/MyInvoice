@@ -32,8 +32,10 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
   const handleClose = () => setAnchorEl(null);
   const handleLogout = () => {
     setAnchorEl(null);
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
+    localStorage.removeItem('userId')
+    localStorage.removeItem('token')
+    localStorage.removeItem('packId')
+    localStorage.removeItem('userName')
     navigate("/");
   };
 

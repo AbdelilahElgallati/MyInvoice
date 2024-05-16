@@ -40,6 +40,8 @@ const Navbar = ({
     setAnchorEl(null);
     localStorage.removeItem('userId')
     localStorage.removeItem('token')
+    localStorage.removeItem('packId')
+    localStorage.removeItem('userName')
     navigate('/')
   } 
 

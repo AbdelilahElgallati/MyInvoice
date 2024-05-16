@@ -23,7 +23,7 @@ export const api = createApi({
     "Devi",
     "Demande"
   ],
-  endpoints: (build) => ({
+  endpoints: (build) =>({
     getEntreprise: build.query({
       query: (id) => `Entreprise/${id}`,
       providesTags: ["Entreprise"],
@@ -93,11 +93,11 @@ export const api = createApi({
         body: data,
       }),
     }),
-    changePasswordEntreprise: build.mutation({
-      query: ({ id, enterpriseMotPasse }) => ({
+    ChangePasswordEntreprise: build.mutation({
+      query: (id,oldPassword, newPassword, confirmPassword) => ({
         url: `Entreprise/changePassword/${id}`,
-        method: "PUT",
-        body: enterpriseMotPasse,
+        method: "POST",
+        body: {oldPassword, newPassword, confirmPassword},
       }),
     }),
     // Service
@@ -167,6 +167,8 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+
+    // Subscription
     getSubscriptions: build.query({
       query: () => `Subscription`,
       providesTags: ["Subscription"],
@@ -187,10 +189,10 @@ export const api = createApi({
       providesTags: ["Subscription"],
     }),
     updateSubscription: build.mutation({
-      query: ({ id, SubscriptionData }) => ({
+      query: ({ id, subscription }) => ({
         url: `Subscription/edit/${id}`,
         method: "PUT",
-        body: SubscriptionData,
+        body: subscription,
       }),
     }),
     removeSubscription: build.mutation({
@@ -526,7 +528,7 @@ export const api = createApi({
 
     // Demande
     getDemandes: build.query({
-      query: (id) => `Demande/${id}`,
+      query: (id) => `Demande`,
       providesTags: ["Demande"],
     }),
     getOneDemande: build.query({
@@ -553,8 +555,8 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-  }),
-});
+  })
+})
 
 export const {
   useGetEntrepriseQuery,
@@ -570,6 +572,8 @@ export const {
   useGetEntrepriseByGoogleIdQuery,
   useForgoutPasswordMutation,
   useResetPassMutation,
+  useChangePasswordEntrepriseMutation,
+
   useGetPacksQuery,
   useGetOnePackQuery,
   useAddPackMutation,
@@ -577,7 +581,7 @@ export const {
   useRemovePackMutation,
   useGetThreePacksQuery,
   useGetAllPacksThreeServiceQuery,
-  useChangePasswordEntrepriseMutation,
+  //useGetPackByServiceIdQuery,
 
   useGetAllServicesQuery,
   useGetOneServiceQuery,
