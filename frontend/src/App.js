@@ -67,18 +67,21 @@ import AddBonCommande from "pagesClient/bonCommande/addBonCommande";
 import EditBonCommande from "pagesClient/bonCommande/editBonCommande";
 import DetailsBonCommande from "pagesClient/bonCommande/detailsBonCommande";
 import PrintBonCommande from "pagesClient/bonCommande/printBonCommande";
+import SendEmailBonCommandes from "pagesClient/bonCommande/sendEmailBonCommande";
 
 import Devis from "pagesClient/devis";
 import AddDevi from "pagesClient/devis/addDevi";
 import EditDevi from "pagesClient/devis/editDevi";
 import DetailsDevi from "pagesClient/devis/detailsDevi";
 import PrintDevi from "pagesClient/devis/printDevi";
+import SendEmailDevis from "pagesClient/devis/sendEmailDevis";
 
 import BonLivraison from "pagesClient/bonLivraison";
 import AddBonLivraison from "pagesClient/bonLivraison/addBonLivraison";
 import EditBonLivraison from "pagesClient/bonLivraison/editBonLivraison";
 import DetailsBonLivraison from "pagesClient/bonLivraison/detailsBonLivraison";
 import PrintBonLivraison from "pagesClient/bonLivraison/printBonLivraison";
+import SendEmailBonLivraison from "pagesClient/bonLivraison/sendEmailBonLivraison";
 
 import Demandes from 'pages/Demande'
 import AddDemande from 'pagesClient/Demande/AddDemande'
@@ -87,6 +90,7 @@ import Profil from "pagesClient/profil";
 
 import AddTaks from "pagesClient/Taks/addTaks";
 import Taks from "pagesClient/Taks/index";
+
 const App = () => {
   const mode = useSelector((state) => state.global.mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
@@ -173,16 +177,19 @@ const App = () => {
             <Route path="/bon-commandes/new" element={   <AddThemeProvider theme={theme} pages={AddBonCommande} /> }/>
             <Route path="/bon-commandes/edit/:id" element={   <AddThemeProvider theme={theme} pages={EditBonCommande} /> }/>
             <Route path="/bon-commandes/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsBonCommande} /> }/>
+            <Route path="/bon-commandes/email/:id" element={<AddThemeProvider theme={theme} pages={SendEmailBonCommandes} />} />
             {/* bon de livraison */}
             <Route path="/bon-livraison" element={<AddThemeProvider theme={theme} pages={BonLivraison} />}/>
             <Route path="/bon-livraison/new" element={   <AddThemeProvider theme={theme} pages={AddBonLivraison} /> }/>
             <Route path="/bon-livraison/edit/:id" element={   <AddThemeProvider theme={theme} pages={EditBonLivraison} /> }/>
             <Route path="/bon-livraison/details/:id" element={   <AddThemeProvider theme={theme} pages={DetailsBonLivraison} /> }/>
+            <Route path="/bon-livraison/email/:id" element={<AddThemeProvider theme={theme} pages={SendEmailBonLivraison} />} />
             {/* devis */}
             <Route path="/devis" element={<AddThemeProvider theme={theme} pages={Devis} />}/>
             <Route path="/devis/new" element={<AddThemeProvider theme={theme} pages={AddDevi} />}/>
             <Route path="/devis/edit/:id" element={<AddThemeProvider theme={theme} pages={EditDevi} />}/>
             <Route path="/devis/details/:id" element={<AddThemeProvider theme={theme} pages={DetailsDevi} />}/>
+            <Route path="/devis/email/:id" element={<AddThemeProvider theme={theme} pages={SendEmailDevis} />} />
           </Route>
         </Routes>
       </div>

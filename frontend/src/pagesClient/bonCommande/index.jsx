@@ -250,7 +250,7 @@ const BonCommandes = () => {
   };
 
   const handleEmail = (id) => {
-    // Logic for sending email
+    navigate(`/bon-commandes/email/${id}`);
   };
 
   const handleEdit = (id) => {

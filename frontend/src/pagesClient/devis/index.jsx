@@ -250,10 +250,7 @@ const Devis = () => {
   };
 
   const handleEmail = (id) => {
-    setIdDevi(id);
-    if (deviDetail) {
-      console.log("devi : ", deviDetail);
-    }
+    navigate(`/devis/email/${id}`);
   };
 
   const handleEdit = (id) => {

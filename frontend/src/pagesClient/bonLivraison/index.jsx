@@ -253,10 +253,7 @@ const BonLivraison = () => {
   };
 
   const handleEmail = (id) => {
-    setIdBonLivraison(id);
-    if (bonLivraisonDetail) {
-      console.log("invoice : ", bonLivraisonDetail);
-    }
+    navigate(`/bon-livraison/email/${id}`);
   };
 
   const handleEdit = (id) => {
