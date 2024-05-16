@@ -5,6 +5,8 @@ import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
+import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
+import { useUpdateMessageMutation } from "state/api";
 
 const Messages = () => {
   const navigate = useNavigate();
@@ -13,7 +15,7 @@ const Messages = () => {
   }
   const [messages, setMessages] = useState([]);
   const theme = useTheme();
-
+  const [updateMessage] = useUpdateMessageMutation();
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -36,6 +38,14 @@ const Messages = () => {
     }
   };
 
+  const handleEditAccept = async (id) => {
+    const thisMessage = messages.find((message) => message._id === id);
+    if(thisMessage) {
+      thisMessage.status = "accepter";
+      await updateMessage({ id, MessageData : thisMessage });
+    }
+  };
+
   const columns = [
     {
       field: "enterpriseName",
@@ -53,12 +63,24 @@ const Messages = () => {
       flex: 1,
     },
     {
+      field: "status",
+      headerName: "Status",
+      flex: 0.6,
+    },
+    {
       field: "actions",
       headerName: "Actions",
-      flex: 0.2,
+      flex: 0.4,
       sortable: false,
       renderCell: (params) => (
         <Box>
+          <IconButton
+            onClick={() => handleEditAccept(params.row._id)}
+            aria-label="edit"
+          >
+            <AddTaskOutlinedIcon />
+          </IconButton>
+
           <IconButton
             onClick={() => handleDelete(params.row._id)}
             aria-label="delete"

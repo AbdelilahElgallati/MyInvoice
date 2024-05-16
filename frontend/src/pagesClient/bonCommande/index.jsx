@@ -152,13 +152,14 @@ const BonCommandes = () => {
         let icon, backgroundColor;
 
         switch (status) {
-          case "sent":
+          
+          case "attent de traitement":
             icon = (
               <HourglassEmpty style={{ color: "white", fontSize: "1rem" }} />
             );
             backgroundColor = "orange";
             break;
-          case "paid":
+          case "au cour de traitement":
             icon = (
               <CheckCircleOutline
                 style={{ color: "white", fontSize: "1rem" }}
@@ -166,7 +167,7 @@ const BonCommandes = () => {
             );
             backgroundColor = "green";
             break;
-          case "late":
+          case "expédié":
             icon = (
               <ErrorOutline style={{ color: "white", fontSize: "1rem" }} />
             );

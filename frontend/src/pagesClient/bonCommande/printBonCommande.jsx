@@ -28,9 +28,9 @@ const PrintBonCommande = () => {
   const theme = useTheme();
   const getStatusColor = (status) => {
     switch (status) {
-      case "paid":
+      case "au cour de traitement":
         return "green";
-      case "late":
+      case "attent de traitement":
         return "red";
       default:
         return "orange";

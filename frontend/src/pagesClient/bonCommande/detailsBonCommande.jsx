@@ -26,9 +26,9 @@ const DetailsBonCommande = () => {
   const theme = useTheme();
   const getStatusColor = (status) => {
     switch (status) {
-      case "paid":
+      case "au cour de traitement":
         return "green";
-      case "late":
+      case "attent de traitement":
         return "red";
       default:
         return "orange";
@@ -39,7 +39,7 @@ const DetailsBonCommande = () => {
   if (!data) return <div>No data found</div>;
 
   const {
-    bonCommandeNumber,
+    _id,
     bonCommandeStatus,
     userName,
     userEmail,
@@ -73,7 +73,7 @@ const DetailsBonCommande = () => {
               variant="h5"
               sx={{ color: "white", fontWeight: "bold" }}
             >
-              Numéro de bon de commande: #{bonCommandeNumber}
+              Numéro de bon de commande: #{_id}
             </Typography>
           </Box>
           <Box bgcolor={getStatusColor(bonCommandeStatus)} borderRadius={4} p={2}>

@@ -94,10 +94,10 @@ export const api = createApi({
       }),
     }),
     ChangePasswordEntreprise: build.mutation({
-      query: (id,oldPassword, newPassword, confirmPassword) => ({
+      query: ({ id, oldPassword, newPassword }) => ({
         url: `Entreprise/changePassword/${id}`,
-        method: "POST",
-        body: {oldPassword, newPassword, confirmPassword},
+        method: "PUT",
+        body: { oldPassword, newPassword },
       }),
     }),
 
@@ -213,9 +213,20 @@ export const api = createApi({
       }),
     }),
     getAllMessages: build.query({
-      query: (id) => `Message`,
+      query: () => `Message`,
       providesTags: ["Message"],
     }),
+    getMessageAccepter: build.query({
+      query: () => `Message/accepter`,
+      providesTags: ["Message"],
+    }),
+    updateMessage: build.mutation({
+      query: ({ id, MessageData }) => ({
+        url: `Message/edit/${id}`,
+        method: "PUT",
+        body: MessageData,
+      }),
+    }), 
     removeMessage: build.mutation({
       query: (id) => ({
         url: `Message/remove/${id}`,
@@ -603,9 +614,11 @@ export const {
   useGetSubscriptionEntQuery,
 
   useGetMessagesQuery,
+  useGetMessageAccepterQuery,
   useRemoveMessageMutation,
   useGetAllMessagesQuery,
   useAddMessageMutation,
+  useUpdateMessageMutation,
 
   useAddInvoiceMutation,
   useGetUserQuery,
