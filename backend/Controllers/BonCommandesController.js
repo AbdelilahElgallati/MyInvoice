@@ -93,92 +93,6 @@ const formatDate = (dateString) => {
 };
 
 
-// const getSales = async (req, res) => {
-//   try {
-//     const overallStats = await OverallStat.find();
-
-//     res.status(200).json(overallStats[0]);
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-// };
-
-// const getDashboardStats = async (req, res) => {
-//   try {
-//     console.log('start')
-//     const currentMonth = "Mai";
-//     const currentYear = 2024;
-//     const currentDay = "2024-05-05";
-//     console.log('req : ', req.params)
-//     const AllbonCommandes = await bonCommande.find().populate("clientId").limit(50).sort({ createdOn: -1 });
-//     console.log('AllbonCommandes : ',AllbonCommandes )
-//     const bonCommandes = AllbonCommandes.filter(bonCommande => bonCommande.userId.toString() === req.params.id);
-//     console.log('bonCommandes : ',bonCommandes )
-//     const totalCustomers = await Client.countDocuments({ userId: req.params.id });
-//     console.log('totalCustomers : ',totalCustomers )
-//     const totalProducts = await Product.countDocuments({ userId: req.params.id });
-//     console.log('totalProducts : ',totalProducts )
-//     const totalbonCommandes = await bonCommande.countDocuments({ userId: req.params.id });
-//     console.log('totalbonCommandes : ',totalbonCommandes )
-//     const totalPaidbonCommandes = await bonCommande.countDocuments({ userId: req.params.id, status: "paid" });
-//     console.log('totalPaidbonCommandes : ',totalPaidbonCommandes )
-//     const totalUnpaidbonCommandes = await bonCommande.countDocuments({
-//       userId: req.params.id, status: { $nin: ["paid"] },
-//     });
-//     console.log('totalUnpaidbonCommandes : ',totalUnpaidbonCommandes )
-//     const overallStat = await OverallStat.find({ year: currentYear });
-//     console.log('overallStat : ',overallStat )
-//     const paidbonCommandes = await bonCommande.find({ userId: req.params.id, status: "paid" });
-//     console.log('paidbonCommandes : ',paidbonCommandes )
-//     const totalPaidAmount = paidbonCommandes.reduce((total, bonCommande) => total + bonCommande.amount, 0);
-//     console.log('totalPaidAmount : ',totalPaidAmount )
-//     const {
-//       yearlyTotalSoldUnits,
-//       yearlySalesTotal,
-//       monthlyData,
-//       salesByCategory,
-//     } = overallStat[0];
-
-//     const thisMonthStats = overallStat[0].monthlyData.find(({ month }) => {
-//       return month === currentMonth;
-//     });
-
-//     const todayStats = overallStat[0].dailyData.find(({ date }) => {
-//       return date === currentDay;
-//     });
-//     console.log(  bonCommandes,
-//       totalPaidAmount,
-//       totalCustomers,
-//       totalProducts,
-//       totalbonCommandes,
-//       totalPaidbonCommandes,
-//       totalUnpaidbonCommandes,
-//       yearlyTotalSoldUnits,
-//       yearlySalesTotal,
-//       monthlyData,
-//       salesByCategory,
-//       thisMonthStats,
-//       todayStats,);
-//     res.status(200).json({
-//       bonCommandes,
-//       totalPaidAmount,
-//       totalCustomers,
-//       totalProducts,
-//       totalbonCommandes,
-//       totalPaidbonCommandes,
-//       totalUnpaidbonCommandes,
-//       yearlyTotalSoldUnits,
-//       yearlySalesTotal,
-//       monthlyData,
-//       salesByCategory,
-//       thisMonthStats,
-//       todayStats,
-//     });
-//   } catch (error) {
-//     res.status(404).json({ message: error.message });
-//   }
-// };
-
 const getOneBonCommande = async (req, res) => {
   try {
     const bonCommande = await BonCommande.findById(req.params.id);
@@ -215,7 +129,5 @@ module.exports = {
   getOneBonCommande,
   updateBonCommande,
   removeBonCommande,
-  // getSales,
-  // getDashboardStats,
   prepareBonCommandeDetails,
 };

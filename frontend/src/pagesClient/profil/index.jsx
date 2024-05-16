@@ -19,10 +19,10 @@ import axios from "axios";
 const Profil = () => {
   
   const navigate = useNavigate();
-  if (!localStorage.getItem("userId")) {
+  const id = localStorage.getItem("userId");
+  if (!id) {
     navigate("/");
   }
-  const id = localStorage.getItem("userId");
   const theme = useTheme();
   const [enterpriseDetails, setEnterpriseDetails] = useState(null);
   const [changePassword] = useChangePasswordEntrepriseMutation(id);
@@ -102,7 +102,11 @@ const Profil = () => {
     console.log("Mot de passe de l'entreprise modifié :", enterpriseMotPasse);
     try {
       if (enterpriseMotPasse.newPassword === enterpriseMotPasse.confirmPassword) {
-        const { data, error } = await changePassword({ id, enterpriseMotPasse: enterpriseMotPasse });
+        const { data, error } = await changePassword({
+          id,
+          oldPassword: enterpriseMotPasse.oldPassword,
+          newPassword: enterpriseMotPasse.newPassword,
+        });
         if (data) {
           console.log("Message :", data.message);
           if (data.message === "Password changed successfully") {
@@ -122,7 +126,6 @@ const Profil = () => {
       console.log("Erreur :", err);
     }
   };
-  
 
   const handleIconChange = (e) => {
     setLogo(e.target.files[0]);

@@ -22,7 +22,7 @@ const BonCommandeSchema = new Schema(
         price: { type: Number },
       },
     ],
-    status: { type: String, enum: ["attentTraitement", "auCourTraitement", "expédié"], default: "attentTraitement" },
+    status: { type: String, enum: ["attent de traitement", "au cour de traitement", "expédié"], default: "attent de traitement" },
     amount: { type: Number, required: true },
   },
   { timestamps: true }

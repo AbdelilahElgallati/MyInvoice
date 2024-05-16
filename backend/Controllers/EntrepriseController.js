@@ -271,9 +271,7 @@ const ResetPass = async(req,res)=>{
 
 const changePassword = async (req, res) => {
   try {
-    console.log('start')
-    console.log(req);
-    const { oldPassword, newPassword, confirmPassword } = req.body;
+    const { oldPassword, newPassword } = req.body;
     const user = await Entreprise.findById(req.params.id);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
@@ -289,9 +287,9 @@ const changePassword = async (req, res) => {
       }
     }
   } catch (error) {
-    console.log(error)
+    res.status(500).json({ message: error.message });
   }
-}
+};
 
 module.exports = {
   getDashboardInfo,
