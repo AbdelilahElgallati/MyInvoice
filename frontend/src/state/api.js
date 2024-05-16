@@ -566,10 +566,6 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
-<<<<<<< HEAD
-  })
-})
-=======
     // Taks 
     AddTaks: build.mutation({
       query: (TaksData) => ({
@@ -586,7 +582,7 @@ export const api = createApi({
     }),
   }),
 });
->>>>>>> 3993d5918e8f6972ab2e199099df7af203d19cb5
+
 
 export const {
   useGetEntrepriseQuery,

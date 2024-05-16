@@ -141,8 +141,12 @@ const removeEntreprise = async (req, res) => {
 
 const login = async (req, res) => {
   try {
+    console.log("entrer dans la fonction login");
+    
     const jsenwebtkn = req.token;
+    console.log(req.user);
     const user = req.user;
+    //erreur : 
     const sub = await Subscription.findOne({userId: user._id});
     const pack = await Pack.findById(sub.packId);
     if (!user) {
@@ -154,6 +158,7 @@ const login = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Erreur serveur" });
   }
+  console.log("sortie dans la fonction login");
 };
 
 const getDashboardInfo = async (req, res) => {

@@ -136,6 +136,8 @@ const App = () => {
           <Route element={<AddThemeProvider theme={theme} pages={LayoutClient} />}>
             {/* générale */}
             <Route path="/:userName/dashboardClient"element={  <AddThemeProvider theme={theme} pages={DashboardClient} />}/>
+            {/* <Route path="/dashboardClient"element={  <AddThemeProvider theme={theme} pages={DashboardClient} />}/> */}
+
             <Route path="/:userName/profil" element={<AddThemeProvider theme={theme} pages={Profil} />}/>
             <Route path="/:userName/add-demande" element={<AddThemeProvider theme={theme} pages={AddDemande} />}/>
             {/* facture */}
@@ -157,19 +159,16 @@ const App = () => {
             <Route path="/:userName/quotidien" element={<AddThemeProvider theme={theme} pages={Daily} />}/>
             <Route path="/:userName/mensuel" element={<AddThemeProvider theme={theme} pages={Monthly} />}/>
             {/* categorie */}
-<<<<<<< HEAD
             <Route path="/:userName/categories" element={<AddThemeProvider theme={theme} pages={Categories} />}/>
             <Route path="/:userName/categories/new" element={<AddThemeProvider theme={theme} pages={AddCategorie} />}  />
             <Route path="/:userName/categories/edit/:id" element={<AddThemeProvider theme={theme} pages={EditCategorie} />}/>
-=======
             <Route path="/categories" element={<AddThemeProvider theme={theme} pages={Categories} />}/>
             <Route path="/categories/new" element={<AddThemeProvider theme={theme} pages={AddCategorie} />}  />
             <Route path="/categories/edit/:id" element={<AddThemeProvider theme={theme} pages={EditCategorie} />}/>
               {/* taks */}
-            <Route path="/Taks" element={<AddThemeProvider theme={theme} pages={Taks} />}/>
-            <Route path="/Taks/new" element={<AddThemeProvider theme={theme} pages={AddTaks} />}  />
+            <Route path="/:userName/Taks" element={<AddThemeProvider theme={theme} pages={Taks} />}/>
+            <Route path="/:userName/Taks/new" element={<AddThemeProvider theme={theme} pages={AddTaks} />}  />
             {/* <Route path="/categories/edit/:id" element={<AddThemeProvider theme={theme} pages={EditCategorie} />}/> */}
->>>>>>> 3993d5918e8f6972ab2e199099df7af203d19cb5
             {/* fournisseur */}
             <Route path="/:userName/fournisseurs" element={<AddThemeProvider theme={theme} pages={Fournisseurs} />}/>
             <Route path="/:userName/fournisseurs/new" element={   <AddThemeProvider theme={theme} pages={AddFournisseur} /> }/>

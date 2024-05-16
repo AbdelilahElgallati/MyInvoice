@@ -53,6 +53,7 @@ const Login = () => {
         email: emailEnt,
         password: passwordEnt,
       });
+      console.log("info user :" + Info.data.user);
       const entrepriseInfo = Info.data.user;
       if (
         entrepriseInfo.role === "admin" &&
@@ -69,6 +70,7 @@ const Login = () => {
         localStorage.setItem("userName", Info.data.user.name);
         const userName = localStorage.getItem('userName');
         navigate(`/${userName}/dashboardClient`);
+        // navigate(`/dashboardClient`);
       }
     } catch (error) {
       console.log(error);

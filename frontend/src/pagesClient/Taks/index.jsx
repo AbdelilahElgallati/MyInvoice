@@ -19,6 +19,8 @@ const Categories = () => {
   const id = localStorage.getItem("userId");
   const [Taks, setTaks] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const userName = localStorage.getItem("userName");
+
 
   // hadi
   useEffect(() => {
@@ -84,7 +86,7 @@ const Categories = () => {
     <Box m="1.5rem 2.5rem">
       <FlexBetween>
         <Header title="Taxes" subtitle="Liste de Taxes" />
-        <Link to="/Taks/new">
+        <Link to={`/${userName}/Taks/new`}>
           <Button
             variant="contained"
             color="primary"
