@@ -47,7 +47,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSun } from '@fortawesome/free-regular-svg-icons';
 import { faMoon } from '@fortawesome/free-solid-svg-icons';
 import { faHouse } from '@fortawesome/free-solid-svg-icons';
-import { useGetMessagesQuery } from 'state/api';
+import { useGetMessageAccepterQuery } from 'state/api';
 import { useState, useEffect } from 'react';
 export const header = {
   logo: LogoImg,
@@ -294,10 +294,11 @@ export const pricing = {
 // };
 
 export const TestimonialsData = () => {
-  const { data: messagesData } = useGetMessagesQuery();
+  const { data: messagesData } = useGetMessageAccepterQuery();
   const [testimonialsData, setTestimonialsData] = useState({ title: 'De quoi les gens parlent.', clients: [] });
   useEffect(() => {
     if (messagesData) {
+      console.log(messagesData)
       const clients = messagesData.map(message => {
         return {
           message: message.message,
