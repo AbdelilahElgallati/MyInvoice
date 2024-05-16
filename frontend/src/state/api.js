@@ -566,6 +566,20 @@ export const api = createApi({
         method: "DELETE",
       }),
     }),
+    // Taks 
+    AddTaks: build.mutation({
+      query: (TaksData) => ({
+        url: `Taks/add/`,
+        method: "POST",
+        body: TaksData,
+      }),
+    }),
+    removeTaks: build.mutation({
+      query: (id) => ({
+        url: `Taks/remove/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
@@ -689,4 +703,7 @@ export const {
   useUpdateDemandeMutation,
   useAddDemandeMutation,
   useRemoveDemandeMutation,
+  //Taks
+  useAddTaksMutation,
+  useRemoveTaksMutation,
 } = api;

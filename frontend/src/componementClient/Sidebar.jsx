@@ -29,6 +29,7 @@ import FlexBetween from "./FlexBetween";
 import profileImage from "assets/logo-removebg-preview.png";
 import TryIcon from "@mui/icons-material/Try";
 import { Link } from "react-router-dom";
+import PaidOutlinedIcon from '@mui/icons-material/PaidOutlined';
 
 const navItems = [
   {
@@ -51,6 +52,11 @@ const navItems = [
       { text: "Bon de commandes", title: "bon-commandes" },
       { text: "Devis", title: "devis" },
     ],
+  },
+  {
+    text: "Tax",
+    title: "Taks",
+    icon: <PaidOutlinedIcon />,
   },
   {
     text: "Produits",
