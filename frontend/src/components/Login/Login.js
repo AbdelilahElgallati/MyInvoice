@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
 import Gogle from "../../assets/img/Login/th.jpg";
