@@ -39,7 +39,8 @@ const SignUp = () => {
       formDataWithLogo.append(key, value);
     });
     try {
-      await register(formDataWithLogo);
+      const Info = await register(formDataWithLogo);
+      console.log("info data :" + Info.data);
       navigate("/login");
     } catch (err) {
       console.log(err);

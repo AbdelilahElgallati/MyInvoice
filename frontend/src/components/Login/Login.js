@@ -89,7 +89,7 @@ const Login = () => {
         email: emailEnt,
         password: passwordEnt,
       });
-      console.log("info user :" + Info.data.user);
+      console.log("info data :" + Info.data);
       const entrepriseInfo = Info.data.user;
       if (
         entrepriseInfo.role === "admin" &&
