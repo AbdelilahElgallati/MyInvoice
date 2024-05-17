@@ -7,7 +7,7 @@ const cron = require("node-cron");
 const passport = require("passport");
 const session = require("express-session");
 // const url = "mongodb://127.0.0.1:27017/MyInvoice";
-const url = "mongodb+srv://MyInvoice:MyInvoice123Test@myinvoice.id4aqck.mongodb.net/?retryWrites=true&w=majority&appName=MyInvoice"
+const url = process.env.URL_DATABASE;
 const bodyParser = require("body-parser");
 const app = express();
 const Port = 3001;
