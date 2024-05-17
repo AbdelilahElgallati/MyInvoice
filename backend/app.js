@@ -77,9 +77,9 @@ app.use("/Setting", SettingRouter);
 app.use("/Subscription", SubscriptionRouter);
 app.use("/Google", GoogleAuthRouter);
 
-app.get('/', {
-  "message" : "bonjour dans l'api de my invoice",
-})
+app.get('/', (req, res) => {
+  res.send({ "message": "bonjour dans l'api de my invoice" });
+});
 
 mongoose
   .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
