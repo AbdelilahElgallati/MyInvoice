@@ -5,6 +5,7 @@ const Entreprise = require("../Models/EntrepriseSchema")
 const loginMiddleware = async (req, res, next) => {
   try {
     const { email, password } = req.body;
+    console.log("req body : ", req.body)
     const user = await Entreprise.findOne({ email: email });
     if (!user) {
       return res.status(401).json({ error: "Email ou mot de passe incorrect" });
