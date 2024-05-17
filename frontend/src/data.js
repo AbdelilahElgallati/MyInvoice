@@ -30,7 +30,7 @@ import CtaImg2 from '../src/assets/img/cta/image2.svg';
 import FacebookIcon from '../src/assets/img/copyright/facebook.svg';
 import TwitterIcon from '../src/assets/img/copyright/twitter.svg';
 import LinkedinIcon from '../src/assets/img/copyright/linkedin.svg';
-// import backgroundImage from '../src/assets/img/overview/inv.png';
+import backgroundImage from '../src/assets/img/overview/inv.png';
 // import ic1 from "../src/assets/img/Modeles/Ic1.png";
 // import ic2 from "../src/assets/img/Modeles/freelance.webp";
 // import ic3 from "../src/assets/img/Modeles/printable.webp";
@@ -313,7 +313,7 @@ export const TestimonialsData = () => {
       setTestimonialsData(prevData => ({ ...prevData, clients }));
     }
     console.log(testimonialsData);
-  }, [messagesData]);
+  }, [messagesData,testimonialsData]);
   return testimonialsData;
 };
 
