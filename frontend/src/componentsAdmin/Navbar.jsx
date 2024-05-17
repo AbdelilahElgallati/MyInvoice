@@ -44,6 +44,7 @@ const Navbar = ({
     localStorage.removeItem('userName')
     navigate('/')
   } 
+  
 
   return (
     <AppBar sx={{ position: "static", background: "none", boxShadow: "none" }}>
@@ -124,7 +125,9 @@ const Navbar = ({
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
+              
               <MenuItem onClick={handleLogout}>Log Out</MenuItem>
+              
             </Menu>
           </FlexBetween>
         </FlexBetween>
