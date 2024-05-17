@@ -9,10 +9,10 @@ import Cookies from "js-cookie";
 
 const Hero = () => {
    // useState de  translatedData
-   const [title,setTitle] = useState(hero.title);
+  const [title,setTitle] = useState(hero.title);
   const [subtitle,setSubtitle] = useState(hero.subtitle);
   const [btnText,setBtnText] = useState(hero.btnText);
-   const [translatedData, setTranslatedData] = useState([]);
+  const [translatedData, setTranslatedData] = useState([]);
    var trText = "";
    useEffect(() => {
      const langto = Cookies.get("to");

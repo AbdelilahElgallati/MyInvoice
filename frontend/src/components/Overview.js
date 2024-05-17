@@ -17,7 +17,7 @@ const Overview = () => {
 
   return (
     <section className='lg:min-h-[512px] bg-overview bg-cover bg-left-top pt-[30px] lg:pt-[87px]'>
-      <div className='container mx-auto flex justify-end overflow-hidden'>
+      <div className='container mx-auto flex justify-end overflow-hidden mb-[-1px]'>
         {/* Afficher l'image en fonction de currentMode */}
         <img
           className='lg:h-[100%] w-[100%]  rounded-t-2xl'

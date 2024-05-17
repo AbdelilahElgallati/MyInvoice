@@ -6,8 +6,42 @@ import Header from "components/Header";
 import {
   useLoginEntrepriseMutation,
 } from "state/api";
-
+import tr from "Services/tr";
+import Cookies from "js-cookie";
 const Login = () => {
+  //UseState de Translate :
+  const [L , setL] = useState("L");
+  const [Ogin , setOgin] = useState("ogin");
+  const [Bien , setBien] = useState("Bienvenue ! S'il vous plaît entrez vos coordonnées.");
+  const [EmailPlace , setEmailPlace] = useState("Adresse Email");
+  const [Motpass , setMotpass] = useState("Mot de passe");
+  const [MotpassO , setMotpassO] = useState("Mot de passe oublié");
+  const [Connexion , setConnexion] = useState("Connexion");
+  const [Inscription , setInscription] = useState("Inscription");
+  const [Ou , setOu] = useState("Ou");
+  const [ConnexionGoogle , setConnexionGoogle] = useState("Connexion avec Google");
+  useEffect(() => {
+    const langto = Cookies.get("to");
+    console.log(langto);
+    // fonction multiThreads
+    const translateData = async () => {
+     if (langto != "fra" && langto) {
+      setL(await tr(L , "fra", langto));
+      setOgin(await tr(Ogin , "fra", langto));
+      setBien(await tr(Bien , "fra", langto))
+      setEmailPlace(await tr(EmailPlace , "fra", langto));
+      setMotpass(await tr(Motpass , "fra", langto))
+      setMotpassO(await tr(MotpassO , "fra", langto))
+      setConnexion(await tr(Connexion , "fra", langto))
+      setInscription(await tr(Inscription , "fra", langto))
+      setOu(await tr(Ou , "fra", langto))
+      setConnexionGoogle(await tr(ConnexionGoogle , "fra", langto))
+     }
+    };
+    translateData();
+  }, []);
+
+
   
 //Le composant Login représente une page
 //de connexion où les utilisateurs peuvent 
@@ -101,16 +135,16 @@ const Login = () => {
         </div>
         <div className="  dark:bg-black w-full lg:w-1/2  bg-[#f5F5F5] p-8 lg:rounded-r-lg lg:shadow-2xl  dark:text-white font-Quicksand font-semibold  ">
           <h2 className="text-4xl font-semibold mb-4 dark:text-white">
-            <span className="text-accent">L</span>ogin
+            <span className="text-accent">{L}</span>{Ogin}
           </h2>
           <p className="text-base mb-4 dark:text-white font-Quicksand font-semibold">
-            Bienvenue ! S'il vous plaît entrez vos coordonnées.
+            {Bien}
           </p>
           <form method="Post" onSubmit={hamdelSubmit}>
             <input
               type="email"
               name="email"
-              placeholder="Email"
+              placeholder={EmailPlace}
               onChange={handleChangeEmail}
               className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white  "
             />
@@ -118,17 +152,17 @@ const Login = () => {
               name="password"
               type="password"
               onChange={handleChangePassword}
-              placeholder="Mot de passe"
+              placeholder={Motpass}
               className="w-full text-black py-2 my-2 bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
             />
             <div className="flex items-center justify-between mb-4">
               
               <p className="text-sm font-medium cursor-pointer underline dark:text-white font-Quicksand font-semibold ">
-               <Link to="/ForgoutPass" >Mot de passe oublié</Link> 
+               <Link to="/ForgoutPass" >{MotpassO}</Link> 
               </p>
             </div>
             <button className="w-full bg-[#060606] hover:bg-accent text-white rounded-md py-3 mb-4 font-Quicksand font-semibold dark:border dark:border-accent">
-              Connexion
+              {Connexion}
             </button>
           </form>
 
@@ -136,12 +170,12 @@ const Login = () => {
             className="w-full border border-black text-[#060606] bg-white hover:bg-gray-300 rounded-md py-3 mb-4 "
             onClick={handleRegisterClick}
           >
-            Inscription
+            {Inscription}
           </button>
           <div className="w-full text-center mb-4">
             <div className="w-full h-px bg-black"></div>
             <p className="relative inline-block px-2 bg-gray-200 text-sm dark:bg-black dark:text-accent">
-              ou
+              {Ou}
             </p>
           </div>
           <button
@@ -149,7 +183,7 @@ const Login = () => {
             onClick={handleRegisterGoogle}
           >
             <img src={Gogle} alt="" className="w-4 mr-2" />
-            Connexion avec Google
+           {ConnexionGoogle}
           </button>
           
         </div>
