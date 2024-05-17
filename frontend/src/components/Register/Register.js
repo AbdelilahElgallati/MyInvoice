@@ -40,6 +40,7 @@ const SignUp = () => {
     });
     try {
       const Info = await register(formDataWithLogo);
+      console.log("Info : ", Info);
       console.log("info data :" + Info.data);
       navigate("/login");
     } catch (err) {
