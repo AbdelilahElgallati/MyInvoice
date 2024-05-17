@@ -25,7 +25,7 @@ const Login = () => {
     console.log(langto);
     // fonction multiThreads
     const translateData = async () => {
-     if (langto != "fra" && langto) {
+     if (langto !== "fra" && langto) {
       setlogin(await tr(login , "fra", langto));
       setBien(await tr(Bien , "fra", langto))
       setEmailPlace(await tr(EmailPlace , "fra", langto));
@@ -38,7 +38,7 @@ const Login = () => {
      }
     };
     translateData();
-  }, []);
+  }, [login,Bien,EmailPlace,Motpass,MotpassO,Connexion,Inscription,Ou,ConnexionGoogle]);
 
 
   

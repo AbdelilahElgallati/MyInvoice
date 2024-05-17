@@ -1,8 +1,9 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 
 import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
-import Gogle from "../../assets/img/Login/th.jpg";
-import { useNavigate, useLocation, useParams, Navigate } from "react-router-dom";
+// import Gogle from "../../assets/img/Login/th.jpg";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "components/Header";
 import {useResetPassMutation} from '../../state/api';
 import tr from "Services/tr";
@@ -20,7 +21,7 @@ const ResetPassword = () => {
     console.log(langto);
     // fonction multiThreads
     const translateData = async () => {
-     if (langto != "fra" && langto) {
+     if (langto !== "fra" && langto) {
      
       setBien(await tr(Bien , "fra", langto))
       setResetPassword(await tr(ResetPassword , "fra", langto));
@@ -30,7 +31,7 @@ const ResetPassword = () => {
      }
     };
     translateData();
-  }, []);
+  }, [Bien,ResetPassword,PassPlace,Modifier]);
   // Le composant ResetPassword est une page permettant 
   // à l'utilisateur de réinitialiser son mot de passe
   // en entrant un nouveau mot de passe. Il utilise

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React , { useEffect,  useState } from "react";
 import { cta } from '../data';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +23,7 @@ const Cta = () => {
     const langto = Cookies.get("to");
     // fonction multiThreads
     const translateData = async () => {
-     if (langto != "fra" && langto) {
+     if (langto !== "fra" && langto) {
       
        settitle(await tr(title , "fra", langto))
        setsubtitle(await tr(subtitle , "fra", langto))
@@ -31,7 +32,7 @@ const Cta = () => {
     };
 
     translateData();
-  }, []);
+  }, [title,subtitle,btnText]);
   return (
     <section className='section bg-cta bg-cover bg-left-top '>
       <img className='hidden xl:flex lg:w-[46%] lg:absolute lg:mt-[-191px] lg:ml-[-230px]' src={img1} alt=''

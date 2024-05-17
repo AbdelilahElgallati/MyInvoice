@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React , { useEffect,  useState } from "react";
 
 import { pricing } from "../data";
 import { HiCheck, HiOutlineArrowNarrowRight } from "react-icons/hi";
 import { useGetThreePacksQuery } from "state/api";
-import logoIm from '../assets/img/pricing/icon1.svg'
+// import logoIm from '../assets/img/pricing/icon1.svg'
 import tr from "Services/tr";
 import Cookies from "js-cookie";
 const Pricing = () => {

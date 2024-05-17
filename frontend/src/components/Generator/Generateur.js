@@ -48,7 +48,7 @@ const Generateur = () => {
     const translateData = async () => {
       const langto = Cookies.get("to");
       // Traduction des données générales
-      if (langto != "fra" && langto) {
+      if (langto !== "fra" && langto) {
         setheaderText(await tr(headerText , "fra", langto));
         setheaderDescription(await tr(headerDescription , "fra", langto));
         setcreateButtonText(await tr(createButtonText , "fra", langto));
@@ -73,7 +73,7 @@ const Generateur = () => {
     };
   
     translateData();
-  }, []);
+  }, [headerText,headerDescription,createButtonText,howItWorksTitle,howItWorksDescription,sectext,sectitle,steps]);
 
 // prend la valleur user_id depuis localstorage et affecter dans variable id :
   const id = localStorage.getItem("userId");

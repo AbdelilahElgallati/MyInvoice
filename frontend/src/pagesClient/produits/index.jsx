@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Box, useTheme, Button, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetProductsQuery, useRemoveProduitMutation } from "state/api";
+import {  useRemoveProduitMutation } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
