@@ -25,7 +25,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Categorie/Entreprise/${id}`);
+        const response = await axios.get(`http://localhost:3001/Categorie/Entreprise/${id}`);
         setCategorie(response.data);
         setIsLoading(false);
       } catch (error) {

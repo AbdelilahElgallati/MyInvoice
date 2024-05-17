@@ -47,7 +47,7 @@ const Invoices = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/Api/Invoice/List/${id}`
+          `http://localhost:3001/Invoice/List/${id}`
         );
         setFacture(response.data);
         setIsLoading(false);

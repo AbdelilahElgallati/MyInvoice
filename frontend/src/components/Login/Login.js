@@ -75,7 +75,7 @@ const Login = () => {
 
   const handleRegisterGoogle = (e) => {
     e.preventDefault();
-    window.location.href = "http://localhost:3001/Api/auth/google/";
+    window.location.href = "http://localhost:3001/auth/google/";
   };
 
   const handleRegisterClick = () => {

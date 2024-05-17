@@ -63,7 +63,7 @@ const SignUp = () => {
     console.log(langto);
     // fonction multiThreads
     const translateData = async () => {
-     if (langto != "fra" && langto) {
+     if (langto !== "fra" && langto) {
       setInscrire(await tr(Inscrire , "fra", langto));
       setEntreprisename(await tr(Entreprisename , "fra", langto))
       setEmail(await tr(Email , "fra", langto));

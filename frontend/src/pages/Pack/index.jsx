@@ -115,7 +115,7 @@ const Packs = () => {
   useEffect(() => {
     const fetchPacks = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Pack/");
+        const response = await axios.get("http://localhost:3001/Pack/");
         setPacks(response.data);
       } catch (error) {
         console.log(error);

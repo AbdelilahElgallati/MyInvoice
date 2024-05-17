@@ -26,7 +26,7 @@ const Fournisseurs = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Fournisseur/Entreprise/${id}`);
+        const response = await axios.get(`http://localhost:3001/Fournisseur/Entreprise/${id}`);
         setFourinsseur(response.data);
         setIsLoading(false);
       } catch (error) {

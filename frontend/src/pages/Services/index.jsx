@@ -27,7 +27,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Service/");
+        const response = await axios.get("http://localhost:3001/Service/");
         setService(response.data);
       } catch (error) {
         console.log(error);
