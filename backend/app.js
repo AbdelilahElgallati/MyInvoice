@@ -42,13 +42,7 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(express.json());
 app.use(bodyParser.json());
-app.use(cors(
-  {
-    origin: {""},
-    methods: ["POST","GET","PUT","DELETE"],
-    credentials: true
-  }
-));
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("Public"));
 app.use(session({   // Utilisation de express-session
@@ -59,24 +53,24 @@ app.use(session({   // Utilisation de express-session
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use("/Categorie", CategorieRouter);
-app.use("/Taks", TaksRouter);
-app.use("/Client", ClientRouter);
-app.use("/Fournisseur", FournisseurRouter);
-app.use("/Entreprise", EntrepriseRouter);
-app.use("/Invoice", InvoiceRouter);
-app.use("/BonCommandes", BonCommandesRouter);
-app.use("/BonLivraison", BonLivraisonRouter);
-app.use("/Devi", DeviRouter);
-app.use("/Demande", DemandeRouter);
-app.use("/Pack", PackRouter);
-app.use("/Message", MessageRouter); 
-app.use("/Model", ModelRouter);
-app.use("/Produit", ProductRouter);
-app.use("/Service", ServiceRouter);
-app.use("/Setting", SettingRouter);
-app.use("/Subscription", SubscriptionRouter);
-app.use("/", GoogleAuthRouter);
+app.use("/Api/Categorie", CategorieRouter);
+app.use("/Api/Taks", TaksRouter);
+app.use("/Api/Client", ClientRouter);
+app.use("/Api/Fournisseur", FournisseurRouter);
+app.use("/Api/Entreprise", EntrepriseRouter);
+app.use("/Api/Invoice", InvoiceRouter);
+app.use("/Api/BonCommandes", BonCommandesRouter);
+app.use("/Api/BonLivraison", BonLivraisonRouter);
+app.use("/Api/Devi", DeviRouter);
+app.use("/Api/Demande", DemandeRouter);
+app.use("/Api/Pack", PackRouter);
+app.use("/Api/Message", MessageRouter); 
+app.use("/Api/Model", ModelRouter);
+app.use("/Api/Produit", ProductRouter);
+app.use("/Api/Service", ServiceRouter);
+app.use("/Api/Setting", SettingRouter);
+app.use("/Api/Subscription", SubscriptionRouter);
+app.use("/Api/", GoogleAuthRouter);
 
 mongoose
   .connect(url, { useNewUrlParser: true, useUnifiedTopology: true })

@@ -22,7 +22,7 @@ const Layout = () => {
   useEffect(()=>{
     const fetchEntreprise = async () => {
       try {
-        const response = await axios.get(`https://my-invoice-iota.vercel.app/Entreprise/${userId}`);
+        const response = await axios.get(`http://localhost:3001/Api/Entreprise/${userId}`);
         setEntreprise(response.data);
       } catch (error) {
         console.log(error);

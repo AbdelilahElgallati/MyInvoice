@@ -27,6 +27,7 @@ const Login = () => {
   const [userId, setUserId] = useState(null);
   if(userId) {
     localStorage.setItem("userId", userId)
+    
     navigate("/dashboardClient");
   }
   const handleChangeEmail = (e) => {
@@ -39,7 +40,7 @@ const Login = () => {
 
   const handleRegisterGoogle = (e) => {
     e.preventDefault();
-    window.location.href = "https://my-invoice-iota.vercel.app/auth/google/";
+    window.location.href = "http://localhost:3001/Api/auth/google/";
   };
 
   const handleRegisterClick = () => {

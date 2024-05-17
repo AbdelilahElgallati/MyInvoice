@@ -25,7 +25,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`https://my-invoice-iota.vercel.app/Categorie/Entreprise/${id}`);
+        const response = await axios.get(`http://localhost:3001/Api/Categorie/Entreprise/${id}`);
         setCategorie(response.data);
         setIsLoading(false);
       } catch (error) {

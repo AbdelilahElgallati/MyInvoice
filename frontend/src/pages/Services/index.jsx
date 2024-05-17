@@ -27,7 +27,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("https://my-invoice-iota.vercel.app/Service/");
+        const response = await axios.get("http://localhost:3001/Api/Service/");
         setService(response.data);
       } catch (error) {
         console.log(error);

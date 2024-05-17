@@ -31,7 +31,7 @@ const Models = () => {
   useEffect(() => {
     const fetchModels = async () => {
       try {
-        const response = await axios.get("https://my-invoice-iota.vercel.app/Model/");
+        const response = await axios.get("http://localhost:3001/Api/Model/");
         setModel(response.data);
       } catch (error) {
         console.log(error);

@@ -27,7 +27,7 @@ const Categories = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `https://my-invoice-iota.vercel.app/Taks/Entreprise/${id}`
+          `http://localhost:3001/Api/Taks/Entreprise/${id}`
         );
         setTaks(response.data);
         setIsLoading(false);
