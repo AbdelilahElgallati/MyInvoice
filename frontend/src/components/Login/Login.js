@@ -4,7 +4,7 @@ import Gogle from "../../assets/img/Login/th.jpg";
 import { useNavigate, useLocation, Link } from "react-router-dom";
 import Header from "components/Header";
 import {
-  useLoginEntrepriseMutation,
+  useLoginEntrepriseMutation, useGetOneEntrepriseQuery
 } from "state/api";
 import tr from "Services/tr";
 import Cookies from "js-cookie";
@@ -59,10 +59,16 @@ const Login = () => {
   const [emailEnt, setEmailEnt] = useState("");
   const [passwordEnt, setPasswordEnt] = useState("");
   const [userId, setUserId] = useState(null);
-  if(userId) {
+  // if(userId) {
+  //   localStorage.setItem("userId", userId)
+  //   localStorage.setItem("userName", Info.data.user.name);
+  //   navigate("/dashboardClient");
+  // }
+  const { data : userInfo} = useGetOneEntrepriseQuery(userId );
+  if(userInfo && userId) {
     localStorage.setItem("userId", userId)
-    
-    navigate("/dashboardClient");
+    localStorage.setItem("userName", userInfo.name);
+    navigate(`/${userInfo.name}/dashboardClient`);
   }
   const handleChangeEmail = (e) => {
     setEmailEnt(e.target.value);
