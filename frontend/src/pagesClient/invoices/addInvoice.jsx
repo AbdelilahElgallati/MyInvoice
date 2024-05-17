@@ -14,7 +14,7 @@ import Header from "componentsAdmin/Header";
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { useGetProductsQuery, useGetAllTaxEntrepriseQuery, useGetClientsQuery, useAddInvoiceMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
-
+import { format, isAfter, parseISO, startOfDay } from 'date-fns';
 const AddInvoice = () => {
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ const AddInvoice = () => {
   const [invoice, setInvoice] = useState({
     userId: localStorage.getItem("userId") || "",
     clientId: "",
-    dueDate: new Date(),
+    dueDate: format(new Date(), 'yyyy-MM-dd'),
     items: [{ productId: "", quantity: 0 }],
     taxes: [{ taxId: "" }],
     amount: 0,
@@ -40,7 +40,19 @@ const AddInvoice = () => {
   const Navigate = useNavigate();
 
   const handleChange = (e) => {
-    setInvoice({ ...invoice, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    if (name === "dueDate") {
+      const selectedDate = parseISO(value);
+      const today = startOfDay(new Date());
+      if (isAfter(selectedDate, today) || selectedDate.getTime() === today.getTime()) {
+        setInvoice({ ...invoice, [name]: value });
+      } else {
+        alert("La date d'échéance doit être supérieure ou égale à la date actuelle.");
+      }
+    } else {
+      setInvoice({ ...invoice, [name]: value });
+    }
+    // setInvoice({ ...invoice, [e.target.name]: e.target.value });
   };
 
   const handleProductAdd = () => {
