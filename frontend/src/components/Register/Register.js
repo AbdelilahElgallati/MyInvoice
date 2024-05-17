@@ -20,6 +20,7 @@ const SignUp = () => {
     // logo: null,
   });
 
+  const [result, setResult] = useState(null);
   const navigate = useNavigate();
   const [register] = useRegisterEntrepriseMutation();
 
@@ -41,8 +42,13 @@ const SignUp = () => {
     try {
       const Info = await register(formDataWithLogo);
       console.log("Info : ", Info);
-      console.log("info data :" + Info.data);
-      navigate("/login");
+      console.log("info data :" + Info.entreprise);
+      if(Info.entreprise) {
+        navigate("/login");
+      } else {
+        setResult(Info); 
+      }
+      
     } catch (err) {
       console.log(err);
     }
@@ -160,6 +166,7 @@ const SignUp = () => {
               onChange={handleLogoChange}
               className="w-full text-black py-2 my-2 bg-transparent font-Quicksand font-semibold border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
             />
+            {result ? <h1>${result}</h1> : null} <br />
             <button
               type="submit"
               className="w-full bg-[#060606] hover:bg-accent font-Quicksand font-semibold text-white rounded-md py-3 mb-4 dark:border dark:border-accent  "
