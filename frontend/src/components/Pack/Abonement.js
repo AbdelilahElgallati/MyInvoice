@@ -56,7 +56,7 @@ const Abonement = () => {
         return it;
       })
     );
-    console.log(translatedItems);
+    // console.log(translatedItems);
     setTranslatedData(translatedItems);
   };
 
