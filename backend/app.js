@@ -44,13 +44,13 @@ app.use(morgan("common"));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({
-  origin: "https://my-invoice-omega.vercel.app",
+  origin: "https://my-invoice-omega.vercel.app/",
   methods: ["GET,PUT,POST,DELETE"],
   credentials: true,
 }));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static("Public"));
-app.use(session({   // Utilisation de express-session
+app.use(session({   
   secret: "secret",
   resave: false,
   saveUninitialized: false
@@ -96,6 +96,11 @@ cron.schedule(
     timezone: "Africa/Casablanca",
   }
 );
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something broke!');
+});
 
 app.listen(Port, () => {
   // OverallStat.insertMany(dataOverallStat)
