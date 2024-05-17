@@ -7,15 +7,12 @@ const nodemailer = require('nodemailer');
 
 const addDevi = async (req, res) => {
   try {
-    console.log('start')    
-    // console.log(req.body.devi);
     const devi = new Devi(req.body.devi);
     await devi.save();
-    console.log('devi : ', devi)
     res.status(201).json(devi);
   } catch (error) {
     console.error('err : ', error)
-    res.status(500).send("Erreur serveur lors de l'ajout de facture");
+    res.status(500).send("Erreur serveur lors de l'ajout de devi");
   }
 };
 

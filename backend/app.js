@@ -54,7 +54,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use("/Api/Categorie", CategorieRouter);
-app.use("/Api/Taks", TaksRouter);
+app.use("/Api/Tax", TaksRouter);
 app.use("/Api/Client", ClientRouter);
 app.use("/Api/Fournisseur", FournisseurRouter);
 app.use("/Api/Entreprise", EntrepriseRouter);

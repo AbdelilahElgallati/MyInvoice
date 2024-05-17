@@ -12,7 +12,7 @@ const addBonCommande = async (req, res) => {
     await bonCommande.save();
     res.status(201).json(bonCommande);
   } catch (error) {
-    res.status(500).send("Erreur serveur lors de l'ajout de facture");
+    res.status(500).send("Erreur serveur lors de l'ajout de bon de commande");
   }
 };
 

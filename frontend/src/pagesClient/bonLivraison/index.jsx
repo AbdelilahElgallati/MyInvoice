@@ -285,7 +285,7 @@ const BonLivraison = () => {
             startIcon={<AddOutlinedIcon />}
             sx={{ mt: 3, mb: 2 }}
           >
-            Add
+            Ajoute de bon de livraison
           </Button>
         </Link>
       </FlexBetween>{" "}

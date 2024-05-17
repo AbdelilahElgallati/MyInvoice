@@ -282,7 +282,7 @@ const Devis = () => {
             startIcon={<AddOutlinedIcon />}
             sx={{ mt: 3, mb: 2 }}
           >
-            Add
+            Ajouter un devi
           </Button>
         </Link>
       </FlexBetween>
