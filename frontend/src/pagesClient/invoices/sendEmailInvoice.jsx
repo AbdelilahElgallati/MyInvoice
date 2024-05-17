@@ -24,7 +24,7 @@ const SendEmailInvoice = () => {
       const sendEmail = async () => {
         setIsSendingEmail(true);
         try {
-          await axios.post('http://localhost:3001/Api/Invoice/email', {
+          await axios.post(`${process.env.REACT_APP_URL_BACKEND_API}/Invoice/email`, {
             _id: data._id,
             userName: data.userName,
             userEmail: data.userEmail,
@@ -35,14 +35,14 @@ const SendEmailInvoice = () => {
             formattedDueDate: data.formattedDueDate,
             itemsTable: data.itemsTable,
             amount: data.amount,
-          });
+          })
           setEmailSent(true);
         } catch (error) {
           setError(error.message);
           console.error('Error sending email:', error.message);
         }
         setIsSendingEmail(false);
-      };
+      }
 
       sendEmail();
     }

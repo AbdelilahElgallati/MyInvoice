@@ -45,7 +45,7 @@ const BonCommandes = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/Api/BonCommandes/List/${id}`
+          `${process.env.REACT_APP_URL_BACKEND_API}/BonCommandes/List/${id}`
         );
         setBonCommandes(response.data);
         setIsLoading(false);

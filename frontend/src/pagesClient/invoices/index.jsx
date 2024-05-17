@@ -19,6 +19,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import PrintIcon from "@mui/icons-material/Print";
 import axios from "axios";
+
 const Invoices = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ const Invoices = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/Api/Invoice/List/${id}`
+          `${process.env.REACT_APP_URL_BACKEND_API}/Invoice/List/${id}`
         );
         setFacture(response.data);
         setIsLoading(false);

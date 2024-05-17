@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton, Avatar } from "@mui/material";
 import {
-  useGetAllEntreprisesQuery,
   useRemoveEntrepriseMutation,
 } from "state/api";
 import Header from "componentsAdmin/Header";
@@ -9,7 +8,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import DeleteIcon from "@mui/icons-material/Delete";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Importer axios
+import axios from "axios"; 
 
 const Entreprises = () => {
   const navigate = useNavigate();
@@ -24,7 +23,7 @@ const Entreprises = () => {
   useEffect(() => {
     const fetchEntreprises = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Entreprise");
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Entreprise/`);
         setEntreprises(response.data);
         setIsLoading(false); // Mettre à jour l'état de chargement une fois la requête terminée
       } catch (error) {
@@ -59,7 +58,7 @@ const Entreprises = () => {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Avatar
-          src={`http://localhost:3001/Images/${logo}`}
+          src={`${process.env.REACT_APP_URL_BACKEND_API}/Images/${logo}`}
           alt={name}
           sx={{ width: 35, height: 35 }} // Taille fixe pour l'avatar
         />

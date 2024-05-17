@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
-
 const SubscriptionPalns = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
@@ -27,7 +26,7 @@ const SubscriptionPalns = () => {
   useEffect(() => {
     const fetchSubscription = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Subscription/");
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Subscription/`);
         setSubscriptionPlan(response.data);
       } catch (error) {
         console.log(error);

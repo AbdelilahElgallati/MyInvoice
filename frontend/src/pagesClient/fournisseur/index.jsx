@@ -16,6 +16,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+
 const Fournisseurs = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const Fournisseurs = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Fournisseur/Entreprise/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Fournisseur/Entreprise/${id}`);
         setFourinsseur(response.data);
         setIsLoading(false);
       } catch (error) {

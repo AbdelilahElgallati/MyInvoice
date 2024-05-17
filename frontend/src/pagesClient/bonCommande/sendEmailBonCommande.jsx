@@ -27,7 +27,7 @@ const SendEmailBonCommande = () => {
       const sendEmail = async () => {
         setIsSendingEmail(true);
         try {
-          await axios.post('http://localhost:3001/Api/BonCommandes/email', {
+          await axios.post(`${process.env.REACT_APP_URL_BACKEND_API}/BonCommandes/email`, {
             _id: data._id,
             userName: data.userName,
             userEmail: data.userEmail,

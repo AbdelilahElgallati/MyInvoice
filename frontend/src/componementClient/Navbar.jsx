@@ -94,7 +94,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
                 component="img"
                 alt="profile"
                 // src={`http://localhost:3001/Images/${user.logo}` ? (`http://localhost:3001/Images/${user.logo}) : (${user.logo}) : ""}
-                src={user.logo ? (user.logo.startsWith('http') ? user.logo : `http://localhost:3001/Images/${user.logo}`) : "#"}
+                src={user.logo ? (user.logo.startsWith('http') ? user.logo : `${process.env.REACT_APP_URL_BACKEND_API}Images/${user.logo}`) : "#"}
                 height="32px"
                 width="32px"
                 borderRadius="50%"

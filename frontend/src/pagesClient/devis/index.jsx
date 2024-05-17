@@ -23,6 +23,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import PrintIcon from "@mui/icons-material/Print";
 import axios from "axios";
+
 const Devis = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
@@ -51,7 +52,7 @@ const Devis = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Devi/List/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Devi/List/${id}`);
         setDevis(response.data);
         setIsLoading(false);
       } catch (error) {

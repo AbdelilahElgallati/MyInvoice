@@ -8,6 +8,7 @@ import {
 } from "state/api";
 import tr from "Services/tr";
 import Cookies from "js-cookie";
+
 const Login = () => {
   //UseState de Translate :
 
@@ -75,7 +76,7 @@ const Login = () => {
 
   const handleRegisterGoogle = (e) => {
     e.preventDefault();
-    window.location.href = "http://localhost:3001/Api/auth/google/";
+    window.location.href = `${process.env.REACT_APP_URL_BACKEND_API}/Google/auth/google/`;
   };
 
   const handleRegisterClick = () => {

@@ -23,6 +23,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import PrintIcon from "@mui/icons-material/Print";
 import axios from "axios";
+
 const BonLivraison = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -48,7 +49,7 @@ const BonLivraison = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/BonLivraison/List/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/BonLivraison/List/${id}`);
         setbonLivraison(response.data);
         setIsLoading(false);
       } catch (error) {

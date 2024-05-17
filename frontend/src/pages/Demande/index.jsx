@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+
 const SubscriptionPalns = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
@@ -34,7 +35,7 @@ const SubscriptionPalns = () => {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Avatar
-          src={`http://localhost:3001/Images/${logo}`}
+          src={`${process.env.URL_BACKEND_API}/Images/${logo}`}
           alt={enterpriseName}
           sx={{ width: 35, height: 35 }} 
         />

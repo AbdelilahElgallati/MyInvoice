@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 const Services = () => {
   
   const navigate = useNavigate()
@@ -27,7 +26,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Service/");
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Service/`);
         setService(response.data);
       } catch (error) {
         console.log(error);

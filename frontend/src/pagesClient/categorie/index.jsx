@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 const Categories = () => {
   const navigate = useNavigate();
   if(!localStorage.getItem('userId')) {
@@ -25,7 +26,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Categorie/Entreprise/${id}`);
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Categorie/Entreprise/${id}`)
         setCategorie(response.data);
         setIsLoading(false);
       } catch (error) {

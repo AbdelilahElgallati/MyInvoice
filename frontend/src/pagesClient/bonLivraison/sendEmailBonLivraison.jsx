@@ -24,7 +24,7 @@ const SendEmailBonLivraison = () => {
       const sendEmail = async () => {
         setIsSendingEmail(true);
         try {
-          await axios.post('http://localhost:3001/Api/BonLivraison/email', {
+          await axios.post(`${process.env.REACT_APP_URL_BACKEND_API}/BonLivraison/email`, {
             _id: data._id,
             userName: data.userName,
             userEmail: data.userEmail,
@@ -35,7 +35,7 @@ const SendEmailBonLivraison = () => {
             formattedDateLivraison: data.dateLivraison,
             itemsTable: data.itemsTable,
             amount: data.amount,
-          });
+          })
           setEmailSent(true);
         } catch (error) {
           setError(error.message);

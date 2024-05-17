@@ -12,7 +12,6 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios"; // Importer axios
 
-
 const Models = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
@@ -31,7 +30,7 @@ const Models = () => {
   useEffect(() => {
     const fetchModels = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Model/");
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Model`);
         setModel(response.data);
       } catch (error) {
         console.log(error);
@@ -48,7 +47,7 @@ const Models = () => {
       flex: 0.6,
       renderCell: (params) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar src={`http://localhost:3001/Images/${params.row.icon}`} alt={params.row.name} />
+          <Avatar src={`${process.env.REACT_APP_URL_BACKEND_API}/Images/${params.row.icon}`} alt={params.row.name} />
           <Box ml={1}>
             <div>{params.row.name}</div>
           </Box>

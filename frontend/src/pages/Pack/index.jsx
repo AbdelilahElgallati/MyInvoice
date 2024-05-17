@@ -20,7 +20,6 @@ import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 const Pack = ({
   _id,
   name,
@@ -115,7 +114,7 @@ const Packs = () => {
   useEffect(() => {
     const fetchPacks = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Pack/");
+        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Pack`)
         setPacks(response.data);
       } catch (error) {
         console.log(error);
