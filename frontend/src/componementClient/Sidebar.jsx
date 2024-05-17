@@ -21,7 +21,6 @@ import {
   PointOfSaleOutlined,
   TodayOutlined,
   CalendarMonthOutlined,
-  AdminPanelSettingsOutlined,
 } from "@mui/icons-material";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import { useLocation, useNavigate } from "react-router-dom";

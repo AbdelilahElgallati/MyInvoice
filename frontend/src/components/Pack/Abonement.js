@@ -25,6 +25,7 @@ const Abonement = () => {
       setIndex(0);
       translateData();
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
   
   const translateData = async () => {

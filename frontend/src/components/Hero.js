@@ -2,7 +2,7 @@ import React , { useEffect, useState } from "react";
 import { hero } from '../data';
 import { HiOutlineChevronDown } from 'react-icons/hi';
 import { useNavigate } from 'react-router-dom';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import tr from "Services/tr";
 import Cookies from "js-cookie";
 
@@ -12,13 +12,16 @@ const Hero = () => {
   const [title,setTitle] = useState(hero.title);
   const [subtitle,setSubtitle] = useState(hero.subtitle);
   const [btnText,setBtnText] = useState(hero.btnText);
+  
+  // eslint-disable-next-line no-unused-vars
   const [translatedData, setTranslatedData] = useState([]);
    var trText = "";
    useEffect(() => {
      const langto = Cookies.get("to");
      // fonction multiThreads
      const translateData = async () => {
-      if (langto != "fra" && langto) {
+      if (langto !== "fra" && langto) {
+        // eslint-disable-next-line react-hooks/exhaustive-deps
         trText = await tr(title , "fra", langto);
         setTitle(trText);
         trText = await tr(subtitle , "fra", langto);

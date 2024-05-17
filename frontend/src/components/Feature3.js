@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 import React , { useEffect, useState } from "react";
 import { features } from '../data';
 import tr from "Services/tr";
@@ -6,6 +7,7 @@ const Feature3 = () => {
   
   const {feature3} = features;
 
+  // eslint-disable-next-line no-unused-vars
   const {  btnIcon , image }= feature3;
   //pretitle , title , subtitle , btnLink
   const [pretitle,setpretitle] = useState(feature3.pretitle);
@@ -18,7 +20,7 @@ const Feature3 = () => {
      const langto = Cookies.get("to");
      // fonction multiThreads
      const translateData = async () => {
-      if (langto != "fra" && langto) {
+      if (langto !== "fra" && langto) {
         setpretitle(await tr(pretitle , "fra", langto))
         settitle(await tr(title , "fra", langto))
         setsubtitle(await tr(subtitle , "fra", langto))
@@ -27,7 +29,7 @@ const Feature3 = () => {
      };
  
      translateData();
-   }, []);
+   }, [pretitle,title,subtitle,btnLink]);
   
 
 

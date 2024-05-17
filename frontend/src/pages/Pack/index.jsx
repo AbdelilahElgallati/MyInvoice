@@ -14,7 +14,7 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useGetPacksQuery, useRemovePackMutation } from "state/api";
+import { useRemovePackMutation } from "state/api";
 import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";

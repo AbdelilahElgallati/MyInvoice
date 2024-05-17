@@ -68,6 +68,7 @@ const Devis = () => {
     }
   }, [id, navigate]); 
   const [removeDevi] = useRemoveDeviMutation();
+  // eslint-disable-next-line no-unused-vars
   const [idDevi, setIdDevi] = useState("");
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -241,6 +242,7 @@ const Devis = () => {
     },
   ];
 
+  // eslint-disable-next-line no-unused-vars
   const { data: deviDetail } = useGetDeviDetailsQuery(idDevi);
 
   const handleDetails = (id) => {

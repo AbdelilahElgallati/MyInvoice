@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { header } from "../data";
 import { HiMenuAlt4, HiOutlineX } from "react-icons/hi";
@@ -92,6 +94,7 @@ const Header = () => {
   };
 
   // useState de  translatedData
+  // eslint-disable-next-line no-unused-vars
   const [translatedData, setTranslatedData] = useState([]);
 
   const [btnText, setBtntext] = useState(header.btnText);
@@ -113,7 +116,7 @@ const Header = () => {
     // fonction multiThreads
 
     const translateData = async () => {
-      if (langto != "fra" && langto) {
+      if (langto !== "fra" && langto) {
         trText = await tr(btnText, "fra", langto);
         setBtntext(trText);
         trText = await tr(btnTextDec, "fra", langto);
@@ -124,7 +127,7 @@ const Header = () => {
         // pour exécuter plusieurs promesses en parallèle. Cela signifie que toutes les promesses à l'intérieur de Promise.all doivent se terminer avant que la fonction ne continue.
         nav.map(async (item) => {
           const it = item;
-          if (langto != "fra" && langto) {
+          if (langto !== "fra" && langto) {
             it.name = await tr(item.name, "fra", langto);
           }
           // Test de premiere fois : (data par default c'est fra)

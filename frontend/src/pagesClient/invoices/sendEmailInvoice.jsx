@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGetInvoiceDetailsQuery } from "state/api";
 import { useParams, useNavigate } from "react-router-dom";
-import { useTheme, CircularProgress, Typography, Button, Box } from '@mui/material';
+import {  CircularProgress, Typography, Button, Box } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import axios from 'axios';
@@ -13,9 +13,11 @@ const SendEmailInvoice = () => {
   }
   const { id } = useParams();
   const { data, isLoading } = useGetInvoiceDetailsQuery(id);
-  const theme = useTheme();
+  // const theme = useTheme();
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
+  
+  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
 
 

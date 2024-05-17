@@ -43,6 +43,8 @@ const Profil = () => {
     setDemande({ ...demande, packId: event.target.value });
   };
 
+
+  // eslint-disable-next-line no-unused-vars
   const handleFieldChange = (field, value) => {
     setDemande((prevDemande) => ({
       ...prevDemande,

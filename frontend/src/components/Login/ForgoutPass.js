@@ -1,11 +1,11 @@
 
 import React, { useState, useEffect } from "react";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
-import Gogle from "../../assets/img/Login/th.jpg";
-import { useNavigate, useLocation } from "react-router-dom";
+// import Gogle from "../../assets/img/Login/th.jpg";
+// import { useNavigate, useLocation } from "react-router-dom";
 import Header from "components/Header";
 import {useForgoutPasswordMutation} from '../../state/api'
-import { Email } from "@mui/icons-material";
+// import { Email } from "@mui/icons-material";
 import tr from "Services/tr";
 import Cookies from "js-cookie";
 const ForgoutPass = () => {
@@ -20,7 +20,7 @@ const ForgoutPass = () => {
     console.log(langto);
     // fonction multiThreads
     const translateData = async () => {
-     if (langto != "fra" && langto) {
+     if (langto !== "fra" && langto) {
      
       setBien(await tr(Bien , "fra", langto))
       setEmailPlace(await tr(EmailPlace , "fra", langto));
@@ -30,7 +30,7 @@ const ForgoutPass = () => {
      }
     };
     translateData();
-  }, []);
+  }, [Bien,EmailPlace,MotpassO,Envoyez]);
 
 // Le composant ForgoutPass est une page de récupération
 // de mot de passe qui permet à l'utilisateur d'entrer

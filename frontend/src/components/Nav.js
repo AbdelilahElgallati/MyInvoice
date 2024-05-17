@@ -40,7 +40,7 @@ const Nav = () => {
         // pour exécuter plusieurs promesses en parallèle. Cela signifie que toutes les promesses à l'intérieur de Promise.all doivent se terminer avant que la fonction ne continue.
         nav.map(async (item) => {
           const it = item;
-          if (langto != "fra" && langto) {
+          if (langto !== "fra" && langto) {
             it.name = await tr(item.name, "fra", langto);
           }
           // Test de premiere fois : (data par default c'est fra)

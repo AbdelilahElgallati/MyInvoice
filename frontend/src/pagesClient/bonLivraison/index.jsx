@@ -70,6 +70,7 @@ const BonLivraison = () => {
   if (!localStorage.getItem("userId")) {
     navigate("/");
   }
+  // eslint-disable-next-line no-unused-vars
   const [idBonLivraison, setIdBonLivraison] = useState("");
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -242,7 +243,7 @@ const BonLivraison = () => {
       ),
     },
   ];
-
+  // eslint-disable-next-line no-unused-vars
   const { data: bonLivraisonDetail } =
     useGetBonLivraisonDetailsQuery(idBonLivraison);
 
