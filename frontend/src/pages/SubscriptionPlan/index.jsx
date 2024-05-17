@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
-import { useRemoveSubscriptionMutation } from "state/api";
+import { useGetSubscriptionsQuery, useRemoveSubscriptionMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
+
 const SubscriptionPalns = () => {
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
@@ -26,7 +27,7 @@ const SubscriptionPalns = () => {
   useEffect(() => {
     const fetchSubscription = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Subscription/`);
+        const response = await axios.get("http://localhost:3001/Api/Subscription/");
         setSubscriptionPlan(response.data);
       } catch (error) {
         console.log(error);

@@ -1,4 +1,3 @@
-/* eslint-disable no-useless-concat */
 import { Typography, Box, useTheme } from "@mui/material";
 import React from "react";
 

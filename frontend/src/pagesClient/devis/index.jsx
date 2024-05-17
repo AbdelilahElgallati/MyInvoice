@@ -23,7 +23,6 @@ import InfoIcon from "@mui/icons-material/Info";
 import EmailIcon from "@mui/icons-material/Email";
 import PrintIcon from "@mui/icons-material/Print";
 import axios from "axios";
-
 const Devis = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
@@ -52,7 +51,7 @@ const Devis = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Devi/List/${id}`);
+        const response = await axios.get(`http://localhost:3001/Api/Devi/List/${id}`);
         setDevis(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -68,7 +67,6 @@ const Devis = () => {
     }
   }, [id, navigate]); 
   const [removeDevi] = useRemoveDeviMutation();
-  // eslint-disable-next-line no-unused-vars
   const [idDevi, setIdDevi] = useState("");
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -242,7 +240,6 @@ const Devis = () => {
     },
   ];
 
-  // eslint-disable-next-line no-unused-vars
   const { data: deviDetail } = useGetDeviDetailsQuery(idDevi);
 
   const handleDetails = (id) => {

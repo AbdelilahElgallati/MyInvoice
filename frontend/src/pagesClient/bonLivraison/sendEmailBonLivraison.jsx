@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useGetBonLivraisonDetailsQuery } from "state/api";
 import { useParams, useNavigate } from "react-router-dom";
-import { CircularProgress, Typography, Button, Box } from '@mui/material';
+import { useTheme, CircularProgress, Typography, Button, Box } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import axios from 'axios';
@@ -13,10 +13,9 @@ const SendEmailBonLivraison = () => {
   }
   const { id } = useParams();
   const { data, isLoading } = useGetBonLivraisonDetailsQuery(id);
-  // const theme = useTheme();
+  const theme = useTheme();
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [error, setError] = useState(null);
 
 
@@ -25,7 +24,7 @@ const SendEmailBonLivraison = () => {
       const sendEmail = async () => {
         setIsSendingEmail(true);
         try {
-          await axios.post(`${process.env.REACT_APP_URL_BACKEND_API}/BonLivraison/email`, {
+          await axios.post('http://localhost:3001/Api/BonLivraison/email', {
             _id: data._id,
             userName: data.userName,
             userEmail: data.userEmail,
@@ -36,7 +35,7 @@ const SendEmailBonLivraison = () => {
             formattedDateLivraison: data.dateLivraison,
             itemsTable: data.itemsTable,
             amount: data.amount,
-          })
+          });
           setEmailSent(true);
         } catch (error) {
           setError(error.message);

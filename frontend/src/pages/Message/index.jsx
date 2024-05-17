@@ -19,7 +19,7 @@ const Messages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Message`);
+        const response = await axios.get("http://localhost:3001/Api/Message/");
         setMessages(response.data);
       } catch (error) {
         console.log(error);
@@ -31,7 +31,7 @@ const Messages = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`${process.env.REACT_APP_URL_BACKEND_API}/Message/remove/${id}`);
+      await axios.delete(`http://localhost:3001/Api/Message/remove/${id}`);
       setMessages(messages.filter((message) => message._id !== id));
     } catch (error) {
       console.log(error);

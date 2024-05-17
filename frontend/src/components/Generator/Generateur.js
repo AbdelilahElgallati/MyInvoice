@@ -48,7 +48,7 @@ const Generateur = () => {
     const translateData = async () => {
       const langto = Cookies.get("to");
       // Traduction des données générales
-      if (langto !== "fra" && langto) {
+      if (langto != "fra" && langto) {
         setheaderText(await tr(headerText , "fra", langto));
         setheaderDescription(await tr(headerDescription , "fra", langto));
         setcreateButtonText(await tr(createButtonText , "fra", langto));
@@ -73,7 +73,7 @@ const Generateur = () => {
     };
   
     translateData();
-  }, [createButtonText,headerText,headerDescription,howItWorksTitle,howItWorksDescription,sectext,sectitle,steps]);
+  }, []);
 
 // prend la valleur user_id depuis localstorage et affecter dans variable id :
   const id = localStorage.getItem("userId");
@@ -88,7 +88,10 @@ const Generateur = () => {
             {headerText}
           </h1>
           <p className="font-Quicksand font-medium dark:text-white">{headerDescription}</p>
-          <a href={id ? "/ajouterFacture" : "/login"} className="inline-flex items-center mt-[20px] inline-block bg-accent text-white font-Quicksand font-semibold py-2 px-4 rounded-md hover:bg-accentHover "
+          <a
+          //   si il ya id la redirection de href sera a ajouterFacture sinon login 
+            href={id ? "/ajouterFacture" : "/login"}
+            className="inline-flex items-center mt-[20px] inline-block bg-accent text-white font-Quicksand font-semibold py-2 px-4 rounded-md hover:bg-accentHover "
           >
             {createButtonText}
             <span className="ml-2"> 

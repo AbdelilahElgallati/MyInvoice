@@ -16,7 +16,7 @@ const EditModel = () => {
     description: "",
   });
   const {id} = useParams();
-  const {data: model} = useGetOneModelQuery(id);
+  const {data: model, isLoading} = useGetOneModelQuery(id);
   const [updateModel] = useUpdateModelMutation();
   const [removeModel] = useRemoveModelMutation();
   const Navigate = useNavigate();

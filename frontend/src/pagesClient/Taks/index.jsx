@@ -10,7 +10,6 @@ import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 const Categories = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
@@ -28,7 +27,7 @@ const Categories = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `${process.env.REACT_APP_URL_BACKEND_API}/Tax/Entreprise/${id}`
+          `http://localhost:3001/Api/Tax/Entreprise/${id}`
         );
         setTaks(response.data);
         setIsLoading(false);

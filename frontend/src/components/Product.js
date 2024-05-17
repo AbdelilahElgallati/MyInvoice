@@ -21,7 +21,7 @@ const Product = () => {
      const langto = Cookies.get("to");
      // fonction multiThreads
      const translateData = async () => {
-      if (langto !== "fra" && langto) {
+      if (langto != "fra" && langto) {
        
         settitle(await tr(title , "fra", langto))
         setsubtitle(await tr(subtitle , "fra", langto))
@@ -30,7 +30,7 @@ const Product = () => {
      };
  
      translateData();
-   }, [title,subtitle]);
+   }, []);
   return <section className=' dark:bg-black section'>
     <div className='container mx-auto '>
       {/* title subtitle */}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, Button, IconButton } from "@mui/material";
-import { useRemoveServiceMutation } from "state/api";
+import { useGetAllServicesQuery, useRemoveServiceMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 const Services = () => {
   
   const navigate = useNavigate()
@@ -26,7 +27,7 @@ const Services = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Service/`);
+        const response = await axios.get("http://localhost:3001/Api/Service/");
         setService(response.data);
       } catch (error) {
         console.log(error);

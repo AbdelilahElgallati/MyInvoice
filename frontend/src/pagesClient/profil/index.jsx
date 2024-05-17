@@ -40,7 +40,7 @@ const Profil = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Entreprise/entreprisedetail/${id}`);
+        const response = await axios.get(`http://localhost:3001/Api/Entreprise/entreprisedetail/${id}`);
         setEnterpriseDetails(response.data);
         setIsLoading(false);
       } catch (error) {

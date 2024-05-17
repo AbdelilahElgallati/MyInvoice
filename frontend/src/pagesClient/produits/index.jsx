@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Box, useTheme, Button, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useRemoveProduitMutation } from "state/api";
+import { useGetProductsQuery, useRemoveProduitMutation } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -27,7 +27,7 @@ const Products  = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Produit/Entreprise/${id}`)
+        const response = await axios.get(`http://localhost:3001/Api/Produit/Entreprise/${id}`);
         setProduct(response.data);
         setIsLoading(false);
       } catch (error) {

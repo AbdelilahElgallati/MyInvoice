@@ -14,12 +14,13 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import { useRemovePackMutation } from "state/api";
+import { useGetPacksQuery, useRemovePackMutation } from "state/api";
 import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+
 const Pack = ({
   _id,
   name,
@@ -114,7 +115,7 @@ const Packs = () => {
   useEffect(() => {
     const fetchPacks = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Pack`)
+        const response = await axios.get("http://localhost:3001/Api/Pack/");
         setPacks(response.data);
       } catch (error) {
         console.log(error);

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
+  useGetFournisseursQuery,
   useRemoveFournisseurMutation,
 } from "state/api";
 import Header from "componementClient/Header";
@@ -15,7 +16,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-
 const Fournisseurs = () => {
   const theme = useTheme();
   const navigate = useNavigate();
@@ -27,7 +27,7 @@ const Fournisseurs = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Fournisseur/Entreprise/${id}`);
+        const response = await axios.get(`http://localhost:3001/Api/Fournisseur/Entreprise/${id}`);
         setFourinsseur(response.data);
         setIsLoading(false);
       } catch (error) {

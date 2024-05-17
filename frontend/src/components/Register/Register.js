@@ -1,8 +1,7 @@
-/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import COVER_IMAGE from "../../assets/img/Login/Blue White Minimal Creative Illustration Short Link Application Online Instagram Story (4).png";
-// import Gogle from "../../assets/img/Login/th.jpg";
+import Gogle from "../../assets/img/Login/th.jpg";
 import Header from "components/Header";
 import { useRegisterEntrepriseMutation } from "state/api";
 import tr from "Services/tr";
@@ -87,7 +86,11 @@ const SignUp = () => {
       <Header />
       <div className=" mx-auto max-w-screen-lg flex flex-col lg:flex-row mt-[130px] lg:ml-[285px] lg:mt-[150px] lg:mb-[100px] ">
         <div className=" w-full lg:w-[350px] ">
-          <img src={COVER_IMAGE} className=" lg:h-[800px] w-full  lg:rounded-l-lg lg:shadow-2xl" alt="Cover Image"/>
+          <img
+            src={COVER_IMAGE}
+            className=" lg:h-[800px] w-full  lg:rounded-l-lg lg:shadow-2xl"
+            alt="Cover Image"
+          />
         </div>
         <div className="dark:bg-black w-full lg:w-1/2 bg-[#f5F5F5] p-8 lg:rounded-r-lg lg:shadow-2xl">
           <h2 className="text-4xl font-Quicksand font-semibold mb-4 dark:text-white">

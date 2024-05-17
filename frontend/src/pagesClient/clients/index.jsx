@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useRemoveClientMutation } from "state/api";
+import { useGetClientsQuery, useRemoveClientMutation } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import PersonIcon from '@mui/icons-material/Person';
@@ -24,7 +24,7 @@ const Clients  = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Client/Entreprise/${id}`);
+        const response = await axios.get(`http://localhost:3001/Api/Client/Entreprise/${id}`);
         setClient(response.data);
         setIsLoading(false);
       } catch (error) {

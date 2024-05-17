@@ -1,15 +1,13 @@
-import React, { useContext  } from 'react';
+import React, { useEffect, useState ,useContext  } from 'react';
 import { overview } from '../data';
 import { ThemeContext } from './ThemeContext';
 
 const Overview = () => {
-  // eslint-disable-next-line no-unused-vars
   const { productImgSombre, productImgDark } = overview;
 
   // Récupérer la valeur de currentMode du localStorage
   // const [theme, setTheme] = useState(localStorage.getItem("currentMode"));
   // console.log(theme);
-  // eslint-disable-next-line no-unused-vars
   const { theme } = useContext(ThemeContext);
 
 

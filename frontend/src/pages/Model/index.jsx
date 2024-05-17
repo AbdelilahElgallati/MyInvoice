@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, useTheme, Button, IconButton, Avatar } from "@mui/material";
-import { useRemoveModelMutation } from "state/api";
+import { useGetAllModelsQuery, useRemoveModelMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -11,6 +11,7 @@ import FlexBetween from "componentsAdmin/FlexBetween";
 import { useNavigate } from "react-router-dom";
 
 import axios from "axios"; // Importer axios
+
 
 const Models = () => {
   const navigate = useNavigate()
@@ -30,7 +31,7 @@ const Models = () => {
   useEffect(() => {
     const fetchModels = async () => {
       try {
-        const response = await axios.get(`${process.env.REACT_APP_URL_BACKEND_API}/Model`);
+        const response = await axios.get("http://localhost:3001/Api/Model/");
         setModel(response.data);
       } catch (error) {
         console.log(error);
@@ -47,7 +48,7 @@ const Models = () => {
       flex: 0.6,
       renderCell: (params) => (
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Avatar src={`${process.env.REACT_APP_URL_BACKEND_API}/Images/${params.row.icon}`} alt={params.row.name} />
+          <Avatar src={`http://localhost:3001/Images/${params.row.icon}`} alt={params.row.name} />
           <Box ml={1}>
             <div>{params.row.name}</div>
           </Box>
