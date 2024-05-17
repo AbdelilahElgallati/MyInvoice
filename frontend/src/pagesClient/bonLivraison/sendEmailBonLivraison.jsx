@@ -1,18 +1,18 @@
 import React, { useEffect, useState } from 'react';
-import { useGetInvoiceDetailsQuery } from "state/api";
+import { useGetBonLivraisonDetailsQuery } from "state/api";
 import { useParams, useNavigate } from "react-router-dom";
 import { useTheme, CircularProgress, Typography, Button, Box } from '@mui/material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
 import axios from 'axios';
 
-const SendEmailInvoice = () => {
+const SendEmailBonLivraison = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem('userId')) {
     navigate('/');
   }
   const { id } = useParams();
-  const { data, isLoading } = useGetInvoiceDetailsQuery(id);
+  const { data, isLoading } = useGetBonLivraisonDetailsQuery(id);
   const theme = useTheme();
   const [isSendingEmail, setIsSendingEmail] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
@@ -24,15 +24,15 @@ const SendEmailInvoice = () => {
       const sendEmail = async () => {
         setIsSendingEmail(true);
         try {
-          await axios.post('http://localhost:3001/Api/Invoice/email', {
+          await axios.post('http://localhost:3001/Api/BonLivraison/email', {
             _id: data._id,
             userName: data.userName,
             userEmail: data.userEmail,
             userPhone: data.userPhone,
             userAddress: data.userAddress,
-            clientName: data.clientName,
-            clientEmail: data.clientEmail,
-            formattedDueDate: data.formattedDueDate,
+            fournisseurName: data.fournisseurName,
+            fournisseurEmail: data.fournisseurEmail,
+            formattedDateLivraison: data.dateLivraison,
             itemsTable: data.itemsTable,
             amount: data.amount,
           });
@@ -81,4 +81,4 @@ const SendEmailInvoice = () => {
   );
 };
 
-export default SendEmailInvoice;
+export default SendEmailBonLivraison;
