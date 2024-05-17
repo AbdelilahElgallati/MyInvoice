@@ -44,7 +44,7 @@ app.use(morgan("common"));
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://my-invoice-omega.vercel.app/",
   methods: ["GET,PUT,POST,DELETE"],
   credentials: true,
 }));
