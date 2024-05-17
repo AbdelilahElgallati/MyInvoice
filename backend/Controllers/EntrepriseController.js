@@ -47,7 +47,7 @@ const addEntreprise = async (req, res) => {
     console.error("Erreur lors de l'ajout de l'entreprise :", error);
     return res
       .status(500)
-      .send("Erreur serveur lors de l'ajout d'entreprise");
+      .json("Erreur serveur lors de l'ajout d'entreprise : ", error);
   }
 };
 
@@ -56,7 +56,7 @@ const getAllEntreprises = async (req, res) => {
     const entreprises = await Entreprise.find();
     res.status(201).json(entreprises);
   } catch (error) {
-    res.status(500).send("Erreur serveur lors de la recherche d'entreprise");
+    res.status(500).json("Erreur serveur lors de la recherche d'entreprise");
   }
 };
 
@@ -65,7 +65,7 @@ const getOneEntreprise = async (req, res) => {
     const entreprise = await Entreprise.findById(req.params.id);
     res.status(201).json(entreprise);
   } catch (error) {
-    res.status(500).send("Erreur serveur lors de la recherche d'entreprise");
+    res.status(500).json("Erreur serveur lors de la recherche d'entreprise");
   }
 };
 
@@ -106,7 +106,7 @@ const getEntrepriseDetail = async (req, res) => {
     res.status(200).json(entrepriseDetail);
   } catch (error) {
     console.error("Error occurred: ", error);
-    res.status(500).send("Erreur serveur lors de la recherche d'entreprise");
+    res.status(500).json("Erreur serveur lors de la recherche d'entreprise");
   }
 };
 
@@ -126,7 +126,7 @@ const updateEntreprise = async (req, res) => {
     );
     res.status(201).json(entreprise);
   } catch (error) {
-    res.status(500).send("Erreur serveur lors de la mise à jour d'entreprise");
+    res.status(500).json("Erreur serveur lors de la mise à jour d'entreprise");
   }
 };
 
@@ -135,7 +135,7 @@ const removeEntreprise = async (req, res) => {
     const entreprise = await Entreprise.findByIdAndDelete(req.params.id);
     res.status(201).json(entreprise);
   } catch (error) {
-    res.status(500).send("Erreur serveur lors de la suppression d'entreprise");
+    res.status(500).json("Erreur serveur lors de la suppression d'entreprise");
   }
 };
 
