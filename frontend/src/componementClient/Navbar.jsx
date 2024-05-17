@@ -39,6 +39,11 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
     navigate("/");
   };
 
+  const userName = localStorage.getItem('userName');
+  const handleProfile = ()=>{
+    navigate(`/${userName}/profil`)
+  }
+  
   return (
     <AppBar
       sx={{
@@ -119,6 +124,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
+              <MenuItem onClick={handleProfile}>Profile</MenuItem>
               <MenuItem onClick={handleLogout}>Log Out</MenuItem>
             </Menu>
           </FlexBetween>
