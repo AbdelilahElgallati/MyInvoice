@@ -25,7 +25,7 @@ const SendEmailBonLivraison = () => {
       const sendEmail = async () => {
         setIsSendingEmail(true);
         try {
-          await axios.post('http://localhost:3001/BonLivraison/email', {
+          await axios.post('https://my-invoice-api.vercel.app/BonLivraison/email', {
             _id: data._id,
             userName: data.userName,
             userEmail: data.userEmail,

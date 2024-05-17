@@ -40,7 +40,7 @@ const Profil = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Entreprise/entreprisedetail/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/Entreprise/entreprisedetail/${id}`);
         setEnterpriseDetails(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -158,7 +158,7 @@ const Profil = () => {
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Avatar
-              src={`http://localhost:3001/Images/${enterpriseDetails.logo}`}
+              src={`https://my-invoice-api.vercel.app/Images/${enterpriseDetails.logo}`}
               alt={enterpriseDetails.name}
               sx={{ width: 70, height: 70 }}
             />

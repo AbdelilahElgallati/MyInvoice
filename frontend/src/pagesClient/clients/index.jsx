@@ -24,7 +24,7 @@ const Clients  = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Client/Entreprise/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/Client/Entreprise/${id}`);
         setClient(response.data);
         setIsLoading(false);
       } catch (error) {

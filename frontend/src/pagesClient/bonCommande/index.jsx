@@ -45,7 +45,7 @@ const BonCommandes = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/BonCommandes/List/${id}`
+          `https://my-invoice-api.vercel.app/BonCommandes/List/${id}`
         );
         setBonCommandes(response.data);
         setIsLoading(false);

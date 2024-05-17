@@ -27,7 +27,7 @@ const Products  = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Produit/Entreprise/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/Produit/Entreprise/${id}`);
         setProduct(response.data);
         setIsLoading(false);
       } catch (error) {

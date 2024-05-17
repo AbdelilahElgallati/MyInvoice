@@ -75,7 +75,7 @@ const Login = () => {
 
   const handleRegisterGoogle = (e) => {
     e.preventDefault();
-    window.location.href = "http://localhost:3001/auth/google/";
+    window.location.href = "https://my-invoice-api.vercel.app/auth/google/";
   };
 
   const handleRegisterClick = () => {

@@ -38,7 +38,7 @@ const Dashboard = () => {
   useEffect(()=>{
     const fetchDashboardData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Entreprise/dashboard");
+        const response = await axios.get("https://my-invoice-api.vercel.app/Entreprise/dashboard");
         setDashboard(response.data);
       } catch (error) {
         console.log(error);

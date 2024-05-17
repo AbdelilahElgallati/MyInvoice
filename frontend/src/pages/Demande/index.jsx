@@ -34,7 +34,7 @@ const SubscriptionPalns = () => {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Avatar
-          src={`http://localhost:3001/Images/${logo}`}
+          src={`https://my-invoice-api.vercel.app/Images/${logo}`}
           alt={enterpriseName}
           sx={{ width: 35, height: 35 }} 
         />

@@ -23,7 +23,7 @@ const Entreprises = () => {
   useEffect(() => {
     const fetchEntreprises = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Entreprise");
+        const response = await axios.get("https://my-invoice-api.vercel.app/Entreprise");
         setEntreprises(response.data);
         setIsLoading(false); // Mettre à jour l'état de chargement une fois la requête terminée
       } catch (error) {
@@ -58,7 +58,7 @@ const Entreprises = () => {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Avatar
-          src={`http://localhost:3001/Images/${logo}`}
+          src={`https://my-invoice-api.vercel.app/Images/${logo}`}
           alt={name}
           sx={{ width: 35, height: 35 }} // Taille fixe pour l'avatar
         />

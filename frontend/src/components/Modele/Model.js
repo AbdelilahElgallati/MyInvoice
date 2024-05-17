@@ -60,7 +60,7 @@ const Model = () => {
             className="m-[10px] w-[430px] h-[250px] p-[30px]"
           >
             <img
-              src={`http://localhost:3001/Images/${section.icon}`}
+              src={`https://my-invoice-api.vercel.app/Images/${section.icon}`}
               alt=""
               className="mb-[20px] w-[14%] ml-[100px]"
             />
