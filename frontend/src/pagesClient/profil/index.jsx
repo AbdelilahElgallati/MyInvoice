@@ -40,7 +40,7 @@ const Profil = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Entreprise/entreprisedetail/${id}`);
+        const response = await axios.get(`https://my-invoice-iota.vercel.app/Entreprise/entreprisedetail/${id}`);
         setEnterpriseDetails(response.data);
         setIsLoading(false);
       } catch (error) {

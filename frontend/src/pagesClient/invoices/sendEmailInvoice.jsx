@@ -24,7 +24,7 @@ const SendEmailInvoice = () => {
       const sendEmail = async () => {
         setIsSendingEmail(true);
         try {
-          await axios.post('http://localhost:3001/Api/Invoice/email', {
+          await axios.post('https://my-invoice-iota.vercel.app/Invoice/email', {
             invoiceNumber: data.invoiceNumber,
             userName: data.userName,
             userEmail: data.userEmail,

@@ -24,7 +24,7 @@ const Entreprises = () => {
   useEffect(() => {
     const fetchEntreprises = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Entreprise");
+        const response = await axios.get("https://my-invoice-iota.vercel.app/Entreprise");
         setEntreprises(response.data);
         setIsLoading(false); // Mettre à jour l'état de chargement une fois la requête terminée
       } catch (error) {

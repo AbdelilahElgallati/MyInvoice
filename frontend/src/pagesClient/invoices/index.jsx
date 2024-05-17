@@ -48,7 +48,7 @@ const Invoices = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/Api/Invoice/List/${id}`
+          `https://my-invoice-iota.vercel.app/Invoice/List/${id}`
         );
         setFacture(response.data);
         setIsLoading(false);

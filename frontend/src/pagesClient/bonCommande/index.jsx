@@ -45,7 +45,7 @@ const BonCommandes = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/Api/BonCommandes/List/${id}`
+          `https://my-invoice-iota.vercel.app/BonCommandes/List/${id}`
         );
         setBonCommandes(response.data);
         setIsLoading(false);

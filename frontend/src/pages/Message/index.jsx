@@ -19,7 +19,7 @@ const Messages = () => {
   useEffect(() => {
     const fetchMessages = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Message/");
+        const response = await axios.get("https://my-invoice-iota.vercel.app/Message/");
         setMessages(response.data);
       } catch (error) {
         console.log(error);

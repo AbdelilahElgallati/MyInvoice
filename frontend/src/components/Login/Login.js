@@ -39,7 +39,7 @@ const Login = () => {
 
   const handleRegisterGoogle = (e) => {
     e.preventDefault();
-    window.location.href = "http://localhost:3001/Api/auth/google/";
+    window.location.href = "https://my-invoice-iota.vercel.app/auth/google/";
   };
 
   const handleRegisterClick = () => {

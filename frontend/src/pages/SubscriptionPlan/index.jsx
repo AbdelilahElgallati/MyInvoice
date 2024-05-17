@@ -27,7 +27,7 @@ const SubscriptionPalns = () => {
   useEffect(() => {
     const fetchSubscription = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Subscription/");
+        const response = await axios.get("https://my-invoice-iota.vercel.app/Subscription/");
         setSubscriptionPlan(response.data);
       } catch (error) {
         console.log(error);
