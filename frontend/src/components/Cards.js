@@ -1,3 +1,5 @@
+/* eslint-disable no-unreachable */
+/* eslint-disable jsx-a11y/alt-text */
 import React , { useEffect, useState } from "react";
 
 import { product } from '../data';
@@ -20,7 +22,7 @@ const Cards = () => {
         // pour exécuter plusieurs promesses en parallèle. Cela signifie que toutes les promesses à l'intérieur de Promise.all doivent se terminer avant que la fonction ne continue.
         cards.map(async (item) => {
           const it = item;
-          if (langto != "fra" && langto) {
+          if (langto !== "fra" && langto) {
             it.subtitle = await tr(item.subtitle, "fra", langto);
             it.title = await tr(item.title, "fra", langto);
           }
@@ -32,12 +34,13 @@ const Cards = () => {
     };
 
     translateData();
-  }, []);
+  }, [cards]);
   return <>
    {/* cards   */}
    <div className='dark:bg-black flex flex-col gap-y-[30px] lg:flex-row lg:gap-x-[30px]'>
     {
       translatedData.map((card , cardIndex)=>{
+        // eslint-disable-next-line no-unused-vars
         const { icon , title , subtitle , delay} = card;
         return (
           <div key={cardIndex} data-aos = 'zoom-out' data-aos-offset='300' data-aos-delay="delay" >

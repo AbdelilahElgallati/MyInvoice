@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton, Avatar } from "@mui/material";
 import {
-  useGetAllEntreprisesQuery,
   useRemoveEntrepriseMutation,
 } from "state/api";
 import Header from "componentsAdmin/Header";

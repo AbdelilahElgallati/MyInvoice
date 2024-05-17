@@ -14,7 +14,7 @@ const Testimonials = () => {
      const langto = Cookies.get("to");
      // fonction multiThreads
      const translateData = async () => {
-      if (langto != "fra" && langto) {
+      if (langto !== "fra" && langto) {
        
         settitle(await tr(Titre , "fra", langto))
         
@@ -22,7 +22,7 @@ const Testimonials = () => {
      };
  
      translateData();
-   }, []);
+   }, [Titre]);
 
   return (
     <section className='dark:bg-black section'>

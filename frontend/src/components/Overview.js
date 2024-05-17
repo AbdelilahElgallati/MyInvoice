@@ -1,4 +1,5 @@
-import React, { useEffect, useState ,useContext  } from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useContext  } from 'react';
 import { overview } from '../data';
 import { ThemeContext } from './ThemeContext';
 

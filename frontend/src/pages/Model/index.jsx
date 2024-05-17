@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, useTheme, Button, IconButton, Avatar } from "@mui/material";
-import { useGetAllModelsQuery, useRemoveModelMutation } from "state/api";
+import {  useRemoveModelMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";

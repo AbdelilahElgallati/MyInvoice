@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -7,11 +8,11 @@ const cron = require("node-cron");
 const passport = require("passport");
 const session = require("express-session");
 // const url = "mongodb://127.0.0.1:27017/MyInvoice";
-const url = "mongodb+srv://MyInvoice:MyInvoice123Test@myinvoice.id4aqck.mongodb.net/?retryWrites=true&w=majority&appName=MyInvoice"
+const url = process.env.DATABASE_URL
 const bodyParser = require("body-parser");
 const app = express();
 const Port = 3001;
-require('dotenv').config();
+
 const  OverallStat = require("../backend/Models/OverallStateSchema") ;
 const {dataOverallStat}= require("../backend/data") ;
 const CategorieRouter = require("./Routes/CategoryRouter");
