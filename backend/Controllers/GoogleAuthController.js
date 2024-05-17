@@ -15,7 +15,7 @@ module.exports = (passport) => {
         new GoogleStrategy({
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost:3001/Api/auth/google/callback",
+            callbackURL: "Google/auth/google/callback",
             prompt: 'select_account', 
     
         }, async function(accessToken, refreshToken, profile, cb) {

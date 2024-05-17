@@ -16,7 +16,7 @@ if (!url) {
 const bodyParser = require("body-parser");
 const app = express();
 const Port = 3001;
-require('dotenv').config();
+
 const  OverallStat = require("../backend/Models/OverallStateSchema") ;
 const {dataOverallStat}= require("../backend/data") ;
 const CategorieRouter = require("./Routes/CategoryRouter");
