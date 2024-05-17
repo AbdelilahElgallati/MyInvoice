@@ -141,10 +141,7 @@ const removeEntreprise = async (req, res) => {
 
 const login = async (req, res) => {
   try {
-    console.log("entrer dans la fonction login");
-    
     const jsenwebtkn = req.token;
-    console.log(req.user);
     const user = req.user;
     //erreur : 
     const sub = await Subscription.findOne({userId: user._id});
@@ -254,7 +251,7 @@ const ForgoutPass = async (req, res)=>{
     })
 }
 const ResetPass = async(req,res)=>{
-   console.log(req.body)
+   
    const id  = req.body.id;
    const token  = req.body.token;
    const password= req.body.password;
