@@ -24,23 +24,54 @@ const Generateur = () => {
   const [howItWorksTitle, sethowItWorksTitle] = useState(generatorData.howItWorksTitle);
   const [sectext, setsectext] = useState(generatorData.sectext);
   const [sectitle, setsectitle] = useState(generatorData.sectitle);
-  useEffect(() => {
-    const langto = Cookies.get("to");
-    // fonction multiThreads
-    const translateData = async () => {
-     if (langto != "fra" && langto) {
+  const [Steps, setSteps] = useState(generatorData.steps);
+  // useEffect(() => {
+  //   const langto = Cookies.get("to");
+  //   // fonction multiThreads
+  //   const translateData = async () => {
+  //    if (langto != "fra" && langto) {
+       
+  //     setheaderText(await tr(headerText , "fra", langto))
+  //     setheaderDescription(await tr(headerDescription , "fra", langto))
+  //     setcreateButtonText(await tr(createButtonText , "fra", langto))
+  //     sethowItWorksTitle(await tr(howItWorksTitle , "fra", langto))
+  //     sethowItWorksDescription(await tr(howItWorksDescription , "fra", langto))
+  //     setsectext(await tr(sectext , "fra", langto))
+  //     setsectitle(await tr(sectitle , "fra", langto))
       
-      setheaderText(await tr(headerText , "fra", langto))
-      setheaderDescription(await tr(headerDescription , "fra", langto))
-      setcreateButtonText(await tr(createButtonText , "fra", langto))
-      sethowItWorksTitle(await tr(howItWorksTitle , "fra", langto))
-      sethowItWorksDescription(await tr(howItWorksDescription , "fra", langto))
-      setsectext(await tr(sectext , "fra", langto))
-      setsectitle(await tr(sectitle , "fra", langto))
-      
-     }
-    };
+  //    }
+  //   };
 
+  //   translateData();
+  // }, []);
+  useEffect(() => {
+    const translateData = async () => {
+      const langto = Cookies.get("to");
+      // Traduction des données générales
+      if (langto != "fra" && langto) {
+        setheaderText(await tr(headerText , "fra", langto));
+        setheaderDescription(await tr(headerDescription , "fra", langto));
+        setcreateButtonText(await tr(createButtonText , "fra", langto));
+        sethowItWorksTitle(await tr(howItWorksTitle , "fra", langto));
+        sethowItWorksDescription(await tr(howItWorksDescription , "fra", langto));
+        setsectext(await tr(sectext , "fra", langto));
+        setsectitle(await tr(sectitle , "fra", langto));
+      }
+      // Traduction des étapes
+      console.log("befor !!");
+      if (langto !== "fra" && langto) {
+        console.log(steps);
+        const translatedSteps = await Promise.all(steps.map(async (step) => ({
+          ...step,
+          title: await tr(step.title, "fra", langto),
+          description: await tr(step.description, "fra", langto)
+        })));
+        console.log(translatedSteps);
+        setSteps(translatedSteps);
+      }
+      console.log("after !!");
+    };
+  
     translateData();
   }, []);
 
@@ -102,7 +133,7 @@ const Generateur = () => {
         chaque étape dans un tableau, affichant une image, 
         un titre et une description dans une disposition 
         de colonne flexible. */}
-          {steps.map((step, index) => (
+          {Steps.map((step, index) => (
             <div
               key={index}
               className="flex flex-col items-center justify-center w-full md:w-[40%] mb-10 md:mb-0 md:mr-5"
