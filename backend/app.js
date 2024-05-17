@@ -1,4 +1,5 @@
 const express = require("express");
+require('dotenv').config();
 const mongoose = require("mongoose");
 const cors = require("cors");
 const helmet = require("helmet");
@@ -7,7 +8,11 @@ const cron = require("node-cron");
 const passport = require("passport");
 const session = require("express-session");
 // const url = "mongodb://127.0.0.1:27017/MyInvoice";
-const url = process.env.URL_DATABASE;
+const url = process.env.URL_DATABASE; 
+if (!url) {
+  console.error("URL_DATABASE is not defined in .env file");
+  process.exit(1); 
+}
 const bodyParser = require("body-parser");
 const app = express();
 const Port = 3001;
