@@ -49,7 +49,7 @@ app.use(cors({
   credentials: true
 }));
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static("Public"));
+app.use(express.static(path.join(__dirname, 'Public')));
 app.use(session({   
   secret: "secret",
   resave: false,
