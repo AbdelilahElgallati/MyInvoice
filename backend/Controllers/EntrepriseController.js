@@ -9,7 +9,6 @@ const nodemailer = require('nodemailer')
 const addEntreprise = async (req, res) => {
   try {
     const { name, email, password, phone, address } = req.body;
-    console.log("req body : ", req.body)
     const existeEntreprise = await Entreprise.findOne({ email: email });
     if (!existeEntreprise) {
       const hashedPassword = await bcrypt.hash(password, 10);
