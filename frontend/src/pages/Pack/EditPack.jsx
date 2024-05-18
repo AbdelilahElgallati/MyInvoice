@@ -20,7 +20,7 @@ import {
 } from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-import { useNavigate } from 'react-router-dom';
+
 const EditPack = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
