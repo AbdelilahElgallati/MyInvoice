@@ -2,8 +2,6 @@ const express = require("express");
 const BonCommandesRouter = express.Router();
 const BonCommandesController = require("../Controllers/BonCommandesController");
 
-// BonCommandesRouter.get( "/dashboard/:id", InvoiceController.getDashboardStats); 
-// BonCommandesRouter.get( "/summary", InvoiceController.getSales); 
 BonCommandesRouter.get( "/details/:id", BonCommandesController.prepareBonCommandeDetails); 
 BonCommandesRouter.get( "/List/:id", BonCommandesController.getAllBonCommandes); 
 BonCommandesRouter.get( "/:id", BonCommandesController.getOneBonCommande); 

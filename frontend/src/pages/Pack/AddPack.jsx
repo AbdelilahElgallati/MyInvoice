@@ -3,52 +3,64 @@ import { TextField, useTheme, Button, Box, FormControl, InputLabel, Select,Typog
 import Header from "componentsAdmin/Header";
 import {  useGetAllServicesQuery, useAddPackMutation } from "state/api";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const AddPack = () => {
-  const [logo, setLogo] = useState(null);
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
   const theme = useTheme();
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-    services: [],
-    price: 0,
-  });
-  
+  const [logo, setLogo] = useState([]);
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [services, setServices] = useState([]);
+  const [price, setPrice] = useState(0);
   const [addPack] = useAddPackMutation();
   const { data: servicesData } = useGetAllServicesQuery();
   const Navigate = useNavigate();
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
   const handleServiceChange = (event) => {
     const selectedServices = event.target.value;
-    setFormData({ ...formData, services: selectedServices });
+    setServices({ ...services, services: selectedServices });
   };
 
-  const handleIconChange = (e) => {
-    setLogo(e.target.files[0]);
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setFileToBase(file);
   };
 
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setLogo(reader.result);
+    };
+  };
+
+  
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formDataWithLogo = new FormData();
-    if (logo) {
-      formDataWithLogo.append("logo", logo);
+    const pack = {
+      name,
+      description,
+      price,
+      services,
+      logo,
     }
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataWithLogo.append(key, value); 
-    });
     try {
-      await addPack(formDataWithLogo);
+      const { data } = await addPack(pack);
+      if (data.success) {
+        toast.success("L'enregistrement de pack se passe correctement");
+        Navigate("/packadmin");
+      } else {
+        toast.error(
+          "L'enregistrement de pack ne s'est pas passé correctement : " + data.message
+        );
+      }
       
-      Navigate("/packadmin");
     } catch (error) {
+      toast.error("Erreur lors de l'ajoute de pack : " + error.message);
       console.log(error);
     }
   };
@@ -65,8 +77,8 @@ const AddPack = () => {
         <TextField
           label="Nom de pack"
           name="name"
-          value={formData.name}
-          onChange={handleChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           fullWidth
           required
           margin="normal"
@@ -74,8 +86,8 @@ const AddPack = () => {
         <TextField
           label="Description"
           name="description"
-          value={formData.description}
-          onChange={handleChange}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           fullWidth
           required
           margin="normal"
@@ -84,8 +96,8 @@ const AddPack = () => {
           label="Prix"
           name="price"
           type="number"
-          value={formData.price}
-          onChange={handleChange}
+          value={price}
+          onChange={(e) => setPrice(e.target.value)}
           fullWidth
           required
           margin="normal"
@@ -96,7 +108,7 @@ const AddPack = () => {
             labelId="services-label"
             id="services"
             multiple
-            value={formData.services}
+            value={services}
             onChange={handleServiceChange}
             renderValue={(selected) => (
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -113,26 +125,15 @@ const AddPack = () => {
             ))}
           </Select>
         </FormControl>
-        {/* <FormControl fullWidth margin="normal" >
-          <InputLabel htmlFor="icon-input" >Icon</InputLabel>
-          <Input
-            id="icon-input"
-            type="file"
-            name="icon"
-            onChange={handleIconChange}
-            accept="image/*"
-          />
-        </FormControl> */}
         <FormControl fullWidth margin="normal">
           <Typography variant="body1" component="label" htmlFor="icon-input" sx={{ display: 'block', marginBottom: '0.5rem' }}>
             Icon
           </Typography>
-          {/* <InputLabel htmlFor="icon-input" >Icon</InputLabel> */}
           <Input
             id="icon-input"
             type="file"
             name="icon"
-            onChange={handleIconChange}
+            onChange={handleImage}
             accept="image/*"
             sx={{
               display: 'block',

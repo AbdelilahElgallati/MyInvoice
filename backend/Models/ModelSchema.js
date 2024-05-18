@@ -4,7 +4,16 @@ const Schema = mongoose.Schema;
 const ModelSchema = new Schema({
   name: { type: String, required: true },
   description: { type: String, required: true },
-  icon: {type: String, required: true},
+  icon: {
+    public_id: {
+      type: String,
+      required: true,
+    },
+    url: {
+      type: String,
+      required: true,
+    },
+  },
 });
 
 const Model = mongoose.model('Model', ModelSchema);

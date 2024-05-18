@@ -6,44 +6,26 @@ import Header from "components/Header";
 import { useRegisterEntrepriseMutation } from "state/api";
 import tr from "Services/tr";
 import Cookies from "js-cookie";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const SignUp = () => {
   const [logo, setLogo] = useState([]);
-  const [name, setName] = useState('');
-const [email, setEmaile] = useState('');
-const [password, setPassword] = useState('');
-const [confirmPassword, setConfirmPassword] = useState('');
-const [role, setRole] = useState('standard');
-const [subscription, setSubscription] = useState('active');
-const [phone, setPhone] = useState('');
-const [address, setAddress] = useState('');
-  // const [formData, setFormData] = useState({
-  //   name: "",
-  //   email: "",
-  //   password: "",
-  //   confirmPassword: "",
-  //   role: "standard",
-  //   subscription: "active",
-  //   phone: "",
-  //   address: "",
-  //   // logo: [],
-  // });
-
-  // const [result, setResult] = useState(null);
+  const [name, setName] = useState("");
+  const [email, setEmaile] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [role, setRole] = useState("standard");
+  const [subscription, setSubscription] = useState("active");
+  const [phone, setPhone] = useState("");
+  const [address, setAddress] = useState("");
   const navigate = useNavigate();
   const [register] = useRegisterEntrepriseMutation();
 
-  // const handleChange = (e) => {
-  //   setFormData({ ...formData, [e.target.name]: e.target.value });
-  // };
-
-  //handle and convert it in base 64
   const handleImage = (e) => {
     const file = e.target.files[0];
     setFileToBase(file);
   };
-  
+
   const setFileToBase = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -51,32 +33,6 @@ const [address, setAddress] = useState('');
       setLogo(reader.result);
     };
   };
-
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const entreprise = {
-  //     name,
-  //     email,
-  //     password,
-  //     confirmPassword,
-  //     role,
-  //     subscription,
-  //     phone,
-  //     address,
-  //     logo,
-  //   }
-  //   try {
-  //     const data = await register(entreprise);
-  //     if(data.success === true) {
-  //       // navigate("/login");
-  //       toast.success('Le registre se passe correctemnt')
-  //     } else {
-  //       toast.error("Le registre se passe pas correctemnt");
-  //     }
-  //   } catch (err) {
-  //     console.log(err);
-  //   }
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -94,17 +50,18 @@ const [address, setAddress] = useState('');
     try {
       const { data } = await register(entreprise);
       if (data.success) {
-        toast.success('Le registre se passe correctement');
+        toast.success("Le registre se passe correctement");
         navigate("/login");
       } else {
-        toast.error("Le registre ne s'est pas passé correctement : " + data.message);
+        toast.error(
+          "Le registre ne s'est pas passé correctement : " + data.message
+        );
       }
     } catch (err) {
       toast.error("Erreur lors de l'inscription : " + err.message);
       console.log(err);
     }
   };
-  
 
   const [Inscrire, setInscrire] = useState("Inscription");
   const [Entreprisename, setEntreprisename] = useState("Entreprise name");
@@ -164,7 +121,7 @@ const [address, setAddress] = useState('');
               name="name"
               placeholder={Entreprisename}
               value={name}
-              onChange={(e)=>setName(e.target.value)}
+              onChange={(e) => setName(e.target.value)}
               className="w-full text-black py-2 my-2 font-Quicksand font-semibold bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
@@ -173,7 +130,7 @@ const [address, setAddress] = useState('');
               name="email"
               placeholder={Email}
               value={email}
-              onChange={(e)=>setEmaile(e.target.value)}
+              onChange={(e) => setEmaile(e.target.value)}
               className="w-full text-black py-2 my-2 font-Quicksand font-semibold bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
@@ -182,7 +139,7 @@ const [address, setAddress] = useState('');
               name="password"
               placeholder={Motdepasse}
               value={password}
-              onChange={(e)=>setPassword(e.target.value)}
+              onChange={(e) => setPassword(e.target.value)}
               className="w-full text-black py-2 my-2 font-Quicksand font-semibold bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
@@ -191,7 +148,7 @@ const [address, setAddress] = useState('');
               name="confirmPassword"
               placeholder={Confirmezlemotdepasse}
               value={confirmPassword}
-              onChange={(e)=>setConfirmPassword(e.target.value)}
+              onChange={(e) => setConfirmPassword(e.target.value)}
               className="w-full text-black py-2 my-2 font-Quicksand font-semibold bg-transparent border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
@@ -200,7 +157,7 @@ const [address, setAddress] = useState('');
               name="phone"
               placeholder={Téléphone}
               value={phone}
-              onChange={(e)=>setPhone(e.target.value)}
+              onChange={(e) => setPhone(e.target.value)}
               className="w-full text-black py-2 my-2 bg-transparent font-Quicksand font-semibold border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />
@@ -209,7 +166,7 @@ const [address, setAddress] = useState('');
               name="address"
               placeholder={Adresse}
               value={address}
-              onChange={(e)=>setAddress(e.target.value)}
+              onChange={(e) => setAddress(e.target.value)}
               className="w-full text-black py-2 my-2 bg-transparent font-Quicksand font-semibold border-b border-black outline-none focus:outline-none dark:border dark:border-b-accent dark:text-white"
               required
             />

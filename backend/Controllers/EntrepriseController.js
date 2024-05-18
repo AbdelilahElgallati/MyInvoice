@@ -24,7 +24,7 @@ const addEntreprise = async (req, res) => {
         address,
         logo: {
           public_id: result.public_id,
-          url: result.secure_url
+          url: result.secure_url,
         },
       });
       await entreprise.save();
@@ -41,17 +41,24 @@ const addEntreprise = async (req, res) => {
         await subscription.save();
         return res.status(201).json({ success: true, entreprise });
       } else {
-        return res.status(400).json({ success: false, message: "Le pack n'existe pas" });
+        return res
+          .status(400)
+          .json({ success: false, message: "Le pack n'existe pas" });
       }
     } else {
-      return res.status(400).json({ success: false, message: "L'entreprise existe déjà" });
+      return res
+        .status(400)
+        .json({ success: false, message: "L'entreprise existe déjà" });
     }
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'entreprise :", error);
-    return res.status(500).json({ success: false, message: `Erreur serveur lors de l'ajout d'entreprise : ${error}`, error });
+    return res.status(500).json({
+      success: false,
+      message: `Erreur serveur lors de l'ajout d'entreprise : ${error}`,
+      error,
+    });
   }
 };
-
 
 const getAllEntreprises = async (req, res) => {
   try {
@@ -132,20 +139,40 @@ const getEntrepriseDetail = async (req, res) => {
 
 const updateEntreprise = async (req, res) => {
   try {
-    const logo = req.file ? req.file.filename : null;
-    let { name, email, phone, address } = req.body;
-    const updatedEntrepriseData = { name, email, phone, address };
-    if (logo) {
-      updatedEntrepriseData.logo = logo;
+    const currentEntreprise = await Entreprise.findById(req.params.id);
+    const data = {
+      name: req.body.name,
+      email: req.body.email,
+      phone: req.body.phone,
+      address: req.body.address,
+    };
+
+    if (req.body.logo !== "") {
+      const ImgId = currentEntreprise.logo.public_id;
+      if (ImgId) {
+        await cloudinary.uploader.destroy(ImgId);
+      }
+
+      const newImage = await cloudinary.uploader.upload(req.body.logo, {
+        folder: "Entreprises",
+        // width: 1000,
+        // crop: "scale",
+      });
+
+      data.image = {
+        public_id: newImage.public_id,
+        url: newImage.secure_url,
+      };
     }
-    const entreprise = await Entreprise.findByIdAndUpdate(
-      req.params.id,
-      updatedEntrepriseData,
-      { new: true }
-    );
-    res.status(201).json(entreprise);
+    const entreprise = await Entreprise.findByIdAndUpdate(req.params.id, data, {
+      new: true,
+    });
+    res.status(200).json({
+      success: true,
+      entreprise,
+    });
   } catch (error) {
-    res.status(500).json("Erreur serveur lors de la mise à jour d'entreprise");
+    res.status(500).json({success: false, message:"Erreur serveur lors de la mise à jour d'entreprise",error});
   }
 };
 
@@ -293,11 +320,9 @@ const ForgoutPass = async (req, res) => {
         console.error("Erreur lors de l'envoi de l'email:", error.message);
         res.status(500).json({ message: "Échec de l'envoi de l'email" });
       } else {
-        res
-          .status(200)
-          .json({
-            message: "Email envoyé avec succès ! Vérifiez votre email.",
-          });
+        res.status(200).json({
+          message: "Email envoyé avec succès ! Vérifiez votre email.",
+        });
       }
     });
   } catch (error) {
