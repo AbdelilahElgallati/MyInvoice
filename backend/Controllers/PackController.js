@@ -6,14 +6,14 @@ const cloudinary = require("../Utils/cloudinary");
 const addPack = async (req, res) => {
   try {
     const packData = req.body;
-    const serviceIds = packData.services.split(",");
+    // const serviceIds = packData.services.split(",");
     const result = await cloudinary.uploader.upload(packData.logo, {
       folder: "Pack",
     });
     const pack = new Pack({
       name: packData.name,
       description: packData.description,
-      services: serviceIds.map((serviceId) => ({ serviceId })),
+      services: packData.services,
       price: packData.price,
       logo: {
         public_id: result.public_id,
@@ -26,9 +26,8 @@ const addPack = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
-      pack: pack,
       message: `Erreur serveur lors de l'ajout de pack : ${error}`,
-      error : error.message,
+      error,
     });
   }
 };
