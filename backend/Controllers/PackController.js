@@ -26,6 +26,7 @@ const addPack = async (req, res) => {
     console.log(error);
     res.status(500).send({
       success: false,
+      pack: pack,
       message: `Erreur serveur lors de l'ajout de pack : ${error}`,
       error : error.message,
     });
