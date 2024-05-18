@@ -145,10 +145,10 @@ export const api = createApi({
       method: "GET",
     }),
     addPack: build.mutation({
-      query: (PackData) => ({
+      query: (pack) => ({
         url: `Pack/add`,
         method: "POST",
-        body: PackData,
+        body: pack,
       }),
     }),
     getOnePack: build.query({

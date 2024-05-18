@@ -6,7 +6,6 @@ const cloudinary = require("../Utils/cloudinary");
 const addPack = async (req, res) => {
   try {
     const packData = req.body;
-    // const serviceIds = packData.services.split(",");
     const result = await cloudinary.uploader.upload(packData.logo, {
       folder: "Pack",
     });
