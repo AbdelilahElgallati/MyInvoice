@@ -57,6 +57,7 @@ const AddPack = () => {
         toast.error(
           "L'enregistrement de pack ne s'est pas passé correctement : " + data.message
         );
+        console.log(data.error)
       }
       
     } catch (error) {
