@@ -15,8 +15,6 @@ const addEntreprise = async (req, res) => {
       const hashedPassword = await bcrypt.hash(password, 10);
       const result = await cloudinary.uploader.upload(logo, {
         folder: "Entreprises",
-        // width: 300,
-        // crop: "scale"
       });
       const entreprise = new Entreprise({
         name,
@@ -31,7 +29,6 @@ const addEntreprise = async (req, res) => {
       });
       await entreprise.save();
       const pack = await Pack.findOne({ name: "Pack Standard" });
-      console.log("pack : ", pack);
       if (pack) {
         const subscription = new Subscription({
           userId: entreprise._id,
@@ -41,23 +38,20 @@ const addEntreprise = async (req, res) => {
           status: "active",
           price: 0,
         });
-        subscription.save();
+        await subscription.save();
         return res.status(201).json({ success: true, entreprise });
       } else {
-        return res.status(400).json({ message: "Le pack n'existe pas" });
+        return res.status(400).json({ success: false, message: "Le pack n'existe pas" });
       }
     } else {
-      return res.status(400).json({ message: "L'entreprise existe déjà" });
+      return res.status(400).json({ success: false, message: "L'entreprise existe déjà" });
     }
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'entreprise :", error);
-    return res
-      .status(500)
-      .json({
-        message: `Erreur serveur lors de l'ajout d'entreprise : ${error}`,
-      });
+    return res.status(500).json({ success: false, message: `Erreur serveur lors de l'ajout d'entreprise : ${error}` });
   }
 };
+
 
 const getAllEntreprises = async (req, res) => {
   try {

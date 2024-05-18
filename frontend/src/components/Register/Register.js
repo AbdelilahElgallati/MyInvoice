@@ -10,14 +10,14 @@ import { toast } from 'react-toastify';
 
 const SignUp = () => {
   const [logo, setLogo] = useState([]);
-  const [name,setName] = ('');
-  const [email,setEmaile] = ('');
-  const [password,setPassword] = ('');
-  const [confirmPassword,setConfirmPassword] = ('');
-  const [role,setRole] = ('standard');
-  const [subscription,setSubscription] = ('active');
-  const [phone,setPhone] = ('');
-  const [address,setAddress] = ('');
+  const [name, setName] = useState('');
+const [email, setEmaile] = useState('');
+const [password, setPassword] = useState('');
+const [confirmPassword, setConfirmPassword] = useState('');
+const [role, setRole] = useState('standard');
+const [subscription, setSubscription] = useState('active');
+const [phone, setPhone] = useState('');
+const [address, setAddress] = useState('');
   // const [formData, setFormData] = useState({
   //   name: "",
   //   email: "",
@@ -42,9 +42,8 @@ const SignUp = () => {
   const handleImage = (e) => {
     const file = e.target.files[0];
     setFileToBase(file);
-    console.log(file);
   };
-
+  
   const setFileToBase = (file) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
@@ -52,6 +51,32 @@ const SignUp = () => {
       setLogo(reader.result);
     };
   };
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const entreprise = {
+  //     name,
+  //     email,
+  //     password,
+  //     confirmPassword,
+  //     role,
+  //     subscription,
+  //     phone,
+  //     address,
+  //     logo,
+  //   }
+  //   try {
+  //     const data = await register(entreprise);
+  //     if(data.success === true) {
+  //       // navigate("/login");
+  //       toast.success('Le registre se passe correctemnt')
+  //     } else {
+  //       toast.error("Le registre se passe pas correctemnt");
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -65,19 +90,21 @@ const SignUp = () => {
       phone,
       address,
       logo,
-    }
+    };
     try {
-      const data = await register(entreprise);
-      if(data.success === true) {
-        // navigate("/login");
-        toast.success('Le registre se passe correctemnt')
+      const { data } = await register(entreprise);
+      if (data.success) {
+        toast.success('Le registre se passe correctement');
+        navigate("/login");
       } else {
-        toast.error("Le registre se passe pas correctemnt");
+        toast.error("Le registre ne s'est pas passé correctement : " + data.message);
       }
     } catch (err) {
+      toast.error("Erreur lors de l'inscription : " + err.message);
       console.log(err);
     }
   };
+  
 
   const [Inscrire, setInscrire] = useState("Inscription");
   const [Entreprisename, setEntreprisename] = useState("Entreprise name");
