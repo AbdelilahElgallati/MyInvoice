@@ -89,7 +89,7 @@ const Login = () => {
         email: emailEnt,
         password: passwordEnt,
       });
-      console.log("info data :" + Info);
+      // console.log("info data :" + Info);
       console.log(Info)
       const entrepriseInfo = Info.data.user;
       if (
