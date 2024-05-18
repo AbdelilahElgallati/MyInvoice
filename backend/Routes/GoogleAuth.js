@@ -13,7 +13,7 @@ GoogleAuthRouter.get('/auth/google/callback',
     const user = await EntrepriseController.getEntrepriseByGoogleId({id: id});
     if (user) {
       console.log("user existe google auth")
-      res.redirect(`https://my-invoice-omega.vercel.app/login/?userId=${user._id}`);
+      res.redirect(`https://my-invoice-seven.vercel.app/login/?userId=${user._id}`);
     } else {
       console.error("Aucune entreprise trouvée pour cet ID Google");
     }
