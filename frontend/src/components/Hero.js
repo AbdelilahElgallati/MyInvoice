@@ -36,7 +36,8 @@ const Hero = () => {
   const navigate = useNavigate();
   const handleLoginClick = () => {
     const userId = localStorage.getItem("userId");
-    const redirectPath = userId ? "/ajouterFacture" : "/login";
+    const userName = localStorage.getItem("userName");
+    const redirectPath = userId ? `${userName}/ajouterFacture` : "/login";
     navigate(redirectPath);
   }
   return (
