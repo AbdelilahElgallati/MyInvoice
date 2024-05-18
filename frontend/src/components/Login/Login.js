@@ -99,14 +99,15 @@ const Login = () => {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
         localStorage.setItem("userName", Info.data.user.name);
-        navigate(`/dashboard`);
+
+        // navigate(`/dashboard`);
       } else if (entrepriseInfo.status === "active") {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
         localStorage.setItem("packId", Info.data.pack._id);
         localStorage.setItem("userName", Info.data.user.name);
         const userName = localStorage.getItem('userName');
-        navigate(`/${userName}/dashboardClient`);
+        // navigate(`/${userName}/dashboardClient`);
         // navigate(`/dashboardClient`);
       }
     } catch (error) {
