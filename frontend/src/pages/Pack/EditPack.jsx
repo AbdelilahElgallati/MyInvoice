@@ -20,7 +20,7 @@ import {
 } from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
 import { toast } from "react-toastify";
-
+import { useNavigate } from 'react-router-dom';
 const EditPack = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
@@ -70,7 +70,7 @@ const EditPack = () => {
       const { data } = await updatePack({ id, pack });
       if (data.success) {
         toast.success("La modification de pack se passe correctement");
-        Navigate("/packadmin");
+        navigate("/packadmin");
       } else {
         toast.error(
           "La modification de pack ne s'est pas passé correctement : " + data.message
