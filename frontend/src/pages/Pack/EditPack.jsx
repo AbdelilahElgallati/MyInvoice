@@ -1,24 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  TextField,
-  Input,
-  useTheme,
-  Button,
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Chip,
-} from "@mui/material";
-import Header from "componentsAdmin/Header";
-import {
-  useGetAllServicesQuery,
-  useGetOnePackQuery,
-  useRemovePackMutation,
-  useUpdatePackMutation,
-} from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
+import { TextField,Input,useTheme,Button,Box,FormControl,InputLabel,Select,MenuItem,Chip} from "@mui/material";
+import Header from "componentsAdmin/Header";
+import {useGetAllServicesQuery, useGetOnePackQuery, useRemovePackMutation, useUpdatePackMutation } from "state/api";
 import { toast } from "react-toastify";
 
 const EditPack = () => {
@@ -73,10 +57,10 @@ const EditPack = () => {
         navigate("/packadmin");
       } else {
         toast.error(
-          "La modification de pack ne s'est pas passé correctement : " + data.message
+          "La modification de pack ne s'est pas passé correctement : " +
+            data.message
         );
       }
-      
     } catch (error) {
       toast.error("Erreur lors de la modification de pack : " + error.message);
       console.log(error);
