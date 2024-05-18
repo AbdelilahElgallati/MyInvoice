@@ -61,6 +61,7 @@ const Login = () => {
   
   const { data : userInfo} = useGetOneEntrepriseQuery(userId );
   if(userInfo && userId) {
+    console.log(userInfo)
     localStorage.setItem("userId", userId)
     localStorage.setItem("userName", userInfo.name);
     navigate(`/${userInfo.name}/dashboardClient`);
