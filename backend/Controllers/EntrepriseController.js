@@ -203,7 +203,6 @@ const login = async (req, res) => {
     console.error(error);
     res.status(500).json({ error: "Erreur serveur" });
   }
-  console.log("sortie dans la fonction login");
 };
 
 const getDashboardInfo = async (req, res) => {
