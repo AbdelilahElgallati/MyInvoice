@@ -27,7 +27,7 @@ const addPack = async (req, res) => {
     res.status(500).send({
       success: false,
       message: "Erreur serveur lors de l'ajout du pack",
-      error,
+      error : error.message,
     });
   }
 };
