@@ -48,7 +48,7 @@ const addEntreprise = async (req, res) => {
     }
   } catch (error) {
     console.error("Erreur lors de l'ajout de l'entreprise :", error);
-    return res.status(500).json({ success: false, message: `Erreur serveur lors de l'ajout d'entreprise : ${error}` });
+    return res.status(500).json({ success: false, message: `Erreur serveur lors de l'ajout d'entreprise : ${error}`, error });
   }
 };
 
