@@ -35,7 +35,7 @@ const addEntreprise = async (req, res) => {
           price: 0,
         })
         subscription.save()
-        return res.status(201).json(entreprise);
+        return res.status(201).json({message : entreprise});
       } else {
         return res.status(400).json({ message: "Le pack n'existe pas" });
       }

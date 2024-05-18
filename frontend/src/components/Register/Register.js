@@ -42,8 +42,9 @@ const SignUp = () => {
     try {
       const Info = await register(formDataWithLogo);
       console.log("Info : ", Info);
-      console.log("info data :" + Info.entreprise);
-      if(Info.entreprise) {
+      console.log("info data :" + Info.data.message);
+      if(Info.data.message) {
+        console.log(Info.data.message)
         navigate("/login");
       } else {
         setResult(Info); 
