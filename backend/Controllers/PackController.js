@@ -104,10 +104,8 @@ const updatePack = async (req, res) => {
         await cloudinary.uploader.destroy(ImgId);
       }
 
-      const newImage = await cloudinary.uploader.upload(req.body.image, {
+      const newImage = await cloudinary.uploader.upload(req.body.logo, {
         folder: "Pack",
-        // width: 1000,
-        // crop: "scale",
       });
 
       data.logo = {
