@@ -150,24 +150,42 @@ const updatePack = async (req, res) => {
       }
 
       // Upload the new image to Cloudinary using the buffer of the uploaded file
-      const result = await cloudinary.uploader.upload(req.file.buffer, {
+      const result = await cloudinary.uploader.upload_stream({
         folder: 'Pack'
+      }, async (error, result) => {
+        if (error) {
+          console.error(error);
+          res.status(500).send({
+            success: false,
+            message: "Erreur serveur lors de la mise à jour de pack",
+            error,
+          });
+        } else {
+          data.logo = {
+            public_id: result.public_id,
+            url: result.secure_url,
+          };
+          
+          // Update the pack information in the database
+          const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, { new: true });
+          
+          // Send success response
+          res.status(200).json({
+            success: true,
+            updatedPack,
+          });
+        }
+      }).end(req.file.buffer);
+    } else {
+      // If no file is provided, update the pack information in the database without uploading a new image
+      const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, { new: true });
+      
+      // Send success response
+      res.status(200).json({
+        success: true,
+        updatedPack,
       });
-
-      data.logo = {
-        public_id: result.public_id,
-        url: result.secure_url,
-      };
     }
-    
-    // Update the pack information in the database
-    const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, { new: true });
-    
-    // Send success response
-    res.status(200).json({
-      success: true,
-      updatedPack,
-    });
   } catch (error) {
     console.log(error);
     // Send error response
@@ -178,7 +196,6 @@ const updatePack = async (req, res) => {
     });
   }
 };
-
 
 const removePack = async (req, res) => {
   try {
