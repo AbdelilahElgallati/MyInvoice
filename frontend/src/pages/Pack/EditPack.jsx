@@ -23,7 +23,16 @@ const EditPack = () => {
   const { data: serviceData } = useGetAllServicesQuery();
 
   const handleIconChange = (e) => {
-    setLogo(e.target.files[0]);
+    const file = e.target.files[0];
+    setFileToBase(file);
+  };
+
+  const setFileToBase = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setLogo(reader.result);
+    };
   };
 
   useEffect(() => {
@@ -31,7 +40,7 @@ const EditPack = () => {
       setName(packData.name);
       setDescription(packData.description);
       setPrice(packData.price);
-      setServices(packData.services);
+      setServices(packData.services.map(service => service.serviceId));
       setLogo(packData.logo);
     }
   }, [packData]);

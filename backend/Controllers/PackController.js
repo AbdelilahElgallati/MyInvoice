@@ -115,9 +115,7 @@ const updatePack = async (req, res) => {
         url: newImage.secure_url,
       };
     }
-    const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, {
-      new: true,
-    });
+    const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, {new: true});
     res.status(200).json({
       success: true,
       updatedPack,
