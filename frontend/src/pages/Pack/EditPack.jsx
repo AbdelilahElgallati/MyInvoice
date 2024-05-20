@@ -41,7 +41,10 @@ const EditPack = () => {
       setDescription(packData.description);
       setPrice(packData.price);
       setServices(packData.services.map(service => service.serviceId));
-      setLogo(packData.logo);
+      setLogo({
+        public_id: packData.logo.public_id,
+        url: packData.logo.url
+      });
     }
   }, [packData]);
 
