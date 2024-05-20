@@ -24,16 +24,8 @@ const EditPack = () => {
 
   const handleImage = (e) => {
     const file = e.target.files[0];
-    setLogo(file); 
+    setLogo(file); // Update logo state with the file object
   };
-
-  // const setFileToBase = (file) => {
-  //   const reader = new FileReader();
-  //   reader.readAsDataURL(file);
-  //   reader.onloadend = () => {
-  //     setLogo(reader.result);
-  //   };
-  // };
 
   useEffect(() => {
     if (packData) {
