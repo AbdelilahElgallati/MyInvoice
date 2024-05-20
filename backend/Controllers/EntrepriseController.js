@@ -197,7 +197,6 @@ const login = async (req, res) => {
   try {
     const jsenwebtkn = req.token;
     const user = req.user;
-    //erreur :
     const sub = await Subscription.findOne({ userId: user._id });
     const pack = await Pack.findById(sub.packId);
     if (!user) {
