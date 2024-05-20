@@ -162,7 +162,7 @@ const Profil = () => {
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Avatar
-              src={`https://my-invoice-api.vercel.app/Images/${enterpriseDetails.logo}`}
+              src={`${enterpriseDetails.logo.url}`}
               alt={enterpriseDetails.name}
               sx={{ width: 70, height: 70 }}
             />

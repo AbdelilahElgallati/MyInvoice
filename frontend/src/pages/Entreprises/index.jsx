@@ -58,9 +58,9 @@ const Entreprises = () => {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Avatar
-          src={`https://my-invoice-api.vercel.app/Images/${logo}`}
+          src={`${logo.url}`}
           alt={name}
-          sx={{ width: 35, height: 35 }} // Taille fixe pour l'avatar
+          sx={{ width: 35, height: 35 }} 
         />
         <Box ml={1}>
           <div>{name}</div>
