@@ -90,26 +90,25 @@ const Login = () => {
         email: emailEnt,
         password: passwordEnt,
       });
-      // console.log("info data :" + Info);
       console.log(Info)
       const entrepriseInfo = Info.data.user;
       if (
         entrepriseInfo.role === "admin" &&
         entrepriseInfo.status === "active"
+        && entrepriseInfo.active === 1
       ) {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
         localStorage.setItem("userName", Info.data.user.name);
-
-        // navigate(`/dashboard`);
-      } else if (entrepriseInfo.status === "active") {
+        navigate(`/dashboard`);
+      } else if (entrepriseInfo.status === "active" && entrepriseInfo.active === 1) {
         localStorage.setItem("token", Info.data.jsenwebtkn);
         localStorage.setItem("userId", Info.data.user._id);
         localStorage.setItem("packId", Info.data.pack._id);
         localStorage.setItem("userName", Info.data.user.name);
         const userName = localStorage.getItem('userName');
-        // navigate(`/${userName}/dashboardClient`);
-        // navigate(`/dashboardClient`);
+        navigate(`/${userName}/dashboardClient`);
+        navigate(`/dashboardClient`);
       }
     } catch (error) {
       console.log(error);
