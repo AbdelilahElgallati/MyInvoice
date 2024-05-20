@@ -57,7 +57,7 @@ const EditPack = () => {
       description,
       price,
       services: formattedServices,
-      logo,
+      logo: logo.length > 0 ? logo : "",
     };
     try {
       const { data } = await updatePack({ id, pack });
