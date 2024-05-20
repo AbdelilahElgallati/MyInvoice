@@ -116,30 +116,6 @@ const AddPack = () => {
           required
           margin="normal"
         />
-        {/* <FormControl fullWidth margin="normal">
-          <InputLabel id="services-label">Services</InputLabel>
-          <Select
-            labelId="services-label"
-            id="services"
-            multiple
-            value={services}
-            onChange={handleServiceChange}
-            renderValue={(selected) => (
-              <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {selected.map((serviceId) => {
-                  const service = servicesData.find(service => service._id === serviceId);
-                  return <Chip key={serviceId} label={service?.ServiceName} />;
-                })}
-              </div>
-            )}
-          >
-            {servicesData && servicesData.map((service) => (
-              <MenuItem key={service._id} value={service._id}>
-                {service.ServiceName}
-              </MenuItem>
-            ))}
-          </Select>
-        </FormControl> */}
         <FormControl fullWidth margin="normal">
           <InputLabel id="services-label">Services</InputLabel>
           <Select

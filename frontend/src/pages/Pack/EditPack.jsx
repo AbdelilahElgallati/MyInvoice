@@ -37,17 +37,17 @@ const EditPack = () => {
   }, [packData]);
 
   const handleServiceChange = (event) => {
-    const selectedServices = event.target.value;
-    setServices({ ...services, services: selectedServices });
+    setServices(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formattedServices = services.map(serviceId => ({ serviceId }));
     const pack = {
       name,
       description,
       price,
-      services,
+      services: formattedServices,
       logo,
     };
     try {

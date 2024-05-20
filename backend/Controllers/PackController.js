@@ -95,7 +95,7 @@ const updatePack = async (req, res) => {
     const data = {
       name: req.body.name,
       description: req.body.description,
-      services: JSON.parse(req.body.services),
+      services: req.body.services,
       price: req.body.price,
     };
     if (req.body.logo !== "") {
