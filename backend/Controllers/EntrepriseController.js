@@ -172,7 +172,13 @@ const updateEntreprise = async (req, res) => {
       entreprise,
     });
   } catch (error) {
-    res.status(500).json({success: false, message:"Erreur serveur lors de la mise à jour d'entreprise",error});
+    res
+      .status(500)
+      .json({
+        success: false,
+        message: "Erreur serveur lors de la mise à jour d'entreprise",
+        error,
+      });
   }
 };
 
@@ -329,39 +335,7 @@ const ForgoutPass = async (req, res) => {
     res.status(500).json({ message: "Erreur du serveur" });
   }
 };
-// const ForgoutPass = async (req, res)=>{
-//     console.log(req.body)
-//     const {email} = req.body;
-//     Entreprise.findOne({email : email}).then (entreprise=>{
-//       if(!entreprise){
-//         return res.json({message : "User not existed"})
-//       }
-//       const token = jwt.sign({id : entreprise._id} , "AbdelilahElgallati1230",{expiresIn:"1d"})
-//       var transporter = nodemailer.createTransport({
-//         service: 'gmail',
-//         auth: {
-//           user: "myinvoice06@gmail.com",
-//           pass: "ekiv afoc wbnb mrep",
-//         },
-//       });
 
-//       var mailOptions = {
-//         from: 'myinvoice06@gmail.com',
-//         to: email,
-//         subject: 'Reset password',
-//         text: `http://localhost:3000/reset-password/${entreprise._id}/${token}`
-//       };
-
-//       transporter.sendMail(mailOptions, function(error, info){
-//         if (error) {
-//           console.error('Error sending email:', error.message);
-//            res.status(500).json({ message: 'Failed to send email' })
-//         } else {
-//           res.status(200).json({ message: 'Email envoyez avec succes!!!!! Verifiez votre email  ' });
-//         }
-//       });
-//     })
-// }
 const ResetPass = async (req, res) => {
   const id = req.body.id;
   const token = req.body.token;

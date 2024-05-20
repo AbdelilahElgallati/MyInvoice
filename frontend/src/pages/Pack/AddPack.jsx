@@ -19,11 +19,9 @@ const AddPack = () => {
   const [price, setPrice] = useState(0);
   const [addPack] = useAddPackMutation();
   const { data: servicesData } = useGetAllServicesQuery();
-  const Navigate = useNavigate();
 
   const handleServiceChange = (event) => {
-    const selectedServices = event.target.value;
-    setServices({ ...services, services: selectedServices });
+    setServices(event.target.value);
   };
 
   const handleImage = (e) => {
@@ -46,14 +44,14 @@ const AddPack = () => {
       name,
       description,
       price,
-      services,
+      services: services.map(service => service.serviceId || service),
       logo,
     }
     try {
       const { data } = await addPack(pack);
       if (data.success) {
         toast.success("L'enregistrement de pack se passe correctement");
-        Navigate("/packadmin");
+        navigate("/packadmin");
       } else {
         toast.error(
           "L'enregistrement de pack ne s'est pas passé correctement : " + data.message
@@ -114,9 +112,10 @@ const AddPack = () => {
             onChange={handleServiceChange}
             renderValue={(selected) => (
               <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-                {selected.map((serviceId) => (
-                  <Chip key={serviceId} label={servicesData.find(service => service._id === serviceId)?.ServiceName} />
-                ))}
+                {selected.map((serviceId) => {
+                  const service = servicesData.find(service => service._id === serviceId);
+                  return <Chip key={serviceId} label={service?.ServiceName} />;
+                })}
               </div>
             )}
           >
