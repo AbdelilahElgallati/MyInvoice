@@ -42,6 +42,7 @@ const getAllPacks = async (req, res) => {
     res.status(500).send("Erreur serveur lors de la recherche des packs");
   }
 };
+
 const getThreePacks = async (req, res) => {
   try {
     const packs = await Pack.find()
@@ -89,49 +90,6 @@ const getOnePack = async (req, res) => {
   }
 };
 
-// const updatePack = async (req, res) => {
-//   try {
-//     const currentPack = await Pack.findById(req.params.id);
-//     const data = {
-//       name: req.body.name,
-//       description: req.body.description,
-//       services: JSON.parse(req.body.services),
-//       price: req.body.price,
-//     };
-//     if (req.file) { // Check if file exists
-//       const ImgId = currentPack.logo.public_id;
-//       if (ImgId) {
-//         await cloudinary.uploader.destroy(ImgId);
-//       }
-
-//       // Upload the new image to Cloudinary
-//       const result = await cloudinary.uploader.upload(req.file.buffer, {
-//         folder: 'Pack'
-//       });
-
-//       data.logo = {
-//         public_id: result.public_id,
-//         url: result.secure_url,
-//       };
-//     }
-//     const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, {new: true});
-//     res.status(200).json({
-//       success: true,
-//       updatedPack,
-//     });
-//   } catch (error) {
-//     console.log(error);
-//     res
-//       .status(500)
-//       .send({
-//         success: false,
-//         message: "Erreur serveur lors de la mise à jour de pack",
-//         error,
-//         data
-//       });
-//   }
-// };
-
 const updatePack = async (req, res) => {
   try {
     const currentPack = await Pack.findById(req.params.id);
@@ -142,14 +100,12 @@ const updatePack = async (req, res) => {
       price: req.body.price,
     };
     
-    // Check if file exists and upload it to Cloudinary
     if (req.file) {
       const ImgId = currentPack.logo.public_id;
       if (ImgId) {
         await cloudinary.uploader.destroy(ImgId);
       }
 
-      // Upload the new image to Cloudinary using the buffer of the uploaded file
       const result = await cloudinary.uploader.upload_stream({
         folder: 'Pack'
       }, async (error, result) => {
@@ -166,7 +122,6 @@ const updatePack = async (req, res) => {
             url: result.secure_url,
           };
           
-          // Update the pack information in the database
           const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, { new: true });
           
           // Send success response
@@ -177,10 +132,8 @@ const updatePack = async (req, res) => {
         }
       }).end(req.file.buffer);
     } else {
-      // If no file is provided, update the pack information in the database without uploading a new image
       const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, { new: true });
       
-      // Send success response
       res.status(200).json({
         success: true,
         updatedPack,

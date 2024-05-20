@@ -2,11 +2,9 @@ const express = require("express");
 const PackRouter = express.Router();
 const PackController = require("../Controllers/PackController");
 const multer = require("multer");
-const path = require("path");
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
-
 
 PackRouter.get( "/ThreePacks", PackController.getThreePacks);
 PackRouter.get( "/AllPacksThreeService", PackController.getAllPacksThreeService);

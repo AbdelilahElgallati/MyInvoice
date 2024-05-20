@@ -147,38 +147,65 @@ const updateEntreprise = async (req, res) => {
       address: req.body.address,
     };
 
-    if (req.body.logo !== "") {
+    if (req.file) {
       const ImgId = currentEntreprise.logo.public_id;
       if (ImgId) {
         await cloudinary.uploader.destroy(ImgId);
       }
 
-      const newImage = await cloudinary.uploader.upload(req.body.logo, {
-        folder: "Entreprises",
-        // width: 1000,
-        // crop: "scale",
-      });
+      const result = await cloudinary.uploader
+        .upload_stream(
+          {
+            folder: "Entreprises",
+          },
+          async (error, result) => {
+            if (error) {
+              console.error(error);
+              res.status(500).send({
+                success: false,
+                message: "Erreur serveur lors de la mise à jour d'entreprise",
+                error,
+              });
+            } else {
+              data.logo = {
+                public_id: result.public_id,
+                url: result.secure_url,
+              };
 
-      data.image = {
-        public_id: newImage.public_id,
-        url: newImage.secure_url,
-      };
-    }
-    const entreprise = await Entreprise.findByIdAndUpdate(req.params.id, data, {
-      new: true,
-    });
-    res.status(200).json({
-      success: true,
-      entreprise,
-    });
-  } catch (error) {
-    res
-      .status(500)
-      .json({
-        success: false,
-        message: "Erreur serveur lors de la mise à jour d'entreprise",
-        error,
+              const entreprise = await Entreprise.findByIdAndUpdate(
+                req.params.id,
+                data,
+                {
+                  new: true,
+                }
+              );
+              res.status(200).json({
+                success: true,
+                entreprise,
+              });
+            }
+          }
+        )
+        .end(req.file.buffer);
+    } else {
+      const entreprise = await Entreprise.findByIdAndUpdate(
+        req.params.id,
+        data,
+        {
+          new: true,
+        }
+      );
+      res.status(200).json({
+        success: true,
+        entreprise,
       });
+    }
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Erreur serveur lors de la mise à jour d'entreprise",
+      error,
+    });
   }
 };
 

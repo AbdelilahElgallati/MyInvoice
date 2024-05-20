@@ -24,7 +24,7 @@ const EditPack = () => {
 
   const handleImage = (e) => {
     const file = e.target.files[0];
-    setLogo(file); // Update logo state with the file object
+    setLogo(file); 
   };
 
   useEffect(() => {
@@ -43,33 +43,6 @@ const EditPack = () => {
   const handleServiceChange = (event) => {
     setServices(event.target.value);
   };
-
-  // const handleSubmit = async (event) => {
-  //   event.preventDefault();
-  //   const formattedServices = services.map(serviceId => ({ serviceId }));
-  //   const pack = {
-  //     name,
-  //     description,
-  //     price,
-  //     services: formattedServices,
-  //     logo: logo.length > 0 ? logo : "",
-  //   };
-  //   try {
-  //     const { data } = await updatePack({ id, pack });
-  //     if (data.success) {
-  //       toast.success("La modification de pack se passe correctement");
-  //       navigate("/packadmin");
-  //     } else {
-  //       toast.error(
-  //         "La modification de pack ne s'est pas passé correctement : " +
-  //           data.message
-  //       );
-  //     }
-  //   } catch (error) {
-  //     toast.error("Erreur lors de la modification de pack : " + error.message);
-  //     console.log(error);
-  //   }
-  // };
 
   const handleSubmit = async (event) => {
     event.preventDefault();

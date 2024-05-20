@@ -53,29 +53,55 @@ const updateModel = async (req, res) => {
       name: req.body.name,
       description: req.body.description,
     };
-    if (req.body.icon !== "") {
-      const ImgId = currentPack.icon.public_id;
+    if (req.file) {
+      const ImgId = currentPack.logo.public_id;
       if (ImgId) {
         await cloudinary.uploader.destroy(ImgId);
       }
 
-      const newImage = await cloudinary.uploader.upload(req.body.icon, {
-        folder: "Model",
+      const result = await cloudinary.uploader
+        .upload_stream(
+          {
+            folder: "Model",
+          },
+          async (error, result) => {
+            if (error) {
+              console.error(error);
+              res.status(500).send({
+                success: false,
+                message: "Erreur serveur lors de la mise à jour de model",
+                error,
+              });
+            } else {
+              data.icon = {
+                public_id: result.public_id,
+                url: result.secure_url,
+              };
+
+              const updatedModel = await Model.findByIdAndUpdate(
+                req.params.id,
+                data,
+                {
+                  new: true,
+                }
+              );
+              res.status(200).json({
+                success: true,
+                updatedModel,
+              });
+            }
+          }
+        )
+        .end(req.file.buffer);
+    } else {
+      const updatedModel = await Model.findByIdAndUpdate(req.params.id, data, {
+        new: true,
       });
-
-      data.icon = {
-        public_id: newImage.public_id,
-        url: newImage.secure_url,
-      };
+      res.status(200).json({
+        success: true,
+        updatedModel,
+      });
     }
-
-    const updatedModel = await Model.findByIdAndUpdate(req.params.id, data, {
-      new: true,
-    });
-    res.status(200).json({
-      success: true,
-      updatedModel,
-    });
   } catch (error) {
     res.status(500).send({
       success: false,

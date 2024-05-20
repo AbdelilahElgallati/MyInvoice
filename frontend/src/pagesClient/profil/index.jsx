@@ -90,8 +90,12 @@ const Profil = () => {
         formData.append("logo", logo);
       }
       const id = localStorage.getItem("userId");
-      await updateEntreprise({ id, entreprise: formData });
-      window.location.reload();
+      const {data} = await updateEntreprise({ id, entreprise: formData });
+      if(data.success) {
+        window.location.reload();
+      } else {
+        console.log(data);
+      }
     } catch (error) {
       console.log(error);
     }

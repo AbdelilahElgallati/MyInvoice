@@ -24,32 +24,28 @@ const EditModel = () => {
     if (model) {
       setName(model.name)
       setDescription(model.description)
-      setIcon(model.icon)
+      setIcon({
+        public_id: model.icon.public_id,
+        url: model.icon.url
+      })
     }
   }, [model]);
 
   const handleImage = (e) => {
     const file = e.target.files[0];
-    setFileToBase(file);
+    setIcon(file);
   };
 
-  const setFileToBase = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setIcon(reader.result);
-    };
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const model = {
-      name,
-      description,
-      icon,
-    };
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("icon", icon);
+
     try {
-      const { data } = await updateModel({ id, model });
+      const { data } = await updateModel({ id, model: formData });
       if (data.success) {
         toast.success("La modification de model se passe correctement");
         Navigate("/models");
