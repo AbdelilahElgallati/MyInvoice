@@ -299,7 +299,7 @@ const ForgoutPass = async (req, res) => {
               <p>Bonjour,</p>
               <p>Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur le lien ci-dessous pour procéder :</p>
               <a 
-                  href="http://localhost:3000/reset-password/${entreprise._id}/${token}" 
+                  href="https://my-invoice-seven.vercel.app/reset-password/${entreprise._id}/${token}" 
                   style="display: inline-block; padding: 10px 20px; margin: 10px 0; color: white; background-color: #007bff; text-decoration: none; border-radius: 5px;"
               >
                   Réinitialiser le mot de passe
