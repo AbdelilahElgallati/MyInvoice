@@ -229,7 +229,6 @@ const login = async (req, res) => {
     if (!user) {
       return res.status(404).json({ error: "Utilisateur non trouvé" });
     }
-
     res.json({ jsenwebtkn, user, pack });
   } catch (error) {
     console.error(error);
