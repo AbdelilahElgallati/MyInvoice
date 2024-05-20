@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
-import { useGetSubscriptionsQuery, useRemoveSubscriptionMutation } from "state/api";
+import { useGetSubscriptionsQuery, useUpdateSubscriptionMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
@@ -36,7 +36,7 @@ const SubscriptionPalns = () => {
 
     fetchSubscription();
   }, []);
-  const [removeSubscription] = useRemoveSubscriptionMutation();
+  const [updateSubscription] = useUpdateSubscriptionMutation();
  
   
   const columns = [
@@ -100,7 +100,11 @@ const SubscriptionPalns = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeSubscription(id);
+      const thisSub = subscriptionPlan.find((s) => s._id === id)
+      if(thisSub) {
+        thisSub.active = 0
+        await updateSubscription({ id, SubscriptionData : thisSub });
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

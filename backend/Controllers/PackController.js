@@ -36,7 +36,7 @@ const addPack = async (req, res) => {
 
 const getAllPacks = async (req, res) => {
   try {
-    const packs = await Pack.find().populate("services.serviceId");
+    const packs = await Pack.find({active:1}).populate("services.serviceId");
     res.status(201).json(packs);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des packs");

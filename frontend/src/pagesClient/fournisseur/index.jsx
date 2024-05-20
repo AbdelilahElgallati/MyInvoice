@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
-  useRemoveFournisseurMutation,
+  useUpdateFournisseurMutation,
 } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
@@ -41,7 +41,7 @@ const Fournisseurs = () => {
       navigate("/");
     }
   }, [id, navigate]); 
-  const [removeFournisseur] = useRemoveFournisseurMutation();
+  const [updateFournisseur] = useUpdateFournisseurMutation();
   const columns = [
     {
       field: "name",
@@ -111,7 +111,11 @@ const Fournisseurs = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeFournisseur(id);
+      const thisFournisseur = Fourinsseur.find((d) => d._id === id)
+      if(thisFournisseur) {
+        thisFournisseur.active = 0
+        await updateFournisseur({id, updateFournisseur: thisFournisseur})
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

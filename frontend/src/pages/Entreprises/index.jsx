@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton, Avatar } from "@mui/material";
 import {
-  useRemoveEntrepriseMutation,
+  useRemoveEntrepriseMutation, useUpdateEntrepriseMutation
 } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
@@ -19,7 +19,7 @@ const Entreprises = () => {
   const theme = useTheme();
   // hadi
   const [isLoading, setIsLoading] = useState(true);
-  const [removeEntreprise] = useRemoveEntrepriseMutation();
+  const [updateEntreprise] = useUpdateEntrepriseMutation();
   useEffect(() => {
     const fetchEntreprises = async () => {
       try {
@@ -46,7 +46,9 @@ const Entreprises = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeEntreprise(id);
+      const thisEntreprise = entreprises.find((d) => d._id === id);
+      const newEntreprise = {...thisEntreprise, active: 0}
+      await updateEntreprise({id, newEntreprise })
       setEntreprises(entreprises.filter(entreprise => entreprise._id !== id));
     } catch (error) {
       console.log(error);

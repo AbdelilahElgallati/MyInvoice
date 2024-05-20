@@ -26,7 +26,6 @@ const EnterpriseSchema = new Schema(
     },
     status: { type: String, enum: ["active", "cancelled"], default: "active" },
     googleId: String,
-    // secret : String,
   },
   { timestamps: true }
 );

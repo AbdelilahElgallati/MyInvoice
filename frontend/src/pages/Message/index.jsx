@@ -31,7 +31,11 @@ const Messages = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`https://my-invoice-api.vercel.app/Message/remove/${id}`);
+      const thisMessage = messages.find((message) => message._id === id);
+      if(thisMessage) {
+        thisMessage.active = 0;
+        await updateMessage({ id, MessageData : thisMessage });
+      }
       setMessages(messages.filter((message) => message._id !== id));
     } catch (error) {
       console.log(error);

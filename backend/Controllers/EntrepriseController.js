@@ -62,7 +62,7 @@ const addEntreprise = async (req, res) => {
 
 const getAllEntreprises = async (req, res) => {
   try {
-    const entreprises = await Entreprise.find();
+    const entreprises = await Entreprise.find({active:1});
     res.status(201).json(entreprises);
   } catch (error) {
     res

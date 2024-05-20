@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { Box, useTheme, Button, IconButton } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import {  useRemoveProduitMutation } from "state/api";
+import {  useUpdateProduitMutation } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
@@ -43,7 +43,7 @@ const Products  = () => {
     }
   }, [id, navigate]);  
 
-  const [removeProduit] = useRemoveProduitMutation();
+  const [updateProduit] = useUpdateProduitMutation();
   const columns = [
     {
       field: "name",
@@ -126,7 +126,11 @@ const Products  = () => {
   
   const handleDelete = async (id) => {
     try {
-      await removeProduit(id);
+      const thisProd = Product.find((p) => p._id === id)
+      if(thisProd) {
+        thisProd.active = 0
+        await updateProduit({id, updateProduit: thisProd})
+      }
       window.location.reload()
     } catch (error) {
       console.log(error);

@@ -14,7 +14,7 @@ const addTaks = async (req, res) => {
 
 const getAllTaksEnt = async (req, res) => {
   try {
-    const tk = await Taks.find({ userId: req.params.id });
+    const tk = await Taks.find({ userId: req.params.id, active:1 });
     res.status(201).json(tk);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des Taks");

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useGetOnePackQuery, useRemoveInvoiceMutation } from "state/api";
+import { useGetOnePackQuery, useUpdateInvoiceMutation } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import FlexBetween from "componentsAdmin/FlexBetween";
@@ -25,7 +25,7 @@ const Invoices = () => {
   if (!localStorage.getItem("userId")) {
     navigate("/");
   }
-  const removeInvoice = useRemoveInvoiceMutation();
+  const updateInvoice = useUpdateInvoiceMutation();
   const packId = localStorage.getItem("packId");
   const id = localStorage.getItem("userId");
   const userName = localStorage.getItem("userName");
@@ -260,7 +260,11 @@ const Invoices = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeInvoice(id);
+      const thisInvoice = Facture.find((f) => f._id === 0)
+      if(thisInvoice) {
+        thisInvoice.active = 0
+        await updateInvoice({id, updateFacture: thisInvoice})
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

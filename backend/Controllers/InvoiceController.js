@@ -18,7 +18,7 @@ const addInvoice = async (req, res) => {
 
 const getAllInvoices = async (req, res) => {
   try {
-    const Allinvoices = await Invoice.find().populate("clientId").limit(50).sort({ createdOn: -1 });
+    const Allinvoices = await Invoice.find({active:1}).populate("clientId").limit(50).sort({ createdOn: -1 });
     const invoices = Allinvoices.filter(invoice => invoice.userId.toString() === req.params.id);
     res.status(200).json(invoices);
   } catch (error) {

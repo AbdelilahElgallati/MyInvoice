@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, Button, IconButton } from "@mui/material";
-import { useRemoveTaksMutation } from "state/api";
+import { useUpdateTaxMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -43,7 +43,7 @@ const Categories = () => {
       navigate("/");
     }
   }, [id, navigate]);
-  const [removeTaks] = useRemoveTaksMutation();
+  const [updateTaks] = useUpdateTaxMutation();
 
   const columns = [
     {
@@ -90,7 +90,11 @@ const Categories = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeTaks(id);
+      const thisTax = Taks.find((t) => t._id === id)
+      if(thisTax) {
+        thisTax.active = 0
+        await updateTaks({id, updateTaks: thisTax})
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import {
   useGetOnePackQuery,
   useGetBonLivraisonDetailsQuery,
-  useRemoveBonLivraisonMutation,
+  useUpdateBonLivraisonMutation,
 } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
@@ -64,7 +64,7 @@ const BonLivraison = () => {
       navigate("/");
     }
   }, [id, navigate]);
-  const [removeBonLivraison] = useRemoveBonLivraisonMutation();
+  const [updateBonLivraison] = useUpdateBonLivraisonMutation();
  
   
   if (!localStorage.getItem("userId")) {
@@ -264,7 +264,11 @@ const BonLivraison = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeBonLivraison(id);
+      const thisBon = bonLivraison.find((b) => b._id === id) 
+      if(thisBon) {
+        thisBon.active = 0
+        await updateBonLivraison({id, updateBonLivraison: thisBon})
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

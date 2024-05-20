@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Box, useTheme, Button, IconButton, Avatar } from "@mui/material";
-import {  useRemoveModelMutation } from "state/api";
+import {  useUpdateModelMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -24,9 +24,8 @@ const Models = () => {
     icon: "",
     description: "",
   })
-  
+  const [updateModel] = useUpdateModelMutation();
   const theme = useTheme();
-  const [removeModel] = useRemoveModelMutation();
   // hadi
   useEffect(() => {
     const fetchModels = async () => {
@@ -90,7 +89,12 @@ const Models = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeModel(id);
+      const thisModel = model.find((m) => m._id === id);
+      if(thisModel) {
+        thisModel.active = 0;
+        await updateModel({ id: thisModel._id, updatedModel: thisModel });
+      }
+      // await removeModel(id);
       window.location.reload();
     } catch (error) {
       console.log(error);

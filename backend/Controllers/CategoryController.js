@@ -13,7 +13,7 @@ const addCategory = async (req, res) => {
 
 const getAllCategoriesEnt = async (req, res) => {
   try {
-    const categories = await Category.find({ userId: req.params.id });
+    const categories = await Category.find({ userId: req.params.id, active:1 });
     res.status(201).json(categories);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des categories");

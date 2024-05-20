@@ -13,7 +13,7 @@ const addService = async (req, res) => {
 
 const  getAllservices = async (req, res) => {
   try {
-    const  services = await Service.find();
+    const  services = await Service.find({active:1});
     res.status(201).json(services);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des services");

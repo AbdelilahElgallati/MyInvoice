@@ -18,7 +18,7 @@ const addBonCommande = async (req, res) => {
 
 const getAllBonCommandes = async (req, res) => {
   try {
-    const AllbonCommandes = await BonCommande.find()
+    const AllbonCommandes = await BonCommande.find({active:1})
       .populate("fournisseurId")
       .limit(50)
       .sort({ createdOn: -1 });

@@ -14,12 +14,12 @@ import {
   useMediaQuery,
 } from "@mui/material";
 import Header from "componentsAdmin/Header";
-import {  useRemovePackMutation } from "state/api";
 import { Link } from "react-router-dom";
 import FlexBetween from "componentsAdmin/FlexBetween";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useUpdatePackMutation } from "state/api";
 
 const Pack = ({
   _id,
@@ -36,10 +36,14 @@ const Pack = ({
   }
   const theme = useTheme();
   const [isExpanded, setIsExpanded] = useState(false);
-  const [removePack] = useRemovePackMutation();
+  const [updatePack] = useUpdatePackMutation();
   const handleDelete = async (id) => {
     try {
-      await removePack(id);
+      const thisPack = Pack.find((f)=> f._id === id);
+      if(thisPack) {
+        thisPack.active = 0;
+        await updatePack({ id, PackData : thisPack });
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

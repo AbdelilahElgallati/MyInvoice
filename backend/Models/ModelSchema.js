@@ -14,6 +14,7 @@ const ModelSchema = new Schema({
       required: true,
     },
   },
+  active: { type: Number, enum: [0,1], default: 1 },
 });
 
 const Model = mongoose.model('Model', ModelSchema);

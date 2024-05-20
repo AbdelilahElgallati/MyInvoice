@@ -25,6 +25,7 @@ const PackSchema = new Schema(
         required: true,
       },
     },
+    active: { type: Number, enum: [0,1], default: 1 },
   },
   { timestamps: true }
 );
