@@ -22,7 +22,7 @@ const EditPack = () => {
   const [removePack] = useRemovePackMutation();
   const { data: serviceData } = useGetAllServicesQuery();
 
-  const handleIconChange = (e) => {
+  const handleImage = (e) => {
     const file = e.target.files[0];
     setFileToBase(file);
   };
@@ -167,7 +167,7 @@ const EditPack = () => {
             id="icon-input"
             type="file"
             name="logo"
-            onChange={handleIconChange}
+            onChange={handleImage}
             accept="image/*"
           />
         </FormControl>
