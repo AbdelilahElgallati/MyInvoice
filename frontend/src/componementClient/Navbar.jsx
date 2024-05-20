@@ -93,7 +93,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <Box
                 component="img"
                 alt="profile"
-                src={user.logo ? (user.logo.startsWith('http') ? user.logo : `https://my-invoice-api.vercel.app/Images/${user.logo}`) : "#"}
+                src={user.logo.url}
                 height="32px"
                 width="32px"
                 borderRadius="50%"
