@@ -93,7 +93,7 @@ const Navbar = ({ user, isSidebarOpen, setIsSidebarOpen }) => {
               <Box
                 component="img"
                 alt="profile"
-                src={user.logo.url}
+                src={user && user.logo && user.logo.url}
                 height="32px"
                 width="32px"
                 borderRadius="50%"
