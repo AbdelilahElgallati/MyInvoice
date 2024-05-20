@@ -126,6 +126,7 @@ const updatePack = async (req, res) => {
         success: false,
         message: "Erreur serveur lors de la mise à jour de pack",
         error,
+        data
       });
   }
 };

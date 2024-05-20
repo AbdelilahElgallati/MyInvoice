@@ -87,9 +87,7 @@ const EditPack = () => {
     formData.append("description", description);
     formData.append("price", price);
     formData.append("services", JSON.stringify(services.map(service => ({ serviceId: service }))));
-    if (logo) {
-      formData.append("logo", logo); 
-    }
+    formData.append("logo", logo);
   
     try {
       const { data } = await updatePack({ id, pack: formData });
@@ -97,10 +95,10 @@ const EditPack = () => {
         toast.success("La modification de pack s'est bien passée");
         navigate("/packadmin");
       } else {
-        toast.error("La modification de pack ne s'est pas passée correctement : " + data.message);
+        toast.error("La modification de pack ne s'est pas passée correctement ");
       }
     } catch (error) {
-      toast.error("Erreur lors de la modification de pack : " + error.message);
+      toast.error("Erreur lors de la modification de pack");
       console.log(error);
     }
   };
