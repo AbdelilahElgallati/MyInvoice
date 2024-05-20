@@ -89,6 +89,49 @@ const getOnePack = async (req, res) => {
   }
 };
 
+// const updatePack = async (req, res) => {
+//   try {
+//     const currentPack = await Pack.findById(req.params.id);
+//     const data = {
+//       name: req.body.name,
+//       description: req.body.description,
+//       services: JSON.parse(req.body.services),
+//       price: req.body.price,
+//     };
+//     if (req.file) { // Check if file exists
+//       const ImgId = currentPack.logo.public_id;
+//       if (ImgId) {
+//         await cloudinary.uploader.destroy(ImgId);
+//       }
+
+//       // Upload the new image to Cloudinary
+//       const result = await cloudinary.uploader.upload(req.file.buffer, {
+//         folder: 'Pack'
+//       });
+
+//       data.logo = {
+//         public_id: result.public_id,
+//         url: result.secure_url,
+//       };
+//     }
+//     const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, {new: true});
+//     res.status(200).json({
+//       success: true,
+//       updatedPack,
+//     });
+//   } catch (error) {
+//     console.log(error);
+//     res
+//       .status(500)
+//       .send({
+//         success: false,
+//         message: "Erreur serveur lors de la mise à jour de pack",
+//         error,
+//         data
+//       });
+//   }
+// };
+
 const updatePack = async (req, res) => {
   try {
     const currentPack = await Pack.findById(req.params.id);
@@ -98,13 +141,15 @@ const updatePack = async (req, res) => {
       services: JSON.parse(req.body.services),
       price: req.body.price,
     };
-    if (req.file) { // Check if file exists
+    
+    // Check if file exists and upload it to Cloudinary
+    if (req.file) {
       const ImgId = currentPack.logo.public_id;
       if (ImgId) {
         await cloudinary.uploader.destroy(ImgId);
       }
 
-      // Upload the new image to Cloudinary
+      // Upload the new image to Cloudinary using the buffer of the uploaded file
       const result = await cloudinary.uploader.upload(req.file.buffer, {
         folder: 'Pack'
       });
@@ -114,23 +159,26 @@ const updatePack = async (req, res) => {
         url: result.secure_url,
       };
     }
-    const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, {new: true});
+    
+    // Update the pack information in the database
+    const updatedPack = await Pack.findByIdAndUpdate(req.params.id, data, { new: true });
+    
+    // Send success response
     res.status(200).json({
       success: true,
       updatedPack,
     });
   } catch (error) {
     console.log(error);
-    res
-      .status(500)
-      .send({
-        success: false,
-        message: "Erreur serveur lors de la mise à jour de pack",
-        error,
-        data
-      });
+    // Send error response
+    res.status(500).send({
+      success: false,
+      message: "Erreur serveur lors de la mise à jour de pack",
+      error,
+    });
   }
 };
+
 
 const removePack = async (req, res) => {
   try {
