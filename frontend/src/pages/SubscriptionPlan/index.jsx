@@ -102,7 +102,7 @@ const SubscriptionPalns = () => {
     try {
       const thisSub = subscriptionPlan.find((s) => s._id === id)
       if(thisSub) {
-        thisSub.active = 0
+        thisSub.active = false
         await updateSubscription({ id, SubscriptionData : thisSub });
       }
       window.location.reload();

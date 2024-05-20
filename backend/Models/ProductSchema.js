@@ -8,8 +8,7 @@ const ProductSchema = new Schema({
   description: { type: String, required: true },
   quantity: {type: Number, required: true},
   price: { type: Number, required: true },
-  active: { type: Number, enum: [0,1], default: 1 },
-});
+  active: { type: Boolean, default: true },});
 
 const Product = mongoose.model('Product', ProductSchema);
 

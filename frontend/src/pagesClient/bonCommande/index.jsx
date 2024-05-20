@@ -262,7 +262,7 @@ const BonCommandes = () => {
     try {
       const thisBon = bonCommandes.find((b) => b._id === id)
       if(thisBon) {
-        thisBon.active = 0
+        thisBon.active = false
         await updateBonCommandes({id, updateBonCommandes: thisBon})
       }
       window.location.reload();

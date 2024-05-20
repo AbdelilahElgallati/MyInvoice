@@ -111,7 +111,7 @@ const Clients  = () => {
     try {
       const thisClient = Client.find((c) => c._id === id) 
       if (thisClient) {
-        thisClient.active = 0
+        thisClient.active = false
         await updateClient({ id, updateClient: thisClient });
       }
       window.location.reload();

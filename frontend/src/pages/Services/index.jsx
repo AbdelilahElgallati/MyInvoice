@@ -76,7 +76,7 @@ const Services = () => {
     try {
       const thisService = Services.find((s) => s._id === id)
       if(thisService) {
-        thisService.active = 0
+        thisService.active = false
         await updateService({ id, ServiceData : thisService });
       }
       window.location.reload();

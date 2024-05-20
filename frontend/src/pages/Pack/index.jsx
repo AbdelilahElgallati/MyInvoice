@@ -41,7 +41,7 @@ const Pack = ({
     try {
       const thisPack = Pack.find((f)=> f._id === id);
       if(thisPack) {
-        thisPack.active = 0;
+        thisPack.active = false;
         await updatePack({ id, PackData : thisPack });
       }
       window.location.reload();

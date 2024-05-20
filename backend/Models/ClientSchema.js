@@ -7,7 +7,7 @@ const ClientSchema = new Schema({
   email: { type: String, required: true, unique: true },
   phone: { type: String },
   address: { type: String },
-  active: { type: Number, enum: [0,1], default: 1 },
+  active: { type: Boolean, default: true },
 },
 {timestamps: true}
 );

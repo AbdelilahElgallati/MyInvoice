@@ -47,7 +47,7 @@ const Entreprises = () => {
   const handleDelete = async (id) => {
     try {
       const thisEntreprise = entreprises.find((d) => d._id === id);
-      const newEntreprise = {...thisEntreprise, active: 0}
+      const newEntreprise = {...thisEntreprise, active: false}
       await updateEntreprise({id, newEntreprise })
       setEntreprises(entreprises.filter(entreprise => entreprise._id !== id));
     } catch (error) {

@@ -80,7 +80,7 @@ const Categories = () => {
     try {
       const thisCategorie = Categorie.find((c) => c._id === id)
       if(thisCategorie) {
-        thisCategorie.active = 0
+        thisCategorie.active = false
         await updateCategorie({id, updateCategorie: thisCategorie})
       }
       window.location.reload()

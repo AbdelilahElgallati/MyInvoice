@@ -128,7 +128,7 @@ const Products  = () => {
     try {
       const thisProd = Product.find((p) => p._id === id)
       if(thisProd) {
-        thisProd.active = 0
+        thisProd.active = false
         await updateProduit({id, updateProduit: thisProd})
       }
       window.location.reload()

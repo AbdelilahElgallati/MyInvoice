@@ -29,7 +29,7 @@ const addModel = async (req, res) => {
 
 const getAllModels = async (req, res) => {
   try {
-    const models = await Model.find({active:1});
+    const models = await Model.find({active:true});
     console.log("Model : ", models);
     res.status(201).json(models);
   } catch (error) {

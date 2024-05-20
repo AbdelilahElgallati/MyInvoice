@@ -33,7 +33,7 @@ const Messages = () => {
     try {
       const thisMessage = messages.find((message) => message._id === id);
       if(thisMessage) {
-        thisMessage.active = 0;
+        thisMessage.active = false;
         await updateMessage({ id, MessageData : thisMessage });
       }
       setMessages(messages.filter((message) => message._id !== id));

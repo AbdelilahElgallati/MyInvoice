@@ -13,7 +13,7 @@ const addClient = async (req, res) => {
 
 const getAllClientsEnt = async (req, res) => {
   try {
-    const AllClients = await Client.find({active:1});
+    const AllClients = await Client.find({active:true});
     const clients = AllClients.filter(
       (client) => client.userId.toString() === req.params.id
     );

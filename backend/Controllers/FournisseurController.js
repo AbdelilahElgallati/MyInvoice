@@ -13,7 +13,7 @@ const addFournisseur = async (req, res) => {
 
 const getAllFournisseursEnt = async (req, res) => {
   try {
-    const Allfournisseurs = await Fournisseur.find({active:1});
+    const Allfournisseurs = await Fournisseur.find({active:true});
     const fournisseurs = Allfournisseurs.filter(
       (fournisseur) => fournisseur.userId.toString() === req.params.id
     );

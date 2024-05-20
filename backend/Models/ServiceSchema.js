@@ -3,8 +3,7 @@ const Schema = mongoose.Schema;
 
 const ServiceSchema = new Schema({
   ServiceName: { type: String, required: true },
-  active: { type: Number, enum: [0,1], default: 1 },
-});
+  active: { type: Boolean, default: true },});
 
 const Service = mongoose.model('Service', ServiceSchema);
 

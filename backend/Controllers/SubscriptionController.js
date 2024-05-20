@@ -15,7 +15,7 @@ const addSubscription = async (req, res) => {
 const getAllSubscriptions = async (req, res) => {
   try {
     console.log('start')
-    const subscription = await Subscription.find({active:1})
+    const subscription = await Subscription.find({active:true})
       .populate("userId", "name")
       .populate("packId", "name price");
     console.log("subscription avant : ", subscription);
