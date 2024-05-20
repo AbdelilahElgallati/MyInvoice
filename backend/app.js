@@ -23,7 +23,6 @@ const InvoiceRouter = require("./Routes/InvoiceRouter");
 const PackRouter = require("./Routes/PackRouter");
 const ProductRouter = require("./Routes/ProductRouter");
 const ServiceRouter = require("./Routes/ServiceRouter");
-const SettingRouter = require("./Routes/SettingsRouter");
 const MessageRouter = require("./Routes/MessageRouter");
 const SubscriptionRouter = require("./Routes/SubscriptionRouter");
 const ModelRouter = require("./Routes/ModelRouter");
@@ -73,7 +72,6 @@ app.use("/Message", MessageRouter);
 app.use("/Model", ModelRouter);
 app.use("/Produit", ProductRouter);
 app.use("/Service", ServiceRouter);
-app.use("/Setting", SettingRouter);
 app.use("/Subscription", SubscriptionRouter);
 app.use("/", GoogleAuthRouter);
 
