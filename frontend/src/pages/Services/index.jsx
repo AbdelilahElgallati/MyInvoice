@@ -74,7 +74,7 @@ const Services = () => {
 
   const handleDelete = async (id) => {
     try {
-      const thisService = Services.find((s) => s._id === id)
+      const thisService = service.find((s) => s._id === id)
       if(thisService) {
         thisService.active = false
         await updateService({ id, ServiceData : thisService });
