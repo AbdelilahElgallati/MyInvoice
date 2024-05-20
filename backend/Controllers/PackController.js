@@ -5,7 +5,7 @@ const cloudinary = require("../Utils/cloudinary");
 
 const addPack = async (req, res) => {
   try {
-    const packData = req.body.pack;
+    const packData = req.body;
     if (!packData.logo) {
       return res.status(400).json({ success: false, message: "Logo is missing" });
     }
