@@ -263,7 +263,7 @@ const Invoices = () => {
       const thisInvoice = Facture.find((f) => f._id === id)
       if(thisInvoice) {
         thisInvoice.active = false
-        await updateInvoice({id, updateFacture: thisInvoice})
+        await updateInvoice({id, InvoiceData: thisInvoice})
       }
       window.location.reload();
     } catch (error) {

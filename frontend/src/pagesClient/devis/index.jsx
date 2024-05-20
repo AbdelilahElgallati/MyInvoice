@@ -264,7 +264,7 @@ const Devis = () => {
       const thisDevi = Devis.find((d) => d._id === id)
       if(thisDevi) {
         thisDevi.active = false
-        await updateDevi({id, updateDevi: thisDevi})
+        await updateDevi({id, deviData: thisDevi})
       }
       window.location.reload();
     } catch (error) {

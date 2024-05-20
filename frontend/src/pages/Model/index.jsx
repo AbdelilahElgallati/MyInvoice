@@ -92,7 +92,7 @@ const Models = () => {
       const thisModel = model.find((m) => m._id === id);
       if(thisModel) {
         thisModel.active = false;
-        await updateModel({ id: thisModel._id, updatedModel: thisModel });
+        await updateModel({ id: thisModel._id, model: thisModel });
       }
       // await removeModel(id);
       window.location.reload();

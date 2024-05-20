@@ -81,7 +81,7 @@ const Categories = () => {
       const thisCategorie = Categorie.find((c) => c._id === id)
       if(thisCategorie) {
         thisCategorie.active = false
-        await updateCategorie({id, updateCategorie: thisCategorie})
+        await updateCategorie({id, categorie: thisCategorie})
       }
       window.location.reload()
     } catch (error) {

@@ -313,7 +313,7 @@ const Packs = () => {
       const thisPack = packs.find((pack) => pack._id === id);
       if (thisPack) {
         thisPack.active = false;
-        await updatePack({ id, PackData: thisPack });
+        await updatePack({ id, pack: thisPack });
         // Mettre à jour l'état avec une nouvelle copie du tableau packs sans le pack supprimé
         setPacks(packs.filter((pack) => pack._id !== id));
       }

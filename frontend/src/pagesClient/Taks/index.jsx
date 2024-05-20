@@ -93,7 +93,7 @@ const Categories = () => {
       const thisTax = Taks.find((t) => t._id === id)
       if(thisTax) {
         thisTax.active = false
-        await updateTaks({id, updateTaks: thisTax})
+        await updateTaks({id, taxData: thisTax})
       }
       window.location.reload();
     } catch (error) {

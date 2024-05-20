@@ -114,7 +114,7 @@ const Fournisseurs = () => {
       const thisFournisseur = Fourinsseur.find((d) => d._id === id)
       if(thisFournisseur) {
         thisFournisseur.active = false
-        await updateFournisseur({id, updateFournisseur: thisFournisseur})
+        await updateFournisseur({id, fournisseur: thisFournisseur})
       }
       window.location.reload();
     } catch (error) {

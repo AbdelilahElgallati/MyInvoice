@@ -141,7 +141,7 @@ const EditBonCommande = () => {
 
       updatedBonCommande = { ...updatedBonCommande, amount: totalAmount };
 
-      await updateInvoice({ id, InvoiceData: updatedBonCommande });
+      await updateInvoice({ id, bonCommandeDataData: updatedBonCommande });
       navigate(`/${userName}/bon-commandes`);
     } catch (error) {
       console.log(error);
