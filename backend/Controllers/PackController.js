@@ -104,7 +104,7 @@ const updatePack = async (req, res) => {
         await cloudinary.uploader.destroy(ImgId);
       }
 
-      const result = await cloudinary.uploader.upload(req.file.buffer, {
+      const result = await cloudinary.uploader.upload(req.file.path, {
         folder: 'Pack'
       });
 
