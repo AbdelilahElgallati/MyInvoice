@@ -98,14 +98,14 @@ const updatePack = async (req, res) => {
       services: JSON.parse(req.body.services),
       price: req.body.price,
     };
-    if (req.files && req.files.logo) {
+    if (req.file) {
       const ImgId = currentPack.logo.public_id;
       if (ImgId) {
         await cloudinary.uploader.destroy(ImgId);
       }
 
-      const newImage = await cloudinary.uploader.upload(req.files.logo.tempFilePath, {
-        folder: "Pack",
+      const result = await cloudinary.uploader.upload(req.file.buffer, {
+        folder: 'Pack'
       });
 
       data.logo = {
