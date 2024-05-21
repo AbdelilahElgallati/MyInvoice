@@ -26,6 +26,7 @@ const tr = async (input, from, to) => { // la fonction tr prend trois parametre 
       headers: headers
     // j'ai envoyer les donnes (jsonData + headers ) avec la methode post
     });
+    console.log("tr "+response);
     
     return response.data.translation[0]; // Return the translation (translation est un tableau d'un seul element)
   } catch (error) {

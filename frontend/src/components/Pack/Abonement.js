@@ -63,7 +63,7 @@ const Abonement = () => {
   return (
     <>
       <Header />
-      <div className="dark:bg-black lg:flex justify-between mt-[90px]">
+      <div className="dark:bg-black lg:flex justify-between mt-[80px]">
         <div
           className="lg:w-[50%] w-[100%] pt-[100px]"
           data-aos="fade-up"
@@ -85,14 +85,14 @@ const Abonement = () => {
         >
           <img
             src={imgPay}
-            className="lg:w-[50%] w-[100%] rounded-xl mt-[10px]"
+            className="lg:w-[50%] w-[100%] rounded-xl lg:mt-[30px]"
             alt="Payment"
           />
         </div>
       </div>
-      <div className="dark:bg-black pt-[20px]">
+      <div className="dark:bg-black  ">
         <h1
-          className="mb-[20px] text-3xl font-Quicksand font-bold text-center dark:text-white"
+          className="mb-[20px] text-3xl font-Quicksand font-bold text-center dark:text-white "
           data-aos="fade-up"
           data-aos-delay="300"
           data-aos-offset="300"

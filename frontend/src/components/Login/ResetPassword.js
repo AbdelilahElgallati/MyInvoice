@@ -12,7 +12,7 @@ import Cookies from "js-cookie";
 const ResetPassword = () => {
   
   const [ ResetPassword , setResetPassword] = useState("réinitialiser votre mot de passe");
-  const [Bien , setBien] = useState("Bienvenue ! S'il vous plaît entrez vos nouveau password.");
+  const [Bien , setBien] = useState("Bienvenue ! S'il vous plaît entrez votre nouveau mot de passe.");
   const [PassPlace , setPassPlace] = useState("Nouveau mot de passe");
   const [Modifier , setModifier] = useState("Modifier");
 
