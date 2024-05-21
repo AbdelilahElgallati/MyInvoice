@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton, Avatar } from "@mui/material";
-import { useGetSubscriptionEntQuery, useUpdateSubscriptionMutation, useGetDemandesQuery, useUpdateDemandeMutation, useRemoveDemandeMutation } from "state/api";
+import {
+  useGetSubscriptionEntQuery,
+  useUpdateSubscriptionMutation,
+  useGetDemandesQuery,
+  useUpdateDemandeMutation,
+} from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import DeleteIcon from "@mui/icons-material/Delete";
-import AddTaskOutlinedIcon from '@mui/icons-material/AddTaskOutlined';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
+import AddTaskOutlinedIcon from "@mui/icons-material/AddTaskOutlined";
+import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 const SubscriptionPalns = () => {
   const navigate = useNavigate();
   if (!localStorage.getItem("userId")) {
@@ -18,14 +23,15 @@ const SubscriptionPalns = () => {
   // hadi
   const { data, isLoading } = useGetDemandesQuery();
   const [idEntreprise, setIdEntreprise] = useState("");
-  const { data: subscriptionData } = useGetSubscriptionEntQuery(idEntreprise, { skip: !idEntreprise });
-  const [removeDemande] = useRemoveDemandeMutation();
+  const { data: subscriptionData } = useGetSubscriptionEntQuery(idEntreprise, {
+    skip: !idEntreprise,
+  });
+  // const [removeDemande] = useRemoveDemandeMutation();
   const [updateDemande] = useUpdateDemandeMutation();
   const [updateSubscription] = useUpdateSubscriptionMutation();
   useEffect(() => {
     if (data) {
       setDemande(data);
-      
     }
   }, [data]);
 
@@ -34,9 +40,9 @@ const SubscriptionPalns = () => {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Avatar
-          src={`http://localhost:3001/Images/${logo}`}
+          src={`https://my-invoice-api.vercel.app/Images/${logo}`}
           alt={enterpriseName}
-          sx={{ width: 35, height: 35 }} 
+          sx={{ width: 35, height: 35 }}
         />
         <Box ml={1}>
           <div>{enterpriseName}</div>
@@ -122,7 +128,11 @@ const SubscriptionPalns = () => {
       if (!thisDemande) return;
 
       const startDate = new Date();
-      const endDate = new Date(startDate.setFullYear(startDate.getFullYear() + Number(thisDemande.nombreAnnee)));
+      const endDate = new Date(
+        startDate.setFullYear(
+          startDate.getFullYear() + Number(thisDemande.nombreAnnee)
+        )
+      );
 
       const subscription = {
         packId: thisDemande.packId,
@@ -134,16 +144,18 @@ const SubscriptionPalns = () => {
 
       (async () => {
         try {
-          
           await updateSubscription({ id, subscription });
           const updatedDemande = { ...thisDemande, status: "accepter" };
-          
+
           await updateDemande({ id: thisDemande._id, updatedDemande });
-          
+
           // setDemande((prev) => prev.map(d => d._id === thisDemande._id ? updatedDemande : d));
-          alert('Changement avec succès');
+          alert("Changement avec succès");
         } catch (error) {
-          console.error("Erreur lors de la mise à jour de la souscription", error);
+          console.error(
+            "Erreur lors de la mise à jour de la souscription",
+            error
+          );
         }
       })();
     }
@@ -157,7 +169,9 @@ const SubscriptionPalns = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeDemande(id);
+      const thisDemande = data.find((d) => d._id === id);
+      const updatedDemande = { ...thisDemande, active: 0 };
+      await updateDemande({ id: thisDemande._id, updatedDemande });
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -166,7 +180,10 @@ const SubscriptionPalns = () => {
 
   return (
     <Box m="1.5rem 2.5rem">
-      <Header title="DEMANDES" subtitle="Les plans de demandes de changement de pack" />
+      <Header
+        title="DEMANDES"
+        subtitle="Les plans de demandes de changement de pack"
+      />
       <Box
         mt="40px"
         height="75vh"

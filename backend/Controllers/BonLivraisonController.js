@@ -16,7 +16,7 @@ const addBonLivraison = async (req, res) => {
 const getAllBonLivraisons = async (req, res) => {
   try {
     console.log("start");
-    const AllbonLivraisons = await BonLivraison.find()
+    const AllbonLivraisons = await BonLivraison.find({active:true})
       .populate("bonCommandeId")
       .limit(50)
       .sort({ createdOn: -1 });

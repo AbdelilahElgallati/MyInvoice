@@ -44,6 +44,11 @@ const Navbar = ({
     localStorage.removeItem('userName')
     navigate('/')
   } 
+
+  const handleProfile = ()=>{
+    const userName = localStorage.getItem('userName');
+    navigate(`/${userName}/profil`)
+  }
   
 
   return (
@@ -94,7 +99,7 @@ const Navbar = ({
               <Box
                 component="img"
                 alt="profile"
-                src={user.logo ? (user.logo.startsWith('http') ? user.logo : `http://localhost:3001/Images/${user.logo}`) : "#"}
+                src={user && user.logo && user.logo.url}
                 height="32px"
                 width="32px"
                 borderRadius="50%"
@@ -125,7 +130,7 @@ const Navbar = ({
               onClose={handleClose}
               anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
             >
-              
+              <MenuItem onClick={handleProfile}>Profile</MenuItem>
               <MenuItem onClick={handleLogout}>Log Out</MenuItem>
               
             </Menu>

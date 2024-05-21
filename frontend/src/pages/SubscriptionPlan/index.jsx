@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton } from "@mui/material";
-import { useGetSubscriptionsQuery, useRemoveSubscriptionMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import { useNavigate } from "react-router-dom";
 import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
+// import DeleteIcon from "@mui/icons-material/Delete";
 import axios from "axios";
 
 const SubscriptionPalns = () => {
@@ -27,7 +26,7 @@ const SubscriptionPalns = () => {
   useEffect(() => {
     const fetchSubscription = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Subscription/");
+        const response = await axios.get("https://my-invoice-api.vercel.app/Subscription/");
         setSubscriptionPlan(response.data);
       } catch (error) {
         console.log(error);
@@ -36,7 +35,7 @@ const SubscriptionPalns = () => {
 
     fetchSubscription();
   }, []);
-  const [removeSubscription] = useRemoveSubscriptionMutation();
+  // const [updateSubscription] = useUpdateSubscriptionMutation();
  
   
   const columns = [
@@ -83,12 +82,12 @@ const SubscriptionPalns = () => {
           >
             <EditIcon />
           </IconButton>
-          <IconButton
+          {/* <IconButton
             onClick={() => handleDelete(params.row._id)}
             aria-label="delete"
           >
             <DeleteIcon />
-          </IconButton>
+          </IconButton> */}
         </Box>
       ),
     },
@@ -98,14 +97,18 @@ const SubscriptionPalns = () => {
     window.location.href = `/SubscriptionsPlans/edit/${id}`;
   };
 
-  const handleDelete = async (id) => {
-    try {
-      await removeSubscription(id);
-      window.location.reload();
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const handleDelete = async (id) => {
+  //   try {
+  //     const thisSub = subscriptionPlan.find((s) => s._id === id)
+  //     if(thisSub) {
+  //       thisSub.active = false
+  //       await updateSubscription({ id, SubscriptionData : thisSub });
+  //     }
+  //     window.location.reload();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
   return (
     <Box m="1.5rem 2.5rem">

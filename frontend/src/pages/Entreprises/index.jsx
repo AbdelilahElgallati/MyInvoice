@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, IconButton, Avatar } from "@mui/material";
 import {
-  useRemoveEntrepriseMutation,
+  useRemoveEntrepriseMutation, useUpdateEntrepriseMutation
 } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
@@ -19,11 +19,11 @@ const Entreprises = () => {
   const theme = useTheme();
   // hadi
   const [isLoading, setIsLoading] = useState(true);
-  const [removeEntreprise] = useRemoveEntrepriseMutation();
+  const [updateEntreprise] = useUpdateEntrepriseMutation();
   useEffect(() => {
     const fetchEntreprises = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Entreprise");
+        const response = await axios.get("https://my-invoice-api.vercel.app/Entreprise");
         setEntreprises(response.data);
         setIsLoading(false); // Mettre à jour l'état de chargement une fois la requête terminée
       } catch (error) {
@@ -46,7 +46,9 @@ const Entreprises = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeEntreprise(id);
+      const thisEntreprise = entreprises.find((d) => d._id === id);
+      const newEntreprise = {...thisEntreprise, active: false}
+      await updateEntreprise({id, newEntreprise })
       setEntreprises(entreprises.filter(entreprise => entreprise._id !== id));
     } catch (error) {
       console.log(error);
@@ -58,9 +60,9 @@ const Entreprises = () => {
     return (
       <Box sx={{ display: "flex", alignItems: "center" }}>
         <Avatar
-          src={`http://localhost:3001/Images/${logo}`}
+          src={`${logo.url}`}
           alt={name}
-          sx={{ width: 35, height: 35 }} // Taille fixe pour l'avatar
+          sx={{ width: 35, height: 35 }} 
         />
         <Box ml={1}>
           <div>{name}</div>

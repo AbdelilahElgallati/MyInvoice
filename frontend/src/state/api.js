@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001/Api" }),
+  baseQuery: fetchBaseQuery({ baseUrl: "https://my-invoice-api.vercel.app" }),
   reducerPath: "adminApi",
   tagTypes: [
     "Entreprise",
@@ -145,10 +145,10 @@ export const api = createApi({
       method: "GET",
     }),
     addPack: build.mutation({
-      query: (PackData) => ({
+      query: (pack) => ({
         url: `Pack/add`,
         method: "POST",
-        body: PackData,
+        body: pack,
       }),
     }),
     getOnePack: build.query({

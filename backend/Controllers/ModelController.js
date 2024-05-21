@@ -1,61 +1,129 @@
-const Model = require('../Models/ModelSchema')
+const Model = require("../Models/ModelSchema");
+const cloudinary = require("../Utils/cloudinary");
 
 const addModel = async (req, res) => {
   try {
     const ModelData = req.body;
-    const icon = req.file ? req.file.filename : null;
+    const result = await cloudinary.uploader.upload(ModelData.icon, {
+      folder: "Model",
+    });
     const model = new Model({
       name: ModelData.name,
       description: ModelData.description,
-      icon,
+      icon: {
+        public_id: result.public_id,
+        url: result.secure_url,
+      },
     });
     await model.save();
-    res.status(201).json(model);
+    res.status(201).json({ success: true, model });
   } catch (error) {
-    res.status(500).send("Erreur serveur lors de l'ajout du Model");
+    console.log(error);
+    res.status(500).send({
+      success: false,
+      message: "Erreur serveur lors de l'ajout du model",
+      error,
+    });
   }
-}
+};
 
-const  getAllModels = async (req, res) => {
+const getAllModels = async (req, res) => {
   try {
-    const  models = await Model.find();
-    console.log('Model : ',models )
+    const models = await Model.find({active:true});
+    console.log("Model : ", models);
     res.status(201).json(models);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche des Models");
   }
-}
+};
 
-const  getOneModel = async (req, res) => {
+const getOneModel = async (req, res) => {
   try {
-    const  model = await Model.findById(req.params.id);
+    const model = await Model.findById(req.params.id);
     res.status(201).json(model);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la recherche de Model");
   }
-}
+};
 
 const updateModel = async (req, res) => {
   try {
-    const icon = req.file ? req.file.filename : null;
-    const modelData = { ...req.body };
-    if (icon) {
-      modelData.icon = icon;
+    const currentModel = await Model.findById(req.params.id);
+    const data = {
+      name: req.body.name,
+      description: req.body.description,
+    };
+    if (req.file) {
+      const ImgId = currentPack.logo.public_id;
+      if (ImgId) {
+        await cloudinary.uploader.destroy(ImgId);
+      }
+
+      const result = await cloudinary.uploader
+        .upload_stream(
+          {
+            folder: "Model",
+          },
+          async (error, result) => {
+            if (error) {
+              console.error(error);
+              res.status(500).send({
+                success: false,
+                message: "Erreur serveur lors de la mise à jour de model",
+                error,
+              });
+            } else {
+              data.icon = {
+                public_id: result.public_id,
+                url: result.secure_url,
+              };
+
+              const updatedModel = await Model.findByIdAndUpdate(
+                req.params.id,
+                data,
+                {
+                  new: true,
+                }
+              );
+              res.status(200).json({
+                success: true,
+                updatedModel,
+              });
+            }
+          }
+        )
+        .end(req.file.buffer);
+    } else {
+      const updatedModel = await Model.findByIdAndUpdate(req.params.id, data, {
+        new: true,
+      });
+      res.status(200).json({
+        success: true,
+        updatedModel,
+      });
     }
-    const model = await Model.findByIdAndUpdate(req.params.id, modelData, { new: true });
-    res.status(200).json(model);
   } catch (error) {
-    res.status(500).send("Erreur serveur lors de la mise à jour de Model");
+    res.status(500).send({
+      success: false,
+      message: "Erreur serveur lors de la mise à jour du model",
+      error,
+    });
   }
 };
 
-const  removeModel = async (req, res) => {
+const removeModel = async (req, res) => {
   try {
-    const  model = await Model.findByIdAndDelete(req.params.id);
+    const model = await Model.findByIdAndDelete(req.params.id);
     res.status(201).json(model);
   } catch (error) {
     res.status(500).send("Erreur serveur lors de la suppression de Model");
   }
-}
+};
 
-module.exports = {addModel,getAllModels,getOneModel,updateModel,removeModel};
+module.exports = {
+  addModel,
+  getAllModels,
+  getOneModel,
+  updateModel,
+  removeModel,
+};

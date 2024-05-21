@@ -61,6 +61,7 @@ const Login = () => {
   
   const { data : userInfo} = useGetOneEntrepriseQuery(userId );
   if(userInfo && userId) {
+    console.log(userInfo)
     localStorage.setItem("userId", userId)
     localStorage.setItem("userName", userInfo.name);
     navigate(`/${userInfo.name}/dashboardClient`);
@@ -75,7 +76,7 @@ const Login = () => {
 
   const handleRegisterGoogle = (e) => {
     e.preventDefault();
-    window.location.href = "http://localhost:3001/Api/auth/google/";
+    window.location.href = "https://my-invoice-api.vercel.app/auth/google/";
   };
 
   const handleRegisterClick = () => {
@@ -89,7 +90,7 @@ const Login = () => {
         email: emailEnt,
         password: passwordEnt,
       });
-      console.log("info user :" + Info.data.user);
+      console.log(Info)
       const entrepriseInfo = Info.data.user;
       if (
         entrepriseInfo.role === "admin" &&
@@ -106,7 +107,6 @@ const Login = () => {
         localStorage.setItem("userName", Info.data.user.name);
         const userName = localStorage.getItem('userName');
         navigate(`/${userName}/dashboardClient`);
-        // navigate(`/dashboardClient`);
       }
     } catch (error) {
       console.log(error);

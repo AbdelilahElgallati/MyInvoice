@@ -5,7 +5,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import {
   useGetOnePackQuery,
   useGetBonLivraisonDetailsQuery,
-  useRemoveBonLivraisonMutation,
+  useUpdateBonLivraisonMutation,
 } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
@@ -49,7 +49,7 @@ const BonLivraison = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/BonLivraison/List/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/BonLivraison/List/${id}`);
         setbonLivraison(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -64,7 +64,7 @@ const BonLivraison = () => {
       navigate("/");
     }
   }, [id, navigate]);
-  const [removeBonLivraison] = useRemoveBonLivraisonMutation();
+  const [updateBonLivraison] = useUpdateBonLivraisonMutation();
  
   
   if (!localStorage.getItem("userId")) {
@@ -264,7 +264,11 @@ const BonLivraison = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeBonLivraison(id);
+      const thisBon = bonLivraison.find((b) => b._id === id) 
+      if(thisBon) {
+        thisBon.active = false
+        await updateBonLivraison({id, BonLivraisonData: thisBon})
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

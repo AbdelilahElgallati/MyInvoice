@@ -15,7 +15,7 @@ module.exports = (passport) => {
         new GoogleStrategy({
             clientID: process.env.GOOGLE_CLIENT_ID,
             clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-            callbackURL: "http://localhost:3001/Api/auth/google/callback",
+            callbackURL: "https://my-invoice-api.vercel.app/auth/google/callback",
             prompt: 'select_account', 
     
         }, async function(accessToken, refreshToken, profile, cb) {
@@ -23,6 +23,7 @@ module.exports = (passport) => {
             try {
                 let user = await Enterprise.findOne({ googleId: profile.id });
                 if (user) {
+                    console.log("User already exists");
                     const updateUser = {
                         name: profile.displayName,
                         email: profile.emails[0].value,
@@ -39,6 +40,7 @@ module.exports = (passport) => {
                         logo: profile.photos[0].value,
                         password: accessToken,
                     });
+                    console.log(user)
                     await newUser.save();
                     const subscription = new Subscription({
                       userId: newUser._id,

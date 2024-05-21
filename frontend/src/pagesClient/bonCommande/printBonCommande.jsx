@@ -113,7 +113,7 @@ const PrintBonCommande = () => {
               <Box
                 component="img"
                 alt="profile"
-                src={`http://localhost:3001/Images/${userLogo}`}
+                src={`https://my-invoice-api.vercel.app/Images/${userLogo}`}
                 height="50px"
                 width="50px"
                 borderRadius="50%"

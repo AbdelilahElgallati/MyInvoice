@@ -40,7 +40,7 @@ const Profil = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Entreprise/entreprisedetail/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/Entreprise/entreprisedetail/${id}`);
         setEnterpriseDetails(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -90,8 +90,12 @@ const Profil = () => {
         formData.append("logo", logo);
       }
       const id = localStorage.getItem("userId");
-      await updateEntreprise({ id, entreprise: formData });
-      window.location.reload();
+      const {data} = await updateEntreprise({ id, entreprise: formData });
+      if(data.success) {
+        window.location.reload();
+      } else {
+        console.log(data);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -158,7 +162,7 @@ const Profil = () => {
         >
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <Avatar
-              src={`http://localhost:3001/Images/${enterpriseDetails.logo}`}
+              src={`${enterpriseDetails.logo.url}`}
               alt={enterpriseDetails.name}
               sx={{ width: 70, height: 70 }}
             />

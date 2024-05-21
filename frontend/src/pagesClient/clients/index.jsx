@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
-import { useRemoveClientMutation } from "state/api";
+import { useUpdateClientMutation } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import PersonIcon from '@mui/icons-material/Person';
@@ -24,7 +24,7 @@ const Clients  = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Client/Entreprise/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/Client/Entreprise/${id}`);
         setClient(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -39,7 +39,7 @@ const Clients  = () => {
       navigate("/");
     }
   }, [id, navigate]); 
-  const [removeClient] = useRemoveClientMutation();
+  const [updateClient] = useUpdateClientMutation();
   // const totalInvoices = data ? data.totalItems : 0;
   const columns = [
     
@@ -109,7 +109,11 @@ const Clients  = () => {
   
   const handleDelete = async (id) => {
     try {
-      await removeClient(id);
+      const thisClient = Client.find((c) => c._id === id) 
+      if (thisClient) {
+        thisClient.active = false
+        await updateClient({ id, client: thisClient });
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

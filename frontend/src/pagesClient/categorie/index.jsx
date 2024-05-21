@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, Button, IconButton } from "@mui/material";
-import {  useRemoveCategorieMutation } from "state/api";
+import {  useUpdateCategorieMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -25,7 +25,7 @@ const Categories = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Categorie/Entreprise/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/Categorie/Entreprise/${id}`);
         setCategorie(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -40,7 +40,7 @@ const Categories = () => {
       navigate("/");
     }
   }, [id, navigate]); 
-  const [removeCategorie] = useRemoveCategorieMutation();
+  const [updateCategorie] = useUpdateCategorieMutation();
 
   const columns = [
     {
@@ -78,7 +78,11 @@ const Categories = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeCategorie(id);
+      const thisCategorie = Categorie.find((c) => c._id === id)
+      if(thisCategorie) {
+        thisCategorie.active = false
+        await updateCategorie({id, categorie: thisCategorie})
+      }
       window.location.reload()
     } catch (error) {
       console.log(error);

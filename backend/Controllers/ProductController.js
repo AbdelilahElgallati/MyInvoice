@@ -13,7 +13,7 @@ const addProduit = async (req, res) => {
 
 const  getAllProduitsEnt = async (req, res) => {
   try {
-  const Allproducts = await Produit.find().populate("categoryId");
+  const Allproducts = await Produit.find({active:true}).populate("categoryId");
   const products = Allproducts.filter(produit => produit.userId.toString() === req.params.id);
   res.status(200).json(products);
   } catch (error) {

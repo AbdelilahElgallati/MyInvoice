@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import Header from "componementClient/Header";
-import { useGetOnePackQuery, useRemoveBonCommandeMutation } from "state/api";
+import { useGetOnePackQuery, useUpdateBonCommandeMutation } from "state/api";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
 import { useNavigate } from "react-router-dom";
 import {
@@ -45,7 +45,7 @@ const BonCommandes = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3001/Api/BonCommandes/List/${id}`
+          `https://my-invoice-api.vercel.app/BonCommandes/List/${id}`
         );
         setBonCommandes(response.data);
         setIsLoading(false);
@@ -61,7 +61,7 @@ const BonCommandes = () => {
       navigate("/");
     }
   }, [id, navigate]);
-  const [removeBonCommandes] = useRemoveBonCommandeMutation();
+  const [updateBonCommandes] = useUpdateBonCommandeMutation();
 
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -260,7 +260,11 @@ const BonCommandes = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeBonCommandes(id);
+      const thisBon = bonCommandes.find((b) => b._id === id)
+      if(thisBon) {
+        thisBon.active = false
+        await updateBonCommandes({id, bonCommandeDataData: thisBon})
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

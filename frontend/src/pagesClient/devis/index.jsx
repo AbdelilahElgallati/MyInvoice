@@ -4,7 +4,7 @@ import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
   useGetOnePackQuery,
-  useRemoveDeviMutation,
+  useUpdateDeviMutation,
   useGetDeviDetailsQuery,
 } from "state/api";
 import Header from "componementClient/Header";
@@ -52,7 +52,7 @@ const Devis = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Devi/List/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/Devi/List/${id}`);
         setDevis(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -67,7 +67,7 @@ const Devis = () => {
       navigate("/");
     }
   }, [id, navigate]); 
-  const [removeDevi] = useRemoveDeviMutation();
+  const [updateDevi] = useUpdateDeviMutation();
   const [idDevi, setIdDevi] = useState("");
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -261,7 +261,11 @@ const Devis = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeDevi(id);
+      const thisDevi = Devis.find((d) => d._id === id)
+      if(thisDevi) {
+        thisDevi.active = false
+        await updateDevi({id, deviData: thisDevi})
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

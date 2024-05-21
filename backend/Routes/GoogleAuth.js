@@ -7,12 +7,13 @@ GoogleAuthRouter.get('/auth/google',
   passport.authenticate('google', { scope: ['profile','email'] }));
 
 GoogleAuthRouter.get('/auth/google/callback', 
-  passport.authenticate('google', { failureRedirect: 'http://localhost:3001/Api/auth/google' }),
+  passport.authenticate('google', { failureRedirect: 'https://my-invoice-api.vercel.app/auth/google' }),
   async function(req, res) {
     const id = req.user.googleId;
     const user = await EntrepriseController.getEntrepriseByGoogleId({id: id});
     if (user) {
-      res.redirect(`http://localhost:3000/login/?userId=${user._id}`);
+      console.log("user existe google auth")
+      res.redirect(`https://my-invoice-seven.vercel.app/login/?userId=${user._id}`);
     } else {
       console.error("Aucune entreprise trouvée pour cet ID Google");
     }

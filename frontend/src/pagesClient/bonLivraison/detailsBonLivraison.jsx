@@ -106,7 +106,7 @@ const DetailsBonLivraison = () => {
               <Box
                 component="img"
                 alt="profile"
-                src={`http://localhost:3001/Images/${userLogo}`}
+                src={`https://my-invoice-api.vercel.app/Images/${userLogo}`}
                 height="40px"
                 width="40px"
                 borderRadius="50%"

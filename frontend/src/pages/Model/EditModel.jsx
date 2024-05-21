@@ -3,18 +3,17 @@ import { TextField, useTheme, Button, Box, FormControl, InputLabel, Input } from
 import Header from "componentsAdmin/Header";
 import { useGetOneModelQuery, useUpdateModelMutation, useRemoveModelMutation } from "state/api";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const EditModel = () => {
-  const [icon, setIcon] = useState(null);
   const navigate = useNavigate()
   if(!localStorage.getItem('userId')) {
     navigate('/');
   }
   const theme = useTheme();
-  const [formData, setFormData] = useState({
-    name: "",
-    description: "",
-  });
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [icon, setIcon] = useState([]);
   const {id} = useParams();
   const {data: model} = useGetOneModelQuery(id);
   const [updateModel] = useUpdateModelMutation();
@@ -23,36 +22,40 @@ const EditModel = () => {
 
   useEffect(() => {
     if (model) {
-      setFormData({
-        name: model.name || "",
-        description: model.description || "",
-      });
+      setName(model.name)
+      setDescription(model.description)
+      setIcon({
+        public_id: model.icon.public_id,
+        url: model.icon.url
+      })
     }
   }, [model]);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+  const handleImage = (e) => {
+    const file = e.target.files[0];
+    setIcon(file);
   };
 
-  const handleIconChange = (e) => {
-    setIcon(e.target.files[0]);
-  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formDataWithLogo = new FormData();
-    if (icon) {
-      formDataWithLogo.append("icon", icon);
-    }
-    Object.entries(formData).forEach(([key, value]) => {
-      formDataWithLogo.append(key, value); 
-    });
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("icon", icon);
+
     try {
-      console.log("model : ", formData);
-      console.log("model with icon : ", formDataWithLogo);
-      await updateModel({ id, ModelData: formDataWithLogo });
-      Navigate("/models");
+      const { data } = await updateModel({ id, model: formData });
+      if (data.success) {
+        toast.success("La modification de model se passe correctement");
+        Navigate("/models");
+      } else {
+        toast.error(
+          "La modification de model ne s'est pas passé correctement : " + data.error
+        );
+      }
     } catch (error) {
+      toast.error("Erreur lors de la modification de model : " + error.message);
       console.log(error);
     }
   };
@@ -78,8 +81,8 @@ const EditModel = () => {
         <TextField
           label="Nom de model"
           name="name"
-          value={formData.name}
-          onChange={handleChange}
+          value={name}
+          onChange={(e) => setName(e.target.value)}
           fullWidth
           required
           margin="normal"
@@ -87,8 +90,8 @@ const EditModel = () => {
         <TextField
           label="Description"
           name="description"
-          value={formData.description}
-          onChange={handleChange}
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           fullWidth
           required
           margin="normal"
@@ -99,7 +102,7 @@ const EditModel = () => {
             id="icon-input"
             type="file"
             name="icon"
-            onChange={handleIconChange}
+            onChange={handleImage}
             accept="image/*"
           />
         </FormControl>

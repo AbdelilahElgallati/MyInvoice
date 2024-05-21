@@ -18,7 +18,7 @@ const addDevi = async (req, res) => {
 
 const getAllDevis = async (req, res) => {
   try {
-    const Alldevis = await Devi.find().populate("clientId").limit(50).sort({ createdOn: -1 });
+    const Alldevis = await Devi.find({active:true}).populate("clientId").limit(50).sort({ createdOn: -1 });
     const devis = Alldevis.filter(devi => devi.userId.toString() === req.params.id);
     res.status(200).json(devis);
   } catch (error) {

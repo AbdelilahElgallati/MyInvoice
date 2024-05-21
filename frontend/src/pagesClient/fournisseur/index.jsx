@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Box, useTheme, IconButton, Button } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import {
-  useRemoveFournisseurMutation,
+  useUpdateFournisseurMutation,
 } from "state/api";
 import Header from "componementClient/Header";
 import DataGridCustomToolbar from "componementClient/DataGridCustomToolbar";
@@ -26,7 +26,7 @@ const Fournisseurs = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/Api/Fournisseur/Entreprise/${id}`);
+        const response = await axios.get(`https://my-invoice-api.vercel.app/Fournisseur/Entreprise/${id}`);
         setFourinsseur(response.data);
         setIsLoading(false);
       } catch (error) {
@@ -41,7 +41,7 @@ const Fournisseurs = () => {
       navigate("/");
     }
   }, [id, navigate]); 
-  const [removeFournisseur] = useRemoveFournisseurMutation();
+  const [updateFournisseur] = useUpdateFournisseurMutation();
   const columns = [
     {
       field: "name",
@@ -111,7 +111,11 @@ const Fournisseurs = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeFournisseur(id);
+      const thisFournisseur = Fourinsseur.find((d) => d._id === id)
+      if(thisFournisseur) {
+        thisFournisseur.active = false
+        await updateFournisseur({id, fournisseur: thisFournisseur})
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);

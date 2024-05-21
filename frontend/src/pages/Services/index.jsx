@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Box, useTheme, Button, IconButton } from "@mui/material";
-import {  useRemoveServiceMutation } from "state/api";
+import {  useUpdateServiceMutation } from "state/api";
 import Header from "componentsAdmin/Header";
 import { DataGrid } from "@mui/x-data-grid";
 import AddOutlinedIcon from "@mui/icons-material/AddOutlined";
@@ -22,12 +22,12 @@ const Services = () => {
     ServiceName: "",
   })
   const theme = useTheme();
-  const [removeService] = useRemoveServiceMutation();
+  const [updateService] = useUpdateServiceMutation();
   // hadi
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/Api/Service/");
+        const response = await axios.get("https://my-invoice-api.vercel.app/Service/");
         setService(response.data);
       } catch (error) {
         console.log(error);
@@ -74,7 +74,11 @@ const Services = () => {
 
   const handleDelete = async (id) => {
     try {
-      await removeService(id);
+      const thisService = service.find((s) => s._id === id)
+      if(thisService) {
+        thisService.active = false
+        await updateService({ id, ServiceData : thisService });
+      }
       window.location.reload();
     } catch (error) {
       console.log(error);
@@ -92,7 +96,7 @@ const Services = () => {
             startIcon={<AddOutlinedIcon />}
             sx={{ mt: 3, mb: 2 }}
           >
-            Add
+            Ajoute de service
           </Button>
         </Link>
       </FlexBetween>
