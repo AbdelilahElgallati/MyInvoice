@@ -1,3 +1,5 @@
+MyInvoice is a full-stack web application aimed at automating invoice generation, management, and tracking for small businesses and freelancers. It enables users to create, edit, and manage invoices through a user-friendly interface, with features such as client management, product/service lists, and invoice history.
+
 ![image](https://github.com/AbdelilahElgallati/MyInvoice/assets/99350672/11ec8ea8-f67a-43e8-9954-ac309f6c7e0a)
 
 DARK MODE : 
